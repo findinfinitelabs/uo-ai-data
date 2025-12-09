@@ -1,0 +1,8228 @@
+[
+  {
+    "patient_id": "P03356887",
+    "visit_id": "V2746317214",
+    "visit_date": "2025-03-03",
+    "provider_id": "D877572",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 9,
+          "condition": "filling",
+          "surface": "incisal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 28,
+            "measurements": [
+              2,
+              2,
+              5,
+              5,
+              1,
+              5
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              2,
+              6,
+              6,
+              6,
+              5,
+              4
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              2,
+              4,
+              5,
+              3,
+              1,
+              2
+            ]
+          },
+          {
+            "tooth_number": 6,
+            "measurements": [
+              6,
+              4,
+              3,
+              3,
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG377370",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P39349723",
+    "visit_id": "V8928378857",
+    "visit_date": "2024-03-06",
+    "provider_id": "D969693",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 13,
+          "condition": "caries",
+          "surface": "incisal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 13,
+        "priority": "high",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG379946",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P62043516",
+    "visit_id": "V1051454924",
+    "visit_date": "2025-03-08",
+    "provider_id": "D497887",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 15,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 21,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "crack",
+          "surface": "buccal"
+        },
+        {
+          "tooth_number": 3,
+          "condition": "crack",
+          "surface": "mesial",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 28,
+            "measurements": [
+              2,
+              5,
+              4,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 29,
+            "measurements": [
+              2,
+              6,
+              2,
+              6,
+              4,
+              5
+            ]
+          },
+          {
+            "tooth_number": 19,
+            "measurements": [
+              1,
+              4,
+              4,
+              5,
+              4,
+              5
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              3,
+              5,
+              1,
+              6,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              6,
+              5,
+              3,
+              6,
+              3,
+              1
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              3,
+              4,
+              2,
+              4,
+              1,
+              6
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 3,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG755674",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P21682745",
+    "visit_id": "V4951406974",
+    "visit_date": "2024-06-14",
+    "provider_id": "D665579",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 32,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 2,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 8,
+          "condition": "filling",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG736059",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P95690392",
+    "visit_id": "V2962958941",
+    "visit_date": "2024-10-27",
+    "provider_id": "D426858",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 24,
+          "condition": "filling",
+          "surface": "distal",
+          "notes": "Monitor filling"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "chip",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 8,
+          "condition": "caries",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 16,
+          "condition": "caries",
+          "surface": "mesial",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 15,
+          "condition": "caries",
+          "surface": "distal",
+          "notes": "Monitor caries"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 29,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 8,
+        "priority": "high",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 16,
+        "priority": "medium",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 15,
+        "priority": "high",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 23,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG589710",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG785197",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P54038914",
+    "visit_id": "V0422701551",
+    "visit_date": "2024-12-27",
+    "provider_id": "D863587",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG361941",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P06789851",
+    "visit_id": "V2363629220",
+    "visit_date": "2024-06-04",
+    "provider_id": "D783823",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG161483",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P56775104",
+    "visit_id": "V6249213371",
+    "visit_date": "2024-05-19",
+    "provider_id": "D830429",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 32,
+          "condition": "caries",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "caries",
+          "surface": "incisal"
+        },
+        {
+          "tooth_number": 13,
+          "condition": "caries",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "chip",
+          "surface": "mesial",
+          "notes": "Monitor chip"
+        },
+        {
+          "tooth_number": 14,
+          "condition": "chip",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 32,
+        "priority": "medium",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 10,
+        "priority": "medium",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 13,
+        "priority": "medium",
+        "estimated_cost": 150
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 19,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 14,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG850981",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P90152736",
+    "visit_id": "V1699887271",
+    "visit_date": "2025-02-05",
+    "provider_id": "D776856",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 5,
+          "condition": "crack",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 1,
+          "condition": "filling",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 9,
+            "measurements": [
+              3,
+              3,
+              2,
+              4,
+              5,
+              6
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              3,
+              5,
+              6,
+              5,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              5,
+              3,
+              6,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "tooth_number": 29,
+            "measurements": [
+              1,
+              1,
+              6,
+              5,
+              2,
+              3
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              3,
+              5,
+              2,
+              6,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              6,
+              6,
+              3,
+              5,
+              4,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 5,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG908577",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P10099060",
+    "visit_id": "V0041531047",
+    "visit_date": "2025-07-10",
+    "provider_id": "D824586",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P33491315",
+    "visit_id": "V9492206445",
+    "visit_date": "2025-08-26",
+    "provider_id": "D799330",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 27,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "caries",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 16,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 10,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG956253",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P29920293",
+    "visit_id": "V3742303948",
+    "visit_date": "2024-02-03",
+    "provider_id": "D124813",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 22,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "chip",
+          "surface": "buccal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "chip",
+          "surface": "distal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 18,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 5,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG555673",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P34188277",
+    "visit_id": "V2476426798",
+    "visit_date": "2023-12-15",
+    "provider_id": "D146542",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 13,
+            "measurements": [
+              6,
+              1,
+              6,
+              3,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              6,
+              4,
+              3,
+              4,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              5,
+              2,
+              2,
+              4,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              6,
+              6,
+              2,
+              5,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              4,
+              5,
+              1,
+              3,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              4,
+              5,
+              5,
+              6,
+              3,
+              4
+            ]
+          },
+          {
+            "tooth_number": 20,
+            "measurements": [
+              4,
+              4,
+              6,
+              2,
+              5,
+              4
+            ]
+          },
+          {
+            "tooth_number": 27,
+            "measurements": [
+              6,
+              2,
+              6,
+              1,
+              3,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG945742",
+        "findings": "No cavities detected"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG148458",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P61124924",
+    "visit_id": "V3300636586",
+    "visit_date": "2024-03-05",
+    "provider_id": "D534572",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 25,
+          "condition": "crack",
+          "surface": "buccal",
+          "notes": "Monitor crack"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 25,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P62363360",
+    "visit_id": "V1960488640",
+    "visit_date": "2024-06-14",
+    "provider_id": "D800005",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "crack",
+          "surface": "buccal",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 28,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "chip",
+          "surface": "buccal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 21,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 11,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG666390",
+        "findings": "No cavities detected"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG342495",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P08620651",
+    "visit_id": "V3034047119",
+    "visit_date": "2024-10-18",
+    "provider_id": "D535020",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 30,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "caries",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "caries",
+          "surface": "distal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 14,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 15,
+            "measurements": [
+              3,
+              6,
+              6,
+              4,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 16,
+            "measurements": [
+              4,
+              2,
+              5,
+              5,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              5,
+              5,
+              6,
+              1,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 9,
+            "measurements": [
+              4,
+              2,
+              4,
+              2,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              4,
+              3,
+              2,
+              4,
+              3,
+              3
+            ]
+          },
+          {
+            "tooth_number": 31,
+            "measurements": [
+              4,
+              3,
+              4,
+              3,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              1,
+              6,
+              5,
+              1,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              6,
+              1,
+              6,
+              1,
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 27,
+        "priority": "medium",
+        "estimated_cost": 150
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 4,
+        "priority": "high",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P77669751",
+    "visit_id": "V1335901991",
+    "visit_date": "2025-01-24",
+    "provider_id": "D126925",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 25,
+          "condition": "filling",
+          "surface": "incisal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 13,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        },
+        {
+          "tooth_number": 16,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 7,
+            "measurements": [
+              2,
+              4,
+              2,
+              6,
+              5,
+              6
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              3,
+              5,
+              5,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              6,
+              5,
+              3,
+              3,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 21,
+            "measurements": [
+              3,
+              4,
+              2,
+              4,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 27,
+            "measurements": [
+              6,
+              4,
+              3,
+              1,
+              4,
+              3
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              2,
+              4,
+              2,
+              3,
+              3,
+              3
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              3,
+              5,
+              6,
+              3,
+              5,
+              1
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P39491632",
+    "visit_id": "V0074059254",
+    "visit_date": "2024-10-21",
+    "provider_id": "D332360",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 28,
+            "measurements": [
+              4,
+              3,
+              3,
+              3,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 24,
+            "measurements": [
+              6,
+              2,
+              3,
+              1,
+              6,
+              5
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              6,
+              2,
+              2,
+              2,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              3,
+              6,
+              5,
+              5,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              1,
+              2,
+              3,
+              2,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              3,
+              1,
+              6,
+              5,
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG889359",
+        "findings": "Interproximal caries on #14"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG112861",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P45728777",
+    "visit_id": "V6351029163",
+    "visit_date": "2025-10-18",
+    "provider_id": "D293319",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "crack",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "caries",
+          "surface": "mesial",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 8,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 5,
+        "priority": "medium",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG564226",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P83352877",
+    "visit_id": "V9901532742",
+    "visit_date": "2024-03-25",
+    "provider_id": "D163156",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG528361",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P31068215",
+    "visit_id": "V1250949137",
+    "visit_date": "2023-12-17",
+    "provider_id": "D402099",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 30,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 15,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 17,
+          "condition": "filling",
+          "surface": "occlusal",
+          "notes": "Monitor filling"
+        },
+        {
+          "tooth_number": 13,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 29,
+            "measurements": [
+              4,
+              3,
+              5,
+              5,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              1,
+              5,
+              1,
+              4,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              5,
+              3,
+              1,
+              1,
+              2,
+              6
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              5,
+              5,
+              1,
+              6,
+              3,
+              5
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              1,
+              2,
+              4,
+              5,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 32,
+            "measurements": [
+              3,
+              2,
+              5,
+              4,
+              6,
+              4
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG268637",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P61045701",
+    "visit_id": "V2362646961",
+    "visit_date": "2025-01-21",
+    "provider_id": "D192337",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "chip",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "chip",
+          "surface": "buccal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 8,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 26,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG380028",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG402020",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P84560159",
+    "visit_id": "V0521521079",
+    "visit_date": "2025-04-08",
+    "provider_id": "D738448",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "chip",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 20,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG972565",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P61308843",
+    "visit_id": "V2028168524",
+    "visit_date": "2025-07-14",
+    "provider_id": "D678043",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 9,
+          "condition": "filling",
+          "surface": "distal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 18,
+            "measurements": [
+              5,
+              5,
+              6,
+              4,
+              2,
+              4
+            ]
+          },
+          {
+            "tooth_number": 27,
+            "measurements": [
+              5,
+              4,
+              3,
+              3,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              4,
+              4,
+              3,
+              2,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              5,
+              4,
+              2,
+              4,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 24,
+            "measurements": [
+              6,
+              4,
+              6,
+              4,
+              4,
+              6
+            ]
+          },
+          {
+            "tooth_number": 29,
+            "measurements": [
+              6,
+              2,
+              4,
+              1,
+              2,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P10043278",
+    "visit_id": "V4165932724",
+    "visit_date": "2025-03-13",
+    "provider_id": "D592296",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 26,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "crack",
+          "surface": "lingual",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 22,
+          "condition": "filling",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 6,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG274446",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG130353",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P50310320",
+    "visit_id": "V5554972316",
+    "visit_date": "2025-07-13",
+    "provider_id": "D551607",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 27,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 23,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG544920",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P26738453",
+    "visit_id": "V7925520027",
+    "visit_date": "2024-08-02",
+    "provider_id": "D503380",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 25,
+          "condition": "missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P38412329",
+    "visit_id": "V7495457336",
+    "visit_date": "2025-04-18",
+    "provider_id": "D913423",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 15,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 13,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG409445",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P64672521",
+    "visit_id": "V5001680219",
+    "visit_date": "2025-02-10",
+    "provider_id": "D945664",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "filling",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 30,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 24,
+            "measurements": [
+              4,
+              3,
+              6,
+              6,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              5,
+              4,
+              6,
+              3,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              2,
+              4,
+              1,
+              5,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              5,
+              2,
+              6,
+              1,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              6,
+              3,
+              6,
+              4,
+              1,
+              2
+            ]
+          },
+          {
+            "tooth_number": 9,
+            "measurements": [
+              1,
+              1,
+              3,
+              4,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              2,
+              5,
+              2,
+              4,
+              4,
+              3
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              6,
+              6,
+              6,
+              5,
+              4,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P59686068",
+    "visit_id": "V5228133487",
+    "visit_date": "2024-12-03",
+    "provider_id": "D347582",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 24,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 23,
+          "condition": "crack",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "caries",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 14,
+            "measurements": [
+              3,
+              2,
+              2,
+              5,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              1,
+              6,
+              1,
+              2,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              2,
+              5,
+              3,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              1,
+              2,
+              6,
+              4,
+              5,
+              1
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              6,
+              1,
+              4,
+              4,
+              3,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 23,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P92086448",
+    "visit_id": "V6019900274",
+    "visit_date": "2024-07-25",
+    "provider_id": "D213206",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 5,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 21,
+          "condition": "chip",
+          "surface": "incisal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 19,
+            "measurements": [
+              1,
+              6,
+              6,
+              5,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              4,
+              4,
+              2,
+              4,
+              3,
+              4
+            ]
+          },
+          {
+            "tooth_number": 17,
+            "measurements": [
+              4,
+              4,
+              6,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "tooth_number": 20,
+            "measurements": [
+              3,
+              6,
+              3,
+              3,
+              2,
+              6
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              4,
+              1,
+              1,
+              1,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              1,
+              6,
+              6,
+              3,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              1,
+              5,
+              5,
+              5,
+              3,
+              6
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              1,
+              4,
+              3,
+              6,
+              4,
+              6
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 21,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG788637",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P15419646",
+    "visit_id": "V6684109314",
+    "visit_date": "2025-02-27",
+    "provider_id": "D899649",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 28,
+          "condition": "chip",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 18,
+            "measurements": [
+              3,
+              3,
+              1,
+              2,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              6,
+              4,
+              1,
+              2,
+              6,
+              6
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              1,
+              1,
+              6,
+              5,
+              2,
+              4
+            ]
+          },
+          {
+            "tooth_number": 20,
+            "measurements": [
+              4,
+              4,
+              3,
+              2,
+              3,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 28,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 10,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG747850",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P36663834",
+    "visit_id": "V6193532616",
+    "visit_date": "2024-07-03",
+    "provider_id": "D326040",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 28,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 8,
+          "condition": "crack",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 8,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2160",
+        "description": "Amalgam - three surfaces",
+        "tooth_number": 14,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P57801538",
+    "visit_id": "V4328166991",
+    "visit_date": "2025-07-30",
+    "provider_id": "D284229",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 15,
+          "condition": "caries",
+          "surface": "buccal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 23,
+          "condition": "filling",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 21,
+            "measurements": [
+              1,
+              4,
+              1,
+              2,
+              4,
+              5
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              4,
+              5,
+              1,
+              4,
+              3,
+              6
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              3,
+              2,
+              3,
+              2,
+              1,
+              5
+            ]
+          },
+          {
+            "tooth_number": 24,
+            "measurements": [
+              6,
+              1,
+              5,
+              5,
+              2,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 15,
+        "priority": "high",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P91420188",
+    "visit_id": "V6783763791",
+    "visit_date": "2024-02-20",
+    "provider_id": "D691912",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "crack",
+          "surface": "buccal"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 21,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG722937",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P76726462",
+    "visit_id": "V4471158509",
+    "visit_date": "2025-05-31",
+    "provider_id": "D783501",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 31,
+          "condition": "filling",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "caries",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "crack",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2160",
+        "description": "Amalgam - three surfaces",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 250
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 29,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG761532",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P97137887",
+    "visit_id": "V5515369279",
+    "visit_date": "2024-02-06",
+    "provider_id": "D992931",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 22,
+          "condition": "filling",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P94332363",
+    "visit_id": "V9138804614",
+    "visit_date": "2024-01-08",
+    "provider_id": "D969226",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 24,
+            "measurements": [
+              4,
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              3,
+              1,
+              5,
+              5,
+              6,
+              5
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              1,
+              6,
+              3,
+              5,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              4,
+              2,
+              2,
+              2,
+              6,
+              5
+            ]
+          },
+          {
+            "tooth_number": 6,
+            "measurements": [
+              2,
+              6,
+              4,
+              1,
+              4,
+              3
+            ]
+          },
+          {
+            "tooth_number": 7,
+            "measurements": [
+              6,
+              6,
+              2,
+              4,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              6,
+              4,
+              2,
+              5,
+              2,
+              3
+            ]
+          },
+          {
+            "tooth_number": 25,
+            "measurements": [
+              4,
+              2,
+              3,
+              6,
+              5,
+              4
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG269930",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P64503786",
+    "visit_id": "V8814045134",
+    "visit_date": "2024-05-21",
+    "provider_id": "D489244",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "crack",
+          "surface": "lingual",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 16,
+            "measurements": [
+              3,
+              1,
+              6,
+              6,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              2,
+              1,
+              3,
+              4,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              6,
+              4,
+              4,
+              5,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              1,
+              3,
+              2,
+              2,
+              5,
+              6
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              5,
+              5,
+              4,
+              1,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              3,
+              1,
+              1,
+              2,
+              4,
+              6
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 8,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P00209962",
+    "visit_id": "V5545970957",
+    "visit_date": "2024-12-13",
+    "provider_id": "D744674",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 27,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "chip",
+          "surface": "lingual",
+          "notes": "Monitor chip"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "crack",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 24,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 12,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 6,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P47284778",
+    "visit_id": "V0572989856",
+    "visit_date": "2024-12-28",
+    "provider_id": "D672536",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [
+        {
+          "tooth_number": 12,
+          "condition": "crack",
+          "surface": "occlusal",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 30,
+          "condition": "caries",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 31,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "chip",
+          "surface": "buccal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "chip",
+          "surface": "buccal",
+          "notes": "Monitor chip"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 12,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2160",
+        "description": "Amalgam - three surfaces",
+        "tooth_number": 30,
+        "priority": "medium",
+        "estimated_cost": 250
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 9,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 5,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P25074183",
+    "visit_id": "V5955593944",
+    "visit_date": "2024-01-01",
+    "provider_id": "D620306",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 18,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P97551377",
+    "visit_id": "V1920407277",
+    "visit_date": "2024-03-20",
+    "provider_id": "D469685",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 4,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG501451",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG260891",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P10319388",
+    "visit_id": "V5892752605",
+    "visit_date": "2025-07-22",
+    "provider_id": "D701800",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 26,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 21,
+          "condition": "filling",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 25,
+            "measurements": [
+              4,
+              2,
+              5,
+              3,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              2,
+              1,
+              2,
+              1,
+              4,
+              2
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              6,
+              4,
+              1,
+              6,
+              3,
+              6
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              3,
+              6,
+              1,
+              5,
+              5,
+              3
+            ]
+          },
+          {
+            "tooth_number": 9,
+            "measurements": [
+              3,
+              2,
+              6,
+              6,
+              6,
+              6
+            ]
+          },
+          {
+            "tooth_number": 32,
+            "measurements": [
+              2,
+              3,
+              5,
+              2,
+              1,
+              2
+            ]
+          },
+          {
+            "tooth_number": 28,
+            "measurements": [
+              2,
+              2,
+              4,
+              1,
+              3,
+              5
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              5,
+              3,
+              4,
+              5,
+              2,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG530749",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P60394555",
+    "visit_id": "V2758823241",
+    "visit_date": "2024-01-13",
+    "provider_id": "D588461",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 9,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "caries",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 12,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P40644431",
+    "visit_id": "V9127536900",
+    "visit_date": "2024-06-11",
+    "provider_id": "D744274",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 11,
+          "condition": "caries",
+          "surface": "occlusal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 22,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 3,
+          "condition": "caries",
+          "surface": "buccal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 20,
+            "measurements": [
+              4,
+              3,
+              4,
+              1,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 16,
+            "measurements": [
+              2,
+              4,
+              4,
+              4,
+              4,
+              2
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              3,
+              5,
+              2,
+              3,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              6,
+              3,
+              4,
+              2,
+              3,
+              5
+            ]
+          },
+          {
+            "tooth_number": 29,
+            "measurements": [
+              5,
+              1,
+              3,
+              2,
+              4,
+              1
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              3,
+              4,
+              2,
+              2,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 11,
+        "priority": "medium",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 3,
+        "priority": "high",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P41411603",
+    "visit_id": "V6299922975",
+    "visit_date": "2025-11-16",
+    "provider_id": "D621530",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 30,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        },
+        {
+          "tooth_number": 16,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 14,
+          "condition": "crack",
+          "surface": "distal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 14,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG147440",
+        "findings": "Interproximal caries on #14"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG689107",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P67680032",
+    "visit_id": "V4610783751",
+    "visit_date": "2024-05-25",
+    "provider_id": "D572230",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 7,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 3,
+            "measurements": [
+              5,
+              4,
+              2,
+              5,
+              5,
+              2
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              3,
+              5,
+              3,
+              2,
+              4,
+              5
+            ]
+          },
+          {
+            "tooth_number": 31,
+            "measurements": [
+              6,
+              3,
+              5,
+              3,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 5,
+            "measurements": [
+              5,
+              4,
+              6,
+              5,
+              3,
+              4
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              1,
+              3,
+              3,
+              6,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              5,
+              3,
+              6,
+              6,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              5,
+              4,
+              3,
+              6,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 16,
+            "measurements": [
+              2,
+              6,
+              1,
+              5,
+              4,
+              2
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 13,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG428930",
+        "findings": "Interproximal caries on #14"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG824042",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P18533118",
+    "visit_id": "V8857430688",
+    "visit_date": "2025-05-11",
+    "provider_id": "D643878",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 31,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "crack",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 25,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG412071",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P64398126",
+    "visit_id": "V6395219545",
+    "visit_date": "2024-05-15",
+    "provider_id": "D465746",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [
+        {
+          "tooth_number": 18,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        },
+        {
+          "tooth_number": 8,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "filling",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG214532",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P85623472",
+    "visit_id": "V2280805847",
+    "visit_date": "2025-10-17",
+    "provider_id": "D344146",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 22,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        },
+        {
+          "tooth_number": 31,
+          "condition": "chip",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 7,
+          "condition": "crack",
+          "surface": "buccal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 31,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 7,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG874568",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P23593961",
+    "visit_id": "V5046864800",
+    "visit_date": "2024-10-29",
+    "provider_id": "D138105",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [
+        {
+          "tooth_number": 12,
+          "condition": "caries",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "filling",
+          "surface": "distal",
+          "notes": "Monitor filling"
+        },
+        {
+          "tooth_number": 3,
+          "condition": "chip",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2160",
+        "description": "Amalgam - three surfaces",
+        "tooth_number": 12,
+        "priority": "high",
+        "estimated_cost": 250
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 3,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG295243",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P85728325",
+    "visit_id": "V9343679502",
+    "visit_date": "2024-09-28",
+    "provider_id": "D525187",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 6,
+          "condition": "filling",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "crack",
+          "surface": "distal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 26,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG710754",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P08338187",
+    "visit_id": "V2975418440",
+    "visit_date": "2025-08-10",
+    "provider_id": "D800224",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 11,
+          "condition": "chip",
+          "surface": "incisal"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "filling",
+          "surface": "incisal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 11,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 30,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P33214248",
+    "visit_id": "V3545940091",
+    "visit_date": "2024-04-08",
+    "provider_id": "D813390",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 24,
+            "measurements": [
+              5,
+              2,
+              5,
+              5,
+              2,
+              2
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              3,
+              5,
+              4,
+              1,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              6,
+              5,
+              4,
+              1,
+              5,
+              4
+            ]
+          },
+          {
+            "tooth_number": 19,
+            "measurements": [
+              1,
+              4,
+              2,
+              5,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              5,
+              1,
+              5,
+              4,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              6,
+              1,
+              4,
+              3,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              2,
+              5,
+              1,
+              1,
+              4,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P86104028",
+    "visit_id": "V3302709859",
+    "visit_date": "2024-02-17",
+    "provider_id": "D864715",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 25,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "chip",
+          "surface": "mesial"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 29,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG103642",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P61824079",
+    "visit_id": "V0986399652",
+    "visit_date": "2025-07-04",
+    "provider_id": "D462974",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "caries",
+          "surface": "incisal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 8,
+        "priority": "high",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG146385",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P07575791",
+    "visit_id": "V2318250727",
+    "visit_date": "2024-07-12",
+    "provider_id": "D246942",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P06292677",
+    "visit_id": "V6682327734",
+    "visit_date": "2024-02-20",
+    "provider_id": "D461145",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "chip",
+          "surface": "buccal",
+          "notes": "Monitor chip"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 27,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG354655",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P60369366",
+    "visit_id": "V2777580510",
+    "visit_date": "2024-11-25",
+    "provider_id": "D988283",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 13,
+          "condition": "caries",
+          "surface": "occlusal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "chip",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "caries",
+          "surface": "mesial"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 13,
+        "priority": "medium",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 4,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 25,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG780233",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P96960709",
+    "visit_id": "V2001472251",
+    "visit_date": "2025-01-16",
+    "provider_id": "D592296",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "caries",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 27,
+            "measurements": [
+              2,
+              4,
+              5,
+              6,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              3,
+              4,
+              6,
+              6,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 5,
+            "measurements": [
+              4,
+              2,
+              6,
+              3,
+              2,
+              2
+            ]
+          },
+          {
+            "tooth_number": 7,
+            "measurements": [
+              6,
+              5,
+              4,
+              2,
+              5,
+              6
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              1,
+              5,
+              1,
+              1,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              1,
+              4,
+              2,
+              6,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              6,
+              2,
+              1,
+              2,
+              5,
+              4
+            ]
+          },
+          {
+            "tooth_number": 19,
+            "measurements": [
+              3,
+              1,
+              5,
+              6,
+              6,
+              5
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 21,
+        "priority": "high",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2160",
+        "description": "Amalgam - three surfaces",
+        "tooth_number": 19,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG952657",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P14363502",
+    "visit_id": "V3907446849",
+    "visit_date": "2024-06-21",
+    "provider_id": "D200992",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 13,
+          "condition": "chip",
+          "surface": "distal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 13,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG831105",
+        "findings": "No cavities detected"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG968286",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P12549426",
+    "visit_id": "V3262396396",
+    "visit_date": "2024-11-16",
+    "provider_id": "D524965",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 31,
+          "condition": "filling",
+          "surface": "buccal"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 1,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 18,
+            "measurements": [
+              5,
+              6,
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              2,
+              5,
+              2,
+              6,
+              4,
+              1
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              3,
+              2,
+              5,
+              2,
+              5,
+              4
+            ]
+          },
+          {
+            "tooth_number": 3,
+            "measurements": [
+              6,
+              5,
+              3,
+              4,
+              6,
+              2
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              6,
+              6,
+              1,
+              5,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 9,
+            "measurements": [
+              1,
+              1,
+              4,
+              2,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 32,
+            "measurements": [
+              5,
+              5,
+              5,
+              4,
+              3,
+              1
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P33077930",
+    "visit_id": "V6951902331",
+    "visit_date": "2025-09-25",
+    "provider_id": "D847748",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 10,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG191537",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P12028438",
+    "visit_id": "V0443639752",
+    "visit_date": "2024-05-21",
+    "provider_id": "D471106",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "filling",
+          "surface": "incisal"
+        },
+        {
+          "tooth_number": 1,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 28,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG414313",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P61453149",
+    "visit_id": "V2648572297",
+    "visit_date": "2025-07-24",
+    "provider_id": "D212168",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 25,
+            "measurements": [
+              4,
+              6,
+              5,
+              2,
+              3,
+              3
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              5,
+              6,
+              2,
+              4,
+              3,
+              2
+            ]
+          },
+          {
+            "tooth_number": 28,
+            "measurements": [
+              4,
+              3,
+              3,
+              6,
+              6,
+              6
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              4,
+              5,
+              2,
+              3,
+              4,
+              3
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              4,
+              3,
+              1,
+              5,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 29,
+            "measurements": [
+              5,
+              2,
+              6,
+              5,
+              1,
+              6
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG988970",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P18680306",
+    "visit_id": "V7185384295",
+    "visit_date": "2025-02-02",
+    "provider_id": "D764100",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 10,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 28,
+          "condition": "crack",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 3,
+            "measurements": [
+              6,
+              1,
+              1,
+              2,
+              6,
+              6
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              3,
+              2,
+              6,
+              5,
+              1,
+              5
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              6,
+              6,
+              6,
+              4,
+              3,
+              4
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              1,
+              1,
+              1,
+              3,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 31,
+            "measurements": [
+              6,
+              5,
+              5,
+              5,
+              6,
+              5
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              2,
+              4,
+              3,
+              4,
+              4,
+              6
+            ]
+          },
+          {
+            "tooth_number": 20,
+            "measurements": [
+              5,
+              6,
+              5,
+              2,
+              3,
+              1
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 28,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG865618",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P46748075",
+    "visit_id": "V6533138438",
+    "visit_date": "2025-09-01",
+    "provider_id": "D599292",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 29,
+          "condition": "filling",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 21,
+          "condition": "filling",
+          "surface": "incisal"
+        },
+        {
+          "tooth_number": 5,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 20,
+          "condition": "chip",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 3,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 20,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG873207",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P94588014",
+    "visit_id": "V1670036983",
+    "visit_date": "2025-05-13",
+    "provider_id": "D325230",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 5,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 7,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "crack",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 24,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 21,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 12,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG744333",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P32020690",
+    "visit_id": "V1345122543",
+    "visit_date": "2025-08-12",
+    "provider_id": "D420214",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 10,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 25,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 12,
+            "measurements": [
+              4,
+              5,
+              1,
+              3,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              2,
+              2,
+              4,
+              5,
+              5,
+              6
+            ]
+          },
+          {
+            "tooth_number": 6,
+            "measurements": [
+              4,
+              4,
+              6,
+              4,
+              4,
+              6
+            ]
+          },
+          {
+            "tooth_number": 16,
+            "measurements": [
+              4,
+              4,
+              2,
+              1,
+              5,
+              1
+            ]
+          },
+          {
+            "tooth_number": 10,
+            "measurements": [
+              2,
+              3,
+              1,
+              3,
+              2,
+              5
+            ]
+          },
+          {
+            "tooth_number": 5,
+            "measurements": [
+              3,
+              2,
+              4,
+              5,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              5,
+              5,
+              1,
+              5,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              5,
+              3,
+              5,
+              1,
+              6,
+              4
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG133796",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P15755286",
+    "visit_id": "V4668556449",
+    "visit_date": "2025-04-11",
+    "provider_id": "D913308",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 23,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 28,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "chip",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 14,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 9,
+            "measurements": [
+              6,
+              2,
+              6,
+              2,
+              2,
+              2
+            ]
+          },
+          {
+            "tooth_number": 27,
+            "measurements": [
+              6,
+              3,
+              2,
+              6,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              2,
+              5,
+              6,
+              3,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              4,
+              4,
+              1,
+              6,
+              1,
+              4
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 11,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG710224",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P61532018",
+    "visit_id": "V8989974969",
+    "visit_date": "2024-01-29",
+    "provider_id": "D765678",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 5,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 26,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG460437",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P21204189",
+    "visit_id": "V0069927883",
+    "visit_date": "2024-08-29",
+    "provider_id": "D562721",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 13,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 20,
+          "condition": "missing",
+          "notes": "Monitor missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P63995914",
+    "visit_id": "V0004665658",
+    "visit_date": "2025-07-27",
+    "provider_id": "D181724",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 29,
+          "condition": "caries",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 29,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG485416",
+        "findings": "Interproximal caries on #14"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG911032",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P86110893",
+    "visit_id": "V3755937286",
+    "visit_date": "2025-07-16",
+    "provider_id": "D810029",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 1,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 11,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "crack",
+          "surface": "mesial",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 23,
+          "condition": "filling",
+          "surface": "mesial"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 23,
+            "measurements": [
+              3,
+              6,
+              1,
+              2,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 31,
+            "measurements": [
+              5,
+              6,
+              5,
+              3,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              6,
+              3,
+              2,
+              5,
+              5,
+              5
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              2,
+              6,
+              4,
+              3,
+              6,
+              1
+            ]
+          },
+          {
+            "tooth_number": 26,
+            "measurements": [
+              2,
+              4,
+              4,
+              1,
+              2,
+              4
+            ]
+          },
+          {
+            "tooth_number": 5,
+            "measurements": [
+              6,
+              5,
+              1,
+              5,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 8,
+            "measurements": [
+              3,
+              2,
+              4,
+              5,
+              4,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 29,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG170813",
+        "findings": "No cavities detected"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG141761",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P95647456",
+    "visit_id": "V9820390307",
+    "visit_date": "2024-10-10",
+    "provider_id": "D625387",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 26,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 6,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "filling",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 20,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 8,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG243876",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG620526",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P22409389",
+    "visit_id": "V7390631635",
+    "visit_date": "2025-08-02",
+    "provider_id": "D489933",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 2,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 24,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG910894",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P68293321",
+    "visit_id": "V9570924107",
+    "visit_date": "2025-10-25",
+    "provider_id": "D102693",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 27,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG360322",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P16025722",
+    "visit_id": "V6749695578",
+    "visit_date": "2024-01-20",
+    "provider_id": "D626428",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 15,
+          "condition": "chip",
+          "surface": "occlusal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 15,
+        "priority": "low",
+        "estimated_cost": 175
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG578933",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P49428850",
+    "visit_id": "V5336857630",
+    "visit_date": "2024-07-22",
+    "provider_id": "D720432",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [
+        {
+          "tooth_number": 16,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 15,
+            "measurements": [
+              1,
+              6,
+              4,
+              6,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 23,
+            "measurements": [
+              1,
+              2,
+              5,
+              2,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              1,
+              2,
+              6,
+              3,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              2,
+              5,
+              4,
+              6,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG720647",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG794622",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P35029611",
+    "visit_id": "V5311894155",
+    "visit_date": "2025-01-21",
+    "provider_id": "D992247",
+    "examination": {
+      "chief_complaint": "Cosmetic consultation",
+      "teeth_assessment": [
+        {
+          "tooth_number": 21,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "filling",
+          "surface": "mesial",
+          "notes": "Monitor filling"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 21,
+            "measurements": [
+              4,
+              3,
+              4,
+              3,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              2,
+              6,
+              3,
+              6,
+              6,
+              5
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              1,
+              2,
+              3,
+              2,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 18,
+            "measurements": [
+              2,
+              3,
+              4,
+              5,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              3,
+              3,
+              2,
+              1,
+              4,
+              4
+            ]
+          },
+          {
+            "tooth_number": 25,
+            "measurements": [
+              5,
+              6,
+              5,
+              2,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 7,
+            "measurements": [
+              1,
+              2,
+              1,
+              1,
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG714590",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P86702894",
+    "visit_id": "V0276905286",
+    "visit_date": "2025-07-31",
+    "provider_id": "D564971",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 8,
+          "condition": "crack",
+          "surface": "occlusal",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 3,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 2,
+            "measurements": [
+              2,
+              3,
+              3,
+              4,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 13,
+            "measurements": [
+              5,
+              5,
+              5,
+              2,
+              6,
+              3
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              4,
+              4,
+              5,
+              4,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 14,
+            "measurements": [
+              3,
+              4,
+              2,
+              4,
+              2,
+              6
+            ]
+          },
+          {
+            "tooth_number": 6,
+            "measurements": [
+              5,
+              2,
+              6,
+              5,
+              1,
+              4
+            ]
+          },
+          {
+            "tooth_number": 12,
+            "measurements": [
+              6,
+              3,
+              4,
+              5,
+              4,
+              3
+            ]
+          },
+          {
+            "tooth_number": 7,
+            "measurements": [
+              5,
+              5,
+              3,
+              4,
+              3,
+              2
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 8,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG594596",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P13439804",
+    "visit_id": "V4183211670",
+    "visit_date": "2024-02-06",
+    "provider_id": "D359896",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 4,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 15,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 4,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 23,
+            "measurements": [
+              3,
+              5,
+              5,
+              2,
+              5,
+              2
+            ]
+          },
+          {
+            "tooth_number": 30,
+            "measurements": [
+              4,
+              5,
+              3,
+              2,
+              4,
+              1
+            ]
+          },
+          {
+            "tooth_number": 19,
+            "measurements": [
+              1,
+              1,
+              2,
+              5,
+              2,
+              1
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              5,
+              4,
+              1,
+              3,
+              5,
+              2
+            ]
+          },
+          {
+            "tooth_number": 32,
+            "measurements": [
+              2,
+              3,
+              6,
+              2,
+              3,
+              1
+            ]
+          },
+          {
+            "tooth_number": 28,
+            "measurements": [
+              1,
+              2,
+              5,
+              6,
+              2,
+              1
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG205939",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P94916485",
+    "visit_id": "V1362721799",
+    "visit_date": "2023-12-30",
+    "provider_id": "D689275",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 15,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG433674",
+        "findings": "Normal"
+      },
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG693022",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P10443031",
+    "visit_id": "V4899025963",
+    "visit_date": "2024-12-19",
+    "provider_id": "D349556",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 6,
+          "condition": "missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG101343",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P66180345",
+    "visit_id": "V8094089210",
+    "visit_date": "2024-12-15",
+    "provider_id": "D497108",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 7,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 31,
+          "condition": "caries",
+          "surface": "distal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 15,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 31,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P94557014",
+    "visit_id": "V8131344494",
+    "visit_date": "2024-09-24",
+    "provider_id": "D132498",
+    "examination": {
+      "chief_complaint": "Lost filling",
+      "teeth_assessment": [
+        {
+          "tooth_number": 28,
+          "condition": "crown",
+          "notes": "Monitor crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P06661957",
+    "visit_id": "V1020262124",
+    "visit_date": "2024-05-03",
+    "provider_id": "D511987",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 10,
+          "condition": "caries",
+          "surface": "buccal",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "crack",
+          "surface": "mesial",
+          "notes": "Monitor crack"
+        },
+        {
+          "tooth_number": 24,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 10,
+        "priority": "medium",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG670557",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P49580253",
+    "visit_id": "V8098129450",
+    "visit_date": "2024-09-09",
+    "provider_id": "D295646",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 29,
+          "condition": "implant",
+          "notes": "Monitor implant"
+        },
+        {
+          "tooth_number": 30,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P63922842",
+    "visit_id": "V3786674546",
+    "visit_date": "2025-09-20",
+    "provider_id": "D413369",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 3,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        },
+        {
+          "tooth_number": 8,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 29,
+          "condition": "root_canal",
+          "notes": "Monitor root_canal"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 26,
+        "anesthesia_used": true
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P55625518",
+    "visit_id": "V1802141794",
+    "visit_date": "2025-07-11",
+    "provider_id": "D256911",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 7,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "crack",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 23,
+          "condition": "caries",
+          "surface": "mesial",
+          "notes": "Monitor caries"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 26,
+            "measurements": [
+              6,
+              4,
+              3,
+              3,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 22,
+            "measurements": [
+              3,
+              3,
+              3,
+              4,
+              6,
+              6
+            ]
+          },
+          {
+            "tooth_number": 16,
+            "measurements": [
+              1,
+              2,
+              2,
+              3,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 4,
+            "measurements": [
+              3,
+              3,
+              6,
+              4,
+              5,
+              6
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 19,
+        "priority": "medium",
+        "estimated_cost": 1200
+      },
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 23,
+        "priority": "medium",
+        "estimated_cost": 200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P95236793",
+    "visit_id": "V4576790021",
+    "visit_date": "2024-10-22",
+    "provider_id": "D631413",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 2,
+          "condition": "bridge",
+          "notes": "Monitor bridge"
+        },
+        {
+          "tooth_number": 12,
+          "condition": "caries",
+          "surface": "distal"
+        },
+        {
+          "tooth_number": 13,
+          "condition": "implant"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "crack",
+          "surface": "lingual"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 12,
+        "priority": "medium",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P38261365",
+    "visit_id": "V2958590551",
+    "visit_date": "2024-11-09",
+    "provider_id": "D128783",
+    "examination": {
+      "chief_complaint": "Routine checkup",
+      "teeth_assessment": [
+        {
+          "tooth_number": 14,
+          "condition": "bridge"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P80683907",
+    "visit_id": "V2780439667",
+    "visit_date": "2025-12-01",
+    "provider_id": "D939767",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "missing"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 1,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG794530",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P75357499",
+    "visit_id": "V7900070154",
+    "visit_date": "2024-04-10",
+    "provider_id": "D778787",
+    "examination": {
+      "chief_complaint": "Broken tooth",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "crack",
+          "surface": "occlusal"
+        },
+        {
+          "tooth_number": 7,
+          "condition": "implant"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 20,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG642421",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P88654880",
+    "visit_id": "V6872090714",
+    "visit_date": "2024-01-12",
+    "provider_id": "D435109",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 2,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 32,
+          "condition": "caries",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 19,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 17,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "crack",
+          "surface": "incisal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2150",
+        "description": "Amalgam - two surfaces",
+        "tooth_number": 32,
+        "priority": "high",
+        "estimated_cost": 200
+      },
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 27,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [],
+    "next_appointment": null
+  },
+  {
+    "patient_id": "P87836732",
+    "visit_id": "V8158681912",
+    "visit_date": "2025-04-26",
+    "provider_id": "D193637",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "root_canal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "fair"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG765213",
+        "findings": "Normal"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P67172937",
+    "visit_id": "V3820055863",
+    "visit_date": "2024-01-12",
+    "provider_id": "D225636",
+    "examination": {
+      "chief_complaint": "Bleeding gums",
+      "teeth_assessment": [
+        {
+          "tooth_number": 20,
+          "condition": "crown"
+        },
+        {
+          "tooth_number": 27,
+          "condition": "missing"
+        },
+        {
+          "tooth_number": 4,
+          "condition": "crack",
+          "surface": "mesial"
+        },
+        {
+          "tooth_number": 10,
+          "condition": "crown"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 3,
+        "bleeding_on_probing": true,
+        "pocket_depths": [
+          {
+            "tooth_number": 12,
+            "measurements": [
+              3,
+              2,
+              2,
+              5,
+              2,
+              4
+            ]
+          },
+          {
+            "tooth_number": 11,
+            "measurements": [
+              1,
+              2,
+              5,
+              4,
+              6,
+              4
+            ]
+          },
+          {
+            "tooth_number": 21,
+            "measurements": [
+              4,
+              4,
+              4,
+              4,
+              1,
+              1
+            ]
+          },
+          {
+            "tooth_number": 2,
+            "measurements": [
+              5,
+              2,
+              6,
+              3,
+              1,
+              3
+            ]
+          },
+          {
+            "tooth_number": 1,
+            "measurements": [
+              5,
+              2,
+              1,
+              6,
+              1,
+              6
+            ]
+          },
+          {
+            "tooth_number": 15,
+            "measurements": [
+              6,
+              2,
+              2,
+              6,
+              3,
+              3
+            ]
+          }
+        ]
+      },
+      "oral_hygiene_index": "good"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2740",
+        "description": "Crown - porcelain/ceramic",
+        "tooth_number": 4,
+        "priority": "medium",
+        "estimated_cost": 1200
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG147939",
+        "findings": "Interproximal caries on #14"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-12-09",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P65790670",
+    "visit_id": "V4869588540",
+    "visit_date": "2025-05-31",
+    "provider_id": "D476701",
+    "examination": {
+      "chief_complaint": "Tooth pain",
+      "teeth_assessment": [
+        {
+          "tooth_number": 2,
+          "condition": "bridge"
+        },
+        {
+          "tooth_number": 15,
+          "condition": "chip",
+          "surface": "mesial",
+          "notes": "Monitor chip"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "caries",
+          "surface": "buccal"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 2,
+        "bleeding_on_probing": true
+      },
+      "oral_hygiene_index": "excellent"
+    },
+    "treatment_plan": [
+      {
+        "procedure_code": "D2330",
+        "description": "Resin-based composite - one surface",
+        "tooth_number": 15,
+        "priority": "low",
+        "estimated_cost": 175
+      },
+      {
+        "procedure_code": "D2140",
+        "description": "Amalgam - one surface",
+        "tooth_number": 9,
+        "priority": "medium",
+        "estimated_cost": 150
+      }
+    ],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "bitewing",
+        "image_id": "IMG498724",
+        "findings": "No cavities detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  },
+  {
+    "patient_id": "P92038469",
+    "visit_id": "V9472528522",
+    "visit_date": "2025-11-30",
+    "provider_id": "D760929",
+    "examination": {
+      "chief_complaint": "Sensitivity to cold",
+      "teeth_assessment": [
+        {
+          "tooth_number": 7,
+          "condition": "root_canal"
+        },
+        {
+          "tooth_number": 18,
+          "condition": "filling",
+          "surface": "lingual"
+        },
+        {
+          "tooth_number": 9,
+          "condition": "filling",
+          "surface": "distal",
+          "notes": "Monitor filling"
+        }
+      ],
+      "periodontal_screening": {
+        "psr_code": 0,
+        "bleeding_on_probing": false
+      },
+      "oral_hygiene_index": "poor"
+    },
+    "treatment_plan": [],
+    "procedures_performed": [
+      {
+        "procedure_code": "D0120",
+        "description": "Periodic oral evaluation",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D1110",
+        "description": "Prophylaxis - adult",
+        "anesthesia_used": false
+      },
+      {
+        "procedure_code": "D0210",
+        "description": "Intraoral complete series of radiographic images",
+        "anesthesia_used": false
+      }
+    ],
+    "imaging": [
+      {
+        "image_type": "panoramic",
+        "image_id": "IMG837606",
+        "findings": "Normal bone levels, no pathology detected"
+      }
+    ],
+    "next_appointment": {
+      "recommended_date": "2026-06-07",
+      "reason": "Routine checkup and cleaning"
+    }
+  }
+]

@@ -1,0 +1,6638 @@
+[
+  {
+    "patient_id": "P85822413",
+    "demographics": {
+      "age": 32,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "46048"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 153,
+        "diastolic_bp": 88,
+        "heart_rate": 94,
+        "temperature": 97.7,
+        "weight": 228,
+        "height": 61
+      },
+      "bmi": 43.1
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 47.6,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 79.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-12-08T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-03T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 168.2,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-26T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P13718432",
+    "demographics": {
+      "age": 29,
+      "gender": "unknown",
+      "race_ethnicity": "White",
+      "zip_code": "57052"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 73,
+        "heart_rate": 84,
+        "temperature": 97.7,
+        "weight": 195,
+        "height": 71
+      },
+      "bmi": 27.2
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 109.6,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 114.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-18T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-14T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 82.3,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-12T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P86977838",
+    "demographics": {
+      "age": 27,
+      "gender": "female",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "42087"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 118,
+        "diastolic_bp": 77,
+        "heart_rate": 80,
+        "temperature": 99.2,
+        "weight": 134,
+        "height": 67
+      },
+      "bmi": 21.0
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 98.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 226.4,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-06T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 72.4,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-05T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P18740865",
+    "demographics": {
+      "age": 49,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "86622"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 72,
+        "heart_rate": 63,
+        "temperature": 99.2,
+        "weight": 159,
+        "height": 65
+      },
+      "bmi": 26.5
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 68.5,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 63.8,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-12-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 82.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-24T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P91497617",
+    "demographics": {
+      "age": 52,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "48469"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 138,
+        "diastolic_bp": 90,
+        "heart_rate": 92,
+        "temperature": 99.3,
+        "weight": 196,
+        "height": 66
+      },
+      "bmi": 31.6
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 217.1,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 76.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-08T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 107.5,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-07T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 38.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P16879291",
+    "demographics": {
+      "age": 34,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "31643"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 127,
+        "diastolic_bp": 76,
+        "heart_rate": 79,
+        "temperature": 98.3,
+        "weight": 215,
+        "height": 74
+      },
+      "bmi": 27.6
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 91.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 54.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-12-04T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P44349362",
+    "demographics": {
+      "age": 27,
+      "gender": "female",
+      "race_ethnicity": "Asian",
+      "zip_code": "97684"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 145,
+        "diastolic_bp": 92,
+        "heart_rate": 90,
+        "temperature": 99.1,
+        "weight": 168,
+        "height": 63
+      },
+      "bmi": 29.8
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      },
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 85.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-26T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 91.5,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 50.4,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-15T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P24627348",
+    "demographics": {
+      "age": 53,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "19880"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 110,
+        "diastolic_bp": 72,
+        "heart_rate": 75,
+        "temperature": 97.8,
+        "weight": 244,
+        "height": 75
+      },
+      "bmi": 30.5
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      },
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 105.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 78.3,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 167.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-11T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P07849495",
+    "demographics": {
+      "age": 25,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "16572"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 157,
+        "diastolic_bp": 90,
+        "heart_rate": 64,
+        "temperature": 98.7,
+        "weight": 180,
+        "height": 72
+      },
+      "bmi": 24.4
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 80.2,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 91.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-31T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 200.0,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.7,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-26T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P09832888",
+    "demographics": {
+      "age": 45,
+      "gender": "other",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "55745"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 117,
+        "diastolic_bp": 81,
+        "heart_rate": 78,
+        "temperature": 97.8,
+        "weight": 197,
+        "height": 60
+      },
+      "bmi": 38.5
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 181.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-25T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 89.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.7,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 78.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-06T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P06818113",
+    "demographics": {
+      "age": 29,
+      "gender": "unknown",
+      "race_ethnicity": "Other",
+      "zip_code": "46265"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 110,
+        "diastolic_bp": 80,
+        "heart_rate": 68,
+        "temperature": 98.8,
+        "weight": 187,
+        "height": 65
+      },
+      "bmi": 31.1
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 65.7,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.5,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-25T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 82.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-14T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 61.0,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-12-03T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P48024343",
+    "demographics": {
+      "age": 44,
+      "gender": "female",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "23473"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 129,
+        "diastolic_bp": 74,
+        "heart_rate": 75,
+        "temperature": 99.2,
+        "weight": 165,
+        "height": 73
+      },
+      "bmi": 21.8
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      },
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.3,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-12-04T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 188.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 103.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 57.5,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-03T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P09317496",
+    "demographics": {
+      "age": 53,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "76768"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 78,
+        "heart_rate": 62,
+        "temperature": 97.7,
+        "weight": 231,
+        "height": 71
+      },
+      "bmi": 32.2
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 111.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-26T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 56.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-03T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 92.8,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P92188406",
+    "demographics": {
+      "age": 43,
+      "gender": "other",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "19171"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 113,
+        "diastolic_bp": 79,
+        "heart_rate": 92,
+        "temperature": 98.1,
+        "weight": 224,
+        "height": 70
+      },
+      "bmi": 32.1
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 34.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.6,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-31T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 72.8,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-12T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P57698611",
+    "demographics": {
+      "age": 59,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "67954"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 72,
+        "heart_rate": 78,
+        "temperature": 98.5,
+        "weight": 205,
+        "height": 62
+      },
+      "bmi": 37.5
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 151.6,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 183.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P09774840",
+    "demographics": {
+      "age": 76,
+      "gender": "unknown",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "85454"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 122,
+        "diastolic_bp": 85,
+        "heart_rate": 85,
+        "temperature": 98.0,
+        "weight": 121,
+        "height": 63
+      },
+      "bmi": 21.4
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.1,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 55.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P89600767",
+    "demographics": {
+      "age": 85,
+      "gender": "other",
+      "race_ethnicity": "Other",
+      "zip_code": "68008"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 84,
+        "heart_rate": 76,
+        "temperature": 99.0,
+        "weight": 190,
+        "height": 75
+      },
+      "bmi": 23.7
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 119.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 84.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 202.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-19T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P94813973",
+    "demographics": {
+      "age": 45,
+      "gender": "male",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "63424"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 116,
+        "diastolic_bp": 83,
+        "heart_rate": 84,
+        "temperature": 99.3,
+        "weight": 125,
+        "height": 72
+      },
+      "bmi": 17.0
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 148.4,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 84.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 52.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-13T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P54266465",
+    "demographics": {
+      "age": 39,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "91560"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 122,
+        "diastolic_bp": 70,
+        "heart_rate": 65,
+        "temperature": 98.8,
+        "weight": 154,
+        "height": 74
+      },
+      "bmi": 19.8
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      },
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 91.4,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 171.3,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P63123516",
+    "demographics": {
+      "age": 20,
+      "gender": "male",
+      "race_ethnicity": "Asian",
+      "zip_code": "39389"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 130,
+        "diastolic_bp": 71,
+        "heart_rate": 61,
+        "temperature": 99.4,
+        "weight": 171,
+        "height": 60
+      },
+      "bmi": 33.4
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 6.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.9,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P22520278",
+    "demographics": {
+      "age": 32,
+      "gender": "female",
+      "race_ethnicity": "Asian",
+      "zip_code": "24168"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 119,
+        "diastolic_bp": 82,
+        "heart_rate": 85,
+        "temperature": 99.4,
+        "weight": 170,
+        "height": 62
+      },
+      "bmi": 31.1
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 93.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 155.2,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 109.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P65793760",
+    "demographics": {
+      "age": 31,
+      "gender": "unknown",
+      "race_ethnicity": "Asian",
+      "zip_code": "93307"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 160,
+        "diastolic_bp": 93,
+        "heart_rate": 99,
+        "temperature": 99.1,
+        "weight": 243,
+        "height": 74
+      },
+      "bmi": 31.2
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 61.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 176.0,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 152.3,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 84.0,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-07T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P28470245",
+    "demographics": {
+      "age": 63,
+      "gender": "other",
+      "race_ethnicity": "Asian",
+      "zip_code": "46655"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 112,
+        "diastolic_bp": 77,
+        "heart_rate": 86,
+        "temperature": 98.5,
+        "weight": 181,
+        "height": 75
+      },
+      "bmi": 22.6
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-18T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 86.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 47.0,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-25T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P57110155",
+    "demographics": {
+      "age": 60,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "69473"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 116,
+        "diastolic_bp": 80,
+        "heart_rate": 67,
+        "temperature": 99.0,
+        "weight": 167,
+        "height": 66
+      },
+      "bmi": 27.0
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      },
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 59.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-31T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 98.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 184.3,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-01T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 92.2,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-22T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P85613416",
+    "demographics": {
+      "age": 80,
+      "gender": "male",
+      "race_ethnicity": "Other",
+      "zip_code": "11607"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 71,
+        "heart_rate": 76,
+        "temperature": 99.4,
+        "weight": 242,
+        "height": 63
+      },
+      "bmi": 42.9
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.9,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 104.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 45.3,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P30291215",
+    "demographics": {
+      "age": 84,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "68028"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 128,
+        "diastolic_bp": 71,
+        "heart_rate": 99,
+        "temperature": 99.4,
+        "weight": 145,
+        "height": 66
+      },
+      "bmi": 23.4
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 108.9,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 90.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-12-04T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P31068215",
+    "demographics": {
+      "age": 54,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "69510"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 117,
+        "diastolic_bp": 78,
+        "heart_rate": 100,
+        "temperature": 98.7,
+        "weight": 170,
+        "height": 73
+      },
+      "bmi": 22.4
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 97.4,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 65.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P67172239",
+    "demographics": {
+      "age": 81,
+      "gender": "unknown",
+      "race_ethnicity": "White",
+      "zip_code": "88385"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 123,
+        "diastolic_bp": 80,
+        "heart_rate": 98,
+        "temperature": 98.0,
+        "weight": 143,
+        "height": 67
+      },
+      "bmi": 22.4
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 65.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-16T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 75.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-15T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 185.4,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-14T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 78.4,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-25T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P54807554",
+    "demographics": {
+      "age": 60,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "23710"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 79,
+        "heart_rate": 85,
+        "temperature": 99.1,
+        "weight": 129,
+        "height": 74
+      },
+      "bmi": 16.6
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 46.3,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-14T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 76.1,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 87.6,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-12T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P35843682",
+    "demographics": {
+      "age": 34,
+      "gender": "other",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "73532"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 110,
+        "diastolic_bp": 77,
+        "heart_rate": 70,
+        "temperature": 98.1,
+        "weight": 123,
+        "height": 73
+      },
+      "bmi": 16.2
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 72.4,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-08T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P63380267",
+    "demographics": {
+      "age": 49,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "28958"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 132,
+        "diastolic_bp": 93,
+        "heart_rate": 86,
+        "temperature": 98.2,
+        "weight": 249,
+        "height": 68
+      },
+      "bmi": 37.9
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 141.6,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 163.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 65.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-10T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P32051938",
+    "demographics": {
+      "age": 67,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "63841"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 120,
+        "diastolic_bp": 85,
+        "heart_rate": 84,
+        "temperature": 98.3,
+        "weight": 158,
+        "height": 75
+      },
+      "bmi": 19.7
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 71.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-26T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 142.7,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-11T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P02059920",
+    "demographics": {
+      "age": 36,
+      "gender": "unknown",
+      "race_ethnicity": "Other",
+      "zip_code": "95823"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 118,
+        "diastolic_bp": 80,
+        "heart_rate": 99,
+        "temperature": 98.9,
+        "weight": 140,
+        "height": 70
+      },
+      "bmi": 20.1
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 78.5,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-30T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 182.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 165.4,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-14T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 71.7,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-26T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P59549528",
+    "demographics": {
+      "age": 39,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "16028"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 121,
+        "diastolic_bp": 83,
+        "heart_rate": 69,
+        "temperature": 98.0,
+        "weight": 225,
+        "height": 65
+      },
+      "bmi": 37.4
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 113.1,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.6,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 77.3,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 172.5,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-24T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P40151804",
+    "demographics": {
+      "age": 72,
+      "gender": "other",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "49599"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 73,
+        "heart_rate": 75,
+        "temperature": 98.3,
+        "weight": 211,
+        "height": 69
+      },
+      "bmi": 31.2
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 88.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-12T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 97.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-06T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 126.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-02T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P30885968",
+    "demographics": {
+      "age": 63,
+      "gender": "female",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "34920"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 114,
+        "diastolic_bp": 73,
+        "heart_rate": 100,
+        "temperature": 98.8,
+        "weight": 199,
+        "height": 74
+      },
+      "bmi": 25.5
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 190.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 115.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-08T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P39613215",
+    "demographics": {
+      "age": 61,
+      "gender": "male",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "19869"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 122,
+        "diastolic_bp": 81,
+        "heart_rate": 65,
+        "temperature": 99.1,
+        "weight": 123,
+        "height": 68
+      },
+      "bmi": 18.7
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 166.5,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 137.0,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-28T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 96.9,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P29711403",
+    "demographics": {
+      "age": 26,
+      "gender": "unknown",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "49608"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 133,
+        "diastolic_bp": 88,
+        "heart_rate": 75,
+        "temperature": 99.3,
+        "weight": 154,
+        "height": 72
+      },
+      "bmi": 20.9
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 119.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-26T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 49.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 59.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 206.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P31690502",
+    "demographics": {
+      "age": 64,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "58147"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 113,
+        "diastolic_bp": 84,
+        "heart_rate": 65,
+        "temperature": 98.8,
+        "weight": 125,
+        "height": 61
+      },
+      "bmi": 23.6
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.3,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 73.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P44098517",
+    "demographics": {
+      "age": 36,
+      "gender": "male",
+      "race_ethnicity": "Asian",
+      "zip_code": "28964"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 73,
+        "heart_rate": 61,
+        "temperature": 97.8,
+        "weight": 211,
+        "height": 67
+      },
+      "bmi": 33.0
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 190.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-23T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P68885633",
+    "demographics": {
+      "age": 31,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "39038"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 126,
+        "diastolic_bp": 79,
+        "heart_rate": 89,
+        "temperature": 98.8,
+        "weight": 127,
+        "height": 61
+      },
+      "bmi": 24.0
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 86.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 79.5,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 149.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-28T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P51124123",
+    "demographics": {
+      "age": 85,
+      "gender": "other",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "76263"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 127,
+        "diastolic_bp": 76,
+        "heart_rate": 87,
+        "temperature": 98.4,
+        "weight": 178,
+        "height": 73
+      },
+      "bmi": 23.5
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 105.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 81.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P12513133",
+    "demographics": {
+      "age": 73,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "58843"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 128,
+        "diastolic_bp": 80,
+        "heart_rate": 67,
+        "temperature": 98.3,
+        "weight": 228,
+        "height": 61
+      },
+      "bmi": 43.1
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 168.4,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-25T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 119.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 78.6,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-15T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 67.5,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P82352412",
+    "demographics": {
+      "age": 21,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "33647"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 110,
+        "diastolic_bp": 75,
+        "heart_rate": 69,
+        "temperature": 98.6,
+        "weight": 222,
+        "height": 62
+      },
+      "bmi": 40.6
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 49.4,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.1,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 64.4,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 84.7,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P36521026",
+    "demographics": {
+      "age": 74,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "89570"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 141,
+        "diastolic_bp": 98,
+        "heart_rate": 67,
+        "temperature": 98.1,
+        "weight": 244,
+        "height": 69
+      },
+      "bmi": 36.0
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      },
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 183.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-14T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P23581358",
+    "demographics": {
+      "age": 34,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "40161"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 111,
+        "diastolic_bp": 83,
+        "heart_rate": 61,
+        "temperature": 98.4,
+        "weight": 139,
+        "height": 70
+      },
+      "bmi": 19.9
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 57.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 163.9,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 187.5,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 87.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-18T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P70325063",
+    "demographics": {
+      "age": 28,
+      "gender": "unknown",
+      "race_ethnicity": "Other",
+      "zip_code": "50668"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 132,
+        "diastolic_bp": 88,
+        "heart_rate": 93,
+        "temperature": 98.5,
+        "weight": 209,
+        "height": 71
+      },
+      "bmi": 29.1
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-16T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 138.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-19T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 73.3,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 90.9,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P86300903",
+    "demographics": {
+      "age": 59,
+      "gender": "other",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "67640"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 84,
+        "heart_rate": 100,
+        "temperature": 98.1,
+        "weight": 190,
+        "height": 61
+      },
+      "bmi": 35.9
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 173.5,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 91.5,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-27T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P82545029",
+    "demographics": {
+      "age": 82,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "86064"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 76,
+        "heart_rate": 80,
+        "temperature": 98.7,
+        "weight": 248,
+        "height": 64
+      },
+      "bmi": 42.6
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 83.8,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 179.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-02T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 102.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-02T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P51998171",
+    "demographics": {
+      "age": 70,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "88366"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 130,
+        "diastolic_bp": 80,
+        "heart_rate": 64,
+        "temperature": 98.2,
+        "weight": 218,
+        "height": 69
+      },
+      "bmi": 32.2
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 54.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-23T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P95138091",
+    "demographics": {
+      "age": 28,
+      "gender": "other",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "59372"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 156,
+        "diastolic_bp": 87,
+        "heart_rate": 87,
+        "temperature": 98.5,
+        "weight": 124,
+        "height": 71
+      },
+      "bmi": 17.3
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 173.8,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-21T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 97.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-05T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P72446805",
+    "demographics": {
+      "age": 85,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "54140"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 114,
+        "diastolic_bp": 75,
+        "heart_rate": 71,
+        "temperature": 99.2,
+        "weight": 162,
+        "height": 74
+      },
+      "bmi": 20.8
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      },
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 193.8,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 98.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-26T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 126.3,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P21751080",
+    "demographics": {
+      "age": 43,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "42768"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 130,
+        "diastolic_bp": 85,
+        "heart_rate": 83,
+        "temperature": 98.6,
+        "weight": 146,
+        "height": 63
+      },
+      "bmi": 25.9
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 37.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-10T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.4,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 61.5,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-05T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P50192262",
+    "demographics": {
+      "age": 48,
+      "gender": "unknown",
+      "race_ethnicity": "White",
+      "zip_code": "59140"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 113,
+        "diastolic_bp": 80,
+        "heart_rate": 69,
+        "temperature": 97.8,
+        "weight": 193,
+        "height": 75
+      },
+      "bmi": 24.1
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 117.1,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-06T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 90.5,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-19T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P73659259",
+    "demographics": {
+      "age": 85,
+      "gender": "unknown",
+      "race_ethnicity": "White",
+      "zip_code": "47762"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 111,
+        "diastolic_bp": 77,
+        "heart_rate": 86,
+        "temperature": 98.8,
+        "weight": 237,
+        "height": 62
+      },
+      "bmi": 43.3
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      },
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 42.5,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.3,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-14T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 189.8,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-02T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 110.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-05T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P74377017",
+    "demographics": {
+      "age": 20,
+      "gender": "unknown",
+      "race_ethnicity": "Other",
+      "zip_code": "71621"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 130,
+        "diastolic_bp": 82,
+        "heart_rate": 83,
+        "temperature": 98.0,
+        "weight": 124,
+        "height": 71
+      },
+      "bmi": 17.3
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.3,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-17T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 96.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-12T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 149.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-21T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P08469211",
+    "demographics": {
+      "age": 76,
+      "gender": "male",
+      "race_ethnicity": "Asian",
+      "zip_code": "36422"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 116,
+        "diastolic_bp": 71,
+        "heart_rate": 80,
+        "temperature": 99.4,
+        "weight": 221,
+        "height": 75
+      },
+      "bmi": 27.6
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 93.4,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 161.3,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-20T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 58.9,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-15T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P66599270",
+    "demographics": {
+      "age": 81,
+      "gender": "other",
+      "race_ethnicity": "Other",
+      "zip_code": "78062"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 112,
+        "diastolic_bp": 83,
+        "heart_rate": 98,
+        "temperature": 99.5,
+        "weight": 166,
+        "height": 69
+      },
+      "bmi": 24.5
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 170.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 158.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-12T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P05684814",
+    "demographics": {
+      "age": 63,
+      "gender": "unknown",
+      "race_ethnicity": "Asian",
+      "zip_code": "93816"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 112,
+        "diastolic_bp": 82,
+        "heart_rate": 83,
+        "temperature": 98.5,
+        "weight": 160,
+        "height": 60
+      },
+      "bmi": 31.2
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      },
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-19T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 217.2,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P49930791",
+    "demographics": {
+      "age": 74,
+      "gender": "male",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "28047"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 117,
+        "diastolic_bp": 73,
+        "heart_rate": 61,
+        "temperature": 99.0,
+        "weight": 247,
+        "height": 72
+      },
+      "bmi": 33.5
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 176.0,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 100.0,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-07T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P26867483",
+    "demographics": {
+      "age": 33,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "19706"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 160,
+        "diastolic_bp": 95,
+        "heart_rate": 82,
+        "temperature": 98.9,
+        "weight": 194,
+        "height": 69
+      },
+      "bmi": 28.6
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 134.0,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-08T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 6.4,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-12-05T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 163.3,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 105.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-27T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P08824562",
+    "demographics": {
+      "age": 57,
+      "gender": "unknown",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "72739"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 130,
+        "diastolic_bp": 72,
+        "heart_rate": 88,
+        "temperature": 98.4,
+        "weight": 208,
+        "height": 64
+      },
+      "bmi": 35.7
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 59.9,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 64.0,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-31T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-25T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 97.6,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-03T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P38124319",
+    "demographics": {
+      "age": 28,
+      "gender": "other",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "93238"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 147,
+        "diastolic_bp": 87,
+        "heart_rate": 92,
+        "temperature": 98.8,
+        "weight": 159,
+        "height": 65
+      },
+      "bmi": 26.5
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 76.3,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-05T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 203.8,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-26T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 77.6,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-19T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 100.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-17T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P40546386",
+    "demographics": {
+      "age": 79,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "99783"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 83,
+        "heart_rate": 90,
+        "temperature": 98.4,
+        "weight": 207,
+        "height": 64
+      },
+      "bmi": 35.5
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 181.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-08T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 84.0,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 82.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-20T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 91.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P33322273",
+    "demographics": {
+      "age": 38,
+      "gender": "other",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "50988"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 125,
+        "diastolic_bp": 84,
+        "heart_rate": 91,
+        "temperature": 99.3,
+        "weight": 247,
+        "height": 60
+      },
+      "bmi": 48.2
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 62.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 184.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-02T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P72033414",
+    "demographics": {
+      "age": 19,
+      "gender": "male",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "27555"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 121,
+        "diastolic_bp": 71,
+        "heart_rate": 85,
+        "temperature": 97.6,
+        "weight": 169,
+        "height": 71
+      },
+      "bmi": 23.6
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 72.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 58.9,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P17268908",
+    "demographics": {
+      "age": 30,
+      "gender": "unknown",
+      "race_ethnicity": "Asian",
+      "zip_code": "54444"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 146,
+        "diastolic_bp": 97,
+        "heart_rate": 92,
+        "temperature": 97.6,
+        "weight": 129,
+        "height": 64
+      },
+      "bmi": 22.1
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 45.5,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 78.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-19T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-26T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P68090665",
+    "demographics": {
+      "age": 83,
+      "gender": "unknown",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "83783"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 113,
+        "diastolic_bp": 83,
+        "heart_rate": 97,
+        "temperature": 98.1,
+        "weight": 126,
+        "height": 75
+      },
+      "bmi": 15.7
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 88.6,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 6.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-12-06T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 134.4,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 98.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P63297814",
+    "demographics": {
+      "age": 25,
+      "gender": "female",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "37176"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 120,
+        "diastolic_bp": 75,
+        "heart_rate": 89,
+        "temperature": 99.3,
+        "weight": 207,
+        "height": 71
+      },
+      "bmi": 28.9
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 157.4,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-03T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 166.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-31T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 86.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 85.8,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-28T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P96860154",
+    "demographics": {
+      "age": 53,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "85166"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 160,
+        "diastolic_bp": 87,
+        "heart_rate": 82,
+        "temperature": 99.3,
+        "weight": 185,
+        "height": 75
+      },
+      "bmi": 23.1
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 44.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-12-02T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 102.2,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-12-02T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P13448343",
+    "demographics": {
+      "age": 70,
+      "gender": "other",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "71918"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 114,
+        "diastolic_bp": 70,
+        "heart_rate": 95,
+        "temperature": 99.5,
+        "weight": 160,
+        "height": 73
+      },
+      "bmi": 21.1
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 73.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-17T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 192.4,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-12-04T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P23496797",
+    "demographics": {
+      "age": 71,
+      "gender": "female",
+      "race_ethnicity": "White",
+      "zip_code": "62034"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 139,
+        "diastolic_bp": 88,
+        "heart_rate": 81,
+        "temperature": 98.1,
+        "weight": 246,
+        "height": 64
+      },
+      "bmi": 42.2
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 164.3,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-15T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.7,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-26T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 93.3,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-16T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P82000925",
+    "demographics": {
+      "age": 69,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "52982"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 122,
+        "diastolic_bp": 73,
+        "heart_rate": 71,
+        "temperature": 99.5,
+        "weight": 242,
+        "height": 70
+      },
+      "bmi": 34.7
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 154.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 102.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-12-07T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P35105070",
+    "demographics": {
+      "age": 64,
+      "gender": "female",
+      "race_ethnicity": "White",
+      "zip_code": "97528"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 79,
+        "heart_rate": 70,
+        "temperature": 98.3,
+        "weight": 248,
+        "height": 69
+      },
+      "bmi": 36.6
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 175.2,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-08T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 148.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-16T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.7,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 90.8,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-07T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P91313947",
+    "demographics": {
+      "age": 28,
+      "gender": "unknown",
+      "race_ethnicity": "American Indian or Alaska Native",
+      "zip_code": "57419"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 128,
+        "diastolic_bp": 73,
+        "heart_rate": 63,
+        "temperature": 99.2,
+        "weight": 249,
+        "height": 66
+      },
+      "bmi": 40.2
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.1,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 190.1,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-27T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P68501421",
+    "demographics": {
+      "age": 75,
+      "gender": "male",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "27294"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 119,
+        "diastolic_bp": 70,
+        "heart_rate": 85,
+        "temperature": 98.0,
+        "weight": 120,
+        "height": 66
+      },
+      "bmi": 19.4
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 96.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 226.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P04259383",
+    "demographics": {
+      "age": 54,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "27750"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 112,
+        "diastolic_bp": 74,
+        "heart_rate": 82,
+        "temperature": 97.7,
+        "weight": 220,
+        "height": 64
+      },
+      "bmi": 37.8
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 89.1,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 102.6,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-09T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P33220504",
+    "demographics": {
+      "age": 76,
+      "gender": "other",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "46129"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 113,
+        "diastolic_bp": 71,
+        "heart_rate": 86,
+        "temperature": 98.7,
+        "weight": 124,
+        "height": 67
+      },
+      "bmi": 19.4
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 43.9,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-18T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 78.4,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-12-01T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.2,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-01T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P31428627",
+    "demographics": {
+      "age": 58,
+      "gender": "other",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "49552"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 117,
+        "diastolic_bp": 83,
+        "heart_rate": 79,
+        "temperature": 98.1,
+        "weight": 164,
+        "height": 73
+      },
+      "bmi": 21.6
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 183.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-19T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 77.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-15T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P72199510",
+    "demographics": {
+      "age": 78,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "39536"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 71,
+        "heart_rate": 95,
+        "temperature": 98.3,
+        "weight": 226,
+        "height": 64
+      },
+      "bmi": 38.8
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.9,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-14T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 161.8,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-21T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 83.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-14T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P78864148",
+    "demographics": {
+      "age": 45,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "53642"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 133,
+        "diastolic_bp": 100,
+        "heart_rate": 75,
+        "temperature": 98.9,
+        "weight": 172,
+        "height": 72
+      },
+      "bmi": 23.3
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 155.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 109.8,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 103.2,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-09T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-29T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P55556768",
+    "demographics": {
+      "age": 23,
+      "gender": "female",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "29126"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 118,
+        "diastolic_bp": 83,
+        "heart_rate": 78,
+        "temperature": 97.8,
+        "weight": 204,
+        "height": 67
+      },
+      "bmi": 31.9
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 76.9,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 46.1,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-17T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P99266639",
+    "demographics": {
+      "age": 80,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "56160"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 147,
+        "diastolic_bp": 100,
+        "heart_rate": 71,
+        "temperature": 99.3,
+        "weight": 135,
+        "height": 61
+      },
+      "bmi": 25.5
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 163.4,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-17T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 99.2,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-19T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P01226947",
+    "demographics": {
+      "age": 45,
+      "gender": "unknown",
+      "race_ethnicity": "Asian",
+      "zip_code": "17923"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 123,
+        "diastolic_bp": 70,
+        "heart_rate": 61,
+        "temperature": 98.6,
+        "weight": 190,
+        "height": 69
+      },
+      "bmi": 28.1
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 65.7,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.1,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-19T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P10605784",
+    "demographics": {
+      "age": 65,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "84055"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 119,
+        "diastolic_bp": 72,
+        "heart_rate": 62,
+        "temperature": 97.7,
+        "weight": 217,
+        "height": 72
+      },
+      "bmi": 29.4
+    },
+    "diagnoses": [
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 110.9,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 79.3,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-27T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P12799249",
+    "demographics": {
+      "age": 85,
+      "gender": "male",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "37710"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 128,
+        "diastolic_bp": 71,
+        "heart_rate": 71,
+        "temperature": 99.4,
+        "weight": 200,
+        "height": 60
+      },
+      "bmi": 39.1
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.0,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-08T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 63.3,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-30T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 82.1,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 131.5,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-25T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P07207014",
+    "demographics": {
+      "age": 30,
+      "gender": "unknown",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "19963"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 120,
+        "diastolic_bp": 70,
+        "heart_rate": 100,
+        "temperature": 98.0,
+        "weight": 235,
+        "height": 75
+      },
+      "bmi": 29.4
+    },
+    "diagnoses": [
+      {
+        "code": "M79.3",
+        "description": "Panniculitis, unspecified",
+        "status": "active",
+        "onset_date": "2022-07-09"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Sulfa drugs",
+        "severity": "moderate",
+        "reaction": "Hives"
+      },
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 40.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-11-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 88.6,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-18T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 86.0,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-20T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 176.1,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-30T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P59691438",
+    "demographics": {
+      "age": 64,
+      "gender": "other",
+      "race_ethnicity": "White",
+      "zip_code": "27367"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 83,
+        "heart_rate": 88,
+        "temperature": 98.6,
+        "weight": 224,
+        "height": 63
+      },
+      "bmi": 39.7
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Penicillin",
+        "severity": "moderate",
+        "reaction": "Rash"
+      },
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 188.7,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 87.0,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 77.4,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-11-17T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.9,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-04T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P66185976",
+    "demographics": {
+      "age": 36,
+      "gender": "male",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "66973"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 112,
+        "diastolic_bp": 81,
+        "heart_rate": 76,
+        "temperature": 99.4,
+        "weight": 246,
+        "height": 66
+      },
+      "bmi": 39.7
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 168.8,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-27T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 95.3,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P44927536",
+    "demographics": {
+      "age": 73,
+      "gender": "female",
+      "race_ethnicity": "Asian",
+      "zip_code": "52030"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 115,
+        "diastolic_bp": 82,
+        "heart_rate": 80,
+        "temperature": 98.1,
+        "weight": 245,
+        "height": 67
+      },
+      "bmi": 38.4
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      }
+    ],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 77.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-13T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 159.0,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-29T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 83.1,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P95075417",
+    "demographics": {
+      "age": 44,
+      "gender": "unknown",
+      "race_ethnicity": "Other",
+      "zip_code": "48185"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 123,
+        "diastolic_bp": 85,
+        "heart_rate": 68,
+        "temperature": 98.8,
+        "weight": 181,
+        "height": 68
+      },
+      "bmi": 27.5
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 107.1,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-05T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 118.0,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 87.6,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.1,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-01T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P79701164",
+    "demographics": {
+      "age": 28,
+      "gender": "male",
+      "race_ethnicity": "Other",
+      "zip_code": "42536"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 148,
+        "diastolic_bp": 97,
+        "heart_rate": 81,
+        "temperature": 99.4,
+        "weight": 230,
+        "height": 63
+      },
+      "bmi": 40.7
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      },
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 47.2,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-09-11T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 143.8,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-25T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.6,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-28T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 89.8,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-11-20T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P46751881",
+    "demographics": {
+      "age": 57,
+      "gender": "other",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "37114"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 80,
+        "heart_rate": 64,
+        "temperature": 98.1,
+        "weight": 149,
+        "height": 60
+      },
+      "bmi": 29.1
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      },
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 92.7,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-10T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.3,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-18T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 50.6,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-19T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 170.6,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P26484438",
+    "demographics": {
+      "age": 75,
+      "gender": "unknown",
+      "race_ethnicity": "Native Hawaiian or Other Pacific Islander",
+      "zip_code": "10583"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 154,
+        "diastolic_bp": 87,
+        "heart_rate": 96,
+        "temperature": 97.7,
+        "weight": 167,
+        "height": 71
+      },
+      "bmi": 23.3
+    },
+    "diagnoses": [
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Glucose, fasting",
+        "value": 75.9,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-09-21T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Total Cholesterol",
+        "value": 175.1,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-11-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 73.3,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-13T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P94756154",
+    "demographics": {
+      "age": 56,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "27556"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 135,
+        "diastolic_bp": 96,
+        "heart_rate": 69,
+        "temperature": 98.5,
+        "weight": 227,
+        "height": 64
+      },
+      "bmi": 39.0
+    },
+    "diagnoses": [
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-10-07T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 87.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-09-20T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 138.7,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-24T20:39:53Z",
+        "abnormal_flag": true
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P01286268",
+    "demographics": {
+      "age": 80,
+      "gender": "female",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "60324"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 124,
+        "diastolic_bp": 85,
+        "heart_rate": 70,
+        "temperature": 97.7,
+        "weight": 127,
+        "height": 67
+      },
+      "bmi": 19.9
+    },
+    "diagnoses": [
+      {
+        "code": "J45.909",
+        "description": "Unspecified asthma, uncomplicated",
+        "status": "active",
+        "onset_date": "2023-07-12"
+      },
+      {
+        "code": "F41.9",
+        "description": "Anxiety disorder, unspecified",
+        "status": "active",
+        "onset_date": "2021-11-16"
+      },
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "allergen": "Peanuts",
+        "severity": "severe",
+        "reaction": "Anaphylaxis"
+      },
+      {
+        "allergen": "Latex",
+        "severity": "mild",
+        "reaction": "Contact dermatitis"
+      }
+    ],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-30T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "LDL Cholesterol",
+        "value": 87.7,
+        "unit": "mg/dL",
+        "reference_range": "<100",
+        "date": "2025-10-23T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 38.8,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-13T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P73330296",
+    "demographics": {
+      "age": 45,
+      "gender": "unknown",
+      "race_ethnicity": "White",
+      "zip_code": "95678"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 111,
+        "diastolic_bp": 84,
+        "heart_rate": 76,
+        "temperature": 98.2,
+        "weight": 142,
+        "height": 74
+      },
+      "bmi": 18.2
+    },
+    "diagnoses": [
+      {
+        "code": "E78.5",
+        "description": "Hyperlipidemia, unspecified",
+        "status": "chronic",
+        "onset_date": "2020-12-14"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg once daily",
+        "start_date": "2023-03-10"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 4.8,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-09-24T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 97.8,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-15T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P22277676",
+    "demographics": {
+      "age": 35,
+      "gender": "female",
+      "race_ethnicity": "Other",
+      "zip_code": "37124"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 128,
+        "diastolic_bp": 81,
+        "heart_rate": 94,
+        "temperature": 98.1,
+        "weight": 163,
+        "height": 70
+      },
+      "bmi": 23.4
+    },
+    "diagnoses": [],
+    "medications": [],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 143.1,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-10-04T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 70.0,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-10-17T20:39:53Z",
+        "abnormal_flag": true
+      },
+      {
+        "test_name": "Triglycerides",
+        "value": 115.9,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-11-03T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P88032909",
+    "demographics": {
+      "age": 34,
+      "gender": "female",
+      "race_ethnicity": "Black or African American",
+      "zip_code": "29168"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 151,
+        "diastolic_bp": 97,
+        "heart_rate": 91,
+        "temperature": 97.8,
+        "weight": 188,
+        "height": 73
+      },
+      "bmi": 24.8
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "I10",
+        "description": "Essential (primary) hypertension",
+        "status": "chronic",
+        "onset_date": "2021-02-16"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg once daily",
+        "start_date": "2023-02-20"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Triglycerides",
+        "value": 79.1,
+        "unit": "mg/dL",
+        "reference_range": "<150",
+        "date": "2025-10-22T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Glucose, fasting",
+        "value": 99.5,
+        "unit": "mg/dL",
+        "reference_range": "70-100",
+        "date": "2025-10-07T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  },
+  {
+    "patient_id": "P43928024",
+    "demographics": {
+      "age": 18,
+      "gender": "male",
+      "race_ethnicity": "Hispanic or Latino",
+      "zip_code": "70089"
+    },
+    "health_metrics": {
+      "vital_signs": {
+        "systolic_bp": 122,
+        "diastolic_bp": 76,
+        "heart_rate": 87,
+        "temperature": 99.1,
+        "weight": 246,
+        "height": 68
+      },
+      "bmi": 37.4
+    },
+    "diagnoses": [
+      {
+        "code": "E66.9",
+        "description": "Obesity, unspecified",
+        "status": "chronic",
+        "onset_date": "2021-05-25"
+      },
+      {
+        "code": "E11.9",
+        "description": "Type 2 diabetes mellitus without complications",
+        "status": "chronic",
+        "onset_date": "2022-11-11"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg twice daily",
+        "start_date": "2023-01-15"
+      }
+    ],
+    "allergies": [],
+    "lab_results": [
+      {
+        "test_name": "Total Cholesterol",
+        "value": 158.9,
+        "unit": "mg/dL",
+        "reference_range": "125-200",
+        "date": "2025-09-12T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "HDL Cholesterol",
+        "value": 50.3,
+        "unit": "mg/dL",
+        "reference_range": ">40",
+        "date": "2025-12-03T20:39:53Z",
+        "abnormal_flag": false
+      },
+      {
+        "test_name": "Hemoglobin A1C",
+        "value": 5.7,
+        "unit": "%",
+        "reference_range": "4.0-5.6",
+        "date": "2025-11-23T20:39:53Z",
+        "abnormal_flag": false
+      }
+    ],
+    "last_updated": "2025-12-09T20:39:53Z"
+  }
+]
