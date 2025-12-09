@@ -1,0 +1,101 @@
+patient_id,age,gender,race_ethnicity,zip_code,systolic_bp,diastolic_bp,heart_rate,temperature,weight,height,bmi,num_diagnoses,num_medications,has_allergies,num_lab_results
+P85822413,32,male,Hispanic or Latino,46048,153,88,94,97.7,228,61,43.1,1,1,True,4
+P13718432,29,unknown,White,57052,124,73,84,97.7,195,71,27.2,2,1,False,4
+P86977838,27,female,American Indian or Alaska Native,42087,118,77,80,99.2,134,67,21.0,1,0,False,3
+P18740865,49,other,Hispanic or Latino,86622,125,72,63,99.2,159,65,26.5,3,1,False,3
+P91497617,52,other,White,48469,138,90,92,99.3,196,66,31.6,3,2,True,4
+P16879291,34,unknown,American Indian or Alaska Native,31643,127,76,79,98.3,215,74,27.6,2,0,False,3
+P44349362,27,female,Asian,97684,145,92,90,99.1,168,63,29.8,3,1,True,3
+P24627348,53,unknown,Black or African American,19880,110,72,75,97.8,244,75,30.5,3,1,True,3
+P07849495,25,other,White,16572,157,90,64,98.7,180,72,24.4,3,1,True,4
+P09832888,45,other,Black or African American,55745,117,81,78,97.8,197,60,38.5,0,0,False,4
+P06818113,29,unknown,Other,46265,110,80,68,98.8,187,65,31.1,0,0,False,4
+P48024343,44,female,Hispanic or Latino,23473,129,74,75,99.2,165,73,21.8,2,0,True,4
+P09317496,53,other,Hispanic or Latino,76768,115,78,62,97.7,231,71,32.2,3,1,False,3
+P92188406,43,other,Native Hawaiian or Other Pacific Islander,19171,113,79,92,98.1,224,70,32.1,2,1,False,3
+P57698611,59,unknown,Native Hawaiian or Other Pacific Islander,67954,115,72,78,98.5,205,62,37.5,1,0,False,2
+P09774840,76,unknown,Hispanic or Latino,85454,122,85,85,98.0,121,63,21.4,1,0,False,2
+P89600767,85,other,Other,68008,125,84,76,99.0,190,75,23.7,3,0,False,3
+P94813973,45,male,Native Hawaiian or Other Pacific Islander,63424,116,83,84,99.3,125,72,17.0,2,0,False,3
+P54266465,39,unknown,Black or African American,91560,122,70,65,98.8,154,74,19.8,0,0,True,2
+P63123516,20,male,Asian,39389,130,71,61,99.4,171,60,33.4,0,0,False,2
+P22520278,32,female,Asian,24168,119,82,85,99.4,170,62,31.1,0,0,False,4
+P65793760,31,unknown,Asian,93307,160,93,99,99.1,243,74,31.2,3,1,False,4
+P28470245,63,other,Asian,46655,112,77,86,98.5,181,75,22.6,2,1,False,3
+P57110155,60,other,Hispanic or Latino,69473,116,80,67,99.0,167,66,27.0,2,1,True,4
+P85613416,80,male,Other,11607,115,71,76,99.4,242,63,42.9,2,0,False,3
+P30291215,84,unknown,Native Hawaiian or Other Pacific Islander,68028,128,71,99,99.4,145,66,23.4,2,0,False,3
+P31068215,54,other,Hispanic or Latino,69510,117,78,100,98.7,170,73,22.4,0,0,True,3
+P67172239,81,unknown,White,88385,123,80,98,98.0,143,67,22.4,0,0,False,4
+P54807554,60,other,Hispanic or Latino,23710,125,79,85,99.1,129,74,16.6,1,1,True,3
+P35843682,34,other,Native Hawaiian or Other Pacific Islander,73532,110,77,70,98.1,123,73,16.2,0,0,True,2
+P63380267,49,unknown,American Indian or Alaska Native,28958,132,93,86,98.2,249,68,37.9,3,1,False,3
+P32051938,67,female,Other,63841,120,85,84,98.3,158,75,19.7,0,0,False,2
+P02059920,36,unknown,Other,95823,118,80,99,98.9,140,70,20.1,1,1,False,4
+P59549528,39,other,White,16028,121,83,69,98.0,225,65,37.4,2,1,True,4
+P40151804,72,other,Native Hawaiian or Other Pacific Islander,49599,125,73,75,98.3,211,69,31.2,1,0,False,3
+P30885968,63,female,Hispanic or Latino,34920,114,73,100,98.8,199,74,25.5,2,0,True,3
+P39613215,61,male,Native Hawaiian or Other Pacific Islander,19869,122,81,65,99.1,123,68,18.7,1,0,False,3
+P29711403,26,unknown,Hispanic or Latino,49608,133,88,75,99.3,154,72,20.9,3,2,False,4
+P31690502,64,male,Hispanic or Latino,58147,113,84,65,98.8,125,61,23.6,2,1,False,2
+P44098517,36,male,Asian,28964,115,73,61,97.8,211,67,33.0,1,0,False,2
+P68885633,31,unknown,American Indian or Alaska Native,39038,126,79,89,98.8,127,61,24.0,0,0,False,3
+P51124123,85,other,Native Hawaiian or Other Pacific Islander,76263,127,76,87,98.4,178,73,23.5,3,1,False,3
+P12513133,73,male,Hispanic or Latino,58843,128,80,67,98.3,228,61,43.1,1,0,False,4
+P82352412,21,other,White,33647,110,75,69,98.6,222,62,40.6,2,1,True,4
+P36521026,74,unknown,Native Hawaiian or Other Pacific Islander,89570,141,98,67,98.1,244,69,36.0,3,2,True,2
+P23581358,34,unknown,American Indian or Alaska Native,40161,111,83,61,98.4,139,70,19.9,2,1,False,4
+P70325063,28,unknown,Other,50668,132,88,93,98.5,209,71,29.1,2,2,False,4
+P86300903,59,other,Black or African American,67640,125,84,100,98.1,190,61,35.9,0,0,False,2
+P82545029,82,unknown,Native Hawaiian or Other Pacific Islander,86064,124,76,80,98.7,248,64,42.6,0,0,False,3
+P51998171,70,other,Hispanic or Latino,88366,130,80,64,98.2,218,69,32.2,0,0,True,2
+P95138091,28,other,American Indian or Alaska Native,59372,156,87,87,98.5,124,71,17.3,2,1,False,2
+P72446805,85,male,Hispanic or Latino,54140,114,75,71,99.2,162,74,20.8,1,0,True,4
+P21751080,43,female,Other,42768,130,85,83,98.6,146,63,25.9,0,0,True,3
+P50192262,48,unknown,White,59140,113,80,69,97.8,193,75,24.1,1,1,False,2
+P73659259,85,unknown,White,47762,111,77,86,98.8,237,62,43.3,1,1,True,4
+P74377017,20,unknown,Other,71621,130,82,83,98.0,124,71,17.3,0,0,False,3
+P08469211,76,male,Asian,36422,116,71,80,99.4,221,75,27.6,0,0,True,3
+P66599270,81,other,Other,78062,112,83,98,99.5,166,69,24.5,2,1,False,2
+P05684814,63,unknown,Asian,93816,112,82,83,98.5,160,60,31.2,0,0,True,2
+P49930791,74,male,American Indian or Alaska Native,28047,117,73,61,99.0,247,72,33.5,2,1,False,2
+P26867483,33,female,Other,19706,160,95,82,98.9,194,69,28.6,3,1,False,4
+P08824562,57,unknown,Hispanic or Latino,72739,130,72,88,98.4,208,64,35.7,3,0,False,4
+P38124319,28,other,Black or African American,93238,147,87,92,98.8,159,65,26.5,2,1,False,4
+P40546386,79,female,Other,99783,124,83,90,98.4,207,64,35.5,3,2,False,4
+P33322273,38,other,American Indian or Alaska Native,50988,125,84,91,99.3,247,60,48.2,1,0,True,2
+P72033414,19,male,Native Hawaiian or Other Pacific Islander,27555,121,71,85,97.6,169,71,23.6,2,1,False,2
+P17268908,30,unknown,Asian,54444,146,97,92,97.6,129,64,22.1,2,1,False,3
+P68090665,83,unknown,Hispanic or Latino,83783,113,83,97,98.1,126,75,15.7,2,1,True,4
+P63297814,25,female,American Indian or Alaska Native,37176,120,75,89,99.3,207,71,28.9,2,0,False,4
+P96860154,53,other,White,85166,160,87,82,99.3,185,75,23.1,3,2,True,2
+P13448343,70,other,Hispanic or Latino,71918,114,70,95,99.5,160,73,21.1,0,0,False,3
+P23496797,71,female,White,62034,139,88,81,98.1,246,64,42.2,3,2,False,3
+P82000925,69,unknown,American Indian or Alaska Native,52982,122,73,71,99.5,242,70,34.7,0,0,False,2
+P35105070,64,female,White,97528,124,79,70,98.3,248,69,36.6,0,0,False,4
+P91313947,28,unknown,American Indian or Alaska Native,57419,128,73,63,99.2,249,66,40.2,0,0,False,2
+P68501421,75,male,Native Hawaiian or Other Pacific Islander,27294,119,70,85,98.0,120,66,19.4,3,1,False,2
+P04259383,54,unknown,Black or African American,27750,112,74,82,97.7,220,64,37.8,3,1,False,2
+P33220504,76,other,Black or African American,46129,113,71,86,98.7,124,67,19.4,1,0,True,3
+P31428627,58,other,Black or African American,49552,117,83,79,98.1,164,73,21.6,1,0,False,2
+P72199510,78,female,Other,39536,124,71,95,98.3,226,64,38.8,2,0,False,3
+P78864148,45,unknown,Black or African American,53642,133,100,75,98.9,172,72,23.3,2,2,False,4
+P55556768,23,female,Hispanic or Latino,29126,118,83,78,97.8,204,67,31.9,0,0,False,2
+P99266639,80,unknown,Black or African American,56160,147,100,71,99.3,135,61,25.5,1,1,False,2
+P01226947,45,unknown,Asian,17923,123,70,61,98.6,190,69,28.1,3,1,True,2
+P10605784,65,unknown,Native Hawaiian or Other Pacific Islander,84055,119,72,62,97.7,217,72,29.4,1,0,False,2
+P12799249,85,male,Black or African American,37710,128,71,71,99.4,200,60,39.1,3,2,False,4
+P07207014,30,unknown,Black or African American,19963,120,70,100,98.0,235,75,29.4,2,0,True,4
+P59691438,64,other,White,27367,115,83,88,98.6,224,63,39.7,0,0,True,4
+P66185976,36,male,Black or African American,66973,112,81,76,99.4,246,66,39.7,2,1,False,2
+P44927536,73,female,Asian,52030,115,82,80,98.1,245,67,38.4,1,0,False,3
+P95075417,44,unknown,Other,48185,123,85,68,98.8,181,68,27.5,0,0,False,4
+P79701164,28,male,Other,42536,148,97,81,99.4,230,63,40.7,2,1,True,4
+P46751881,57,other,Native Hawaiian or Other Pacific Islander,37114,124,80,64,98.1,149,60,29.1,3,2,False,4
+P26484438,75,unknown,Native Hawaiian or Other Pacific Islander,10583,154,87,96,97.7,167,71,23.3,1,1,False,3
+P94756154,56,male,Hispanic or Latino,27556,135,96,69,98.5,227,64,39.0,2,2,False,3
+P01286268,80,female,Black or African American,60324,124,85,70,97.7,127,67,19.9,3,0,True,3
+P73330296,45,unknown,White,95678,111,84,76,98.2,142,74,18.2,1,1,False,2
+P22277676,35,female,Other,37124,128,81,94,98.1,163,70,23.4,0,0,False,3
+P88032909,34,female,Black or African American,29168,151,97,91,97.8,188,73,24.8,2,1,False,2
+P43928024,18,male,Hispanic or Latino,70089,122,76,87,99.1,246,68,37.4,2,1,False,3

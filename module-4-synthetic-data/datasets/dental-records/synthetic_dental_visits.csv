@@ -1,0 +1,101 @@
+visit_id,patient_id,visit_date,provider_id,chief_complaint,num_teeth_issues,psr_code,bleeding_on_probing,oral_hygiene_index,num_treatments_planned,num_procedures_performed,num_images,next_appointment_scheduled
+V2746317214,P03356887,2025-03-03,D877572,Tooth pain,1,4,True,fair,0,3,1,True
+V8928378857,P39349723,2024-03-06,D969693,Broken tooth,2,1,False,excellent,1,3,1,True
+V1051454924,P62043516,2025-03-08,D497887,Lost filling,5,4,True,fair,2,1,1,True
+V4951406974,P21682745,2024-06-14,D665579,Routine checkup,4,0,False,good,0,2,1,False
+V2962958941,P95690392,2024-10-27,D426858,Lost filling,5,1,False,fair,4,3,2,False
+V0422701551,P54038914,2024-12-27,D863587,Cosmetic consultation,0,1,False,good,0,2,1,False
+V2363629220,P06789851,2024-06-04,D783823,Cosmetic consultation,0,0,False,good,0,2,1,False
+V6249213371,P56775104,2024-05-19,D830429,Lost filling,5,0,False,excellent,5,2,1,True
+V1699887271,P90152736,2025-02-05,D776856,Bleeding gums,2,4,True,excellent,1,2,1,True
+V0041531047,P10099060,2025-07-10,D824586,Broken tooth,0,2,True,good,0,3,0,True
+V9492206445,P33491315,2025-08-26,D799330,Sensitivity to cold,4,1,False,fair,1,2,1,False
+V3742303948,P29920293,2024-02-03,D124813,Tooth pain,3,0,False,fair,2,2,1,True
+V2476426798,P34188277,2023-12-15,D146542,Bleeding gums,0,4,True,fair,0,2,2,True
+V3300636586,P61124924,2024-03-05,D534572,Broken tooth,1,0,False,excellent,1,3,0,True
+V1960488640,P62363360,2024-06-14,D800005,Broken tooth,4,2,True,poor,2,3,2,True
+V3034047119,P08620651,2024-10-18,D535020,Sensitivity to cold,4,3,True,good,2,2,0,True
+V1335901991,P77669751,2025-01-24,D126925,Broken tooth,5,3,True,good,0,2,0,True
+V0074059254,P39491632,2024-10-21,D332360,Lost filling,1,4,True,excellent,0,1,2,True
+V6351029163,P45728777,2025-10-18,D293319,Sensitivity to cold,3,1,False,excellent,2,3,1,False
+V9901532742,P83352877,2024-03-25,D163156,Lost filling,0,1,False,good,0,3,1,True
+V1250949137,P31068215,2023-12-17,D402099,Sensitivity to cold,5,4,True,excellent,0,2,1,True
+V2362646961,P61045701,2025-01-21,D192337,Sensitivity to cold,2,1,False,fair,2,2,2,True
+V0521521079,P84560159,2025-04-08,D738448,Lost filling,1,0,False,good,1,1,1,True
+V2028168524,P61308843,2025-07-14,D678043,Bleeding gums,1,3,True,fair,0,1,0,True
+V4165932724,P10043278,2025-03-13,D592296,Sensitivity to cold,4,0,False,poor,1,1,2,True
+V5554972316,P50310320,2025-07-13,D551607,Tooth pain,4,0,False,poor,0,2,1,True
+V7925520027,P26738453,2024-08-02,D503380,Routine checkup,1,2,True,excellent,0,1,0,True
+V7495457336,P38412329,2025-04-18,D913423,Broken tooth,2,0,False,fair,0,3,1,True
+V5001680219,P64672521,2025-02-10,D945664,Lost filling,2,3,True,good,0,1,0,True
+V5228133487,P59686068,2024-12-03,D347582,Routine checkup,5,4,True,excellent,2,2,0,True
+V6019900274,P92086448,2024-07-25,D213206,Lost filling,3,4,True,excellent,1,1,1,True
+V6684109314,P15419646,2025-02-27,D899649,Broken tooth,1,4,True,fair,1,3,1,True
+V6193532616,P36663834,2024-07-03,D326040,Routine checkup,2,0,False,good,1,3,0,True
+V4328166991,P57801538,2025-07-30,D284229,Bleeding gums,4,3,True,fair,1,3,0,True
+V6783763791,P91420188,2024-02-20,D691912,Lost filling,4,0,False,excellent,1,3,1,True
+V4471158509,P76726462,2025-05-31,D783501,Sensitivity to cold,4,1,False,fair,2,2,1,True
+V5515369279,P97137887,2024-02-06,D992931,Broken tooth,1,2,True,fair,0,1,0,True
+V9138804614,P94332363,2024-01-08,D969226,Broken tooth,0,3,True,poor,0,2,1,True
+V8814045134,P64503786,2024-05-21,D489244,Routine checkup,5,4,True,poor,1,2,0,True
+V5545970957,P00209962,2024-12-13,D744674,Tooth pain,4,0,False,fair,2,3,0,True
+V0572989856,P47284778,2024-12-28,D672536,Cosmetic consultation,5,1,False,fair,4,2,0,True
+V5955593944,P25074183,2024-01-01,D620306,Bleeding gums,2,2,True,excellent,0,2,0,True
+V1920407277,P97551377,2024-03-20,D469685,Bleeding gums,2,1,False,poor,0,3,2,True
+V5892752605,P10319388,2025-07-22,D701800,Broken tooth,2,3,True,excellent,0,3,1,True
+V2758823241,P60394555,2024-01-13,D588461,Broken tooth,2,2,True,good,1,3,0,True
+V9127536900,P40644431,2024-06-11,D744274,Routine checkup,4,4,True,fair,2,2,0,True
+V6299922975,P41411603,2025-11-16,D621530,Routine checkup,3,0,False,poor,1,3,2,True
+V4610783751,P67680032,2024-05-25,D572230,Sensitivity to cold,4,3,True,poor,0,3,2,True
+V8857430688,P18533118,2025-05-11,D643878,Broken tooth,2,2,True,fair,1,3,1,True
+V6395219545,P64398126,2024-05-15,D465746,Cosmetic consultation,5,1,False,good,0,2,1,True
+V2280805847,P85623472,2025-10-17,D344146,Routine checkup,3,2,True,fair,2,3,1,True
+V5046864800,P23593961,2024-10-29,D138105,Cosmetic consultation,3,1,False,poor,2,3,1,True
+V9343679502,P85728325,2024-09-28,D525187,Broken tooth,2,0,False,fair,1,2,1,True
+V2975418440,P08338187,2025-08-10,D800224,Bleeding gums,2,2,True,fair,1,4,0,True
+V3545940091,P33214248,2024-04-08,D813390,Cosmetic consultation,0,4,True,excellent,0,3,0,True
+V3302709859,P86104028,2024-02-17,D864715,Bleeding gums,2,2,True,excellent,1,2,1,True
+V0986399652,P61824079,2025-07-04,D462974,Sensitivity to cold,1,0,False,good,1,2,1,True
+V2318250727,P07575791,2024-07-12,D246942,Sensitivity to cold,1,1,False,good,0,3,0,True
+V6682327734,P06292677,2024-02-20,D461145,Lost filling,3,1,False,poor,1,1,1,True
+V2777580510,P60369366,2024-11-25,D988283,Routine checkup,4,0,False,poor,3,3,1,True
+V2001472251,P96960709,2025-01-16,D592296,Tooth pain,2,4,True,poor,1,3,1,False
+V3907446849,P14363502,2024-06-21,D200992,Tooth pain,1,2,True,poor,1,2,2,False
+V3262396396,P12549426,2024-11-16,D524965,Bleeding gums,4,4,True,fair,0,2,0,True
+V6951902331,P33077930,2025-09-25,D847748,Routine checkup,2,0,False,excellent,0,1,1,True
+V0443639752,P12028438,2024-05-21,D471106,Routine checkup,4,1,False,good,0,4,1,True
+V2648572297,P61453149,2025-07-24,D212168,Sensitivity to cold,0,3,True,poor,0,2,1,True
+V7185384295,P18680306,2025-02-02,D764100,Tooth pain,2,4,True,poor,1,2,1,True
+V6533138438,P46748075,2025-09-01,D599292,Bleeding gums,5,1,False,poor,1,3,1,True
+V1670036983,P94588014,2025-05-13,D325230,Sensitivity to cold,5,2,True,fair,1,1,1,True
+V1345122543,P32020690,2025-08-12,D420214,Tooth pain,2,3,True,good,0,2,1,True
+V4668556449,P15755286,2025-04-11,D913308,Tooth pain,5,4,True,fair,1,2,1,False
+V8989974969,P61532018,2024-01-29,D765678,Lost filling,2,2,True,fair,0,2,1,True
+V0069927883,P21204189,2024-08-29,D562721,Routine checkup,3,2,True,good,0,2,0,True
+V0004665658,P63995914,2025-07-27,D181724,Broken tooth,1,0,False,poor,1,3,2,False
+V3755937286,P86110893,2025-07-16,D810029,Routine checkup,4,4,True,good,1,2,2,False
+V9820390307,P95647456,2024-10-10,D625387,Bleeding gums,5,0,False,poor,0,3,2,False
+V7390631635,P22409389,2025-08-02,D489933,Lost filling,2,2,True,excellent,0,3,1,True
+V9570924107,P68293321,2025-10-25,D102693,Cosmetic consultation,0,1,False,excellent,0,4,1,True
+V6749695578,P16025722,2024-01-20,D626428,Routine checkup,1,0,False,poor,1,1,1,True
+V5336857630,P49428850,2024-07-22,D720432,Cosmetic consultation,1,3,True,excellent,0,2,2,False
+V5311894155,P35029611,2025-01-21,D992247,Cosmetic consultation,3,3,True,good,0,2,1,True
+V0276905286,P86702894,2025-07-31,D564971,Routine checkup,2,3,True,excellent,1,3,1,True
+V4183211670,P13439804,2024-02-06,D359896,Tooth pain,2,4,True,fair,0,2,1,True
+V1362721799,P94916485,2023-12-30,D689275,Broken tooth,2,0,False,poor,0,1,2,True
+V4899025963,P10443031,2024-12-19,D349556,Sensitivity to cold,1,2,True,good,0,3,1,True
+V8094089210,P66180345,2024-12-15,D497108,Broken tooth,3,0,False,fair,1,3,0,False
+V8131344494,P94557014,2024-09-24,D132498,Lost filling,1,2,True,good,0,1,0,True
+V1020262124,P06661957,2024-05-03,D511987,Broken tooth,3,2,True,excellent,2,3,1,True
+V8098129450,P49580253,2024-09-09,D295646,Routine checkup,2,1,False,excellent,0,3,0,True
+V3786674546,P63922842,2025-09-20,D413369,Bleeding gums,5,2,True,fair,0,2,0,True
+V1802141794,P55625518,2025-07-11,D256911,Broken tooth,4,3,True,excellent,2,1,0,True
+V4576790021,P95236793,2024-10-22,D631413,Tooth pain,4,0,False,excellent,2,3,0,True
+V2958590551,P38261365,2024-11-09,D128783,Routine checkup,1,1,False,fair,0,2,0,True
+V2780439667,P80683907,2025-12-01,D939767,Tooth pain,2,1,False,poor,0,2,1,False
+V7900070154,P75357499,2024-04-10,D778787,Broken tooth,2,2,True,fair,1,2,1,False
+V6872090714,P88654880,2024-01-12,D435109,Tooth pain,5,2,True,good,2,2,0,False
+V8158681912,P87836732,2025-04-26,D193637,Sensitivity to cold,1,2,True,fair,0,3,1,True
+V3820055863,P67172937,2024-01-12,D225636,Bleeding gums,4,3,True,good,1,2,1,True
+V4869588540,P65790670,2025-05-31,D476701,Tooth pain,3,2,True,excellent,2,3,1,True
+V9472528522,P92038469,2025-11-30,D760929,Sensitivity to cold,3,0,False,poor,0,3,1,True

@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Patient Health Record Schema",
+  "description": "Schema for synthetic patient health records for AI training",
+  "type": "object",
+  "required": ["patient_id", "demographics", "health_metrics"],
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "Anonymized unique patient identifier",
+      "pattern": "^P[0-9]{8}$",
+      "example": "P00001234"
+    },
+    "demographics": {
+      "type": "object",
+      "required": ["age", "gender"],
+      "properties": {
+        "age": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120,
+          "description": "Patient age in years"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female", "other", "unknown"],
+          "description": "Patient gender"
+        },
+        "race_ethnicity": {
+          "type": "string",
+          "enum": [
+            "White",
+            "Black or African American",
+            "Asian",
+            "Native Hawaiian or Other Pacific Islander",
+            "American Indian or Alaska Native",
+            "Hispanic or Latino",
+            "Other",
+            "Unknown"
+          ]
+        },
+        "zip_code": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$",
+          "description": "5-digit ZIP code"
+        }
+      }
+    },
+    "health_metrics": {
+      "type": "object",
+      "properties": {
+        "vital_signs": {
+          "type": "object",
+          "properties": {
+            "systolic_bp": {
+              "type": "number",
+              "minimum": 60,
+              "maximum": 250,
+              "description": "Systolic blood pressure (mmHg)"
+            },
+            "diastolic_bp": {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 150,
+              "description": "Diastolic blood pressure (mmHg)"
+            },
+            "heart_rate": {
+              "type": "number",
+              "minimum": 30,
+              "maximum": 250,
+              "description": "Heart rate (bpm)"
+            },
+            "temperature": {
+              "type": "number",
+              "minimum": 95.0,
+              "maximum": 107.0,
+              "description": "Body temperature (°F)"
+            },
+            "weight": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 700,
+              "description": "Weight (lbs)"
+            },
+            "height": {
+              "type": "number",
+              "minimum": 20,
+              "maximum": 96,
+              "description": "Height (inches)"
+            }
+          }
+        },
+        "bmi": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 80,
+          "description": "Body Mass Index"
+        }
+      }
+    },
+    "diagnoses": {
+      "type": "array",
+      "description": "List of patient diagnoses",
+      "items": {
+        "type": "object",
+        "required": ["code", "description"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "ICD-10 diagnosis code",
+            "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,4})?$"
+          },
+          "description": {
+            "type": "string",
+            "description": "Diagnosis description"
+          },
+          "onset_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of diagnosis (ISO 8601)"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "resolved", "chronic"]
+          }
+        }
+      }
+    },
+    "medications": {
+      "type": "array",
+      "description": "Current medications",
+      "items": {
+        "type": "object",
+        "required": ["name", "dosage"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Medication name"
+          },
+          "dosage": {
+            "type": "string",
+            "description": "Dosage and frequency"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "allergies": {
+      "type": "array",
+      "description": "Known allergies",
+      "items": {
+        "type": "object",
+        "properties": {
+          "allergen": {
+            "type": "string",
+            "description": "Allergen name"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["mild", "moderate", "severe", "life-threatening"]
+          },
+          "reaction": {
+            "type": "string",
+            "description": "Type of allergic reaction"
+          }
+        }
+      }
+    },
+    "lab_results": {
+      "type": "array",
+      "description": "Laboratory test results",
+      "items": {
+        "type": "object",
+        "required": ["test_name", "value", "unit", "date"],
+        "properties": {
+          "test_name": {
+            "type": "string",
+            "description": "Name of the lab test"
+          },
+          "value": {
+            "type": "number",
+            "description": "Test result value"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of measurement"
+          },
+          "reference_range": {
+            "type": "string",
+            "description": "Normal reference range"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time of test"
+          },
+          "abnormal_flag": {
+            "type": "boolean",
+            "description": "Whether result is outside normal range"
+          }
+        }
+      }
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of last record update"
+    }
+  }
+}
