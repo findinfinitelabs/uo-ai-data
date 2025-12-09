@@ -9,6 +9,7 @@ Welcome to the AI Data Class repository! This educational resource is designed t
 This course provides a comprehensive, hands-on approach to understanding data in AI/ML contexts. Students will progress through four modules that build upon each other, starting from foundational concepts and advancing to practical synthetic data generation.
 
 ### Learning Objectives
+
 - Understand data requirements and specifications for AI projects
 - Learn healthcare data regulations and compliance (HIPAA, GDPR)
 - Apply ethical AI principles to data collection and model development
@@ -16,6 +17,7 @@ This course provides a comprehensive, hands-on approach to understanding data in
 - Implement privacy-preserving techniques for sensitive data
 
 ### Target Audience
+
 - Students learning AI/ML and data science
 - Healthcare informatics students
 - Data professionals entering healthcare AI
@@ -26,15 +28,18 @@ This course provides a comprehensive, hands-on approach to understanding data in
 The course is organized into four progressive modules:
 
 ### 📋 [Module 1: Data Specifications](module-1-specifications/)
+
 **Focus**: Defining data requirements and quality standards
 
 Learn to:
+
 - Create data requirement documents
 - Design data schemas for healthcare applications
 - Establish data quality validation rules
 - Document data dictionaries and lineage
 
 **Key Deliverables**:
+
 - Data requirements document template
 - JSON schema definitions for health and dental records
 - Data dictionary template
@@ -43,15 +48,18 @@ Learn to:
 ---
 
 ### ⚖️ [Module 2: Regulations and Compliance](module-2-regulations/)
+
 **Focus**: Healthcare data privacy and regulatory compliance
 
 Learn to:
+
 - Understand HIPAA, GDPR, and healthcare privacy laws
 - Implement de-identification protocols
 - Create data handling policies
 - Conduct privacy risk assessments
 
 **Key Deliverables**:
+
 - HIPAA compliance checklist
 - De-identification protocol (Safe Harbor method)
 - Data handling policy template
@@ -60,15 +68,18 @@ Learn to:
 ---
 
 ### 🤝 [Module 3: Ethical AI](module-3-ethical-ai/)
+
 **Focus**: Fairness, accountability, and transparency in AI
 
 Learn to:
+
 - Apply core ethical principles (beneficence, non-maleficence, autonomy, justice)
 - Identify and mitigate bias in datasets and models
 - Implement transparency and explainability
 - Respect patient rights in AI systems
 
 **Key Deliverables**:
+
 - Ethical AI framework document
 - Bias assessment checklist
 - Fairness evaluation tools
@@ -77,15 +88,18 @@ Learn to:
 ---
 
 ### 🔬 [Module 4: Synthetic Data Creation](module-4-synthetic-data/)
+
 **Focus**: Generating privacy-preserving synthetic datasets
 
 Learn to:
+
 - Understand synthetic data benefits and limitations
 - Generate realistic health and dental records
 - Validate synthetic data quality
 - Maintain statistical properties while ensuring privacy
 
 **Key Deliverables**:
+
 - Synthetic patient health dataset (100+ records)
 - Synthetic dental examination dataset (100+ records)
 - Python data generation scripts
@@ -96,6 +110,7 @@ Learn to:
 ## Getting Started
 
 ### Prerequisites
+
 - Basic understanding of data structures (JSON, CSV)
 - Python 3.7+ (for Module 4 synthetic data generation)
 - Text editor or IDE
@@ -104,6 +119,7 @@ Learn to:
 ### Quick Start
 
 1. **Clone this repository**:
+
    ```bash
    git clone https://github.com/findinfinitelabs/uo-ai-data.git
    cd uo-ai-data
@@ -116,6 +132,7 @@ Learn to:
    - Create synthetic data in Module 4
 
 3. **Generate synthetic data** (Module 4):
+
    ```bash
    cd module-4-synthetic-data
    python generators/generate_patient_data.py
@@ -124,7 +141,7 @@ Learn to:
 
 ## Repository Structure
 
-```
+```txt
 uo-ai-data/
 ├── README.md                          # This file
 │
@@ -165,18 +182,21 @@ uo-ai-data/
 ## Use Cases
 
 ### Educational Applications
+
 - Teaching healthcare data standards (HL7, FHIR, ICD-10, CDT)
 - Demonstrating AI/ML model training workflows
 - Practicing data quality assessment
 - Learning privacy-preserving techniques
 
 ### Research Applications
+
 - Developing and testing data pipelines
 - Prototyping AI models before accessing real data
 - Benchmarking algorithms on standardized datasets
 - Demonstrating compliance with IRB requirements
 
 ### Industry Applications
+
 - Training staff on data privacy and security
 - Developing data governance frameworks
 - Testing healthcare IT systems
@@ -195,22 +215,22 @@ uo-ai-data/
 
 **Recommended sequence for students**:
 
-1. **Week 1-2**: Module 1 - Data Specifications
+1. **Week 1**: Module 1 - Data Specifications
    - Study data requirements template
    - Review schema definitions
    - Create a data dictionary for a sample project
 
-2. **Week 3-4**: Module 2 - Regulations
+2. **Week 2**: Module 2 - Regulations
    - Review HIPAA compliance checklist
    - Practice de-identification protocol
    - Develop a data handling policy
 
-3. **Week 5-6**: Module 3 - Ethical AI
+3. **Week 3**: Module 3 - Ethical AI
    - Study ethical framework
    - Complete bias assessment exercises
    - Analyze fairness in sample datasets
 
-4. **Week 7-8**: Module 4 - Synthetic Data
+4. **Week 4**: Module 4 - Synthetic Data
    - Generate synthetic datasets
    - Validate data quality
    - Train a simple AI model
@@ -219,6 +239,7 @@ uo-ai-data/
 ## Data Privacy and Ethics
 
 ### Important Notes
+
 - **All data in this repository is synthetic and fictional**
 - No real patient data is included or should be used
 - Data is designed for educational purposes only
@@ -226,7 +247,9 @@ uo-ai-data/
 - Safe to share without privacy concerns
 
 ### Responsible Use
+
 Students and educators should:
+
 - ✅ Use for learning and teaching
 - ✅ Experiment with data processing techniques
 - ✅ Share knowledge and insights
@@ -238,6 +261,7 @@ Students and educators should:
 ## Contributing
 
 This is an educational resource. Contributions that improve learning outcomes are welcome:
+
 - Additional templates or examples
 - Improved documentation
 - Additional synthetic data generators
@@ -246,21 +270,25 @@ This is an educational resource. Contributions that improve learning outcomes ar
 ## Resources
 
 ### Healthcare Data Standards
+
 - [ICD-10 Codes](https://www.icd10data.com/)
 - [CDT Dental Codes](https://www.ada.org/en/publications/cdt)
 - [HL7 FHIR](https://www.hl7.org/fhir/)
 
 ### Regulations and Compliance
+
 - [HIPAA Privacy Rule](https://www.hhs.gov/hipaa/for-professionals/privacy/index.html)
 - [HIPAA Security Rule](https://www.hhs.gov/hipaa/for-professionals/security/index.html)
 - [GDPR Overview](https://gdpr.eu/)
 
 ### AI Ethics
+
 - [WHO Ethics and Governance of AI for Health](https://www.who.int/publications/i/item/9789240029200)
 - [IEEE Ethically Aligned Design](https://ethicsinaction.ieee.org/)
 - [EU AI Ethics Guidelines](https://digital-strategy.ec.europa.eu/en/library/ethics-guidelines-trustworthy-ai)
 
 ### Synthetic Data
+
 - [Synthetic Data Vault](https://sdv.dev/)
 - [NIST Privacy Framework](https://www.nist.gov/privacy-framework)
 
@@ -271,6 +299,7 @@ This educational resource is provided for learning purposes. Please check the re
 ## Support and Questions
 
 For questions about using this educational resource:
+
 1. Review the module README files
 2. Check the provided templates and examples
 3. Consult the resources section above
@@ -278,6 +307,7 @@ For questions about using this educational resource:
 ## Acknowledgments
 
 This course structure draws from established best practices in:
+
 - Healthcare data management
 - AI/ML model development
 - Data privacy and security
@@ -286,7 +316,7 @@ This course structure draws from established best practices in:
 ---
 
 **Version**: 1.0  
-**Last Updated**: December 2024  
+**Last Updated**: December 2025  
 **Maintained by**: FindInfinite Labs
 
 *All data in this repository is synthetic and for educational purposes only.*
