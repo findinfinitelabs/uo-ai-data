@@ -95,8 +95,11 @@ for i, patient in enumerate(patients):
 
 ### Count Statistics
 ```bash
-# Count total records
+# Count total records (includes header line, so subtract 1 for actual record count)
 wc -l ../datasets/patient-health/synthetic_patients.csv
+
+# Count records without header
+tail -n +2 ../datasets/patient-health/synthetic_patients.csv | wc -l
 
 # View first few records
 head -10 ../datasets/patient-health/synthetic_patients.csv

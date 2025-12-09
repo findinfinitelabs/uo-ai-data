@@ -3,6 +3,21 @@ Simple Synthetic Patient Health Data Generator
 
 This script generates synthetic patient health records for educational purposes.
 All data is completely fictional and does not represent real patients.
+
+Dependencies:
+    - Python 3.7+
+    - Standard library only (random, json, datetime, csv)
+
+Output Formats:
+    - JSON: Full hierarchical patient records
+    - CSV: Flattened summary statistics
+
+Usage:
+    python generate_patient_data.py
+    
+    Output files will be created in datasets/patient-health/:
+    - synthetic_patients.json
+    - synthetic_patients.csv
 """
 
 import random
@@ -15,6 +30,8 @@ random.seed(42)
 
 # Configuration
 NUM_PATIENTS = 100
+MIN_AGE = 18
+MAX_AGE = 85
 
 # Demographics data
 GENDERS = ['male', 'female', 'other', 'unknown']
@@ -72,7 +89,7 @@ def generate_patient_id(index):
 
 def generate_demographics(index):
     """Generate patient demographics"""
-    age = random.randint(18, 85)
+    age = random.randint(MIN_AGE, MAX_AGE)
     return {
         'age': age,
         'gender': random.choice(GENDERS),

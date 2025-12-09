@@ -243,8 +243,18 @@ python generators/generate_patient_data.py > generation.log 2>&1
 
 ### Combining Datasets
 ```python
-# Create combined health + dental records
-# See generators/combine_datasets.py for examples
+# Example: Create combined health + dental records
+import json
+
+# Load both datasets
+with open('datasets/patient-health/synthetic_patients.json', 'r') as f:
+    patients = json.load(f)
+    
+with open('datasets/dental-records/synthetic_dental_visits.json', 'r') as f:
+    dental_visits = json.load(f)
+
+# Students can create custom scripts to link records by patient_id
+# and create integrated health + dental profiles
 ```
 
 ### Custom Data Formats
