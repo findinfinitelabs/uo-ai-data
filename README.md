@@ -1,5 +1,11 @@
 # UO AI Data Class
 
+[![Build](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml/badge.svg)](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml)
+[![Lint](https://img.shields.io/badge/lint-ESLint%20%7C%20Prettier%20%7C%20markdownlint-blue)](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml)
+[![Security](https://img.shields.io/badge/security-npm%20audit%20%7C%20dependency--review-green)](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/python-3.11-blue)](https://python.org/)
+
 ## Data Creation and Management for AI Training
 
 Welcome to the AI Data Class repository! This educational resource is designed to teach students how to create, manage, and utilize data for training artificial intelligence systems, with a focus on healthcare applications.
