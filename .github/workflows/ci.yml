@@ -1,4 +1,4 @@
-name: ci
+name: Build, Lint & Format
 
 on:
   push:
@@ -75,6 +75,9 @@ jobs:
       - name: Format React code
         working-directory: react-guide
         run: npm run format
+      - name: Format Markdown
+        working-directory: react-guide
+        run: npm run format:md
       - name: Format Python code
         run: black module-4-synthetic-data/generators/*.py
       - name: Commit formatting changes
