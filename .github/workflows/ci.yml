@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+    branches: [main, feature/**]
+  pull_request:
+    branches: [main]
+
+jobs:
+  react-build:
+    name: "react-guide: npm run build"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-guide
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: react-guide/package-lock.json
+      - name: Install deps
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+  react-lint:
+    name: "react-guide: npm run lint"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-guide
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: react-guide/package-lock.json
+      - name: Install deps
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  python-syntax:
+    name: "python: syntax check generators"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax check generators
+        run: python -m py_compile module-4-synthetic-data/generators/*.py

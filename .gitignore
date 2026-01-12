@@ -45,6 +45,15 @@ Thumbs.db
 *.log
 /tmp/
 
+# Node/React
+node_modules/
+react-guide/node_modules/
+react-guide/dist/
+react-guide/.vite/
+.npmrc
+.env.local
+.env
+
 # Don't ignore generated synthetic data (we want to include it)
 !module-4-synthetic-data/datasets/**/*.json
 !module-4-synthetic-data/datasets/**/*.csv
