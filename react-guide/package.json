@@ -1,0 +1,35 @@
+{
+  "name": "uo-ai-course-guide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "lint:md": "markdownlint-cli2 \"../**/*.md\" \"!../react-guide/node_modules/**\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\"",
+    "format:md": "markdownlint-cli2 --fix \"../**/*.md\" \"!../react-guide/node_modules/**\""
+  },
+  "dependencies": {
+    "@mantine/core": "^7.12.2",
+    "@mantine/hooks": "^7.12.2",
+    "@tabler/icons-react": "^3.20.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.12.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.15.0",
+    "markdownlint-cli2": "^0.13.0",
+    "prettier": "^3.3.3",
+    "vite": "^5.4.0"
+  }
+}
