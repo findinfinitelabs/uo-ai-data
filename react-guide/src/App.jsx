@@ -9,6 +9,7 @@ import {
   Box,
   Divider,
   Container,
+  Collapse,
 } from '@mantine/core';
 import {
   IconFileText,
@@ -17,6 +18,9 @@ import {
   IconScale,
   IconDatabase,
   IconHome,
+  IconBulb,
+  IconCode,
+  IconWand,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
@@ -24,6 +28,13 @@ import ModulePage from './pages/ModulePage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import uoLogo from './static/uo-logo.svg';
 import './index.css';
+
+// Module 1 sub-navigation items
+const module1SubPages = [
+  { id: 'why-data-matters', title: 'Why Data Matters', icon: IconBulb },
+  { id: 'creating-specs', title: 'Creating Specs', icon: IconCode },
+  { id: 'prompt-to-spec', title: 'Prompt to Spec', icon: IconWand },
+];
 
 const moduleIcons = {
   'module-1': IconFileText,
@@ -65,6 +76,44 @@ function AppLayout() {
         {modules.map((mod) => {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
+          
+          // Special handling for Module 1 with sub-navigation
+          if (mod.id === 'module-1') {
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={mod.title}
+                  component={Link}
+                  to={`/${mod.id}`}
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive}
+                />
+                <Collapse in={isActive}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {module1SubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/module-1/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/module-1/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+          
           return (
             <NavLink
               key={mod.id}
