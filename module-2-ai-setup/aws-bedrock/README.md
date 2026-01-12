@@ -45,7 +45,7 @@ Before using models, you need to request access:
 Explain what RAG (Retrieval-Augmented Generation) is in simple terms.
 ```
 
-4. Click **Run** to see the response
+1. Click **Run** to see the response
 
 ## Step 5: Set Up API Access (Python)
 

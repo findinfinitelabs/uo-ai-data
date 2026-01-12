@@ -1,0 +1,62 @@
+/* DataSpecs module styles */
+
+/* Clickable card styles */
+.clickableCard {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickableCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--mantine-shadow-md);
+}
+
+/* Highlight container for best practices */
+.highlightContainer {
+  border-color: var(--mantine-color-green-4);
+}
+
+/* Code highlight line */
+.highlightLine {
+  white-space: nowrap;
+}
+
+/* External link icon alignment */
+.externalLinkIcon {
+  vertical-align: middle;
+}
+
+/* GPT gradient card */
+.gptGradientCard {
+  background: linear-gradient(135deg, rgba(64, 192, 87, 0.05) 0%, rgba(34, 139, 230, 0.05) 100%);
+}
+
+/* GPT launch button */
+.gptLaunchButton {
+  transition: transform 0.2s ease;
+}
+
+.gptLaunchButton:hover {
+  transform: scale(1.02);
+}
+
+/* Section title styling */
+.sectionTitle {
+  border-left: 4px solid var(--mantine-color-green-6);
+  padding-left: var(--mantine-spacing-md);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, rgba(64, 192, 87, 0.08) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+/* Module card styling */
+.moduleCard {
+  transition: all 0.2s ease;
+}
+
+.moduleCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mantine-shadow-lg);
+}
