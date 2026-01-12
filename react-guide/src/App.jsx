@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 import {
   MantineProvider,
   AppShell,
@@ -25,7 +31,11 @@ import {
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
 import ModulePage from './pages/ModulePage';
+import LoginPage from './pages/LoginPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import UserMenu from './components/UserMenu';
 import uoLogo from './static/uo-logo.svg';
 import './index.css';
 
@@ -50,14 +60,17 @@ function AppLayout() {
   return (
     <AppShell padding="md" navbar={{ width: 280, breakpoint: 'sm' }} footer={{ height: 80 }}>
       <AppShell.Navbar p="md" className="app-navbar">
-        <Box mb="lg">
-          <Text size="lg" fw={700} c="white" lh={1.2}>
-            University of Oregon
-          </Text>
-          <Text size="sm" c="yellow" lh={1.2}>
-            Lundquist College of Business
-          </Text>
-        </Box>
+        <Group justify="space-between" align="flex-start" mb="lg">
+          <Box>
+            <Text size="lg" fw={700} c="white" lh={1.2}>
+              University of Oregon
+            </Text>
+            <Text size="sm" c="yellow" lh={1.2}>
+              Lundquist College of Business
+            </Text>
+          </Box>
+          <UserMenu />
+        </Group>
         <Divider color="rgba(254, 225, 26, 0.3)" mb="md" />
 
         <NavLink
@@ -130,10 +143,38 @@ function AppLayout() {
       </AppShell.Navbar>
       <AppShell.Main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/module-1" element={<DataSpecsPage />} />
-          <Route path="/module-1/:subPage" element={<DataSpecsPage />} />
-          <Route path="/:moduleId" element={<ModulePage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-1"
+            element={
+              <ProtectedRoute>
+                <DataSpecsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-1/:subPage"
+            element={
+              <ProtectedRoute>
+                <DataSpecsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/:moduleId"
+            element={
+              <ProtectedRoute>
+                <ModulePage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AppShell.Main>
       <AppShell.Footer p="md" className="app-footer">
@@ -189,9 +230,14 @@ export default function App() {
         },
       }}
     >
-      <BrowserRouter>
-        <AppLayout />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/*" element={<AppLayout />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </MantineProvider>
   );
 }
