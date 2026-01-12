@@ -47,6 +47,43 @@ jobs:
       - name: Lint
         run: npm run lint
 
+  auto-format:
+    name: "Auto-format code"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Node deps
+        working-directory: react-guide
+        run: npm ci
+      - name: Install Black
+        run: pip install black
+      - name: Format React code
+        working-directory: react-guide
+        run: npm run format
+      - name: Format Python code
+        run: black module-4-synthetic-data/generators/*.py
+      - name: Commit formatting changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-format code [skip ci]"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+
   python-syntax:
     name: "python: syntax check generators"
     runs-on: ubuntu-latest
