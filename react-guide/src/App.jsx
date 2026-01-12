@@ -5,30 +5,36 @@ import {
   Container,
   Title,
   Text,
-  SimpleGrid,
   Paper,
   List,
   ThemeIcon,
   Badge,
+  NavLink,
+  Group,
 } from '@mantine/core';
-import { IconCircleCheck } from '@tabler/icons-react';
-import { ModuleCard } from './components/ModuleCard';
+import {
+  IconCircleCheck,
+  IconFileText,
+  IconShieldCheck,
+  IconScale,
+  IconDatabase,
+} from '@tabler/icons-react';
 import { modules } from './data/modules';
 import './index.css';
 
 function Hero() {
   return (
     <Paper shadow="md" radius="lg" p="lg" className="hero">
-      <Badge color="blue" variant="light" size="lg" mb="sm">
+      <Badge color="green" variant="filled" size="lg" mb="sm" style={{ color: '#FEE11A' }}>
         UO AI Data Class
       </Badge>
-      <Title order={1} mb="xs">
+      <Title order={1} mb="xs" style={{ color: '#007030' }}>
         Learn how data powers AI
       </Title>
-      <Text size="lg" c="dimmed" mb="md">
+      <Text size="lg" mb="md" style={{ color: '#004F6E' }}>
         Start with solid specs, respect privacy, build ethically, and practice with synthetic data.
       </Text>
-      <Text size="sm" c="dimmed">
+      <Text size="sm" style={{ color: '#104735' }}>
         Quick analogy: the model is a chef; your prompt is the ingredient list. RAG is handing the
         chef a mini cookbook from your docs. Fine-tuning teaches the chef new recipes using your
         examples.
@@ -40,7 +46,7 @@ function Hero() {
 function Primer() {
   return (
     <Paper shadow="sm" radius="md" p="lg" mb="lg">
-      <Title order={3} mb="sm">
+      <Title order={3} mb="sm" style={{ color: '#007030' }}>
         AI basics we use
       </Title>
       <List
@@ -48,7 +54,7 @@ function Primer() {
         size="sm"
         center
         icon={
-          <ThemeIcon color="blue" size={20} radius="xl">
+          <ThemeIcon color="green" size={20} radius="xl">
             <IconCircleCheck size={14} />
           </ThemeIcon>
         }
@@ -74,7 +80,7 @@ function Primer() {
 function Models() {
   return (
     <Paper shadow="sm" radius="md" p="lg" mb="lg">
-      <Title order={3} mb="sm">
+      <Title order={3} mb="sm" style={{ color: '#007030' }}>
         Models to try (Mac-friendly & downloadable)
       </Title>
       <List
@@ -82,7 +88,7 @@ function Models() {
         size="sm"
         center
         icon={
-          <ThemeIcon color="green" size={20} radius="xl">
+          <ThemeIcon style={{ backgroundColor: '#489D46' }} size={20} radius="xl">
             <IconCircleCheck size={14} />
           </ThemeIcon>
         }
@@ -105,20 +111,87 @@ function Models() {
   );
 }
 
+const moduleIcons = {
+  'module-1': IconFileText,
+  'module-2': IconShieldCheck,
+  'module-3': IconScale,
+  'module-4': IconDatabase,
+};
+
 export default function App() {
   return (
-    <MantineProvider defaultColorScheme="light">
-      <AppShell padding="lg">
+    <MantineProvider
+      theme={{
+        primaryColor: 'green',
+        colors: {
+          green: [
+            '#e6f4ed',
+            '#cce9db',
+            '#99d3b7',
+            '#66bd93',
+            '#33a76f',
+            '#007030',
+            '#005a26',
+            '#00431d',
+            '#002d13',
+            '#00160a',
+          ],
+          yellow: [
+            '#fffce6',
+            '#fff9cc',
+            '#fff399',
+            '#ffed66',
+            '#fee733',
+            '#FEE11A',
+            '#cbb415',
+            '#988710',
+            '#655a0a',
+            '#322d05',
+          ],
+        },
+      }}
+    >
+      <AppShell padding="md" navbar={{ width: 280, breakpoint: 'sm' }}>
+        <AppShell.Navbar p="md" style={{ backgroundColor: '#007030' }}>
+          <Group mb="lg">
+            <Badge color="yellow" variant="filled" size="lg" style={{ color: '#007030' }}>
+              UO AI Data
+            </Badge>
+          </Group>
+          <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs">
+            Course Modules
+          </Text>
+          {modules.map((mod) => {
+            const Icon = moduleIcons[mod.id];
+            return (
+              <NavLink
+                key={mod.id}
+                label={mod.title}
+                component="a"
+                href={mod.href}
+                target="_blank"
+                leftSection={<Icon size={20} stroke={1.5} />}
+                mb="xs"
+                style={{
+                  color: '#FEE11A',
+                  borderRadius: 8,
+                }}
+                styles={{
+                  root: {
+                    '&:hover': {
+                      backgroundColor: 'rgba(254, 225, 26, 0.1)',
+                    },
+                  },
+                }}
+              />
+            );
+          })}
+        </AppShell.Navbar>
         <AppShell.Main>
           <Container size="lg">
             <Hero />
             <Primer />
             <Models />
-            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
-              {modules.map((mod) => (
-                <ModuleCard key={mod.id} {...mod} />
-              ))}
-            </SimpleGrid>
           </Container>
         </AppShell.Main>
       </AppShell>
