@@ -11,7 +11,7 @@ jobs:
   # Stage 1: Build
   # ═══════════════════════════════════════════════════════════════════════════
   react-build:
-    name: "1️⃣ Build React App"
+    name: "Build React App"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,7 +34,7 @@ jobs:
   # Stage 2: Lint (depends on build)
   # ═══════════════════════════════════════════════════════════════════════════
   react-lint:
-    name: "2️⃣ Lint React Code"
+    name: "Lint React Code"
     needs: react-build
     runs-on: ubuntu-latest
     defaults:
@@ -57,7 +57,7 @@ jobs:
         run: npm run lint:md
 
   python-syntax:
-    name: "2️⃣ Lint Python Syntax"
+    name: "Lint Python Syntax"
     needs: react-build
     runs-on: ubuntu-latest
     steps:
@@ -74,7 +74,7 @@ jobs:
   # Stage 3: Security (depends on lint)
   # ═══════════════════════════════════════════════════════════════════════════
   security-audit:
-    name: "3️⃣ Security Audit"
+    name: "Security Audit"
     needs: [react-lint, python-syntax]
     runs-on: ubuntu-latest
     steps:
@@ -101,7 +101,7 @@ jobs:
           echo "::endgroup::"
 
   dependency-review:
-    name: "3️⃣ Dependency Review"
+    name: "Dependency Review"
     needs: [react-lint, python-syntax]
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -119,7 +119,7 @@ jobs:
   # Auto-format (only on feature branches)
   # ═══════════════════════════════════════════════════════════════════════════
   auto-format:
-    name: "🔧 Auto-format code"
+    name: "Auto-format code"
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref != 'refs/heads/main'
     permissions:
