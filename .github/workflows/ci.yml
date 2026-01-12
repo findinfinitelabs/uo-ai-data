@@ -1,4 +1,4 @@
-name: Build, Lint & Format
+name: Build, Lint & Security
 
 on:
   push:
@@ -7,8 +7,11 @@ on:
     branches: [main]
 
 jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Stage 1: Build
+  # ═══════════════════════════════════════════════════════════════════════════
   react-build:
-    name: "react-guide: npm run build"
+    name: "1️⃣ Build React App"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -27,8 +30,12 @@ jobs:
       - name: Build
         run: npm run build
 
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Stage 2: Lint (depends on build)
+  # ═══════════════════════════════════════════════════════════════════════════
   react-lint:
-    name: "react-guide: npm run lint"
+    name: "2️⃣ Lint React Code"
+    needs: react-build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,11 +51,73 @@ jobs:
           cache-dependency-path: react-guide/package-lock.json
       - name: Install deps
         run: npm ci
-      - name: Lint
+      - name: ESLint
         run: npm run lint
+      - name: Markdown lint
+        run: npm run lint:md
 
+  python-syntax:
+    name: "2️⃣ Lint Python Syntax"
+    needs: react-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax check generators
+        run: python -m py_compile module-4-synthetic-data/generators/*.py
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Stage 3: Security (depends on lint)
+  # ═══════════════════════════════════════════════════════════════════════════
+  security-audit:
+    name: "3️⃣ Security Audit"
+    needs: [react-lint, python-syntax]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: react-guide/package-lock.json
+      - name: Install deps
+        working-directory: react-guide
+        run: npm ci
+      - name: NPM Audit (high/critical)
+        working-directory: react-guide
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      - name: Check for known vulnerabilities
+        working-directory: react-guide
+        run: |
+          echo "::group::Dependency vulnerabilities"
+          npm audit --json | jq -r '.vulnerabilities | to_entries[] | "\(.key): \(.value.severity)"' || echo "No vulnerabilities found"
+          echo "::endgroup::"
+
+  dependency-review:
+    name: "3️⃣ Dependency Review"
+    needs: [react-lint, python-syntax]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Auto-format (only on feature branches)
+  # ═══════════════════════════════════════════════════════════════════════════
   auto-format:
-    name: "Auto-format code"
+    name: "🔧 Auto-format code"
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref != 'refs/heads/main'
     permissions:
@@ -86,16 +155,3 @@ jobs:
           commit_message: "chore: auto-format code [skip ci]"
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
-
-  python-syntax:
-    name: "python: syntax check generators"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Syntax check generators
-        run: python -m py_compile module-4-synthetic-data/generators/*.py
