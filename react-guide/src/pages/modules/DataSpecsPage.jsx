@@ -23,6 +23,7 @@ import {
   IconBulb,
   IconDatabase,
   IconWand,
+  IconTrophy,
 } from '@tabler/icons-react';
 
 // Import content components from the data-specs module
@@ -30,6 +31,7 @@ import {
   WhyDataMattersContent,
   CreatingSpecsContent,
   PromptToSpecContent,
+  DataSpecsQuiz,
   styles,
 } from './data-specs';
 
@@ -53,9 +55,15 @@ const subPages = {
     icon: IconWand,
     content: <PromptToSpecContent />,
   },
+  'quiz': {
+    title: 'Data Specs Challenge',
+    subtitle: 'Test your knowledge with AI-graded questions',
+    icon: IconTrophy,
+    content: <DataSpecsQuiz />,
+  },
 };
 
-const subPageOrder = ['why-data-matters', 'creating-specs', 'prompt-to-spec'];
+const subPageOrder = ['why-data-matters', 'creating-specs', 'prompt-to-spec', 'quiz'];
 
 export default function DataSpecsPage() {
   const { subPage } = useParams();
