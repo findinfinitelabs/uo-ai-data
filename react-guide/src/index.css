@@ -1,10 +1,122 @@
+/* UO Brand Colors */
+:root {
+  --uo-green: #007030;
+  --uo-yellow: #fee11a;
+  --uo-dark-blue: #004f6e;
+  --uo-legacy-green: #104735;
+  --uo-accent-green: #489d46;
+}
+
 body {
   margin: 0;
   background: #f8f9fa;
 }
 
+/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #fee11a 40%, #007030 100%);
+  background: #f5f5f5;
   border: none;
   box-shadow: 0 4px 20px rgba(0, 112, 48, 0.15);
+}
+
+.hero-badge {
+  color: var(--uo-yellow);
+}
+
+.hero-title {
+  color: var(--uo-green);
+}
+
+.hero-subtitle {
+  color: var(--uo-dark-blue);
+}
+
+.hero-analogy {
+  color: var(--uo-legacy-green);
+}
+
+/* Section Titles */
+.section-title {
+  color: var(--uo-green);
+  padding-top: 1.5rem;
+}
+
+/* Model List Icon */
+.model-icon {
+  background-color: var(--uo-accent-green);
+}
+
+/* Navbar */
+.app-navbar,
+.app-navbar.mantine-AppShell-navbar {
+  background-color: var(--uo-green) !important;
+}
+
+/* NavLink */
+.nav-link {
+  color: var(--uo-yellow) !important;
+  border-radius: 8px;
+  background-color: transparent !important;
+}
+
+.nav-link:hover {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+.nav-link:hover .mantine-NavLink-label,
+.nav-link:hover svg {
+  color: #ffffff !important;
+}
+
+/* Footer */
+.app-footer,
+.app-footer.mantine-AppShell-footer {
+  background-color: var(--uo-green) !important;
+}
+
+.footer-logo {
+  height: 40px;
+  width: auto;
+}
+
+/* AI Basics Cards */
+.ai-basics-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 200px;
+}
+
+.ai-basics-card-summary {
+  flex: 1;
+}
+
+/* Model Cards */
+.model-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 120px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.model-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 112, 48, 0.15);
+}
+
+.model-card-desc {
+  flex: 1;
+}
+
+/* GPT Gradient Card */
+.gpt-gradient-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+/* Flex Container Box */
+.flex-container-box {
+  flex: 1;
+  min-width: 280px;
 }
