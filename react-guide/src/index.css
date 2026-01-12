@@ -4,7 +4,7 @@ body {
 }
 
 .hero {
-  background: linear-gradient(135deg, #FEE11A 40%, #007030 100%);
+  background: linear-gradient(135deg, #fee11a 40%, #007030 100%);
   border: none;
   box-shadow: 0 4px 20px rgba(0, 112, 48, 0.15);
 }
