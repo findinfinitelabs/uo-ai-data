@@ -1,6 +1,7 @@
 # Data Dictionary Template
 
 ## Dataset: [Dataset Name]
+
 **Version**: [Version Number]  
 **Last Updated**: [Date]  
 **Owner**: [Data Owner Name]
@@ -8,6 +9,7 @@
 ---
 
 ## Overview
+
 Brief description of the dataset and its purpose.
 
 ---
@@ -40,7 +42,7 @@ Brief description of the dataset and its purpose.
 
 | Field Name | Data Type | Length | Required | Description | Valid Values | Example |
 |------------|-----------|--------|----------|-------------|--------------|---------|
-| code | String | - | Yes | ICD-10 diagnosis code | Pattern: [A-Z][0-9]{2}(\\.[0-9]{1,4})? | E11.9 |
+| code | String | - | Yes | ICD-10 diagnosis code | Pattern: `[A-Z][0-9]{2}(\.[0-9]{1,4})?` | E11.9 |
 | description | String | - | Yes | Diagnosis description | Free text | Type 2 diabetes mellitus |
 | onset_date | Date | - | No | Date of diagnosis | ISO 8601 format | 2023-03-15 |
 | status | String | - | No | Diagnosis status | active, resolved, chronic | active |
@@ -70,6 +72,7 @@ Brief description of the dataset and its purpose.
 ## Data Quality Rules
 
 ### Validation Rules
+
 1. **Patient ID**: Must be unique across the dataset
 2. **Age**: Must be a positive integer between 0 and 120
 3. **Blood Pressure**: Systolic must be greater than diastolic
@@ -78,11 +81,13 @@ Brief description of the dataset and its purpose.
 6. **ICD-10 Codes**: Must follow standard ICD-10 format
 
 ### Completeness Requirements
+
 - **Critical Fields** (100% required): patient_id, age, gender
 - **Important Fields** (95% recommended): vital signs for health monitoring
 - **Optional Fields**: race_ethnicity, specific lab tests based on patient condition
 
 ### Consistency Checks
+
 - Gender values must be from the controlled vocabulary
 - All diagnosis codes must be valid ICD-10 codes
 - Medication names should use generic names when possible
@@ -91,6 +96,7 @@ Brief description of the dataset and its purpose.
 ---
 
 ## Data Lineage
+
 - **Source System**: [EHR System Name]
 - **Extraction Method**: [API/Batch Export/Manual]
 - **Transformation Applied**: [De-identification, normalization, etc.]
@@ -108,6 +114,7 @@ Brief description of the dataset and its purpose.
 ---
 
 ## Notes
+
 - This dataset contains synthetic data for educational purposes only
 - All patient identifiers are anonymized
 - Data complies with HIPAA Safe Harbor method for de-identification

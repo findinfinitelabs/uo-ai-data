@@ -3,10 +3,13 @@
 ## 1. Purpose and Scope
 
 ### 1.1 Purpose
+
 This policy establishes requirements for the secure handling of healthcare data throughout its lifecycle, from collection to disposal, ensuring compliance with HIPAA, HITECH, and other applicable regulations.
 
 ### 1.2 Scope
+
 This policy applies to:
+
 - All employees, contractors, and business associates
 - All Protected Health Information (PHI) in any format
 - All systems and applications that store, process, or transmit PHI
@@ -15,24 +18,28 @@ This policy applies to:
 ## 2. Roles and Responsibilities
 
 ### 2.1 Privacy Officer
+
 - Overall responsibility for privacy compliance
 - Review and approval of data access requests
 - Incident response coordination
 - Policy maintenance and updates
 
 ### 2.2 Security Officer
+
 - Implementation of technical safeguards
 - Security risk assessments
 - Access control management
 - Security incident response
 
 ### 2.3 Data Stewards
+
 - Data quality and integrity
 - Metadata management
 - Data lifecycle management
 - User support and training
 
 ### 2.4 Data Users
+
 - Compliance with data handling procedures
 - Reporting security incidents
 - Completing required training
@@ -43,30 +50,36 @@ This policy applies to:
 ### 3.1 Classification Levels
 
 #### Level 1: Public
+
 - No identifiable patient information
 - Aggregate statistics
 - Published research findings
 **Handling**: No special restrictions
 
 #### Level 2: Internal Use Only
+
 - De-identified data
 - Synthetic data for training
 - Research datasets without PHI
 **Handling**: Internal access controls, encryption in transit
 
 #### Level 3: Confidential
+
 - Limited datasets with some identifiers removed
 - Research data with partial de-identification
 **Handling**: Access controls, encryption at rest and in transit, audit logging
 
 #### Level 4: Restricted (PHI)
+
 - Protected Health Information
 - Identified patient records
 - Any data subject to HIPAA
 **Handling**: Strict access controls, encryption, comprehensive audit logging, special approval required
 
 ### 3.2 Classification Marking
+
 All datasets must be clearly marked with their classification level in:
+
 - File names or metadata
 - Documentation
 - System labels
@@ -75,18 +88,21 @@ All datasets must be clearly marked with their classification level in:
 ## 4. Data Collection
 
 ### 4.1 Collection Principles
+
 - Collect only data necessary for specified purpose
 - Obtain appropriate consent or authorization
 - Document legal basis for collection
 - Ensure data quality at point of collection
 
 ### 4.2 Collection Methods
+
 - Direct from patients (consent required)
 - From healthcare providers (authorization required)
 - From existing databases (data use agreement required)
 - Generated synthetically (document methodology)
 
 ### 4.3 Data Quality Requirements
+
 - Verify accuracy at collection
 - Implement validation rules
 - Document data source and lineage
@@ -97,18 +113,21 @@ All datasets must be clearly marked with their classification level in:
 ### 5.1 Storage Requirements
 
 #### Physical Storage
+
 - Store in access-controlled facilities
 - Implement environmental controls
 - Maintain physical security logs
 - Use locked cabinets for physical media
 
 #### Electronic Storage
+
 - Encrypt all PHI at rest (AES-256 or stronger)
 - Use approved storage systems only
 - Implement redundancy and backup
 - Segregate production and development environments
 
 ### 5.2 Backup and Recovery
+
 - Daily incremental backups
 - Weekly full backups
 - Monthly archive backups
@@ -117,6 +136,7 @@ All datasets must be clearly marked with their classification level in:
 - Secure offsite backup storage
 
 ### 5.3 Retention Periods
+
 - Active research data: Duration of project
 - Completed research data: 7 years post-completion
 - AI training data: 7 years or duration of model use
@@ -126,12 +146,14 @@ All datasets must be clearly marked with their classification level in:
 ## 6. Data Access
 
 ### 6.1 Access Control Principles
+
 - Least privilege access
 - Role-based access control (RBAC)
 - Regular access reviews
 - Automatic account expiration
 
 ### 6.2 Access Request Process
+
 1. Submit formal access request with justification
 2. Manager approval
 3. Privacy Officer review (for PHI)
@@ -140,6 +162,7 @@ All datasets must be clearly marked with their classification level in:
 6. Initial and ongoing training requirement
 
 ### 6.3 Authentication Requirements
+
 - Unique user IDs (no shared accounts)
 - Complex passwords (12+ characters, mixed case, numbers, symbols)
 - Multi-factor authentication for PHI access
@@ -147,6 +170,7 @@ All datasets must be clearly marked with their classification level in:
 - Account lockout after 5 failed login attempts
 
 ### 6.4 Authorization Levels
+
 - **Read Only**: View data, generate reports
 - **Read/Write**: Modify existing records
 - **Admin**: Create/delete records, manage users
@@ -155,12 +179,14 @@ All datasets must be clearly marked with their classification level in:
 ## 7. Data Use
 
 ### 7.1 Minimum Necessary Standard
+
 - Use only minimum PHI needed for task
 - Limit access to specific fields when possible
 - Use de-identified or synthetic data when sufficient
 - Document justification for PHI access
 
 ### 7.2 Permitted Uses
+
 - Treatment, payment, and healthcare operations
 - Research with IRB approval and appropriate authorization
 - AI/ML model training with proper safeguards
@@ -168,6 +194,7 @@ All datasets must be clearly marked with their classification level in:
 - Public health reporting as required by law
 
 ### 7.3 Prohibited Uses
+
 - Marketing without authorization
 - Sale of PHI
 - Personal use
@@ -175,6 +202,7 @@ All datasets must be clearly marked with their classification level in:
 - Re-identification attempts
 
 ### 7.4 Special Considerations for AI/ML
+
 - Document data used for model training
 - Implement techniques to prevent model memorization of PHI
 - Test models for data leakage
@@ -184,12 +212,14 @@ All datasets must be clearly marked with their classification level in:
 ## 8. Data Transmission
 
 ### 8.1 Encryption Requirements
+
 - TLS 1.3 or higher for data in transit
 - End-to-end encryption for email containing PHI
 - VPN required for remote access
 - Encrypted file transfer protocols (SFTP, HTTPS)
 
 ### 8.2 Email Guidelines
+
 - Encrypt all emails containing PHI
 - Use secure email gateway
 - Include confidentiality notice
@@ -197,12 +227,14 @@ All datasets must be clearly marked with their classification level in:
 - Avoid PHI in subject lines
 
 ### 8.3 Physical Transport
+
 - Use encrypted portable media only
 - Courier service for sensitive materials
 - Chain of custody documentation
 - Secure packaging
 
 ### 8.4 Cloud and Third-Party Services
+
 - Business Associate Agreement required
 - HIPAA-compliant services only
 - Verify encryption and security controls
@@ -212,12 +244,14 @@ All datasets must be clearly marked with their classification level in:
 ## 9. Data Sharing
 
 ### 9.1 Internal Sharing
+
 - Verify recipient's need to know
 - Use secure sharing mechanisms
 - Maintain audit trail
 - Limit sharing duration
 
 ### 9.2 External Sharing
+
 - Business Associate Agreement required
 - Data Use Agreement for research
 - Verify recipient's security measures
@@ -225,6 +259,7 @@ All datasets must be clearly marked with their classification level in:
 - Track all external disclosures
 
 ### 9.3 Research Collaborations
+
 - IRB approval required
 - Formal data sharing agreement
 - De-identification preferred
@@ -236,24 +271,28 @@ All datasets must be clearly marked with their classification level in:
 ### 10.1 Disposal Methods
 
 #### Electronic Media
+
 - Secure deletion (DoD 5220.22-M standard)
 - Cryptographic erasure
 - Physical destruction of media (degaussing, shredding)
 - Certificate of destruction
 
 #### Physical Media
+
 - Cross-cut shredding (minimum 1/8" x 1/2")
 - Incineration
 - Pulverization
 - Witnessed destruction
 
 ### 10.2 Disposal Schedule
+
 - Disposed upon retention period expiration
 - Annual review of data for disposal eligibility
 - Secure disposal within 30 days of determination
 - Documentation of all disposals
 
 ### 10.3 Disposal Documentation
+
 - Date of disposal
 - Method of disposal
 - Data description
@@ -263,6 +302,7 @@ All datasets must be clearly marked with their classification level in:
 ## 11. Incident Response
 
 ### 11.1 Reportable Incidents
+
 - Unauthorized access to PHI
 - Loss or theft of devices containing PHI
 - Inadvertent disclosure
@@ -271,6 +311,7 @@ All datasets must be clearly marked with their classification level in:
 - Suspected re-identification
 
 ### 11.2 Reporting Procedures
+
 1. Immediately report to Security Officer
 2. Document incident details
 3. Preserve evidence
@@ -278,6 +319,7 @@ All datasets must be clearly marked with their classification level in:
 5. Cooperate with investigation
 
 ### 11.3 Response Process
+
 1. Contain incident
 2. Assess scope and impact
 3. Determine if breach notification required
@@ -288,12 +330,14 @@ All datasets must be clearly marked with their classification level in:
 ## 12. Training and Awareness
 
 ### 12.1 Required Training
+
 - HIPAA Privacy and Security (annual)
 - Data handling procedures (annual)
 - Role-specific training (as assigned)
 - Security awareness (quarterly)
 
 ### 12.2 Training Documentation
+
 - Training completion records
 - Test scores (80% minimum to pass)
 - Acknowledgment of policies
@@ -302,18 +346,21 @@ All datasets must be clearly marked with their classification level in:
 ## 13. Monitoring and Auditing
 
 ### 13.1 Access Monitoring
+
 - Review access logs weekly
 - Investigate anomalous access patterns
 - Monitor failed login attempts
 - Track data exports and large queries
 
 ### 13.2 Compliance Audits
+
 - Quarterly internal audits
 - Annual external audits
 - Regular policy compliance reviews
 - Penetration testing (annual)
 
 ### 13.3 Audit Logs
+
 - Retain for minimum 6 years
 - Include: user ID, date/time, action, data accessed
 - Protect log integrity (append-only)
@@ -322,7 +369,9 @@ All datasets must be clearly marked with their classification level in:
 ## 14. Policy Compliance
 
 ### 14.1 Violations
+
 Violations of this policy may result in:
+
 - Retraining requirement
 - Access suspension
 - Disciplinary action up to termination
@@ -330,6 +379,7 @@ Violations of this policy may result in:
 - Regulatory penalties
 
 ### 14.2 Sanctions
+
 - First violation: Written warning and retraining
 - Second violation: Suspension of access and formal review
 - Third violation: Termination and reporting to authorities
@@ -338,12 +388,14 @@ Violations of this policy may result in:
 ## 15. Policy Maintenance
 
 ### 15.1 Review Schedule
+
 - Annual comprehensive review
 - Ad hoc reviews for regulatory changes
 - Post-incident reviews
 - Technology change reviews
 
 ### 15.2 Update Process
+
 1. Draft revisions
 2. Stakeholder review
 3. Legal and compliance review
@@ -352,6 +404,7 @@ Violations of this policy may result in:
 6. Policy publication
 
 ## 16. Related Policies and Procedures
+
 - Information Security Policy
 - Acceptable Use Policy
 - Privacy Policy
@@ -360,6 +413,7 @@ Violations of this policy may result in:
 - Business Continuity Plan
 
 ## 17. References
+
 - HIPAA Privacy Rule (45 CFR Part 160 and Part 164, Subparts A and E)
 - HIPAA Security Rule (45 CFR Part 160 and Part 164, Subpart C)
 - HITECH Act

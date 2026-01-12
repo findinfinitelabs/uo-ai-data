@@ -1,6 +1,6 @@
 # UO AI Data Class
 
-**Data Creation and Management for AI Training**
+## Data Creation and Management for AI Training
 
 Welcome to the AI Data Class repository! This educational resource is designed to teach students how to create, manage, and utilize data for training artificial intelligence systems, with a focus on healthcare applications.
 

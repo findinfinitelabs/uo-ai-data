@@ -8,10 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src",
-    "lint:md": "markdownlint-cli2 \"../**/*.md\" \"#node_modules\"",
+    "lint:md": "markdownlint-cli2 \"../**/*.md\" \"!../react-guide/node_modules/**\"",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,css}\"",
-    "format:md": "markdownlint-cli2 --fix \"../**/*.md\" \"#node_modules\""
+    "format:md": "markdownlint-cli2 --fix \"../**/*.md\" \"!../react-guide/node_modules/**\""
   },
   "dependencies": {
     "@mantine/core": "^7.12.2",

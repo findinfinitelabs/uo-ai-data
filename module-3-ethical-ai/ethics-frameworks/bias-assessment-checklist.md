@@ -3,6 +3,7 @@
 ## Pre-Development Phase
 
 ### Problem Formulation
+
 - [ ] Is the problem clearly defined?
 - [ ] Have we consulted diverse stakeholders in defining the problem?
 - [ ] Could this problem be solved without AI?
@@ -10,6 +11,7 @@
 - [ ] Is there potential for the AI to be misused or cause harm?
 
 ### Use Case Analysis
+
 - [ ] What is the intended use of this AI system?
 - [ ] Who will be impacted by this AI system?
 - [ ] What populations might be disproportionately affected?
@@ -19,6 +21,7 @@
 ## Data Collection and Preparation
 
 ### Data Source Assessment
+
 - [ ] What are the sources of training data?
 - [ ] Are data sources representative of the target population?
 - [ ] Are there known biases in data collection methods?
@@ -26,6 +29,7 @@
 - [ ] Is the data collection process documented?
 
 ### Demographic Representation
+
 - [ ] Does training data include diverse demographic groups?
   - [ ] Age groups (pediatric, adult, geriatric)
   - [ ] Gender (male, female, non-binary)
@@ -42,6 +46,7 @@
   - Comparison to target population distribution
 
 ### Data Quality by Group
+
 - [ ] Is data completeness similar across demographic groups?
 - [ ] Are there systematic differences in missing data?
 - [ ] Is label quality consistent across groups?
@@ -49,6 +54,7 @@
 - [ ] Document any group-specific data quality issues
 
 ### Historical Bias Analysis
+
 - [ ] Have past inequities in healthcare affected the data?
   - [ ] Differential access to care
   - [ ] Differential quality of care
@@ -61,6 +67,7 @@
 - [ ] Have we documented known historical biases?
 
 ### Representation Bias
+
 - [ ] Are any groups underrepresented (< 5% of dataset)?
 - [ ] Are any groups overrepresented?
 - [ ] Do we have sufficient samples for rare conditions in all groups?
@@ -68,6 +75,7 @@
 - [ ] Have we documented representation gaps?
 
 ### Measurement Bias
+
 - [ ] Are measurement tools equally valid across groups?
   - [ ] Do pulse oximeters work equally well across skin tones?
   - [ ] Are diagnostic criteria culturally appropriate?
@@ -78,6 +86,7 @@
 - [ ] Have we validated measurements across demographic groups?
 
 ### Label Bias
+
 - [ ] Who labeled the data?
 - [ ] Could labelers have introduced bias?
 - [ ] Is inter-rater reliability similar across groups?
@@ -87,6 +96,7 @@
 ## Model Development
 
 ### Feature Selection
+
 - [ ] Could features encode protected attributes?
 - [ ] Are proxies for protected attributes included?
   - [ ] ZIP code (proxy for race, socioeconomic status)
@@ -99,6 +109,7 @@
 - [ ] Have we tested models without potentially biasing features?
 
 ### Model Architecture
+
 - [ ] Does the model architecture allow for fairness constraints?
 - [ ] Can the model learn different patterns for different groups?
 - [ ] Have we considered simpler, more interpretable models?
@@ -106,6 +117,7 @@
 - [ ] Is the model architecture documented?
 
 ### Training Process
+
 - [ ] Are we monitoring for overfitting to majority groups?
 - [ ] Are we using stratified sampling or reweighting?
 - [ ] Have we implemented fairness-aware training?
@@ -113,6 +125,7 @@
 - [ ] Is the training process reproducible?
 
 ### Hyperparameter Tuning
+
 - [ ] Are hyperparameters optimized for fairness as well as accuracy?
 - [ ] Have we tuned separately for different demographic groups?
 - [ ] Are we using fairness-aware hyperparameter search?
@@ -121,6 +134,7 @@
 ## Model Evaluation
 
 ### Overall Performance
+
 - [ ] What is the model's overall accuracy?
 - [ ] What are precision, recall, F1 scores?
 - [ ] What are false positive and false negative rates?
@@ -128,14 +142,17 @@
 - [ ] What is the model's AUC-ROC?
 
 ### Disaggregated Performance
+
 Calculate all metrics separately for each demographic subgroup:
 
 **By Gender**:
+
 - [ ] Male
 - [ ] Female  
 - [ ] Non-binary/Other
 
 **By Race/Ethnicity**:
+
 - [ ] White
 - [ ] Black or African American
 - [ ] Asian
@@ -144,22 +161,26 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Other
 
 **By Age Group**:
+
 - [ ] Pediatric (0-18)
 - [ ] Young adult (19-39)
 - [ ] Middle age (40-64)
 - [ ] Senior (65+)
 
 **By Socioeconomic Status** (if available):
+
 - [ ] Low income
 - [ ] Middle income
 - [ ] High income
 
 **By Geography**:
+
 - [ ] Urban
 - [ ] Suburban
 - [ ] Rural
 
 ### Intersectionality Analysis
+
 - [ ] Have we examined intersectional groups?
   - Example: Black women, elderly Hispanics, rural low-income
 - [ ] Are there groups with notably different performance?
@@ -188,12 +209,14 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Document which fairness metrics are prioritized and why
 
 ### Disparate Impact Analysis
+
 - [ ] Calculate disparate impact ratio: (Positive rate for group A) / (Positive rate for group B)
 - [ ] Is ratio between 0.8 and 1.25? (80% rule)
 - [ ] If not, is the disparity justified and necessary?
 - [ ] Have we documented disparate impacts?
 
 ### Error Analysis by Group
+
 - [ ] What types of errors occur in each group?
 - [ ] Are error patterns different across groups?
 - [ ] Are certain groups more likely to experience specific harms?
@@ -201,6 +224,7 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Is there a plan to address differential errors?
 
 ### Calibration Analysis
+
 - [ ] Plot calibration curves for each demographic group
 - [ ] Is the model well-calibrated for all groups?
 - [ ] Are there groups with systematic over/under-prediction?
@@ -209,6 +233,7 @@ Calculate all metrics separately for each demographic subgroup:
 ## Bias Mitigation
 
 ### Pre-processing Techniques
+
 - [ ] Resampling to balance demographic groups
 - [ ] Reweighting examples from underrepresented groups
 - [ ] Data augmentation for minority groups
@@ -216,6 +241,7 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Transforming features to reduce correlation with protected attributes
 
 ### In-processing Techniques
+
 - [ ] Adversarial debiasing
 - [ ] Fairness constraints in optimization
 - [ ] Multi-objective optimization (accuracy + fairness)
@@ -223,12 +249,14 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Separate models for different groups
 
 ### Post-processing Techniques
+
 - [ ] Threshold optimization by group
 - [ ] Prediction calibration by group
 - [ ] Reject option classification
 - [ ] Equalized odds post-processing
 
 ### Mitigation Effectiveness
+
 - [ ] Have we measured bias before and after mitigation?
 - [ ] What is the trade-off between accuracy and fairness?
 - [ ] Is the trade-off acceptable for the use case?
@@ -238,6 +266,7 @@ Calculate all metrics separately for each demographic subgroup:
 ## Deployment Considerations
 
 ### Target Population
+
 - [ ] Does the deployment population match the training population?
 - [ ] Are there new demographic groups in deployment?
 - [ ] Have we tested on representative samples from deployment setting?
@@ -245,6 +274,7 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Have we planned for population shifts?
 
 ### Monitoring Plan
+
 - [ ] Real-time monitoring of predictions by demographic group
 - [ ] Alerts for performance degradation in any group
 - [ ] Regular fairness metric calculation (weekly/monthly)
@@ -252,6 +282,7 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Scheduled retraining and reevaluation
 
 ### Deployment Safeguards
+
 - [ ] Human review for high-stakes decisions
 - [ ] Uncertainty thresholds for deferring to humans
 - [ ] Override mechanisms for clinicians
@@ -261,6 +292,7 @@ Calculate all metrics separately for each demographic subgroup:
 ## Documentation and Transparency
 
 ### Model Card / Data Sheet
+
 - [ ] Intended use and users
 - [ ] Training data characteristics
 - [ ] Demographic composition of training data
@@ -272,6 +304,7 @@ Calculate all metrics separately for each demographic subgroup:
 - [ ] Bias mitigation approaches
 
 ### Transparency Reporting
+
 - [ ] Public documentation of fairness assessment
 - [ ] Disclosure of known biases
 - [ ] Explanation of mitigation efforts
@@ -281,18 +314,21 @@ Calculate all metrics separately for each demographic subgroup:
 ## Stakeholder Review
 
 ### Clinical Review
+
 - [ ] Clinicians from diverse backgrounds reviewed the model
 - [ ] Clinical validity confirmed for all demographic groups
 - [ ] Potential harms identified and assessed
 - [ ] Clinical guidelines developed for AI use
 
 ### Ethics Review
+
 - [ ] Ethics committee review completed
 - [ ] Fairness assessment approved
 - [ ] Vulnerable populations considered
 - [ ] Ethical concerns addressed
 
 ### Community Engagement
+
 - [ ] Patient advocates consulted
 - [ ] Community representatives involved
 - [ ] Feedback from diverse patients gathered
@@ -301,18 +337,21 @@ Calculate all metrics separately for each demographic subgroup:
 ## Continuous Improvement
 
 ### Regular Audits
+
 - [ ] Schedule quarterly fairness audits
 - [ ] Annual comprehensive bias assessment
 - [ ] Post-incident reviews
 - [ ] Updates based on new research
 
 ### Feedback Loops
+
 - [ ] Clinician feedback on biased predictions
 - [ ] Patient complaint process
 - [ ] Performance monitoring dashboards
 - [ ] Regular stakeholder consultations
 
 ### Retraining Strategy
+
 - [ ] Triggers for model retraining defined
 - [ ] New data collection to address gaps
 - [ ] Bias reassessment after retraining
@@ -335,6 +374,7 @@ Calculate all metrics separately for each demographic subgroup:
 ---
 
 ## Resources
+
 - [Fairness Indicators Toolkit](https://www.tensorflow.org/responsible_ai/fairness_indicators/guide)
 - [AI Fairness 360 Toolkit](https://aif360.mybluemix.net/)
 - [What-If Tool](https://pair-code.github.io/what-if-tool/)

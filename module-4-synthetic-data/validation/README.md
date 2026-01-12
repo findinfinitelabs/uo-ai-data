@@ -1,10 +1,13 @@
 # Data Validation Tools
 
 ## Overview
+
 This directory contains tools and scripts for validating the quality and characteristics of synthetic datasets generated in Module 4.
 
 ## Purpose
+
 Data validation ensures that:
+
 - Generated data meets specified requirements
 - Statistical properties are realistic
 - Data distributions are appropriate
@@ -14,24 +17,28 @@ Data validation ensures that:
 ## Validation Categories
 
 ### 1. Schema Validation
+
 - Verify all required fields are present
 - Check data types match specifications
 - Validate field formats (dates, codes, etc.)
 - Ensure referential integrity
 
 ### 2. Statistical Validation
+
 - Analyze distributions of numeric fields
 - Check for outliers and anomalies
 - Verify correlations make sense
 - Compare to real-world population statistics
 
 ### 3. Quality Validation
+
 - Check for missing values
 - Identify duplicate records
 - Verify value ranges
 - Validate code formats (ICD-10, CDT)
 
 ### 4. Consistency Validation
+
 - Check internal consistency (e.g., systolic > diastolic BP)
 - Verify temporal consistency (dates in logical order)
 - Validate logical relationships
@@ -39,6 +46,7 @@ Data validation ensures that:
 ## Usage
 
 ### Basic Validation
+
 Students can create validation scripts using Python:
 
 ```python
@@ -64,6 +72,7 @@ for i, patient in enumerate(patients):
 ```
 
 ### Advanced Validation
+
 - Use pandas for statistical analysis
 - Create visualization of distributions
 - Compare against expected ranges
@@ -72,6 +81,7 @@ for i, patient in enumerate(patients):
 ## Validation Checklist
 
 ### Patient Health Data
+
 - [ ] All patient IDs are unique
 - [ ] Ages are between 0-120
 - [ ] Systolic BP > Diastolic BP
@@ -82,6 +92,7 @@ for i, patient in enumerate(patients):
 - [ ] No missing required fields
 
 ### Dental Records Data
+
 - [ ] All visit IDs are unique
 - [ ] Tooth numbers are 1-32
 - [ ] CDT codes follow proper format (D####)
@@ -94,6 +105,7 @@ for i, patient in enumerate(patients):
 ## Example Validation Scripts
 
 ### Count Statistics
+
 ```bash
 # Count total records (includes header line, so subtract 1 for actual record count)
 wc -l ../datasets/patient-health/synthetic_patients.csv
@@ -106,6 +118,7 @@ head -10 ../datasets/patient-health/synthetic_patients.csv
 ```
 
 ### JSON Validation
+
 ```bash
 # Validate JSON syntax
 python -m json.tool ../datasets/patient-health/synthetic_patients.json > /dev/null
@@ -113,6 +126,7 @@ echo "JSON is valid"
 ```
 
 ### Data Profiling with Pandas
+
 ```python
 import pandas as pd
 
@@ -155,17 +169,20 @@ print(df['race_ethnicity'].value_counts())
 ## Resources
 
 ### Python Libraries for Validation
+
 - **jsonschema**: Validate JSON against schemas
 - **pandas**: Data analysis and profiling
 - **numpy**: Numerical validation
 - **Great Expectations**: Comprehensive data validation framework
 
 ### Installation
+
 ```bash
 pip install jsonschema pandas numpy
 ```
 
 ### Example: Schema Validation
+
 ```python
 import json
 import jsonschema
