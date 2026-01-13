@@ -224,7 +224,7 @@ const PromptToSpecContent = () => {
       </Paper>
 
       <Title order={3} mb="md" className={styles.sectionTitle}>
-        What You'll Get
+        What You&apos;ll Get
       </Title>
       <List
         size="md"

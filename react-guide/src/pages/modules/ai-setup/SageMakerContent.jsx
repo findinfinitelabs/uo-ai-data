@@ -98,7 +98,7 @@ const SageMakerContent = () => {
             Navigate to <Text span fw={600}>AWS Academy Learner Lab</Text> in your courses
           </List.Item>
           <List.Item icon={<ThemeIcon color="green" size={20} radius="xl"><IconCircleCheck size={12} /></ThemeIcon>}>
-            Click <Text span fw={600}>"Start Lab"</Text> to launch your AWS environment
+            Click <Text span fw={600}>&quot;Start Lab&quot;</Text> to launch your AWS environment
           </List.Item>
           <List.Item icon={<ThemeIcon color="green" size={20} radius="xl"><IconCircleCheck size={12} /></ThemeIcon>}>
             Click the <Text span fw={600}>AWS Console</Text> link when it turns green
@@ -217,10 +217,10 @@ const SageMakerContent = () => {
 
             <List spacing="sm" size="sm" mb="md" type="ordered">
               <List.Item>
-                In the left sidebar, click <Text span fw={600}>"Notebook"</Text> → <Text span fw={600}>"Notebook instances"</Text>
+                In the left sidebar, click <Text span fw={600}>&quot;Notebook&quot;</Text> → <Text span fw={600}>&quot;Notebook instances&quot;</Text>
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Create notebook instance"</Text>
+                Click <Text span fw={600}>&quot;Create notebook instance&quot;</Text>
               </List.Item>
               <List.Item>
                 Configure the notebook:
@@ -231,7 +231,7 @@ const SageMakerContent = () => {
                 </List>
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Create notebook instance"</Text>
+                Click <Text span fw={600}>&quot;Create notebook instance&quot;</Text>
               </List.Item>
               <List.Item>
                 Wait for status to change to <Badge color="green" size="xs">InService</Badge> (5-10 minutes)
@@ -262,7 +262,7 @@ const SageMakerContent = () => {
                 Find your notebook instance in the list
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Open JupyterLab"</Text> in the Actions column
+                Click <Text span fw={600}>&quot;Open JupyterLab&quot;</Text> in the Actions column
               </List.Item>
               <List.Item>
                 JupyterLab will open in a new tab with pre-installed ML libraries
@@ -300,7 +300,7 @@ const SageMakerContent = () => {
 
             <List spacing="sm" size="sm" mb="md" type="ordered">
               <List.Item>
-                In the left sidebar, click <Text span fw={600}>"JumpStart"</Text> → <Text span fw={600}>"Foundation models"</Text>
+                In the left sidebar, click <Text span fw={600}>&quot;JumpStart&quot;</Text> → <Text span fw={600}>&quot;Foundation models&quot;</Text>
               </List.Item>
               <List.Item>
                 Browse available models or search for specific ones:
@@ -314,7 +314,7 @@ const SageMakerContent = () => {
                 Click on a model to see details and deployment options
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Deploy"</Text> to create an endpoint
+                Click <Text span fw={600}>&quot;Deploy&quot;</Text> to create an endpoint
               </List.Item>
             </List>
 
