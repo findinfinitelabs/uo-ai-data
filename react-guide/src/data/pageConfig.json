@@ -1,0 +1,148 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "title": "Home",
+      "description": "Course introduction, objectives, and module overview",
+      "sections": 5,
+      "items": ["Hero", "Course Objectives (6 cards)", "Course Modules (7 cards)", "AI Basics (4 cards)", "Models to Try (5 cards)"],
+      "estimatedMinutes": 8
+    },
+    {
+      "path": "/module-1",
+      "title": "Data Specifications",
+      "description": "Define fields, schemas, and quality rules for AI projects",
+      "sections": 4,
+      "items": ["Why Data Matters", "Creating Specs", "Prompt to Spec", "Interactive exercises"],
+      "estimatedMinutes": 2
+    },
+    {
+      "path": "/module-1/why-data-matters",
+      "title": "Why Data Matters",
+      "description": "Understanding the importance of data quality in AI",
+      "sections": 3,
+      "items": ["Data quality principles", "Examples", "Quiz"],
+      "estimatedMinutes": 10
+    },
+    {
+      "path": "/module-1/creating-specs",
+      "title": "Creating Specs",
+      "description": "How to write clear data specifications",
+      "sections": 4,
+      "items": ["Schema definition", "Field types", "Validation rules", "Examples"],
+      "estimatedMinutes": 15
+    },
+    {
+      "path": "/module-1/prompt-to-spec",
+      "title": "Prompt to Spec",
+      "description": "Converting requirements into specifications",
+      "sections": 3,
+      "items": ["Prompt analysis", "Spec generation", "Practice exercises"],
+      "estimatedMinutes": 5
+    },
+       {
+      "path": "/module-1/quiz",
+      "title": "Data Specs Challenge",
+      "description": "Challenge your understanding of AI",
+      "sections": 3,
+      "items": ["Case Study", "Quiz", "Data Spec Creation"],
+      "estimatedMinutes": 5
+    },
+    {
+      "path": "/module-2",
+      "title": "Using AI",
+      "description": "Set up your AI learning environment",
+      "sections": 5,
+      "items": ["Why Deploy AI", "Which Option", "AWS Bedrock", "Local LLM", "MCP & Agents"],
+      "estimatedMinutes": 2
+    },
+    {
+      "path": "/ai-setup/aws-account",
+      "title": "AWS Account Setup",
+      "description": "Create and configure AWS account for AI services",
+      "sections": 4,
+      "items": ["Account creation", "IAM setup", "Billing alerts", "Bedrock access"],
+      "estimatedMinutes": 10
+    },
+    {
+      "path": "/ai-setup/bedrock",
+      "title": "AWS Bedrock",
+      "description": "Using AWS Bedrock for managed AI models",
+      "sections": 3,
+      "items": ["Model selection", "API usage", "Cost management"],
+      "estimatedMinutes": 8
+    },
+    {
+      "path": "/ai-setup/local-llm",
+      "title": "Local LLM",
+      "description": "Running AI models locally on your Mac",
+      "sections": 4,
+      "items": ["Ollama setup", "Model download", "Testing models", "Performance tips"],
+      "estimatedMinutes": 12
+    },
+    {
+      "path": "/ai-setup/sagemaker",
+      "title": "AWS SageMaker",
+      "description": "Advanced model deployment with SageMaker",
+      "sections": 3,
+      "items": ["SageMaker overview", "Notebook setup", "Model deployment"],
+      "estimatedMinutes": 15
+    },
+    {
+      "path": "/ai-setup/mcp",
+      "title": "MCP (Context Protocol)",
+      "description": "Model Context Protocol for secure AI integrations",
+      "sections": 5,
+      "items": ["What is MCP", "Why it matters", "How it works", "Getting Started", "Security comparison"],
+      "estimatedMinutes": 10
+    },
+    {
+      "path": "/ai-setup/agents",
+      "title": "AI Agents",
+      "description": "Building autonomous AI agents",
+      "sections": 4,
+      "items": ["What are agents", "ReAct pattern", "Business use cases", "Frameworks"],
+      "estimatedMinutes": 8
+    },
+    {
+      "path": "/module-3",
+      "title": "Regulations & Compliance",
+      "description": "HIPAA, GDPR, and data handling policies",
+      "sections": 4,
+      "items": ["HIPAA basics", "De-identification", "Data policies", "Compliance checklist"],
+      "estimatedMinutes": 12
+    },
+    {
+      "path": "/module-4",
+      "title": "Ethical AI",
+      "description": "Fairness, transparency, and accountability",
+      "sections": 4,
+      "items": ["Bias assessment", "Fairness metrics", "Transparency", "Accountability framework"],
+      "estimatedMinutes": 10
+    },
+    {
+      "path": "/module-5",
+      "title": "Synthetic Data",
+      "description": "Generate and validate synthetic healthcare data",
+      "sections": 4,
+      "items": ["Why synthetic data", "Generation techniques", "Validation", "Privacy preservation"],
+      "estimatedMinutes": 12
+    },
+    {
+      "path": "/case-study",
+      "title": "Pape Machinery Case Study",
+      "description": "AI for identifying lost sales opportunities",
+      "sections": 5,
+      "items": ["Background", "Data analysis", "Model building", "Results", "Recommendations"],
+      "estimatedMinutes": 15
+    },
+    {
+      "path": "/case-study-health",
+      "title": "Maria Chen Health Platform",
+      "description": "Connected health AI assistant with MCP integration",
+      "sections": 6,
+      "items": ["Introduction", "Connected Devices (4)", "Interactive Timeline (8 events)", "MCP Architecture", "Health Scores", "Key Takeaways"],
+      "estimatedMinutes": 20
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Badge, Group, Text, Progress } from '@mantine/core';
 import { IconClock } from '@tabler/icons-react';
+import pageConfig from '../data/pageConfig.json';
 
 function ReadingProgress() {
   const location = useLocation();
@@ -10,18 +11,24 @@ function ReadingProgress() {
   const [timeRemaining, setTimeRemaining] = useState(0);
 
   useEffect(() => {
-    // Calculate estimated reading time based on page content
-    const calculateReadingTime = () => {
+    // Find page config for current path
+    const currentPage = pageConfig.pages.find(p => p.path === location.pathname);
+    
+    // Use config time or calculate from word count
+    const getEstimatedTime = () => {
+      if (currentPage?.estimatedMinutes) {
+        return currentPage.estimatedMinutes;
+      }
+      // Fallback: calculate from content
       const content = document.querySelector('main') || document.body;
       const text = content.innerText || content.textContent;
       const words = text.trim().split(/\s+/).length;
-      // Average reading speed: 200-250 words per minute
-      const minutes = Math.ceil(words / 220);
-      setEstimatedTime(minutes);
-      return minutes;
+      return Math.ceil(words / 220);
     };
 
-    const totalMinutes = calculateReadingTime();
+    const totalMinutes = getEstimatedTime();
+    setEstimatedTime(totalMinutes);
+    setTimeRemaining(totalMinutes);
 
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -46,21 +53,6 @@ function ReadingProgress() {
     };
   }, [location.pathname]);
 
-  // Recalculate on route change
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const content = document.querySelector('main') || document.body;
-      const text = content.innerText || content.textContent;
-      const words = text.trim().split(/\s+/).length;
-      const minutes = Math.ceil(words / 220);
-      setEstimatedTime(minutes);
-      setTimeRemaining(minutes);
-      setProgress(0);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
   const formatTime = (minutes) => {
     if (minutes <= 0) return 'Done!';
     if (minutes === 1) return '1 min left';
@@ -72,20 +64,24 @@ function ReadingProgress() {
       style={{
         position: 'fixed',
         top: 0,
-        left: 0,
+        left: 280,
         right: 0,
-        zIndex: 1000,
+        zIndex: 100,
         backgroundColor: 'var(--mantine-color-body)',
         borderBottom: '1px solid var(--mantine-color-default-border)',
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingLeft: 16,
+        paddingRight: 16,
       }}
     >
-      <Group justify="space-between" align="center" px="md" py={6}>
-        <Box style={{ flex: 1, maxWidth: 'calc(100% - 120px)' }}>
+      <Group justify="space-between" align="center" px="md" py={8}>
+        <Box style={{ flex: 1, maxWidth: 'calc(100% - 130px)' }}>
           <Progress
             value={progress}
-            size="sm"
+            size="md"
             radius="xl"
-            color={progress >= 100 ? 'green' : 'blue'}
+            color="#007030"
             animated={progress > 0 && progress < 100}
             style={{ transition: 'all 0.3s ease' }}
           />
