@@ -360,7 +360,7 @@ export default function OpenAIChat() {
                   <Table.Td>
                     <Group gap="xs">
                       <Text size="sm" fw={500}>{statsModal.data.topP}</Text>
-                      <Text size="xs" c="dimmed">(nucleus sampling)</Text>
+                      <Text size="xs" c="dimmed">(0.1 = narrow, 1 = all options)</Text>
                     </Group>
                   </Table.Td>
                 </Table.Tr>
@@ -416,7 +416,7 @@ export default function OpenAIChat() {
         )}
       </Group>
 
-      <ScrollArea h={400} viewportRef={scrollRef} className="chat-messages">
+      <ScrollArea h={550} viewportRef={scrollRef} className="chat-messages">
         {messages.length === 0 ? (
           <Box className="chat-empty">
             <Text size="sm" c="dimmed" ta="center" mb="md">

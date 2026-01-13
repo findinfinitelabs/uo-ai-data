@@ -1,106 +1,126 @@
 # Data Dictionary Template
 
-## Dataset: [Dataset Name]
-
-**Version**: [Version Number]  
-**Last Updated**: [Date]  
-**Owner**: [Data Owner Name]
+Use this template to document detailed field specifications after completing your data requirements. This template includes the PHI, PII, and sensitivity classifications from Step 2.
 
 ---
 
-## Overview
+## Dataset Information
 
-Brief description of the dataset and its purpose.
+**Dataset Name:** _[Your dataset name]_
+
+**Version:** 1.0
+
+**Last Updated:** _[Date]_
+
+**Use Case:** _[Personalized Health / Manufacturing Analytics / Fraud Detection]_
 
 ---
 
-## Data Fields
+## Classification Legend
 
-### Patient Demographics
+| Classification | Description |
+|----------------|-------------|
+| **PHI** | Protected Health Information - HIPAA covered health data |
+| **PII** | Personally Identifiable Information - Can identify an individual |
+| **Public** | Can be shared openly without restrictions |
+| **Private** | Internal use only, not for public distribution |
+| **Confidential** | Need-to-know basis, business-sensitive |
+| **Restricted** | Highest protection level, requires special access |
 
-| Field Name | Data Type | Length | Required | Description | Valid Values | Example |
-|------------|-----------|--------|----------|-------------|--------------|---------|
-| patient_id | String | 9 | Yes | Anonymized unique patient identifier | Pattern: P[0-9]{8} | P00001234 |
-| age | Integer | - | Yes | Patient age in years | 0-120 | 45 |
-| gender | String | - | Yes | Patient gender | male, female, other, unknown | female |
-| race_ethnicity | String | - | No | Patient race/ethnicity | See enumeration in schema | Asian |
-| zip_code | String | 5 | No | Patient ZIP code | 5-digit numeric | 97403 |
+---
 
-### Health Metrics
+## Example 1: Personalized Health - Oura Ring API
 
-| Field Name | Data Type | Length | Required | Description | Valid Values | Example |
-|------------|-----------|--------|----------|-------------|--------------|---------|
-| systolic_bp | Number | - | No | Systolic blood pressure | 60-250 mmHg | 120 |
-| diastolic_bp | Number | - | No | Diastolic blood pressure | 40-150 mmHg | 80 |
-| heart_rate | Number | - | No | Heart rate | 30-250 bpm | 72 |
-| temperature | Number | - | No | Body temperature | 95.0-107.0 °F | 98.6 |
-| weight | Number | - | No | Weight in pounds | 2-700 lbs | 165 |
-| height | Number | - | No | Height in inches | 20-96 inches | 68 |
-| bmi | Number | - | No | Body Mass Index | 10-80 | 25.1 |
+| Field Name | Data Type | PHI | PII | Sensitivity | Description | Valid Values | Example |
+|------------|-----------|-----|-----|-------------|-------------|--------------|---------|
+| user_id | string | No | Yes | Restricted | Unique user identifier from Oura | UUID format | `usr_a1b2c3d4` |
+| date | date | No | No | Private | Date of the recorded metrics | ISO 8601 | `2026-01-12` |
+| sleep_score | integer | Yes | No | Confidential | Overall sleep quality score | 0-100 | 85 |
+| hrv_avg | integer | Yes | No | Confidential | Average heart rate variability (ms) | 10-150 | 42 |
+| resting_hr | integer | Yes | No | Confidential | Resting heart rate (bpm) | 35-100 | 58 |
+| deep_sleep_mins | integer | Yes | No | Confidential | Deep sleep duration in minutes | 0-300 | 90 |
+| rem_sleep_mins | integer | Yes | No | Confidential | REM sleep duration in minutes | 0-200 | 105 |
+| readiness_score | integer | Yes | No | Confidential | Daily readiness score | 0-100 | 78 |
 
-### Diagnoses
+---
 
-| Field Name | Data Type | Length | Required | Description | Valid Values | Example |
-|------------|-----------|--------|----------|-------------|--------------|---------|
-| code | String | - | Yes | ICD-10 diagnosis code | Pattern: `[A-Z][0-9]{2}(\.[0-9]{1,4})?` | E11.9 |
-| description | String | - | Yes | Diagnosis description | Free text | Type 2 diabetes mellitus |
-| onset_date | Date | - | No | Date of diagnosis | ISO 8601 format | 2023-03-15 |
-| status | String | - | No | Diagnosis status | active, resolved, chronic | active |
+## Example 2: Manufacturing - IoT Sensors
 
-### Medications
+| Field Name | Data Type | PHI | PII | Sensitivity | Description | Valid Values | Example |
+|------------|-----------|-----|-----|-------------|-------------|--------------|---------|
+| sensor_id | string | No | No | Public | Unique sensor identifier | Pattern: `SNS-[0-9]{4}` | `SNS-0042` |
+| equipment_id | string | No | No | Public | Machine/equipment identifier | Pattern: `CNC-[0-9]{3}` | `CNC-042` |
+| timestamp | datetime | No | No | Public | Time of sensor reading | ISO 8601 | `2026-01-12T14:30:00Z` |
+| temperature_c | float | No | No | Public | Equipment temperature in Celsius | 20.0-150.0 | 72.4 |
+| vibration_hz | float | No | No | Public | Vibration frequency (Hz) | 0-500 | 145.2 |
+| pressure_psi | float | No | No | Public | Pressure reading (PSI) | 0-200 | 85.5 |
+| oil_level_pct | float | No | No | Public | Oil level percentage | 0-100 | 78.5 |
+| runtime_hours | float | No | No | Public | Total runtime hours | 0-100000 | 4523.5 |
 
-| Field Name | Data Type | Length | Required | Description | Valid Values | Example |
-|------------|-----------|--------|----------|-------------|--------------|---------|
-| name | String | - | Yes | Medication name | Free text | Metformin |
-| dosage | String | - | Yes | Dosage and frequency | Free text | 500mg twice daily |
-| start_date | Date | - | No | Start date | ISO 8601 format | 2023-03-20 |
-| end_date | Date | - | No | End date (if applicable) | ISO 8601 format | - |
+---
 
-### Lab Results
+## Example 3: Fraud Detection - Transaction Stream
 
-| Field Name | Data Type | Length | Required | Description | Valid Values | Example |
-|------------|-----------|--------|----------|-------------|--------------|---------|
-| test_name | String | - | Yes | Name of lab test | Free text | Glucose, fasting |
-| value | Number | - | Yes | Test result value | Numeric | 95 |
-| unit | String | - | Yes | Unit of measurement | Free text | mg/dL |
-| reference_range | String | - | No | Normal reference range | Free text | 70-100 mg/dL |
-| date | DateTime | - | Yes | Date and time of test | ISO 8601 format | 2024-01-15T09:30:00Z |
-| abnormal_flag | Boolean | - | No | Outside normal range | true, false | false |
+| Field Name | Data Type | PHI | PII | Sensitivity | Description | Valid Values | Example |
+|------------|-----------|-----|-----|-------------|-------------|--------------|---------|
+| transaction_id | string | No | No | Private | Unique transaction identifier | UUID | `TXN-2026011214300001` |
+| account_id | string | No | Yes | Restricted | Customer account number | Pattern: `ACC-[0-9]{8}` | `ACC-00045821` |
+| timestamp | datetime | No | No | Private | Transaction time | ISO 8601 | `2026-01-12T14:30:00Z` |
+| amount | float | No | No | Confidential | Transaction amount in USD | 0.01-1000000 | 47.52 |
+| merchant_category | string | No | No | Public | MCC code for merchant type | 4-digit MCC | `5411` |
+| merchant_name | string | No | No | Public | Name of merchant | Free text | `SAFEWAY #1234` |
+| location | string | No | Yes | Private | Transaction location | City, State format | `Seattle, WA` |
+| channel | string | No | No | Public | Transaction channel | card_present, card_not_present, ach, wire | `card_present` |
+
+---
+
+## Template: Your Data Dictionary
+
+### Data Source: _[Name]_
+
+| Field Name | Data Type | PHI | PII | Sensitivity | Description | Valid Values | Example |
+|------------|-----------|-----|-----|-------------|-------------|--------------|---------|
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
 
 ---
 
 ## Data Quality Rules
 
-### Validation Rules
+### Validation Rules (customize for your use case)
 
-1. **Patient ID**: Must be unique across the dataset
-2. **Age**: Must be a positive integer between 0 and 120
-3. **Blood Pressure**: Systolic must be greater than diastolic
-4. **BMI**: Calculated as weight(kg) / height(m)²; should match provided value within 0.5
-5. **Dates**: All dates must be in ISO 8601 format (YYYY-MM-DD)
-6. **ICD-10 Codes**: Must follow standard ICD-10 format
+1. **Identifiers**: Must be unique across the dataset
+2. **Dates/Times**: Must be in ISO 8601 format
+3. **Numeric Ranges**: Values must fall within Valid Values range
+4. **Required Fields**: PHI=Yes or PII=Yes fields require encryption
+5. **Cross-field**: Timestamps should be chronologically consistent
 
-### Completeness Requirements
+### Null Handling
 
-- **Critical Fields** (100% required): patient_id, age, gender
-- **Important Fields** (95% recommended): vital signs for health monitoring
-- **Optional Fields**: race_ethnicity, specific lab tests based on patient condition
-
-### Consistency Checks
-
-- Gender values must be from the controlled vocabulary
-- All diagnosis codes must be valid ICD-10 codes
-- Medication names should use generic names when possible
-- Dates should be chronologically consistent (e.g., end_date >= start_date)
+| Sensitivity Level | Null Policy |
+|-------------------|-------------|
+| Public | Allowed with default value |
+| Private | Allowed, log missing count |
+| Confidential | Allowed, requires review |
+| Restricted | Never null, reject record |
 
 ---
 
-## Data Lineage
+## Access Control Matrix
 
-- **Source System**: [EHR System Name]
-- **Extraction Method**: [API/Batch Export/Manual]
-- **Transformation Applied**: [De-identification, normalization, etc.]
-- **Load Frequency**: [Real-time/Daily/Weekly]
+| Role | Public | Private | Confidential | Restricted |
+|------|--------|---------|--------------|------------|
+| Data Scientist | ✓ | ✓ | ✓ (de-identified) | ✗ |
+| ML Engineer | ✓ | ✓ | ✓ (de-identified) | ✗ |
+| System Admin | ✓ | ✓ | ✗ | ✗ |
+| Compliance Officer | ✓ | ✓ | ✓ | ✓ (audit only) |
+| External Auditor | ✓ | ✗ | ✗ | ✗ |
 
 ---
 
@@ -108,13 +128,14 @@ Brief description of the dataset and its purpose.
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
-| 1.0 | 2024-01-01 | Initial version | [Name] |
-| 1.1 | 2024-02-15 | Added lab_results table | [Name] |
+| 1.0 | _[Date]_ | Initial data dictionary | _[Name]_ |
+| | | | |
 
 ---
 
 ## Notes
 
-- This dataset contains synthetic data for educational purposes only
-- All patient identifiers are anonymized
-- Data complies with HIPAA Safe Harbor method for de-identification
+- All synthetic data in this dictionary is for educational purposes
+- PHI and PII fields require encryption at rest and in transit
+- Restricted fields require multi-factor authentication for access
+- Update this dictionary when schema changes occur

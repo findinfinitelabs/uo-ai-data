@@ -24,6 +24,8 @@ import {
   IconDatabase,
   IconWand,
   IconTrophy,
+  IconBrandAws,
+  IconExternalLink,
 } from '@tabler/icons-react';
 
 // Import content components from the data-specs module
@@ -118,6 +120,7 @@ export default function DataSpecsPage() {
                 radius="md"
                 withBorder
                 className={styles.moduleCard}
+                style={{ display: 'flex', flexDirection: 'column' }}
               >
                 <Group mb="sm">
                   <ThemeIcon color="green" size={40} radius="xl">
@@ -130,7 +133,7 @@ export default function DataSpecsPage() {
                 <Text fw={600} size="lg" mb="xs">
                   {page.title}
                 </Text>
-                <Text size="sm" c="dimmed">
+                <Text size="sm" c="dimmed" style={{ flex: 1 }}>
                   {page.subtitle}
                 </Text>
                 <Button
@@ -147,6 +150,80 @@ export default function DataSpecsPage() {
               </Card>
             );
           })}
+
+          {/* Bedrock Card - Extra Credit */}
+          <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            className={styles.moduleCard}
+            style={{ borderColor: 'var(--mantine-color-orange-4)', display: 'flex', flexDirection: 'column' }}
+          >
+            <Group mb="sm">
+              <ThemeIcon color="orange" size={40} radius="xl">
+                <IconBrandAws size={22} />
+              </ThemeIcon>
+              <Badge size="sm" color="orange" variant="light">
+                Extra Credit
+              </Badge>
+            </Group>
+            <Text fw={600} size="lg" mb="xs">
+              Amazon Bedrock Getting Started
+            </Text>
+            <Text size="sm" c="dimmed" style={{ flex: 1 }}>
+              Learn the fundamentals of Amazon Bedrock and foundation models with this free AWS Skill Builder course.
+            </Text>
+            <Button
+              component="a"
+              href="https://skillbuilder.aws/learn/63KTRM86DQ/amazon-bedrock-getting-started/SC2Y3HMAUE"
+              target="_blank"
+              variant="light"
+              color="orange"
+              fullWidth
+              mt="md"
+              rightSection={<IconExternalLink size={16} />}
+            >
+              Start AWS Course
+            </Button>
+          </Card>
+
+          {/* SageMaker Card - Extra Credit */}
+          <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            className={styles.moduleCard}
+            style={{ borderColor: 'var(--mantine-color-blue-4)', display: 'flex', flexDirection: 'column' }}
+          >
+            <Group mb="sm">
+              <ThemeIcon color="blue" size={40} radius="xl">
+                <IconBrandAws size={22} />
+              </ThemeIcon>
+              <Badge size="sm" color="blue" variant="light">
+                Extra Credit
+              </Badge>
+            </Group>
+            <Text fw={600} size="lg" mb="xs">
+              Introduction to Amazon SageMaker
+            </Text>
+            <Text size="sm" c="dimmed" style={{ flex: 1 }}>
+              Explore machine learning workflows with SageMaker in this free AWS Skill Builder course.
+            </Text>
+            <Button
+              component="a"
+              href="https://skillbuilder.aws/learn/E1TZFJG8AG/introduction-to-amazon-sagemaker/GK2ESQYCR3"
+              target="_blank"
+              variant="light"
+              color="blue"
+              fullWidth
+              mt="md"
+              rightSection={<IconExternalLink size={16} />}
+            >
+              Start AWS Course
+            </Button>
+          </Card>
         </SimpleGrid>
 
         <Group justify="flex-start" mt="xl">

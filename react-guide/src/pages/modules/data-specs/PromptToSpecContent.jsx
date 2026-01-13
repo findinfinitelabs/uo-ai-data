@@ -96,57 +96,6 @@ const PromptToSpecContent = () => {
         </Card>
       </SimpleGrid>
 
-      <Paper
-        shadow="md"
-        p="xl"
-        radius="lg"
-        withBorder
-        mb="xl"
-        className={styles.gptGradientCard}
-      >
-        <Group gap="md" mb="md">
-          <ThemeIcon color="green" size={48} radius="xl">
-            <IconRobot size={24} />
-          </ThemeIcon>
-          <Box>
-            <Text fw={700} size="lg">
-              Generative AI in Business GPT
-            </Text>
-            <Text size="sm" c="dimmed">
-              Create healthcare data specifications from plain English
-            </Text>
-          </Box>
-        </Group>
-        <Text size="md" mb="md">
-          Our custom GPT is trained to help you create healthcare data
-          specifications, understand AI concepts, and apply them to business
-          problems.
-        </Text>
-        <Alert
-          icon={<IconAlertCircle size={14} />}
-          color="yellow"
-          mb="md"
-          p="sm"
-        >
-          <Text size="xs">Never include real patient data in prompts</Text>
-        </Alert>
-        <Button
-          component="a"
-          href={CUSTOM_GPT_URL}
-          target="_blank"
-          size="xl"
-          color="green"
-          fullWidth
-          rightSection={<IconExternalLink size={20} />}
-          className={styles.gptLaunchButton}
-        >
-          Launch GPT in ChatGPT
-        </Button>
-        <Text size="xs" c="dimmed" mt="sm" ta="center">
-          Opens in a new tab — requires ChatGPT account
-        </Text>
-      </Paper>
-
       <Title order={3} mb="md" className={styles.sectionTitle}>
         Example Prompts to Try
       </Title>
@@ -160,9 +109,9 @@ const PromptToSpecContent = () => {
           </Text>
           <Paper p="sm" bg="gray.1" radius="sm">
             <Text size="xs" ff="monospace">
-              "Create a data specification for tracking patient visits at a
+              Create a data specification for tracking patient visits at a
               dental clinic. Include patient info, procedures performed, and
-              billing codes."
+              billing codes.
             </Text>
           </Paper>
         </Card>
@@ -175,8 +124,8 @@ const PromptToSpecContent = () => {
           </Text>
           <Paper p="sm" bg="gray.1" radius="sm">
             <Text size="xs" ff="monospace">
-              "I need a JSON schema for medication records. Include drug name,
-              dosage, frequency, prescriber, and start/end dates."
+              I need a JSON schema for medication records. Include drug name,
+              dosage, frequency, prescriber, and start/end dates.
             </Text>
           </Paper>
         </Card>
@@ -189,8 +138,8 @@ const PromptToSpecContent = () => {
           </Text>
           <Paper p="sm" bg="gray.1" radius="sm">
             <Text size="xs" ff="monospace">
-              "Design a data dictionary for a clinical trial tracking patient
-              outcomes, adverse events, and treatment assignments."
+              Design a data dictionary for a clinical trial tracking patient
+              outcomes, adverse events, and treatment assignments.
             </Text>
           </Paper>
         </Card>
@@ -203,9 +152,9 @@ const PromptToSpecContent = () => {
           </Text>
           <Paper p="sm" bg="gray.1" radius="sm">
             <Text size="xs" ff="monospace">
-              "Build a specification for a healthcare appointment scheduling
+              Build a specification for a healthcare appointment scheduling
               system. Include provider availability, patient preferences, and
-              reminders."
+              reminders.
             </Text>
           </Paper>
         </Card>

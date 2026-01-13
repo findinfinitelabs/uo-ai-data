@@ -1,47 +1,34 @@
-# No Inline CSS Skill
+# Inline CSS Skill
 
 ## CSS Styling Rules
 
-### No Inline Styles
+### Inline Styles Are Acceptable
 
-Never use inline `style` props in React/JSX components. All styles must be defined in CSS files.
+Inline `style` props in React/JSX components are acceptable and often preferred for:
 
-**❌ Do NOT do this:**
+- **One-off styles** - Unique styles that won't be reused
+- **Dynamic styles** - Styles that depend on props or state
+- **Responsive tweaks** - Quick responsive adjustments
+- **Component-specific layout** - Flex, positioning, sizing
+
+**✅ This is fine:**
 
 ```jsx
 <Paper style={{ background: 'linear-gradient(...)' }}>
 <Box style={{ flex: 1, minWidth: 280 }}>
+<Text style={{ wordBreak: 'break-word' }}>
 ```
 
-**✅ Do this instead:**
+### When to Use CSS Files Instead
 
-```jsx
-<Paper className="gradient-paper">
-<Box className="flex-box">
-```
+Consider CSS modules/files when:
 
-Then define in CSS:
-
-```css
-.gradient-paper {
-  background: linear-gradient(...);
-}
-.flex-box {
-  flex: 1;
-  min-width: 280px;
-}
-```
-
-### Why This Matters
-
-1. **Maintainability** - Styles in one place are easier to update
-2. **Reusability** - CSS classes can be reused across components
-3. **Performance** - CSS classes are more performant than inline styles
-4. **Consistency** - Enforces design system adherence
-5. **Overrides** - Mantine components may need `!important` in CSS for reliable styling
+1. **Repeated styles** - Same style used in 3+ places
+2. **Complex selectors** - Pseudo-classes, media queries, animations
+3. **Theme-level styles** - Colors, typography, spacing tokens
 
 ### Mantine-Specific Notes
 
-- Use Mantine's `className` prop for custom styles
-- For Mantine internal elements, target `.mantine-*` classes in CSS
-- May need `!important` to override Mantine's default styles
+- Use Mantine's built-in props first (`p`, `m`, `c`, `fz`, etc.)
+- Inline styles work great for Mantine components
+- For Mantine internal elements, may need CSS with `.mantine-*` classes

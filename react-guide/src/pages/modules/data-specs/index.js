@@ -1,6 +1,7 @@
 // Data files
 export { exampleData } from './exampleData';
 export { solutionExamples } from './solutionExamples';
+export { default as useCasesData } from './useCases.json';
 
 // Components
 export { ModalCodeBlock, modalMarkdownComponents } from './ModalCodeBlock';

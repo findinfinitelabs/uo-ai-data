@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/manufacturing-analytics-schema.json",
+  "title": "Manufacturing Equipment Analytics Data Schema",
+  "description": "Schema for validating IoT sensor, maintenance, and production data for predictive maintenance use case",
+  "type": "object",
+  "properties": {
+    "iot_sensor_data": {
+      "type": "array",
+      "description": "Real-time telemetry data from equipment sensors",
+      "items": {
+        "type": "object",
+        "required": ["sensor_id", "equipment_id", "timestamp"],
+        "properties": {
+          "sensor_id": {
+            "type": "string",
+            "pattern": "^SNS-[0-9]{4}$",
+            "description": "Unique sensor identifier (Public)"
+          },
+          "equipment_id": {
+            "type": "string",
+            "pattern": "^(CNC|ROBOT|PRESS|LATHE)-[0-9]{3}$",
+            "description": "Machine/equipment identifier (Public)"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Time of sensor reading (Public)"
+          },
+          "temperature_c": {
+            "type": "number",
+            "minimum": 20.0,
+            "maximum": 150.0,
+            "description": "Equipment temperature in Celsius (Public)"
+          },
+          "vibration_hz": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 500,
+            "description": "Vibration frequency in Hz (Public)"
+          },
+          "pressure_psi": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 200,
+            "description": "Pressure reading in PSI (Public)"
+          },
+          "oil_level_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Oil level percentage (Public)"
+          },
+          "runtime_hours": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100000,
+            "description": "Total runtime hours (Public)"
+          },
+          "spindle_rpm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20000,
+            "description": "Spindle rotation speed (Public)"
+          },
+          "coolant_flow_lpm": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50,
+            "description": "Coolant flow rate in liters per minute (Public)"
+          },
+          "power_kw": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Power consumption in kilowatts (Public)"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["normal", "warning", "critical", "idle", "maintenance"],
+            "description": "Current equipment status (Public)"
+          },
+          "alert": {
+            "type": "string",
+            "description": "Alert message if anomaly detected (Public)"
+          }
+        }
+      }
+    },
+    "maintenance_logs": {
+      "type": "array",
+      "description": "Work orders and maintenance records from CMMS/SAP PM",
+      "items": {
+        "type": "object",
+        "required": ["work_order_id", "equipment_id", "date", "type"],
+        "properties": {
+          "work_order_id": {
+            "type": "string",
+            "pattern": "^WO-[0-9]{4}-[0-9]{5}$",
+            "description": "Unique work order identifier (Private)"
+          },
+          "equipment_id": {
+            "type": "string",
+            "description": "Machine/equipment identifier (Public)"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of maintenance activity (Public)"
+          },
+          "technician": {
+            "type": "string",
+            "description": "Technician name or ID (PII - Private)"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["preventive", "corrective", "emergency", "inspection"],
+            "description": "Type of maintenance (Public)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of work performed (Private)"
+          },
+          "parts_replaced": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of parts replaced (Private)"
+          },
+          "labor_hours": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Hours of labor (Private)"
+          },
+          "cost_usd": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Total cost in USD (Confidential)"
+          },
+          "downtime_hours": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Production downtime hours (Private)"
+          },
+          "root_cause": {
+            "type": "string",
+            "description": "Root cause analysis if corrective (Private)"
+          },
+          "findings": {
+            "type": "string",
+            "description": "Inspection findings or notes (Private)"
+          }
+        }
+      }
+    },
+    "production_data": {
+      "type": "array",
+      "description": "Job orders and production metrics from MES",
+      "items": {
+        "type": "object",
+        "required": ["job_id", "equipment_id"],
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^JOB-[0-9]{5}$",
+            "description": "Unique job/batch identifier (Private)"
+          },
+          "equipment_id": {
+            "type": "string",
+            "description": "Machine/equipment identifier (Public)"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Job start time (Public)"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Job end time (Public)"
+          },
+          "scheduled_start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Scheduled start time (Public)"
+          },
+          "part_number": {
+            "type": "string",
+            "description": "Part/product identifier (Private)"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Target quantity to produce (Private)"
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Units completed so far (Private)"
+          },
+          "cycle_time_sec": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Actual cycle time in seconds (Private)"
+          },
+          "quality_rate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Quality rate as decimal (Confidential)"
+          },
+          "scrap_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of scrapped units (Confidential)"
+          },
+          "operator_id": {
+            "type": "string",
+            "description": "Machine operator identifier (PII - Private)"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["scheduled", "in_progress", "completed", "paused", "cancelled"],
+            "description": "Job status (Public)"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "normal", "high", "critical"],
+            "description": "Job priority level (Private)"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "iot_sensor_data": [
+        {
+          "sensor_id": "SNS-0042",
+          "equipment_id": "CNC-042",
+          "timestamp": "2026-01-12T14:30:00Z",
+          "temperature_c": 72.4,
+          "vibration_hz": 145.2,
+          "pressure_psi": 85.5,
+          "oil_level_pct": 78.5,
+          "runtime_hours": 4523.5,
+          "spindle_rpm": 8500,
+          "coolant_flow_lpm": 12.5,
+          "power_kw": 18.7,
+          "status": "normal"
+        },
+        {
+          "sensor_id": "SNS-0042",
+          "equipment_id": "CNC-042",
+          "timestamp": "2026-01-12T14:32:00Z",
+          "temperature_c": 74.8,
+          "vibration_hz": 156.3,
+          "pressure_psi": 82.0,
+          "oil_level_pct": 78.4,
+          "runtime_hours": 4523.53,
+          "spindle_rpm": 8500,
+          "coolant_flow_lpm": 12.3,
+          "power_kw": 21.4,
+          "status": "warning",
+          "alert": "vibration_anomaly"
+        }
+      ],
+      "maintenance_logs": [
+        {
+          "work_order_id": "WO-2026-00421",
+          "equipment_id": "CNC-042",
+          "date": "2025-10-15",
+          "technician": "J. Martinez",
+          "type": "preventive",
+          "description": "Quarterly spindle bearing inspection",
+          "parts_replaced": ["bearing-SKF-7210"],
+          "labor_hours": 4.5,
+          "cost_usd": 850.00,
+          "findings": "Bearing wear within acceptable limits"
+        },
+        {
+          "work_order_id": "WO-2026-00512",
+          "equipment_id": "CNC-042",
+          "date": "2025-12-03",
+          "technician": "J. Martinez",
+          "type": "emergency",
+          "description": "Spindle motor failure - production stopped",
+          "parts_replaced": ["motor-FANUC-A06B", "encoder-A860"],
+          "labor_hours": 12,
+          "cost_usd": 12500.00,
+          "downtime_hours": 18,
+          "root_cause": "Bearing degradation caused motor overheat"
+        }
+      ],
+      "production_data": [
+        {
+          "job_id": "JOB-78542",
+          "equipment_id": "CNC-042",
+          "start_time": "2026-01-12T06:00:00Z",
+          "end_time": "2026-01-12T12:00:00Z",
+          "part_number": "FLANGE-A200",
+          "quantity": 500,
+          "completed": 500,
+          "cycle_time_sec": 180,
+          "quality_rate": 0.98,
+          "scrap_count": 10,
+          "operator_id": "D. Wilson",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

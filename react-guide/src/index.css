@@ -17,6 +17,7 @@ body {
   background: #f5f5f5;
   border: none;
   box-shadow: 0 4px 20px rgba(0, 112, 48, 0.15);
+  margin-bottom: 2rem;
 }
 
 .hero-badge {
@@ -38,7 +39,36 @@ body {
 /* Section Titles */
 .section-title {
   color: var(--uo-green);
-  padding-top: 1.5rem;
+  margin-top: 2rem;
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--uo-green);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Objective Items */
+.objective-card {
+  border-left: 3px solid var(--uo-green);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.objective-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 69, 31, 0.15);
+}
+
+.objective-card-title {
+  font-weight: 700 !important;
+  color: var(--uo-green) !important;
+  margin-bottom: 0.5rem;
+}
+
+.objective-card-description {
+  color: #495057;
+  line-height: 1.6;
+  flex: 1;
 }
 
 /* Model List Icon */

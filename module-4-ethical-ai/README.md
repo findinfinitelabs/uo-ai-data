@@ -47,3 +47,27 @@ Beyond legal compliance, AI systems in healthcare must be developed ethically. T
 ## Resources
 
 See the `ethics-frameworks/` directory for ethical guidelines and assessment tools.
+
+1. Fairness
+Considering impacts on different groups of stakeholders
+
+1. Explainability
+Understanding and evaluating system outputs
+
+1. Privacy and security
+Appropriately obtaining, using, and protecting data and models
+
+1. Safety
+Preventing harmful system output and misuse
+
+1. Controllability
+Having mechanisms to monitor and steer AI system behavior
+
+1. Veracity and robustness
+Achieving correct system outputs, even with unexpected or adversarial inputs
+
+1. Governance
+Incorporating best practices into the AI supply chain, including providers and deployers
+
+1. Transparency
+Enabling stakeholders to make informed choices about their engagement with an AI system
