@@ -35,6 +35,7 @@ import {
   IconSparkles,
   IconUsers,
   IconBuildingFactory2,
+  IconHeartRateMonitor,
 } from '@tabler/icons-react';
 import { modules } from '../data/modules';
 
@@ -45,6 +46,7 @@ const moduleIcons = {
   'module-4': IconScale,
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
+  'case-study-health': IconHeartRateMonitor,
 };
 
 function Hero() {
@@ -312,6 +314,12 @@ function CourseObjectives() {
       <Title order={3} mb="md" className="section-title">
         Course Objectives
       </Title>
+      <Text size="md" mb="lg" c="dimmed">
+        This course prepares you to lead AI initiatives in your organization. By mastering data specifications, 
+        privacy compliance, and ethical AI practices, you&apos;ll gain the confidence to evaluate AI solutions, 
+        communicate effectively with technical teams, and make informed decisions that drive business value 
+        while protecting your organization from risk.
+      </Text>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md" mb="xl">
         {courseObjectives.map((obj, index) => {
           const Icon = obj.icon;
@@ -668,8 +676,11 @@ function ModuleCards() {
       <Title order={3} mb="md" className="section-title" style={{ borderColor: 'var(--mantine-color-blue-6)', color: 'var(--mantine-color-blue-7)' }}>
         Course Modules
       </Title>
-      <Text size="sm" c="dimmed" mb="md">
-        Click a module to explore its content
+      <Text size="md" mb="lg" c="dimmed">
+        Each module features interactive study materials, hands-on exercises, quizzes, and dynamic learning 
+        experiences designed to reinforce concepts through practice. You&apos;ll work through puzzles, build 
+        real specifications, and apply your knowledge to realistic healthcare scenarios—all at your own pace 
+        with immediate feedback to accelerate your learning.
       </Text>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md" mb="lg">
         {modules.map((mod) => {
@@ -694,9 +705,11 @@ function ModuleCards() {
                   <Icon size={22} />
                 </ThemeIcon>
                 <Box>
-                  <Badge size="xs" color={themeColor} variant="light" mb={4}>
-                    {isCaseStudy ? 'CASE STUDY' : mod.id.replace('-', ' ').toUpperCase()}
-                  </Badge>
+                  {!isCaseStudy && (
+                    <Badge size="xs" color={themeColor} variant="light" mb={4}>
+                      {mod.id.replace('-', ' ').toUpperCase()}
+                    </Badge>
+                  )}
                   <Text fw={600} size="md" lh={1.2}>
                     {mod.title}
                   </Text>
@@ -731,11 +744,11 @@ export default function HomePage() {
       <Divider my="xl" />
       <CourseObjectives />
       <Divider my="xl" />
+      <ModuleCards />
+      <Divider my="xl" />
       <Primer />
       <Divider my="xl" />
       <Models />
-      <Divider my="xl" />
-      <ModuleCards />
     </Container>
   );
 }

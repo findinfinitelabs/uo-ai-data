@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -6,6 +6,7 @@ import {
   Link,
   useLocation,
 } from 'react-router-dom';
+import ReadingProgress from './components/ReadingProgress';
 import {
   MantineProvider,
   AppShell,
@@ -31,6 +32,9 @@ import {
   IconBrandAws,
   IconTerminal2,
   IconBuildingFactory2,
+  IconPlug,
+  IconRobot,
+  IconHeartRateMonitor,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
@@ -38,6 +42,7 @@ import ModulePage from './pages/ModulePage';
 import LoginPage from './pages/LoginPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import AISetupPage from './pages/modules/AISetupPage';
+import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserMenu from './components/UserMenu';
@@ -57,6 +62,8 @@ const aiSetupSubPages = [
   { id: 'bedrock', title: 'AWS Bedrock', icon: IconBrandAws },
   { id: 'local-llm', title: 'Local LLM', icon: IconTerminal2 },
   { id: 'sagemaker', title: 'AWS SageMaker', icon: IconServer },
+  { id: 'mcp', title: 'MCP (Context Protocol)', icon: IconPlug },
+  { id: 'agents', title: 'AI Agents', icon: IconRobot },
 ];
 
 const moduleIcons = {
@@ -66,13 +73,21 @@ const moduleIcons = {
   'module-4': IconScale,
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
+  'case-study-health': IconHeartRateMonitor,
 };
 
 function AppLayout() {
   const location = useLocation();
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
   return (
-    <AppShell padding="md" navbar={{ width: 280, breakpoint: 'sm' }} footer={{ height: 80 }}>
+    <>
+      <ReadingProgress />
+      <AppShell padding="md" navbar={{ width: 280, breakpoint: 'sm' }} footer={{ height: 80 }} style={{ paddingTop: 40 }}>
       <AppShell.Navbar p="md" className="app-navbar">
         <Group justify="space-between" align="flex-start" mb="lg">
           <Box>
@@ -100,16 +115,32 @@ function AppLayout() {
         <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
           Course Modules
         </Text>
-        {modules.map((mod) => {
+        {modules.map((mod, index) => {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
+          const isAISetupActive = mod.id === 'module-2' && location.pathname.startsWith('/ai-setup');
+          const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
+          const isCaseStudy = mod.isCaseStudy;
+          
+          // Check if this is the first case study (to show separator)
+          const isFirstCaseStudy = isCaseStudy && !modules.slice(0, index).some(m => m.isCaseStudy);
+          
+          // Custom label with MODULE number above title
+          const labelContent = (
+            <Box>
+              {moduleNumber && (
+                <Text size="xs" c="rgba(255,255,255,0.6)" lh={1} tt="uppercase">MODULE {moduleNumber}</Text>
+              )}
+              <Text fw={700} size="sm" c="white">{mod.title}</Text>
+            </Box>
+          );
           
           // Special handling for Module 1 with sub-navigation
           if (mod.id === 'module-1') {
             return (
               <Box key={mod.id}>
                 <NavLink
-                  label={mod.title}
+                  label={labelContent}
                   component={Link}
                   to={`/${mod.id}`}
                   leftSection={<Icon size={20} stroke={1.5} />}
@@ -141,10 +172,69 @@ function AppLayout() {
             );
           }
           
+          // Special handling for Module 2 (Using AI) with AI Setup sub-navigation
+          if (mod.id === 'module-2') {
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={labelContent}
+                  component={Link}
+                  to="/ai-setup"
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive || isAISetupActive}
+                />
+                <Collapse in={isActive || isAISetupActive}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {aiSetupSubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/ai-setup/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+          
+          // Case study - first one shows separator, rest just show as nav items
+          if (isCaseStudy) {
+            return (
+              <Box key={mod.id}>
+                {isFirstCaseStudy && (
+                  <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
+                    Case Studies
+                  </Text>
+                )}
+                <NavLink
+                  label={<Text fw={700} size="sm" c="white">{mod.title}</Text>}
+                  component={Link}
+                  to={`/${mod.id}`}
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive}
+                />
+              </Box>
+            );
+          }
+          
           return (
             <NavLink
               key={mod.id}
-              label={mod.title}
+              label={labelContent}
               component={Link}
               to={`/${mod.id}`}
               leftSection={<Icon size={20} stroke={1.5} />}
@@ -154,41 +244,6 @@ function AppLayout() {
             />
           );
         })}
-
-        <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
-          AI Environment
-        </Text>
-        <Box>
-          <NavLink
-            label="AI Setup"
-            component={Link}
-            to="/ai-setup"
-            leftSection={<IconCloud size={20} stroke={1.5} />}
-            mb="xs"
-            className="nav-link"
-            active={location.pathname.startsWith('/ai-setup')}
-          />
-          <Collapse in={location.pathname.startsWith('/ai-setup')}>
-            <Box ml="xl" className="sub-nav-container">
-              {aiSetupSubPages.map((subPage) => {
-                const SubIcon = subPage.icon;
-                const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
-                return (
-                  <NavLink
-                    key={subPage.id}
-                    label={subPage.title}
-                    component={Link}
-                    to={`/ai-setup/${subPage.id}`}
-                    leftSection={<SubIcon size={16} stroke={1.5} />}
-                    mb={4}
-                    className="nav-link sub-nav-link"
-                    active={isSubActive}
-                  />
-                );
-              })}
-            </Box>
-          </Collapse>
-        </Box>
       </AppShell.Navbar>
       <AppShell.Main>
         <Routes>
@@ -233,6 +288,14 @@ function AppLayout() {
             }
           />
           <Route
+            path="/case-study-health"
+            element={
+              <ProtectedRoute>
+                <CaseStudyHealthPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/:moduleId"
             element={
               <ProtectedRoute>
@@ -259,6 +322,7 @@ function AppLayout() {
         </Container>
       </AppShell.Footer>
     </AppShell>
+    </>
   );
 }
 

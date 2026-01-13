@@ -21,7 +21,7 @@ export const modules = [
   },
   {
     id: 'module-2',
-    title: 'AI Environment Setup',
+    title: 'Using AI',
     summary:
       'Set up your AI learning environment using AWS Bedrock (school login) or run models locally on your Mac.',
     href: `${REPO_BASE}/module-2-ai-setup/README.md`,
@@ -100,6 +100,19 @@ export const modules = [
       { label: 'Problem Overview', href: `${REPO_BASE}/case-study-pape/problem-overview.md` },
       { label: 'Synthetic Sales Data', href: `${REPO_BASE}/case-study-pape/data` },
       { label: 'AI Insights', href: `${REPO_BASE}/case-study-pape/insights.md` },
+    ],
+  },
+  {
+    id: 'case-study-health',
+    title: 'Maria Chen Health Platform',
+    summary:
+      'Build a connected health AI assistant using MCP to integrate wearables, health apps, and lifestyle data for personalized wellness insights.',
+    href: `${REPO_BASE}/case-study-health/README.md`,
+    isCaseStudy: true,
+    children: [
+      { label: 'Platform Architecture', href: `${REPO_BASE}/case-study-health/architecture.md` },
+      { label: 'MCP Integrations', href: `${REPO_BASE}/case-study-health/mcp-servers.md` },
+      { label: 'Privacy Considerations', href: `${REPO_BASE}/case-study-health/privacy.md` },
     ],
   },
 ];

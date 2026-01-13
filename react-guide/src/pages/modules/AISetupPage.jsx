@@ -24,6 +24,8 @@ import {
   IconBrandAws,
   IconServer,
   IconTerminal2,
+  IconPlug,
+  IconRobot,
 } from '@tabler/icons-react';
 
 // Import content components from the ai-setup module
@@ -32,6 +34,8 @@ import {
   BedrockSetupContent,
   LocalLLMContent,
   SageMakerContent,
+  MCPContent,
+  AgentContent,
   styles,
 } from './ai-setup';
 
@@ -65,9 +69,23 @@ const subPages = {
     color: 'teal',
     content: <SageMakerContent />,
   },
+  'mcp': {
+    title: 'Model Context Protocol (MCP)',
+    subtitle: 'Connect AI models to external data and tools',
+    icon: IconPlug,
+    color: 'pink',
+    content: <MCPContent />,
+  },
+  'agents': {
+    title: 'AI Agents',
+    subtitle: 'Build autonomous AI systems that complete tasks',
+    icon: IconRobot,
+    color: 'indigo',
+    content: <AgentContent />,
+  },
 };
 
-const subPageOrder = ['aws-account', 'bedrock', 'local-llm', 'sagemaker'];
+const subPageOrder = ['aws-account', 'bedrock', 'local-llm', 'sagemaker', 'mcp', 'agents'];
 
 export default function AISetupPage() {
   const { subPage } = useParams();
@@ -105,6 +123,49 @@ export default function AISetupPage() {
             Choose how you want to run AI models for this course. You can use 
             cloud-based options through AWS (free via Canvas) or run models 
             locally on your own computer.
+          </Text>
+        </Paper>
+
+        {/* Why Deploy or Use AI Models section */}
+        <Paper p="lg" withBorder radius="md" mb="xl">
+          <Title order={3} mb="md">Why Deploy or Use AI Models?</Title>
+          <Text size="md" mb="md">
+            As a business professional, you might wonder: <Text span fw={600} fs="italic">&quot;Why would I need to 
+            deploy or use AI models directly?&quot;</Text> Here&apos;s why this matters:
+          </Text>
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" mb="md">
+            <Box>
+              <Text fw={600} size="sm" c="green" mb="xs">📊 Data Analysis at Scale</Text>
+              <Text size="sm">
+                Process thousands of documents, extract insights from customer feedback, 
+                or analyze market trends—tasks that would take humans weeks.
+              </Text>
+            </Box>
+            <Box>
+              <Text fw={600} size="sm" c="blue" mb="xs">🔧 Custom Business Solutions</Text>
+              <Text size="sm">
+                Build AI tools tailored to your company&apos;s needs—customer support bots, 
+                report generators, or inventory forecasting systems.
+              </Text>
+            </Box>
+            <Box>
+              <Text fw={600} size="sm" c="violet" mb="xs">🔒 Privacy &amp; Control</Text>
+              <Text size="sm">
+                Keep sensitive data in-house by running models locally or in your own 
+                cloud environment instead of sending data to third parties.
+              </Text>
+            </Box>
+            <Box>
+              <Text fw={600} size="sm" c="orange" mb="xs">💡 Competitive Advantage</Text>
+              <Text size="sm">
+                Companies that can leverage AI effectively move faster. Understanding 
+                AI deployment gives you skills to lead digital transformation.
+              </Text>
+            </Box>
+          </SimpleGrid>
+          <Text size="sm" c="dimmed">
+            This module covers multiple approaches—from simple API calls to building 
+            autonomous agents—so you can choose the right tool for each business problem.
           </Text>
         </Paper>
 
@@ -170,6 +231,20 @@ export default function AISetupPage() {
               <Text size="sm">
                 Best for custom model training and deployment. More complex setup 
                 but offers full ML pipeline capabilities.
+              </Text>
+            </Box>
+            <Box>
+              <Text fw={600} size="sm" c="pink" mb="xs">MCP (Model Context Protocol)</Text>
+              <Text size="sm">
+                Best for connecting AI to your data sources. Lets Claude access 
+                files, databases, and APIs securely.
+              </Text>
+            </Box>
+            <Box>
+              <Text fw={600} size="sm" c="indigo" mb="xs">AI Agents</Text>
+              <Text size="sm">
+                Best for autonomous task completion. Agents can reason, use tools, 
+                and complete multi-step workflows on their own.
               </Text>
             </Box>
             <Box>
