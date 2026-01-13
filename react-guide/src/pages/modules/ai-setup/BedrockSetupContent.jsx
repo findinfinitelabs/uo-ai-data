@@ -91,7 +91,7 @@ const BedrockSetupContent = () => {
             Navigate to <Text span fw={600}>AWS Academy Learner Lab</Text> in your courses
           </List.Item>
           <List.Item icon={<ThemeIcon color="green" size={20} radius="xl"><IconCircleCheck size={12} /></ThemeIcon>}>
-            Click <Text span fw={600}>"Start Lab"</Text> to launch your AWS environment
+            Click <Text span fw={600}>&quot;Start Lab&quot;</Text> to launch your AWS environment
           </List.Item>
           <List.Item icon={<ThemeIcon color="green" size={20} radius="xl"><IconCircleCheck size={12} /></ThemeIcon>}>
             Click the <Text span fw={600}>AWS Console</Text> link when it turns green
@@ -134,10 +134,10 @@ const BedrockSetupContent = () => {
                 In the AWS Console search bar, type <Code>Bedrock</Code> and select it
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Model access"</Text> in the left sidebar
+                Click <Text span fw={600}>&quot;Model access&quot;</Text> in the left sidebar
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Manage model access"</Text>
+                Click <Text span fw={600}>&quot;Manage model access&quot;</Text>
               </List.Item>
               <List.Item>
                 Select the models you want to enable:
@@ -148,7 +148,7 @@ const BedrockSetupContent = () => {
                 </List>
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Request model access"</Text> and wait for approval (usually instant)
+                Click <Text span fw={600}>&quot;Request model access&quot;</Text> and wait for approval (usually instant)
               </List.Item>
             </List>
 
@@ -173,7 +173,7 @@ const BedrockSetupContent = () => {
 
             <List spacing="sm" size="sm" mb="md" type="ordered">
               <List.Item>
-                In Bedrock, click <Text span fw={600}>"Playgrounds"</Text> → <Text span fw={600}>"Text"</Text>
+                In Bedrock, click <Text span fw={600}>&quot;Playgrounds&quot;</Text> → <Text span fw={600}>&quot;Text&quot;</Text>
               </List.Item>
               <List.Item>
                 Select a model from the dropdown (e.g., Claude 3 Sonnet)
@@ -187,7 +187,7 @@ const BedrockSetupContent = () => {
                 </Paper>
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Run"</Text> and verify you get a response
+                Click <Text span fw={600}>&quot;Run&quot;</Text> and verify you get a response
               </List.Item>
             </List>
 
@@ -218,10 +218,10 @@ const BedrockSetupContent = () => {
 
             <List spacing="sm" size="sm" mb="md" type="ordered">
               <List.Item>
-                In your AWS Academy Learner Lab, click <Text span fw={600}>"AWS Details"</Text>
+                In your AWS Academy Learner Lab, click <Text span fw={600}>&quot;AWS Details&quot;</Text>
               </List.Item>
               <List.Item>
-                Click <Text span fw={600}>"Show"</Text> next to AWS CLI credentials
+                Click <Text span fw={600}>&quot;Show&quot;</Text> next to AWS CLI credentials
               </List.Item>
               <List.Item>
                 Copy the credentials block - it looks like:

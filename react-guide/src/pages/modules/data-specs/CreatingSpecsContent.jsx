@@ -454,7 +454,7 @@ const CreatingSpecsContent = () => {
           <Accordion.Panel>
             <Text size="md" mb="md">
               Before writing any specification, you need to understand what problem
-              you're solving. {selectedUseCase ? (
+              you&apos;re solving. {selectedUseCase ? (
                 <Text span c="blue" fw={600}>
                   Answer these questions based on the {useCasesData.useCases.find(uc => uc.id === selectedUseCase)?.title} use case:
                 </Text>
@@ -546,7 +546,7 @@ const CreatingSpecsContent = () => {
               )}
               
               <Text size="xs" c="dimmed">
-                💡 Review the sample data above if you're unsure
+                💡 Review the sample data above if you&apos;re unsure
               </Text>
             </Group>
           </Stack>
@@ -588,7 +588,7 @@ const CreatingSpecsContent = () => {
           </List.Item>
           <List.Item>
             <Text span fw={600}>
-              What's the expected volume
+              What&apos;s the expected volume
             </Text>{' '}
             of data?
           </List.Item>

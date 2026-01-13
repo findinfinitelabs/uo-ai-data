@@ -68,7 +68,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Syntax check generators
-        run: python -m py_compile module-4-synthetic-data/generators/*.py
+        run: python -m py_compile module-5-synthetic-data/generators/*.py
 
   # ═══════════════════════════════════════════════════════════════════════════
   # Stage 3: Security (depends on lint)

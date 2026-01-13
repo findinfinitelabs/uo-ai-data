@@ -52,7 +52,7 @@ const moduleContent = {
               how to define clear data requirements, create schemas, and establish quality rules.
             </Text>
             <Text size="md" mb="md">
-              <Text span fw={600}>Why it matters:</Text> Whether you're writing prompts, building RAG systems,
+              <Text span fw={600}>Why it matters:</Text> Whether you&apos;re writing prompts, building RAG systems,
               or fine-tuning models, consistent data specifications ensure reproducible results.
             </Text>
           </>

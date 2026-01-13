@@ -69,7 +69,7 @@ const PATIENT_PERSONA = {
   scenario: `Maria is a 52-year-old marketing executive who recently had a health scare with elevated blood pressure. She wants to combine her Oura Ring data (sleep stages, HRV, readiness scores), Apple Watch data (heart rate, steps, activity), and her doctor's electronic health records to get personalized insights about her cardiovascular risk and daily habits that might affect her health.`,
   highlightedScenario: (
     <>
-      Maria is a 52-year-old marketing executive who recently had a health scare with <Mark color="red">elevated blood pressure</Mark>. She wants to <Mark color="cyan">combine her Oura Ring data</Mark> (sleep stages, HRV, readiness scores), <Mark color="cyan">Apple Watch data</Mark> (heart rate, steps, activity), and her <Mark color="cyan">doctor's electronic health records</Mark> to get <Mark color="yellow">personalized insights</Mark> about her cardiovascular risk and daily habits that might affect her health.
+      Maria is a 52-year-old marketing executive who recently had a health scare with <Mark color="red">elevated blood pressure</Mark>. She wants to <Mark color="cyan">combine her Oura Ring data</Mark> (sleep stages, HRV, readiness scores), <Mark color="cyan">Apple Watch data</Mark> (heart rate, steps, activity), and her <Mark color="cyan">doctor&apos;s electronic health records</Mark> to get <Mark color="yellow">personalized insights</Mark> about her cardiovascular risk and daily habits that might affect her health.
     </>
   ),
 };
@@ -849,7 +849,7 @@ Return ONLY valid JSON with this structure:
             <Alert color="green" variant="light">
               <Text size="xs">
                 <strong>Why this matters:</strong> This unified schema enables AI models to process data from multiple sources consistently. 
-                Notice how fields from different sources (Oura's sleep stages, Apple Watch's heart rate, EHR's blood pressure) 
+                Notice how fields from different sources (Oura&apos;s sleep stages, Apple Watch&apos;s heart rate, EHR&apos;s blood pressure) 
                 are now in a standardized format ready for machine learning.
               </Text>
             </Alert>
@@ -925,7 +925,7 @@ Return ONLY valid JSON with this structure:
             </Code>
             
             <Alert color="blue" variant="light">
-              <Text size="xs">Notice the different data types (HeartRate, StepCount, SleepAnalysis) and their units. This is the format you'd need to parse when integrating with Maria's EHR data.</Text>
+              <Text size="xs">Notice the different data types (HeartRate, StepCount, SleepAnalysis) and their units. This is the format you&apos;d need to parse when integrating with Maria&apos;s EHR data.</Text>
             </Alert>
           </Stack>
         ) : (

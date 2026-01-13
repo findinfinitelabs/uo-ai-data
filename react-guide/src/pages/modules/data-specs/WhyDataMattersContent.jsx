@@ -182,7 +182,7 @@ const WhyDataMattersContent = () => {
 
       <Blockquote color="green" icon={<IconBulb size={24} />} mb="xl">
         <Text size="md" fs="italic">
-          "Without data, you're just another person with an opinion."
+          &quot;Without data, you&apos;re just another person with an opinion.&quot;
         </Text>
         <Text size="sm" c="dimmed" mt="xs">
           — W. Edwards Deming

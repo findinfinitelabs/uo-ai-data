@@ -116,27 +116,27 @@ export default function AWSAccountSetupContent() {
                   aws.amazon.com <IconExternalLink size={12} style={{ verticalAlign: 'middle' }} />
                 </Anchor>
               </List.Item>
-              <List.Item>Click the <strong>"Create an AWS Account"</strong> button (top right)</List.Item>
+              <List.Item>Click the <strong>&quot;Create an AWS Account&quot;</strong> button (top right)</List.Item>
             </List>
 
             <Title order={4} mb="md">1.2 Enter Account Information</Title>
             <List spacing="sm" mb="lg">
               <List.Item><strong>Email address:</strong> Use a personal email you check regularly</List.Item>
-              <List.Item><strong>AWS account name:</strong> Choose something memorable (e.g., "MyAILearning")</List.Item>
-              <List.Item>Click <strong>"Verify email address"</strong></List.Item>
+              <List.Item><strong>AWS account name:</strong> Choose something memorable (e.g., &quot;MyAILearning&quot;)</List.Item>
+              <List.Item>Click <strong>&quot;Verify email address&quot;</strong></List.Item>
               <List.Item>Check your email for the verification code and enter it</List.Item>
             </List>
 
             <Title order={4} mb="md">1.3 Complete Sign Up</Title>
             <List spacing="sm">
               <List.Item>Create a strong password (12+ characters)</List.Item>
-              <List.Item>Select <strong>"Personal"</strong> for account type</List.Item>
+              <List.Item>Select <strong>&quot;Personal&quot;</strong> for account type</List.Item>
               <List.Item>Fill in contact information</List.Item>
-              <List.Item>Choose <strong>"Basic support - Free"</strong></List.Item>
+              <List.Item>Choose <strong>&quot;Basic support - Free&quot;</strong></List.Item>
             </List>
 
             <Alert icon={<IconAlertCircle size={16} />} color="yellow" mt="lg">
-              Account activation takes 1-5 minutes. You'll receive a confirmation email.
+              Account activation takes 1-5 minutes. You&apos;ll receive a confirmation email.
             </Alert>
           </Paper>
         </Stepper.Step>
@@ -152,7 +152,7 @@ export default function AWSAccountSetupContent() {
             <List spacing="sm" mb="lg">
               <List.Item>Enter a valid credit or debit card</List.Item>
               <List.Item>
-                <Text span c="green" fw={600}>Don't worry:</Text> You won't be charged if you stay within the Free Tier
+                <Text span c="green" fw={600}>Don&apos;t worry:</Text> You won&apos;t be charged if you stay within the Free Tier
               </List.Item>
               <List.Item>AWS may place a temporary $1 authorization hold to verify the card</List.Item>
             </List>
@@ -161,8 +161,8 @@ export default function AWSAccountSetupContent() {
             <Text size="sm" mb="sm">Avoid surprises! Create a budget alert:</Text>
             <List spacing="sm" type="ordered">
               <List.Item>Go to <strong>Billing Dashboard</strong> → <strong>Budgets</strong></List.Item>
-              <List.Item>Click <strong>"Create budget"</strong></List.Item>
-              <List.Item>Select <strong>"Zero spend budget"</strong> (alerts if you exceed Free Tier)</List.Item>
+              <List.Item>Click <strong>&quot;Create budget&quot;</strong></List.Item>
+              <List.Item>Select <strong>&quot;Zero spend budget&quot;</strong> (alerts if you exceed Free Tier)</List.Item>
               <List.Item>Enter your email for notifications</List.Item>
             </List>
           </Paper>
@@ -181,17 +181,17 @@ export default function AWSAccountSetupContent() {
 
             <Title order={4} mb="md">3.1 Create a New User</Title>
             <List spacing="sm" type="ordered" mb="lg">
-              <List.Item>In the AWS Console, search for <strong>"IAM"</strong></List.Item>
+              <List.Item>In the AWS Console, search for <strong>&quot;IAM&quot;</strong></List.Item>
               <List.Item>Click <strong>Users</strong> → <strong>Create user</strong></List.Item>
               <List.Item>User name: <Code>ai-developer</Code></List.Item>
-              <List.Item>✅ Check <strong>"Provide user access to the AWS Management Console"</strong></List.Item>
-              <List.Item>Select <strong>"I want to create an IAM user"</strong></List.Item>
+              <List.Item>✅ Check <strong>&quot;Provide user access to the AWS Management Console&quot;</strong></List.Item>
+              <List.Item>Select <strong>&quot;I want to create an IAM user&quot;</strong></List.Item>
               <List.Item>Create a password</List.Item>
             </List>
 
             <Title order={4} mb="md">3.2 Set Permissions</Title>
             <List spacing="sm" mb="lg">
-              <List.Item>Select <strong>"Attach policies directly"</strong></List.Item>
+              <List.Item>Select <strong>&quot;Attach policies directly&quot;</strong></List.Item>
               <List.Item>Search for and check:
                 <List withPadding mt="xs">
                   <List.Item>✅ <Code>AmazonBedrockFullAccess</Code></List.Item>
@@ -207,8 +207,8 @@ export default function AWSAccountSetupContent() {
               <List.Item>Click on your new user name</List.Item>
               <List.Item>Go to <strong>Security credentials</strong> tab</List.Item>
               <List.Item>Click <strong>Create access key</strong></List.Item>
-              <List.Item>Select <strong>"Command Line Interface (CLI)"</strong></List.Item>
-              <List.Item><strong>Download the .csv file</strong> - you won't see these again!</List.Item>
+              <List.Item>Select <strong>&quot;Command Line Interface (CLI)&quot;</strong></List.Item>
+              <List.Item><strong>Download the .csv file</strong> - you won&apos;t see these again!</List.Item>
             </List>
           </Paper>
         </Stepper.Step>
@@ -223,7 +223,7 @@ export default function AWSAccountSetupContent() {
             <Title order={4} mb="md">4.1 Navigate to Bedrock</Title>
             <List spacing="sm" type="ordered" mb="lg">
               <List.Item>Sign in with your <strong>IAM user</strong> (not root!)</List.Item>
-              <List.Item>Search for <strong>"Bedrock"</strong> in the console</List.Item>
+              <List.Item>Search for <strong>&quot;Bedrock&quot;</strong> in the console</List.Item>
               <List.Item>Select region: <Code>us-east-1</Code> (N. Virginia) for best model availability</List.Item>
             </List>
 
@@ -291,13 +291,13 @@ export default function AWSAccountSetupContent() {
           <Paper p="md" withBorder radius="md" mt="md">
             <Title order={4} mb="md">5.1 Create SageMaker Domain</Title>
             <List spacing="sm" type="ordered" mb="lg">
-              <List.Item>Search for <strong>"SageMaker"</strong> in the console</List.Item>
+              <List.Item>Search for <strong>&quot;SageMaker&quot;</strong> in the console</List.Item>
               <List.Item>Click <strong>Studio</strong> in the sidebar</List.Item>
-              <List.Item>Click <strong>"Create a SageMaker Domain"</strong></List.Item>
-              <List.Item>Select <strong>"Set up for single user (Quick setup)"</strong></List.Item>
+              <List.Item>Click <strong>&quot;Create a SageMaker Domain&quot;</strong></List.Item>
+              <List.Item>Select <strong>&quot;Set up for single user (Quick setup)&quot;</strong></List.Item>
               <List.Item>Keep the default domain name</List.Item>
-              <List.Item>For execution role, select <strong>"Create a new role"</strong></List.Item>
-              <List.Item>For S3 buckets, choose <strong>"Any S3 bucket"</strong></List.Item>
+              <List.Item>For execution role, select <strong>&quot;Create a new role&quot;</strong></List.Item>
+              <List.Item>For S3 buckets, choose <strong>&quot;Any S3 bucket&quot;</strong></List.Item>
               <List.Item>Click <strong>Submit</strong> - wait 5-10 minutes</List.Item>
             </List>
 
@@ -457,7 +457,7 @@ print(result['content'][0]['text'])`}</CodeBlock>
           </Table.Tbody>
         </Table>
         <Text size="sm" c="dimmed" mt="md">
-          💡 <strong>Tip:</strong> Use Bedrock for learning—it's pay-per-use and very affordable for experimentation.
+          💡 <strong>Tip:</strong> Use Bedrock for learning—it&apos;s pay-per-use and very affordable for experimentation.
         </Text>
       </Paper>
     </>

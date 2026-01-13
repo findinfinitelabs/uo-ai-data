@@ -76,7 +76,7 @@ function Hero() {
             </ThemeIcon>
             <Text size="xs" fw={700} c="green">Model</Text>
           </Group>
-          <Text size="xs" c="dimmed">Your AI "wellness advisor"</Text>
+          <Text size="xs" c="dimmed">Your AI &quot;wellness advisor&quot;</Text>
         </Paper>
 
         <Box style={{ display: 'flex', alignItems: 'center' }}>
@@ -460,10 +460,10 @@ const modelCards = [
           <Text span fw={700} c="green">Mistral 7B Instruct</Text> is a powerful general-purpose language model from Mistral AI.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Why it's great for learning:</Text> It strikes an excellent balance between capability and resource requirements, making it ideal for experimenting with fine-tuning techniques like <Text span fw={600}>LoRA</Text> and <Text span fw={600}>QLoRA</Text>.
+          <Text span fw={600}>Why it&apos;s great for learning:</Text> It strikes an excellent balance between capability and resource requirements, making it ideal for experimenting with fine-tuning techniques like <Text span fw={600}>LoRA</Text> and <Text span fw={600}>QLoRA</Text>.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Best for:</Text> General Q&A, text generation, code assistance, and as a foundation for domain-specific fine-tuning.
+          <Text span fw={600}>Best for:</Text> General Q&amp;A, text generation, code assistance, and as a foundation for domain-specific fine-tuning.
         </Text>
         <Text size="sm" c="dimmed">
           Runs well on MacBooks with 16GB+ RAM using 4-bit quantization.
@@ -481,13 +481,13 @@ const modelCards = [
     overview: (
       <>
         <Text size="md" mb="sm">
-          <Text span fw={700} c="blue">Phi-3 Mini</Text> is Microsoft's compact yet surprisingly capable model.
+          <Text span fw={700} c="blue">Phi-3 Mini</Text> is Microsoft&apos;s compact yet surprisingly capable model.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Why it's great for learning:</Text> With only 3.8B parameters, it runs on machines with <Text span fw={600}>8GB RAM</Text> or less. Perfect for students without high-end hardware.
+          <Text span fw={600}>Why it&apos;s great for learning:</Text> With only 3.8B parameters, it runs on machines with <Text span fw={600}>8GB RAM</Text> or less. Perfect for students without high-end hardware.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Best for:</Text> Structured Q&A, reasoning tasks, and educational exercises where speed matters more than maximum capability.
+          <Text span fw={600}>Best for:</Text> Structured Q&amp;A, reasoning tasks, and educational exercises where speed matters more than maximum capability.
         </Text>
         <Text size="sm" c="dimmed">
           Excellent for rapid prototyping and testing prompts before scaling up.
@@ -505,10 +505,10 @@ const modelCards = [
     overview: (
       <>
         <Text size="md" mb="sm">
-          <Text span fw={700} c="grape">Llama 3 8B</Text> is Meta's latest open-source model with broad community support.
+          <Text span fw={700} c="grape">Llama 3 8B</Text> is Meta&apos;s latest open-source model with broad community support.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Why it's great for learning:</Text> The large ecosystem means tons of tutorials, tools, and community resources. Many frameworks have first-class Llama 3 support.
+          <Text span fw={600}>Why it&apos;s great for learning:</Text> The large ecosystem means tons of tutorials, tools, and community resources. Many frameworks have first-class Llama 3 support.
         </Text>
         <Text size="md" mb="sm">
           <Text span fw={600}>Best for:</Text> Instruction-following, conversational AI, and projects where you want maximum compatibility with existing tools.
@@ -532,7 +532,7 @@ const modelCards = [
           <Text span fw={700} c="teal">BioMistral</Text> is a biomedical-tuned version of Mistral, trained on medical literature.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Why it's great for learning:</Text> Understands clinical terminology, medical concepts, and healthcare workflows out of the box—no fine-tuning needed for basic medical NLP tasks.
+          <Text span fw={600}>Why it&apos;s great for learning:</Text> Understands clinical terminology, medical concepts, and healthcare workflows out of the box—no fine-tuning needed for basic medical NLP tasks.
         </Text>
         <Text size="md" mb="sm">
           <Text span fw={600}>Best for:</Text> Medical text processing, clinical note analysis, and healthcare-related AI projects.
@@ -556,7 +556,7 @@ const modelCards = [
           <Text span fw={700} c="cyan">Meditron</Text> from EPFL is specifically designed for clinical and medical applications.
         </Text>
         <Text size="md" mb="sm">
-          <Text span fw={600}>Why it's great for learning:</Text> Built on Llama 2 and fine-tuned on curated medical data, it excels at clinical-style text generation and medical reasoning.
+          <Text span fw={600}>Why it&apos;s great for learning:</Text> Built on Llama 2 and fine-tuned on curated medical data, it excels at clinical-style text generation and medical reasoning.
         </Text>
         <Text size="md" mb="sm">
           <Text span fw={600}>Best for:</Text> Clinical documentation, medical Q&A, and healthcare AI research projects.
