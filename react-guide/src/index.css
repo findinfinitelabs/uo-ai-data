@@ -99,6 +99,18 @@ body {
   color: #ffffff !important;
 }
 
+/* Active NavLink - white text when page is selected */
+.nav-link[data-active="true"],
+.nav-link[data-active="true"] .mantine-NavLink-label,
+.nav-link[data-active="true"] .mantine-NavLink-label *,
+.nav-link[data-active="true"] svg {
+  color: #ffffff !important;
+}
+
+.nav-link[data-active="true"] {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
 /* Footer */
 .app-footer,
 .app-footer.mantine-AppShell-footer {
