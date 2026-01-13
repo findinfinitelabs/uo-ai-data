@@ -1,0 +1,130 @@
+{
+  "classificationOptions": {
+    "phi": ["Yes", "No"],
+    "pii": ["Yes", "No"],
+    "sensitivity": ["Public", "Private", "Confidential", "Restricted"],
+    "dataType": ["string", "integer", "float", "boolean", "date", "datetime", "array", "object"]
+  },
+  "useCases": {
+    "personalized-health": {
+      "dataSources": {
+        "Oura Ring API": {
+          "fields": [
+            { "name": "user_id", "phi": "No", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "date", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "date" },
+            { "name": "sleep_score", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "hrv_avg", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "resting_hr", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "deep_sleep_mins", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "rem_sleep_mins", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "readiness_score", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" }
+          ]
+        },
+        "Apple HealthKit": {
+          "fields": [
+            { "name": "record_id", "phi": "No", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "user_id", "phi": "No", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "timestamp", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "datetime" },
+            { "name": "heart_rate", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "steps", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "integer" },
+            { "name": "active_calories", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "integer" },
+            { "name": "blood_oxygen", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "float" },
+            { "name": "workout_type", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" }
+          ]
+        },
+        "EHR System": {
+          "fields": [
+            { "name": "patient_id", "phi": "Yes", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "visit_date", "phi": "Yes", "pii": "No", "sensitivity": "Private", "dataType": "date" },
+            { "name": "provider", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "diagnosis_code", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "string" },
+            { "name": "blood_pressure", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "string" },
+            { "name": "glucose_mg_dl", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "a1c_percent", "phi": "Yes", "pii": "No", "sensitivity": "Confidential", "dataType": "float" },
+            { "name": "medications", "phi": "Yes", "pii": "No", "sensitivity": "Restricted", "dataType": "array" }
+          ]
+        }
+      }
+    },
+    "manufacturing-analytics": {
+      "dataSources": {
+        "IoT Sensors": {
+          "fields": [
+            { "name": "sensor_id", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "equipment_id", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "timestamp", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "datetime" },
+            { "name": "temperature_c", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "float" },
+            { "name": "vibration_hz", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "float" },
+            { "name": "pressure_psi", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "float" },
+            { "name": "oil_level_pct", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "float" },
+            { "name": "runtime_hours", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "float" }
+          ]
+        },
+        "Maintenance Logs": {
+          "fields": [
+            { "name": "work_order_id", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "equipment_id", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "date", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "date" },
+            { "name": "technician", "phi": "No", "pii": "Yes", "sensitivity": "Private", "dataType": "string" },
+            { "name": "maintenance_type", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "parts_replaced", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "array" },
+            { "name": "labor_hours", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "float" },
+            { "name": "cost_usd", "phi": "No", "pii": "No", "sensitivity": "Confidential", "dataType": "float" }
+          ]
+        },
+        "MES Production": {
+          "fields": [
+            { "name": "batch_id", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "equipment_id", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "start_time", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "datetime" },
+            { "name": "end_time", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "datetime" },
+            { "name": "product_code", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "units_produced", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "integer" },
+            { "name": "defect_count", "phi": "No", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "operator_id", "phi": "No", "pii": "Yes", "sensitivity": "Private", "dataType": "string" }
+          ]
+        }
+      }
+    },
+    "fraud-detection": {
+      "dataSources": {
+        "Transaction Stream": {
+          "fields": [
+            { "name": "transaction_id", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "account_id", "phi": "No", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "timestamp", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "datetime" },
+            { "name": "amount", "phi": "No", "pii": "No", "sensitivity": "Confidential", "dataType": "float" },
+            { "name": "merchant_category", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "merchant_name", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "location", "phi": "No", "pii": "Yes", "sensitivity": "Private", "dataType": "string" },
+            { "name": "channel", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" }
+          ]
+        },
+        "Customer Profiles": {
+          "fields": [
+            { "name": "account_id", "phi": "No", "pii": "Yes", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "member_since", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "date" },
+            { "name": "account_type", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "credit_limit", "phi": "No", "pii": "Yes", "sensitivity": "Confidential", "dataType": "float" },
+            { "name": "avg_monthly_spend", "phi": "No", "pii": "Yes", "sensitivity": "Confidential", "dataType": "float" },
+            { "name": "home_zip", "phi": "No", "pii": "Yes", "sensitivity": "Private", "dataType": "string" },
+            { "name": "risk_score", "phi": "No", "pii": "No", "sensitivity": "Confidential", "dataType": "integer" },
+            { "name": "preferred_categories", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "array" }
+          ]
+        },
+        "Threat Intelligence": {
+          "fields": [
+            { "name": "indicator_id", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "indicator_type", "phi": "No", "pii": "No", "sensitivity": "Public", "dataType": "string" },
+            { "name": "value", "phi": "No", "pii": "No", "sensitivity": "Restricted", "dataType": "string" },
+            { "name": "threat_level", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "string" },
+            { "name": "first_seen", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "date" },
+            { "name": "last_seen", "phi": "No", "pii": "No", "sensitivity": "Private", "dataType": "date" },
+            { "name": "source", "phi": "No", "pii": "No", "sensitivity": "Confidential", "dataType": "string" },
+            { "name": "associated_campaigns", "phi": "No", "pii": "No", "sensitivity": "Restricted", "dataType": "array" }
+          ]
+        }
+      }
+    }
+  }
+}

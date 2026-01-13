@@ -1,125 +1,195 @@
-# Data Requirements Document Template
+# Data Requirements Template
 
-## Project Information
+Use this template to document data requirements for your AI/ML project. Answer the five key questions first, then detail each data source.
 
-- **Project Name**: [Insert Project Name]
-- **Date**: [Insert Date]
-- **Version**: [Insert Version]
-- **Author(s)**: [Insert Author Names]
+---
 
-## Executive Summary
+## Project Overview
 
-Brief overview of the data requirements for this AI/ML project.
+**Project Name:** _[Your project name]_
 
-## Project Objectives
+**Use Case:** _[Brief description of the business problem]_
 
-- [ ] Objective 1
-- [ ] Objective 2
-- [ ] Objective 3
+**Date:** _[Date created]_
 
-## Data Requirements
+---
 
-### 1. Patient Demographics
+## Step 1: Five Key Questions
 
-- **Purpose**: Identify and stratify patient populations
-- **Required Fields**:
-  - Patient ID (anonymized)
-  - Age (or date of birth)
-  - Gender
-  - Race/Ethnicity
-  - Geographic location (ZIP code or region)
-- **Data Type**: Structured
-- **Update Frequency**: On patient registration/update
-- **Quality Requirements**:
-  - Completeness: 100% for Patient ID, Age, Gender
-  - Accuracy: Validated against source systems
+### 1. What is the primary business objective?
 
-### 2. Health Records
+_What specific outcome do you want to predict or automate? Be specific._
 
-- **Purpose**: Capture patient health status and history
-- **Required Fields**:
-  - Diagnosis codes (ICD-10)
-  - Procedure codes (CPT)
-  - Medications (RxNorm codes)
-  - Allergies
-  - Vital signs (BP, HR, temperature, weight, height)
-  - Lab results
-- **Data Type**: Structured and semi-structured
-- **Update Frequency**: Real-time or near real-time
-- **Quality Requirements**:
-  - Completeness: Minimum 95% for critical fields
-  - Timeliness: Within 24 hours of encounter
+**Example (Personalized Health):** Predict cardiovascular risk by correlating wearable data patterns with clinical health markers.
 
-### 3. Dental Records
+**Example (Manufacturing):** Predict equipment failures 24-48 hours in advance to enable preventive maintenance.
 
-- **Purpose**: Capture dental examination and treatment data
-- **Required Fields**:
-  - Tooth number/location
-  - Condition assessment
-  - Treatment performed
-  - X-ray images (optional)
-  - Periodontal measurements
-- **Data Type**: Structured with optional image data
-- **Update Frequency**: Per dental visit
-- **Quality Requirements**:
-  - Completeness: 100% for tooth assessments
-  - Consistency: Standard notation (e.g., Universal Numbering System)
+**Example (Fraud Detection):** Detect fraudulent transactions in real-time with <100ms latency and <1% false positive rate.
 
-## Data Quality Standards
+**Your Answer:** _________________________________
 
-### Completeness
+---
 
-- Critical fields: 100% complete
-- Important fields: 95% complete
-- Optional fields: No minimum requirement
+### 2. Who are the end users?
 
-### Accuracy
+_Who will consume the model's outputs? What decisions will they make?_
 
-- Data validation rules applied at entry
-- Cross-reference with authoritative sources
-- Regular audits (quarterly)
+| User Type | How They Use Output | Required Format |
+|-----------|---------------------|-----------------|
+| _e.g., Patient_ | _Review health insights_ | _Mobile app dashboard_ |
+| _e.g., Physician_ | _Validate AI recommendations_ | _EHR integration_ |
+| _e.g., Operator_ | _Act on maintenance alerts_ | _SMS/Email notification_ |
 
-### Consistency
+**Your Answer:**
 
-- Standardized coding systems (ICD-10, CPT, RxNorm)
-- Uniform date/time formats (ISO 8601)
-- Controlled vocabularies for categorical data
+| User Type | How They Use Output | Required Format |
+|-----------|---------------------|-----------------|
+| | | |
+| | | |
+| | | |
 
-### Timeliness
+---
 
-- Real-time data: Within minutes of event
-- Near real-time data: Within 24 hours
-- Batch data: Weekly or monthly as specified
+### 3. What regulatory frameworks apply?
 
-## Data Sources
+_Check all that apply and note specific requirements._
 
-1. Electronic Health Record (EHR) system
-2. Practice Management System (PMS)
-3. Laboratory Information System (LIS)
-4. Dental imaging systems
+| Framework | Applies? | Key Requirements |
+|-----------|----------|------------------|
+| HIPAA | ☐ Yes ☐ No | PHI protection, BAA required |
+| PCI-DSS | ☐ Yes ☐ No | Card data encryption, audit trails |
+| GDPR | ☐ Yes ☐ No | Consent, right to erasure, DPO |
+| SOX | ☐ Yes ☐ No | Financial audit controls |
+| FERPA | ☐ Yes ☐ No | Student record protection |
+| State Privacy Laws | ☐ Yes ☐ No | _Specify: CCPA, etc._ |
 
-## Data Volume Estimates
+**Additional Notes:** _________________________________
 
-- Expected number of patients: [Insert number]
-- Expected number of records per patient: [Insert number]
-- Total dataset size: [Insert size estimate]
-- Growth rate: [Insert growth rate]
+---
 
-## Data Access and Security
+### 4. What is the expected data volume?
 
-- Access controls: Role-based access control (RBAC)
-- Encryption: AES-256 at rest, TLS 1.3 in transit
-- Audit logging: All access logged and monitored
+_Estimate the scale for capacity planning._
 
-## Constraints and Limitations
+| Data Source | Records/Day | Records/Month | Retention Period |
+|-------------|-------------|---------------|------------------|
+| _e.g., Wearable data_ | _1,440 (1/min)_ | _43,200_ | _24 months_ |
+| _e.g., Transactions_ | _50,000_ | _1.5M_ | _7 years_ |
+| _e.g., IoT sensors_ | _86,400 (1/sec)_ | _2.6M_ | _12 months_ |
 
-- List any known constraints or limitations
-- Dependencies on external systems
-- Data availability windows
+**Your Estimates:**
 
-## Approval
+| Data Source | Records/Day | Records/Month | Retention Period |
+|-------------|-------------|---------------|------------------|
+| | | | |
+| | | | |
+| | | | |
 
-- [ ] Data Owner
-- [ ] IT/Security Team
-- [ ] Compliance Officer
-- [ ] Project Manager
+**Total Storage Estimate:** ______________ GB/month
+
+---
+
+### 5. What is the required data freshness?
+
+_How current does the data need to be for the use case?_
+
+| Category | Latency Requirement | Your Need |
+|----------|---------------------|-----------|
+| Real-time | < 1 second | ☐ |
+| Near real-time | 1 second - 5 minutes | ☐ |
+| Hourly | Refreshed every hour | ☐ |
+| Daily batch | Overnight processing | ☐ |
+| Weekly/Monthly | Periodic updates | ☐ |
+
+**Justification:** _Why does the use case require this freshness?_
+
+---
+
+## Step 2: Data Sources
+
+### Data Source 1: _[Name]_
+
+**Source Type:** _[API / Database / File Export / Stream]_
+
+**Owner/Vendor:** _[Who controls this data?]_
+
+**Access Method:** _[REST API / JDBC / SFTP / Kafka]_
+
+**Authentication:** _[OAuth / API Key / Credentials]_
+
+**Update Frequency:** _[Real-time / Hourly / Daily / On-demand]_
+
+#### Fields
+
+| Field Name | PHI | PII | Sensitivity | Data Type | Required |
+|------------|-----|-----|-------------|-----------|----------|
+| | | | | | |
+| | | | | | |
+| | | | | | |
+
+---
+
+### Data Source 2: _[Name]_
+
+**Source Type:** _[API / Database / File Export / Stream]_
+
+**Owner/Vendor:** _[Who controls this data?]_
+
+**Access Method:** _[REST API / JDBC / SFTP / Kafka]_
+
+**Authentication:** _[OAuth / API Key / Credentials]_
+
+**Update Frequency:** _[Real-time / Hourly / Daily / On-demand]_
+
+#### Fields
+
+| Field Name | PHI | PII | Sensitivity | Data Type | Required |
+|------------|-----|-----|-------------|-----------|----------|
+| | | | | | |
+| | | | | | |
+| | | | | | |
+
+---
+
+### Data Source 3: _[Name]_
+
+**Source Type:** _[API / Database / File Export / Stream]_
+
+**Owner/Vendor:** _[Who controls this data?]_
+
+**Access Method:** _[REST API / JDBC / SFTP / Kafka]_
+
+**Authentication:** _[OAuth / API Key / Credentials]_
+
+**Update Frequency:** _[Real-time / Hourly / Daily / On-demand]_
+
+#### Fields
+
+| Field Name | PHI | PII | Sensitivity | Data Type | Required |
+|------------|-----|-----|-------------|-----------|----------|
+| | | | | | |
+| | | | | | |
+| | | | | | |
+
+---
+
+## Summary Checklist
+
+Before proceeding to schema generation, verify:
+
+- [ ] All five key questions answered with specific details
+- [ ] All data sources identified with access methods
+- [ ] Every field classified for PHI, PII, and Sensitivity
+- [ ] Data types specified for all fields
+- [ ] Regulatory requirements documented
+- [ ] Data volume estimates completed
+- [ ] Data freshness requirements justified
+
+---
+
+## Next Steps
+
+1. **Generate JSON Schema** - Use AI to create validation schemas from field classifications
+2. **Create Data Dictionary** - Document detailed field specifications
+3. **Define Validation Rules** - Establish data quality checks
+4. **Generate Sample Data** - Create synthetic test data

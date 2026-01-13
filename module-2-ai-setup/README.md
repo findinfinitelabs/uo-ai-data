@@ -1,6 +1,15 @@
 # Module 2: AI Environment Setup
 
-Set up your AI learning environment to start experimenting with language models. Choose the option that best fits your situation:
+Set up your AI learning environment to start experimenting with language models.
+Choose the option that best fits your situation:
+
+## 🆕 New to AWS?
+
+If you don't have an AWS account yet, start here:
+
+[→ **AWS Account Setup Guide** (Create account + activate SageMaker & Bedrock)](./aws-account-setup.md)
+
+---
 
 ## Two Options for Getting Started
 

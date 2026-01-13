@@ -29,6 +29,12 @@ import {
   IconShieldCheck,
   IconScale,
   IconDatabase,
+  IconTargetArrow,
+  IconLock,
+  IconTestPipe,
+  IconSparkles,
+  IconUsers,
+  IconBuildingFactory2,
 } from '@tabler/icons-react';
 import { modules } from '../data/modules';
 
@@ -38,6 +44,7 @@ const moduleIcons = {
   'module-3': IconShieldCheck,
   'module-4': IconScale,
   'module-5': IconDatabase,
+  'case-study': IconBuildingFactory2,
 };
 
 function Hero() {
@@ -49,17 +56,86 @@ function Hero() {
       <Title order={1} mb="xs" className="hero-title">
         Introduction
       </Title>
-      <Text size="lg" mb="md" className="hero-subtitle">
+      <Text size="lg" mb="lg" className="hero-subtitle">
         Start with solid specs, respect privacy, build ethically, and practice with synthetic data.
       </Text>
-      <Text size="sm" className="hero-analogy">
-        <Text span fw={600}>Quick analogy:</Text> The model is your{' '}
-        <Text span fw={700} c="green">wellness advisor</Text>. Your prompt describes your
-        lifestyle—nutrition, exercise, sleep.{' '}
-        <Text span fw={600} c="teal">RAG</Text> pulls in your personal health profile for context.{' '}
-        <Text span fw={600} c="grape">Fine-tuning</Text> teaches the advisor from new data like
-        health app logs and recent office visits.
+      
+      <Text size="sm" fw={600} mb="sm" c="dimmed">
+        How AI Components Work Together
       </Text>
+      <Group gap="xs" align="stretch" wrap="wrap">
+        <Paper 
+          p="sm" 
+          radius="md" 
+          withBorder 
+          style={{ flex: '1 1 120px', minWidth: 120, borderColor: 'var(--mantine-color-green-4)', background: 'var(--mantine-color-green-0)' }}
+        >
+          <Group gap="xs" mb={4}>
+            <ThemeIcon color="green" size="sm" radius="xl">
+              <IconBrain size={12} />
+            </ThemeIcon>
+            <Text size="xs" fw={700} c="green">Model</Text>
+          </Group>
+          <Text size="xs" c="dimmed">Your AI "wellness advisor"</Text>
+        </Paper>
+
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <IconArrowRight size={16} color="var(--mantine-color-gray-5)" />
+        </Box>
+
+        <Paper 
+          p="sm" 
+          radius="md" 
+          withBorder 
+          style={{ flex: '1 1 120px', minWidth: 120, borderColor: 'var(--mantine-color-blue-4)', background: 'var(--mantine-color-blue-0)' }}
+        >
+          <Group gap="xs" mb={4}>
+            <ThemeIcon color="blue" size="sm" radius="xl">
+              <IconFileText size={12} />
+            </ThemeIcon>
+            <Text size="xs" fw={700} c="blue">Prompt</Text>
+          </Group>
+          <Text size="xs" c="dimmed">Describe your lifestyle</Text>
+        </Paper>
+
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <IconArrowRight size={16} color="var(--mantine-color-gray-5)" />
+        </Box>
+
+        <Paper 
+          p="sm" 
+          radius="md" 
+          withBorder 
+          style={{ flex: '1 1 120px', minWidth: 120, borderColor: 'var(--mantine-color-teal-4)', background: 'var(--mantine-color-teal-0)' }}
+        >
+          <Group gap="xs" mb={4}>
+            <ThemeIcon color="teal" size="sm" radius="xl">
+              <IconBook2 size={12} />
+            </ThemeIcon>
+            <Text size="xs" fw={700} c="teal">RAG</Text>
+          </Group>
+          <Text size="xs" c="dimmed">Pull in health profile</Text>
+        </Paper>
+
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <IconArrowRight size={16} color="var(--mantine-color-gray-5)" />
+        </Box>
+
+        <Paper 
+          p="sm" 
+          radius="md" 
+          withBorder 
+          style={{ flex: '1 1 120px', minWidth: 120, borderColor: 'var(--mantine-color-grape-4)', background: 'var(--mantine-color-grape-0)' }}
+        >
+          <Group gap="xs" mb={4}>
+            <ThemeIcon color="grape" size="sm" radius="xl">
+              <IconAdjustments size={12} />
+            </ThemeIcon>
+            <Text size="xs" fw={700} c="grape">Fine-tune</Text>
+          </Group>
+          <Text size="xs" c="dimmed">Learn from new data</Text>
+        </Paper>
+      </Group>
     </Paper>
   );
 }
@@ -172,6 +248,120 @@ const aiBasics = [
     ),
   },
 ];
+
+const courseObjectives = [
+  {
+    icon: IconTargetArrow,
+    title: 'Define Clear Data Specifications',
+    description: 'Learn to create precise data schemas, quality rules, and field definitions that keep AI projects consistent and reproducible.',
+    percentage: 15,
+    level: 'Basic',
+    levelColor: 'green',
+    time: '1 hr',
+  },
+  {
+    icon: IconLock,
+    title: 'Apply Privacy & Compliance Standards',
+    description: 'Understand HIPAA, de-identification protocols, and data handling policies essential for healthcare AI applications.',
+    percentage: 20,
+    level: 'Experienced',
+    levelColor: 'blue',
+    time: '1.5 hrs',
+  },
+  {
+    icon: IconScale,
+    title: 'Build Ethical AI Systems',
+    description: 'Evaluate bias, fairness, and transparency in AI models using structured assessment frameworks.',
+    percentage: 15,
+    level: 'Experienced',
+    levelColor: 'blue',
+    time: '1 hr',
+  },
+  {
+    icon: IconTestPipe,
+    title: 'Generate & Validate Synthetic Data',
+    description: 'Create realistic synthetic datasets that preserve statistical properties while protecting patient privacy.',
+    percentage: 25,
+    level: 'Advanced',
+    levelColor: 'grape',
+    time: '2 hrs',
+  },
+  {
+    icon: IconSparkles,
+    title: 'Use AI Tools Effectively',
+    description: 'Master inference, RAG, and fine-tuning techniques using both cloud APIs and local models.',
+    percentage: 15,
+    level: 'Basic',
+    levelColor: 'green',
+    time: '1.5 hrs',
+  },
+  {
+    icon: IconUsers,
+    title: 'Collaborate on Real-World Projects',
+    description: 'Apply your skills to healthcare use cases with hands-on exercises and team-based challenges.',
+    percentage: 10,
+    level: 'Advanced',
+    levelColor: 'grape',
+    time: '1 hr',
+  },
+];
+
+function CourseObjectives() {
+  return (
+    <>
+      <Title order={3} mb="md" className="section-title">
+        Course Objectives
+      </Title>
+      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md" mb="xl">
+        {courseObjectives.map((obj, index) => {
+          const Icon = obj.icon;
+          return (
+            <Paper
+              key={index}
+              p="lg"
+              radius="md"
+              withBorder
+              className="objective-card"
+            >
+              <Group justify="space-between" align="flex-start" mb="sm">
+                <ThemeIcon color="green" size={40} radius="xl" variant="light">
+                  <Icon size={22} />
+                </ThemeIcon>
+                <Box
+                  p="xs"
+                  style={{
+                    background: 'var(--mantine-color-green-0)',
+                    borderRadius: 'var(--mantine-radius-md)',
+                    minWidth: 50,
+                    textAlign: 'center',
+                  }}
+                >
+                  <Text fw={700} size="lg" c="green" lh={1}>
+                    {obj.percentage}%
+                  </Text>
+                </Box>
+              </Group>
+              <Text className="objective-card-title" size="md">
+                {obj.title}
+              </Text>
+              <Text size="sm" className="objective-card-description">
+                {obj.description}
+              </Text>
+              <Group gap="xs" mt="auto" pt="sm">
+                <Badge size="sm" color={obj.levelColor} variant="light">
+                  {obj.level}
+                </Badge>
+                <Badge size="sm" color="gray" variant="outline">
+                  ⏱ {obj.time}
+                </Badge>
+              </Group>
+            </Paper>
+          );
+        })}
+      </SimpleGrid>
+    </>
+  );
+}
 
 function Primer() {
   const [opened, setOpened] = useState(null);
@@ -475,7 +665,7 @@ function Models() {
 function ModuleCards() {
   return (
     <>
-      <Title order={3} mb="md" className="section-title">
+      <Title order={3} mb="md" className="section-title" style={{ borderColor: 'var(--mantine-color-blue-6)', color: 'var(--mantine-color-blue-7)' }}>
         Course Modules
       </Title>
       <Text size="sm" c="dimmed" mb="md">
@@ -484,6 +674,8 @@ function ModuleCards() {
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md" mb="lg">
         {modules.map((mod) => {
           const Icon = moduleIcons[mod.id];
+          const isCaseStudy = mod.isCaseStudy;
+          const themeColor = isCaseStudy ? 'green' : 'blue';
           return (
             <Card
               key={mod.id}
@@ -492,14 +684,18 @@ function ModuleCards() {
               radius="md"
               withBorder
               className="ai-basics-card"
+              style={{ 
+                borderLeftColor: isCaseStudy ? 'var(--uo-green)' : 'var(--mantine-color-blue-4)', 
+                borderLeftWidth: 3 
+              }}
             >
               <Group mb="sm">
-                <ThemeIcon color="green" size={40} radius="xl">
+                <ThemeIcon color={themeColor} size={40} radius="xl">
                   <Icon size={22} />
                 </ThemeIcon>
                 <Box>
-                  <Badge size="xs" color="green" variant="light" mb={4}>
-                    {mod.id.replace('-', ' ').toUpperCase()}
+                  <Badge size="xs" color={themeColor} variant="light" mb={4}>
+                    {isCaseStudy ? 'CASE STUDY' : mod.id.replace('-', ' ').toUpperCase()}
                   </Badge>
                   <Text fw={600} size="md" lh={1.2}>
                     {mod.title}
@@ -513,12 +709,12 @@ function ModuleCards() {
                 component={Link}
                 to={`/${mod.id}`}
                 variant="light"
-                color="green"
+                color={themeColor}
                 fullWidth
                 mt="md"
                 rightSection={<IconArrowRight size={16} />}
               >
-                Explore Module
+                {isCaseStudy ? 'View Case Study' : 'Explore Module'}
               </Button>
             </Card>
           );
@@ -532,7 +728,11 @@ export default function HomePage() {
   return (
     <Container size="lg">
       <Hero />
+      <Divider my="xl" />
+      <CourseObjectives />
+      <Divider my="xl" />
       <Primer />
+      <Divider my="xl" />
       <Models />
       <Divider my="xl" />
       <ModuleCards />

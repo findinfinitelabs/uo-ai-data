@@ -27,12 +27,17 @@ import {
   IconBulb,
   IconCode,
   IconWand,
+  IconCloud,
+  IconBrandAws,
+  IconTerminal2,
+  IconBuildingFactory2,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
 import ModulePage from './pages/ModulePage';
 import LoginPage from './pages/LoginPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
+import AISetupPage from './pages/modules/AISetupPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserMenu from './components/UserMenu';
@@ -46,12 +51,21 @@ const module1SubPages = [
   { id: 'prompt-to-spec', title: 'Prompt to Spec', icon: IconWand },
 ];
 
+// AI Setup sub-navigation items
+const aiSetupSubPages = [
+  { id: 'aws-account', title: 'AWS Account Setup', icon: IconCloud },
+  { id: 'bedrock', title: 'AWS Bedrock', icon: IconBrandAws },
+  { id: 'local-llm', title: 'Local LLM', icon: IconTerminal2 },
+  { id: 'sagemaker', title: 'AWS SageMaker', icon: IconServer },
+];
+
 const moduleIcons = {
   'module-1': IconFileText,
   'module-2': IconServer,
   'module-3': IconShieldCheck,
   'module-4': IconScale,
   'module-5': IconDatabase,
+  'case-study': IconBuildingFactory2,
 };
 
 function AppLayout() {
@@ -140,6 +154,41 @@ function AppLayout() {
             />
           );
         })}
+
+        <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
+          AI Environment
+        </Text>
+        <Box>
+          <NavLink
+            label="AI Setup"
+            component={Link}
+            to="/ai-setup"
+            leftSection={<IconCloud size={20} stroke={1.5} />}
+            mb="xs"
+            className="nav-link"
+            active={location.pathname.startsWith('/ai-setup')}
+          />
+          <Collapse in={location.pathname.startsWith('/ai-setup')}>
+            <Box ml="xl" className="sub-nav-container">
+              {aiSetupSubPages.map((subPage) => {
+                const SubIcon = subPage.icon;
+                const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
+                return (
+                  <NavLink
+                    key={subPage.id}
+                    label={subPage.title}
+                    component={Link}
+                    to={`/ai-setup/${subPage.id}`}
+                    leftSection={<SubIcon size={16} stroke={1.5} />}
+                    mb={4}
+                    className="nav-link sub-nav-link"
+                    active={isSubActive}
+                  />
+                );
+              })}
+            </Box>
+          </Collapse>
+        </Box>
       </AppShell.Navbar>
       <AppShell.Main>
         <Routes>
@@ -164,6 +213,22 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <DataSpecsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ai-setup"
+            element={
+              <ProtectedRoute>
+                <AISetupPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ai-setup/:subPage"
+            element={
+              <ProtectedRoute>
+                <AISetupPage />
               </ProtectedRoute>
             }
           />

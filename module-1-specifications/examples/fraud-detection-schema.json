@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/fraud-detection-schema.json",
+  "title": "Banking Fraud Detection Data Schema",
+  "description": "Schema for validating transaction, customer profile, and threat intelligence data for real-time fraud detection use case",
+  "type": "object",
+  "properties": {
+    "transaction_stream": {
+      "type": "array",
+      "description": "Real-time transaction feed from payment processing",
+      "items": {
+        "type": "object",
+        "required": ["transaction_id", "account_id", "timestamp", "amount"],
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "pattern": "^TXN-[0-9]{16}$",
+            "description": "Unique transaction identifier (Private)"
+          },
+          "account_id": {
+            "type": "string",
+            "pattern": "^ACC-[0-9]{8}$",
+            "description": "Customer account number (PII - Restricted)"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Transaction timestamp (Private)"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000000,
+            "description": "Transaction amount in USD (Confidential)"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["card_present", "card_not_present", "ach_debit", "ach_credit", "wire_transfer", "atm_withdrawal"],
+            "description": "Transaction type/channel (Public)"
+          },
+          "merchant_category": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$",
+            "description": "Merchant Category Code (MCC) (Public)"
+          },
+          "merchant_name": {
+            "type": "string",
+            "description": "Name of merchant (Public)"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "city": { "type": "string" },
+              "state": { "type": "string" },
+              "country": { "type": "string", "pattern": "^[A-Z]{2}$" }
+            },
+            "description": "Transaction location (PII - Private)"
+          },
+          "auth_method": {
+            "type": "string",
+            "enum": ["chip", "contactless", "swipe", "keyed", "online"],
+            "description": "Authentication method used (Public)"
+          },
+          "device_hash": {
+            "type": "string",
+            "description": "Hashed device fingerprint (Private)"
+          },
+          "ip_address": {
+            "type": "string",
+            "description": "Masked IP address for CNP transactions (Private)"
+          },
+          "risk_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Real-time risk score (Confidential)"
+          },
+          "velocity_check": {
+            "type": "string",
+            "enum": ["passed", "failed", "warning"],
+            "description": "Velocity check result (Private)"
+          },
+          "velocity_alert": {
+            "type": "boolean",
+            "description": "True if velocity threshold exceeded (Private)"
+          },
+          "distance_from_last_txn_miles": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Distance from last transaction in miles (Private)"
+          },
+          "recurring": {
+            "type": "boolean",
+            "description": "True if recognized recurring payment (Private)"
+          },
+          "first_time_recipient": {
+            "type": "boolean",
+            "description": "True if first transfer to this recipient (Private)"
+          },
+          "requires_review": {
+            "type": "boolean",
+            "description": "True if flagged for manual review (Private)"
+          }
+        }
+      }
+    },
+    "customer_profiles": {
+      "type": "array",
+      "description": "Customer behavioral profiles and risk indicators",
+      "items": {
+        "type": "object",
+        "required": ["account_id"],
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "pattern": "^ACC-[0-9]{8}$",
+            "description": "Customer account number (PII - Restricted)"
+          },
+          "member_since": {
+            "type": "string",
+            "format": "date",
+            "description": "Account opening date (Private)"
+          },
+          "account_type": {
+            "type": "string",
+            "enum": ["retail", "business", "premium", "student"],
+            "description": "Type of account (Public)"
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 18,
+            "maximum": 120,
+            "description": "Account holder age (Private)"
+          },
+          "income_bracket": {
+            "type": "string",
+            "description": "Income range category (Confidential)"
+          },
+          "credit_limit": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Credit card limit in USD (PII - Confidential)"
+          },
+          "avg_monthly_spend": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Average monthly spending (PII - Confidential)"
+          },
+          "avg_transaction_amount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Average transaction amount (Confidential)"
+          },
+          "home_zip": {
+            "type": "string",
+            "pattern": "^[0-9]{5}$",
+            "description": "Home ZIP code (PII - Private)"
+          },
+          "typical_locations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Common transaction locations (Private)"
+          },
+          "typical_merchants": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Common merchant categories (Private)"
+          },
+          "device_fingerprints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Known device hashes (Private)"
+          },
+          "risk_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Overall account risk score (Confidential)"
+          },
+          "risk_indicators": {
+            "type": "object",
+            "properties": {
+              "address_changes_12mo": { "type": "integer" },
+              "password_resets_30d": { "type": "integer" },
+              "failed_logins_7d": { "type": "integer" },
+              "new_payees_30d": { "type": "integer" },
+              "large_txn_frequency": { "type": "string" }
+            },
+            "description": "Risk indicator metrics (Confidential)"
+          },
+          "fraud_history": {
+            "type": "object",
+            "properties": {
+              "confirmed_fraud": { "type": "integer" },
+              "disputed_txns": { "type": "integer" },
+              "last_dispute": { "type": "string", "format": "date" },
+              "dispute_resolution": { "type": "string" }
+            },
+            "description": "Historical fraud and dispute data (Confidential)"
+          },
+          "travel_history": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Recent travel destinations (Private)"
+          }
+        }
+      }
+    },
+    "threat_intelligence": {
+      "type": "array",
+      "description": "External threat intelligence feeds in STIX 2.1 format",
+      "items": {
+        "type": "object",
+        "required": ["indicator_id", "indicator_type"],
+        "properties": {
+          "indicator_id": {
+            "type": "string",
+            "pattern": "^indicator--[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$",
+            "description": "Unique indicator identifier (Private)"
+          },
+          "indicator_type": {
+            "type": "string",
+            "enum": ["malicious-ip", "compromised-bin", "high-risk-merchant", "known-fraud-device", "tor-exit-node", "data-breach"],
+            "description": "Type of threat indicator (Public)"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "STIX pattern for matching (Restricted)"
+          },
+          "threat_level": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"],
+            "description": "Severity level (Private)"
+          },
+          "confidence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Confidence percentage (Private)"
+          },
+          "first_seen": {
+            "type": "string",
+            "format": "date",
+            "description": "Date first observed (Private)"
+          },
+          "last_seen": {
+            "type": "string",
+            "format": "date",
+            "description": "Date last observed (Private)"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date",
+            "description": "Expiration date for indicator (Private)"
+          },
+          "source": {
+            "type": "string",
+            "description": "Intelligence source (Confidential)"
+          },
+          "associated_campaigns": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Related threat campaigns (Restricted)"
+          },
+          "fraud_reports": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of fraud reports (Private)"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "transaction_stream": [
+        {
+          "transaction_id": "TXN-2026011214300001",
+          "account_id": "ACC-00045821",
+          "timestamp": "2026-01-12T14:30:00Z",
+          "amount": 47.52,
+          "type": "card_present",
+          "merchant_category": "5411",
+          "merchant_name": "SAFEWAY #1234",
+          "location": { "city": "Seattle", "state": "WA", "country": "US" },
+          "auth_method": "chip",
+          "device_hash": "d4f8a2c9...",
+          "risk_score": 5,
+          "velocity_check": "passed"
+        },
+        {
+          "transaction_id": "TXN-2026011214300002",
+          "account_id": "ACC-00045821",
+          "timestamp": "2026-01-12T14:32:00Z",
+          "amount": 892.00,
+          "type": "card_not_present",
+          "merchant_category": "5732",
+          "merchant_name": "ELECTRONICS ONLINE",
+          "location": { "country": "RO" },
+          "ip_address": "185.220.xxx.xxx",
+          "risk_score": 87,
+          "velocity_check": "failed",
+          "requires_review": true
+        },
+        {
+          "transaction_id": "TXN-2026011214300003",
+          "account_id": "ACC-00045821",
+          "timestamp": "2026-01-12T14:35:00Z",
+          "amount": 1250.00,
+          "type": "card_present",
+          "merchant_category": "5732",
+          "merchant_name": "BEST BUY #0892",
+          "location": { "city": "Miami", "state": "FL", "country": "US" },
+          "velocity_alert": true,
+          "distance_from_last_txn_miles": 2847,
+          "risk_score": 92
+        }
+      ],
+      "customer_profiles": [
+        {
+          "account_id": "ACC-00045821",
+          "member_since": "2019-06-15",
+          "account_type": "retail",
+          "age": 34,
+          "income_bracket": "75k-100k",
+          "credit_limit": 15000,
+          "avg_monthly_spend": 2450,
+          "avg_transaction_amount": 78.50,
+          "home_zip": "98101",
+          "typical_locations": ["Seattle, WA", "Portland, OR", "Bellevue, WA"],
+          "typical_merchants": ["grocery", "gas", "restaurants", "online_retail"],
+          "risk_score": 15,
+          "risk_indicators": {
+            "address_changes_12mo": 0,
+            "password_resets_30d": 0,
+            "failed_logins_7d": 1,
+            "new_payees_30d": 2
+          },
+          "fraud_history": {
+            "confirmed_fraud": 0,
+            "disputed_txns": 1,
+            "last_dispute": "2024-03-15",
+            "dispute_resolution": "merchant_error"
+          }
+        }
+      ],
+      "threat_intelligence": [
+        {
+          "indicator_id": "indicator--2026-01-12-001",
+          "indicator_type": "malicious-ip",
+          "pattern": "[ipv4-addr:value = '185.220.xxx.xxx']",
+          "threat_level": "high",
+          "confidence": 95,
+          "first_seen": "2025-12-01",
+          "valid_until": "2026-02-12",
+          "source": "FS-ISAC",
+          "associated_campaigns": ["Romanian Card Testing Ring"]
+        },
+        {
+          "indicator_id": "indicator--2026-01-12-002",
+          "indicator_type": "high-risk-merchant",
+          "pattern": "[merchant:id = 'ELECTRONICS ONLINE']",
+          "threat_level": "medium",
+          "confidence": 78,
+          "last_seen": "2026-01-11",
+          "source": "Visa Risk",
+          "fraud_reports": 47
+        }
+      ]
+    }
+  ]
+}

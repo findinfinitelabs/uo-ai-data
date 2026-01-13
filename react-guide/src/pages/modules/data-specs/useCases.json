@@ -1,0 +1,254 @@
+{
+  "useCases": [
+    {
+      "id": "personalized-health",
+      "title": "Personalized Health Insights",
+      "avatar": "👩�‍💼",
+      "name": "Maria Chen",
+      "color": "teal",
+      "tags": [
+        { "label": "52 years old", "color": "blue" },
+        { "label": "Marketing Executive", "color": "grape" },
+        { "label": "Portland, OR", "color": "gray" },
+        { "label": "Pre-diabetic", "color": "orange" },
+        { "label": "High Stress", "color": "pink" },
+        { "label": "Active", "color": "teal" }
+      ],
+      "scenario": "Maria is a 52-year-old marketing executive who recently had a health scare with elevated blood pressure. She wants to combine her wearable data with her doctor's records to get personalized insights about her cardiovascular risk.",
+      "highlights": [
+        { "text": "elevated blood pressure", "color": "orange" },
+        { "text": "combine her wearable data", "color": "blue" },
+        { "text": "personalized insights", "color": "grape" }
+      ],
+      "dataSources": [
+        {
+          "name": "Oura Ring",
+          "type": "Wearable",
+          "icon": "IconCircleDot",
+          "description": "Sleep stages, HRV, readiness scores from Oura Cloud API v2",
+          "sampleData": {
+            "title": "Oura Ring Cloud API v2 Export",
+            "format": "JSON",
+            "records": [
+              { "type": "daily_sleep", "day": "2026-01-12", "score": 85, "total_sleep_duration": 27840, "deep_sleep_duration": 5400, "rem_sleep_duration": 6300, "light_sleep_duration": 16140, "awake_duration": 1800 },
+              { "type": "daily_sleep", "day": "2026-01-11", "score": 72, "total_sleep_duration": 21600, "deep_sleep_duration": 3600, "rem_sleep_duration": 5400, "light_sleep_duration": 12600, "awake_duration": 2400 },
+              { "type": "daily_sleep", "day": "2026-01-10", "score": 91, "total_sleep_duration": 30600, "deep_sleep_duration": 6300, "rem_sleep_duration": 7200, "light_sleep_duration": 17100, "awake_duration": 1200 },
+              { "type": "daily_readiness", "day": "2026-01-12", "score": 78, "temperature_deviation": 0.1, "hrv_balance": 72, "recovery_index": 85, "resting_heart_rate": 58 },
+              { "type": "daily_readiness", "day": "2026-01-11", "score": 65, "temperature_deviation": 0.3, "hrv_balance": 58, "recovery_index": 62, "resting_heart_rate": 62 },
+              { "type": "daily_readiness", "day": "2026-01-10", "score": 88, "temperature_deviation": -0.1, "hrv_balance": 81, "recovery_index": 92, "resting_heart_rate": 55 },
+              { "type": "daily_activity", "day": "2026-01-12", "score": 82, "steps": 8547, "active_calories": 420, "total_calories": 2150, "sedentary_time": 32400 },
+              { "type": "daily_activity", "day": "2026-01-11", "score": 68, "steps": 5234, "active_calories": 280, "total_calories": 1920, "sedentary_time": 39600 },
+              { "type": "daily_activity", "day": "2026-01-10", "score": 95, "steps": 12890, "active_calories": 620, "total_calories": 2480, "sedentary_time": 25200 },
+              { "type": "heart_rate", "day": "2026-01-12", "bpm": 72, "source": "awake", "timestamp": "2026-01-12T08:30:00Z" },
+              { "type": "heart_rate", "day": "2026-01-12", "bpm": 58, "source": "rest", "timestamp": "2026-01-12T03:15:00Z" }
+            ]
+          }
+        },
+        {
+          "name": "Apple Watch",
+          "type": "Wearable",
+          "icon": "IconDeviceWatch",
+          "description": "Heart rate, steps, activity from HealthKit export",
+          "sampleData": {
+            "title": "Apple Watch HealthKit Export",
+            "format": "JSON",
+            "records": [
+              { "type": "HKQuantityTypeIdentifierHeartRate", "value": 72, "unit": "count/min", "startDate": "2026-01-12T08:30:00-08:00", "sourceName": "Apple Watch", "device": "Apple Watch Series 9" },
+              { "type": "HKQuantityTypeIdentifierHeartRate", "value": 85, "unit": "count/min", "startDate": "2026-01-12T09:15:00-08:00", "sourceName": "Apple Watch", "device": "Apple Watch Series 9" },
+              { "type": "HKQuantityTypeIdentifierHeartRate", "value": 118, "unit": "count/min", "startDate": "2026-01-12T12:30:00-08:00", "sourceName": "Apple Watch", "device": "Apple Watch Series 9", "metadata": { "HKMetadataKeyHeartRateMotionContext": "active" } },
+              { "type": "HKQuantityTypeIdentifierStepCount", "value": 1247, "unit": "count", "startDate": "2026-01-12T07:00:00-08:00", "endDate": "2026-01-12T08:00:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierStepCount", "value": 892, "unit": "count", "startDate": "2026-01-12T08:00:00-08:00", "endDate": "2026-01-12T09:00:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierStepCount", "value": 2156, "unit": "count", "startDate": "2026-01-12T12:00:00-08:00", "endDate": "2026-01-12T13:00:00-08:00" },
+              { "type": "HKCategoryTypeIdentifierSleepAnalysis", "value": "AsleepCore", "startDate": "2026-01-11T23:15:00-08:00", "endDate": "2026-01-12T01:30:00-08:00" },
+              { "type": "HKCategoryTypeIdentifierSleepAnalysis", "value": "AsleepDeep", "startDate": "2026-01-12T01:30:00-08:00", "endDate": "2026-01-12T03:00:00-08:00" },
+              { "type": "HKCategoryTypeIdentifierSleepAnalysis", "value": "AsleepREM", "startDate": "2026-01-12T03:00:00-08:00", "endDate": "2026-01-12T04:15:00-08:00" },
+              { "type": "HKCategoryTypeIdentifierSleepAnalysis", "value": "AsleepCore", "startDate": "2026-01-12T04:15:00-08:00", "endDate": "2026-01-12T06:30:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierRestingHeartRate", "value": 58, "unit": "count/min", "startDate": "2026-01-12T00:00:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierHeartRateVariabilitySDNN", "value": 42.5, "unit": "ms", "startDate": "2026-01-12T06:00:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierActiveEnergyBurned", "value": 185, "unit": "kcal", "startDate": "2026-01-12T06:00:00-08:00", "endDate": "2026-01-12T12:00:00-08:00" },
+              { "type": "HKQuantityTypeIdentifierAppleExerciseTime", "value": 32, "unit": "min", "startDate": "2026-01-12T00:00:00-08:00", "endDate": "2026-01-12T12:00:00-08:00" }
+            ]
+          }
+        },
+        {
+          "name": "Doctor's EHR",
+          "type": "Medical Records",
+          "icon": "IconFileText",
+          "description": "FHIR-formatted electronic health records",
+          "sampleData": {
+            "title": "FHIR Bundle - Patient Health Record",
+            "format": "FHIR R4",
+            "records": [
+              { "resourceType": "Patient", "id": "P00001234", "birthDate": "1974-03-15", "gender": "female", "name": [{ "family": "Chen", "given": ["Maria"] }], "address": [{ "city": "Portland", "state": "OR" }] },
+              { "resourceType": "Observation", "id": "obs-bp-001", "code": { "coding": [{ "system": "http://loinc.org", "code": "85354-9", "display": "Blood pressure panel" }] }, "component": [{ "code": "systolic", "valueQuantity": { "value": 138, "unit": "mmHg" } }, { "code": "diastolic", "valueQuantity": { "value": 88, "unit": "mmHg" } }], "effectiveDateTime": "2026-01-10T09:30:00Z", "status": "final" },
+              { "resourceType": "Observation", "id": "obs-bp-002", "code": { "coding": [{ "system": "http://loinc.org", "code": "85354-9", "display": "Blood pressure panel" }] }, "component": [{ "code": "systolic", "valueQuantity": { "value": 142, "unit": "mmHg" } }, { "code": "diastolic", "valueQuantity": { "value": 92, "unit": "mmHg" } }], "effectiveDateTime": "2025-10-15T14:00:00Z", "status": "final" },
+              { "resourceType": "Observation", "id": "obs-a1c-001", "code": { "coding": [{ "system": "http://loinc.org", "code": "4548-4", "display": "Hemoglobin A1c" }] }, "valueQuantity": { "value": 6.2, "unit": "%" }, "effectiveDateTime": "2025-12-01T08:00:00Z", "status": "final", "interpretation": "Pre-diabetic range" },
+              { "resourceType": "Observation", "id": "obs-chol-001", "code": { "coding": [{ "system": "http://loinc.org", "code": "2093-3", "display": "Total Cholesterol" }] }, "valueQuantity": { "value": 218, "unit": "mg/dL" }, "effectiveDateTime": "2025-12-01T08:00:00Z", "status": "final" },
+              { "resourceType": "Condition", "id": "cond-001", "code": { "coding": [{ "system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "E11.9", "display": "Type 2 diabetes mellitus without complications" }] }, "clinicalStatus": { "coding": [{ "code": "active" }] }, "onsetDateTime": "2024-06-15" },
+              { "resourceType": "Condition", "id": "cond-002", "code": { "coding": [{ "system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "I10", "display": "Essential (primary) hypertension" }] }, "clinicalStatus": { "coding": [{ "code": "active" }] }, "onsetDateTime": "2025-09-20" },
+              { "resourceType": "MedicationStatement", "id": "med-001", "medicationCodeableConcept": { "coding": [{ "display": "Metformin 500mg" }] }, "dosage": [{ "text": "Take 1 tablet twice daily with meals" }], "status": "active" },
+              { "resourceType": "MedicationStatement", "id": "med-002", "medicationCodeableConcept": { "coding": [{ "display": "Lisinopril 10mg" }] }, "dosage": [{ "text": "Take 1 tablet daily" }], "status": "active" },
+              { "resourceType": "Encounter", "id": "enc-001", "type": [{ "text": "Annual Physical" }], "period": { "start": "2025-12-01T08:00:00Z" }, "reasonCode": [{ "text": "Preventive care visit" }] }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "manufacturing-analytics",
+      "title": "Manufacturing Equipment Analytics",
+      "avatar": "🚜",
+      "name": "Pape Machinery, Inc.",
+      "color": "orange",
+      "tags": [
+        { "label": "Heavy Equipment", "color": "orange" },
+        { "label": "Predictive Maintenance", "color": "blue" },
+        { "label": "Toledo, OH", "color": "gray" },
+        { "label": "24/7 Operations", "color": "grape" },
+        { "label": "ISO 9001", "color": "teal" }
+      ],
+      "scenario": "Pape Machinery operates 50+ CNC machines and industrial robots. They want to predict equipment failures before they happen by combining IoT sensor data with maintenance logs and production schedules.",
+      "highlights": [
+        { "text": "predict equipment failures", "color": "orange" },
+        { "text": "IoT sensor data", "color": "blue" },
+        { "text": "maintenance logs", "color": "blue" },
+        { "text": "production schedules", "color": "blue" }
+      ],
+      "dataSources": [
+        {
+          "name": "IoT Sensors",
+          "type": "Real-time Telemetry",
+          "icon": "IconChartLine",
+          "description": "Temperature, vibration, power consumption from machine sensors",
+          "sampleData": {
+            "title": "Machine Telemetry Stream",
+            "format": "JSON Time Series",
+            "records": [
+              { "machine_id": "CNC-042", "timestamp": "2026-01-12T14:30:00Z", "temperature_c": 72.4, "vibration_hz": 145.2, "power_kw": 18.7, "spindle_rpm": 8500, "coolant_flow_lpm": 12.5, "oil_pressure_bar": 4.2 },
+              { "machine_id": "CNC-042", "timestamp": "2026-01-12T14:31:00Z", "temperature_c": 73.1, "vibration_hz": 147.8, "power_kw": 19.2, "spindle_rpm": 8500, "coolant_flow_lpm": 12.4, "oil_pressure_bar": 4.1 },
+              { "machine_id": "CNC-042", "timestamp": "2026-01-12T14:32:00Z", "temperature_c": 74.8, "vibration_hz": 156.3, "power_kw": 21.4, "spindle_rpm": 8500, "coolant_flow_lpm": 12.3, "oil_pressure_bar": 4.0, "alert": "vibration_anomaly" },
+              { "machine_id": "CNC-042", "timestamp": "2026-01-12T14:33:00Z", "temperature_c": 76.2, "vibration_hz": 162.1, "power_kw": 22.8, "spindle_rpm": 8500, "coolant_flow_lpm": 12.1, "oil_pressure_bar": 3.9, "alert": "temperature_warning" },
+              { "machine_id": "CNC-042", "timestamp": "2026-01-12T14:34:00Z", "temperature_c": 75.5, "vibration_hz": 158.7, "power_kw": 21.9, "spindle_rpm": 8200, "coolant_flow_lpm": 12.2, "oil_pressure_bar": 4.0, "operator_action": "reduced_speed" },
+              { "machine_id": "CNC-043", "timestamp": "2026-01-12T14:30:00Z", "temperature_c": 68.2, "vibration_hz": 132.4, "power_kw": 15.6, "spindle_rpm": 7200, "coolant_flow_lpm": 11.8, "oil_pressure_bar": 4.5, "status": "normal" },
+              { "machine_id": "CNC-044", "timestamp": "2026-01-12T14:30:00Z", "temperature_c": 45.0, "vibration_hz": 0, "power_kw": 0.8, "spindle_rpm": 0, "coolant_flow_lpm": 0, "oil_pressure_bar": 0, "status": "idle" },
+              { "machine_id": "ROBOT-007", "timestamp": "2026-01-12T14:30:00Z", "joint_temps": [42.1, 44.3, 41.8, 43.2, 40.5, 39.8], "cycle_count_today": 847, "grip_force_n": 125.4, "position_accuracy_mm": 0.02 }
+            ]
+          }
+        },
+        {
+          "name": "Maintenance Logs",
+          "type": "CMMS Records",
+          "icon": "IconFileText",
+          "description": "Work orders, parts replaced, technician notes from SAP PM",
+          "sampleData": {
+            "title": "SAP Plant Maintenance Export",
+            "format": "JSON",
+            "records": [
+              { "work_order": "WO-2026-00421", "machine_id": "CNC-042", "type": "preventive", "description": "Quarterly spindle bearing inspection", "date": "2025-10-15", "parts": ["bearing-SKF-7210"], "labor_hours": 4.5, "technician": "J. Martinez", "findings": "Bearing wear within acceptable limits" },
+              { "work_order": "WO-2026-00398", "machine_id": "CNC-042", "type": "corrective", "description": "Replaced coolant pump - unusual noise", "date": "2025-09-22", "parts": ["pump-HAAS-CP200", "seal-kit-CP200"], "labor_hours": 6.0, "technician": "R. Thompson", "root_cause": "Seal degradation" },
+              { "work_order": "WO-2026-00512", "machine_id": "CNC-042", "type": "emergency", "description": "Spindle motor failure - production stopped", "date": "2025-12-03", "downtime_hours": 18, "cost_usd": 12500, "parts": ["motor-FANUC-A06B", "encoder-A860"], "labor_hours": 12, "technician": "J. Martinez" },
+              { "work_order": "WO-2026-00534", "machine_id": "CNC-042", "type": "preventive", "description": "Annual calibration and alignment check", "date": "2026-01-05", "parts": [], "labor_hours": 8.0, "technician": "K. Patel", "findings": "X-axis adjusted 0.003mm" },
+              { "work_order": "WO-2026-00467", "machine_id": "CNC-043", "type": "preventive", "description": "Hydraulic fluid change and filter replacement", "date": "2025-11-10", "parts": ["filter-HYD-400", "fluid-ISO-46-20L"], "labor_hours": 3.0, "technician": "R. Thompson" },
+              { "work_order": "WO-2026-00489", "machine_id": "ROBOT-007", "type": "corrective", "description": "Gripper alignment issue - parts misplaced", "date": "2025-11-28", "parts": ["gripper-pad-set"], "labor_hours": 2.5, "technician": "K. Patel", "root_cause": "Worn gripper pads" }
+            ]
+          }
+        },
+        {
+          "name": "Production Schedule",
+          "type": "MES Data",
+          "icon": "IconTruck",
+          "description": "Job orders, cycle times, quality metrics from MES",
+          "sampleData": {
+            "title": "Manufacturing Execution System Export",
+            "format": "JSON",
+            "records": [
+              { "job_id": "JOB-78542", "machine_id": "CNC-042", "part_number": "FLANGE-A200", "quantity": 500, "start_time": "2026-01-12T06:00:00Z", "end_time": "2026-01-12T12:00:00Z", "cycle_time_sec": 180, "quality_rate": 0.98, "scrap_count": 10, "operator": "D. Wilson" },
+              { "job_id": "JOB-78543", "machine_id": "CNC-042", "part_number": "SHAFT-B150", "quantity": 250, "start_time": "2026-01-12T14:00:00Z", "cycle_time_sec": 240, "quality_rate": 0.96, "status": "in_progress", "completed": 127, "operator": "M. Garcia" },
+              { "job_id": "JOB-78544", "machine_id": "CNC-042", "part_number": "HOUSING-C300", "quantity": 100, "scheduled_start": "2026-01-13T06:00:00Z", "priority": "high", "customer": "ACME Corp", "due_date": "2026-01-15" },
+              { "job_id": "JOB-78545", "machine_id": "CNC-043", "part_number": "BRACKET-D400", "quantity": 800, "start_time": "2026-01-12T06:00:00Z", "cycle_time_sec": 90, "quality_rate": 0.99, "status": "in_progress", "completed": 612, "operator": "S. Lee" },
+              { "job_id": "JOB-78546", "machine_id": "CNC-044", "part_number": "GEAR-E500", "quantity": 200, "scheduled_start": "2026-01-12T18:00:00Z", "priority": "normal", "setup_time_min": 45 },
+              { "job_id": "JOB-78540", "machine_id": "CNC-042", "part_number": "COVER-F100", "quantity": 1000, "start_time": "2026-01-11T06:00:00Z", "end_time": "2026-01-11T22:00:00Z", "cycle_time_sec": 55, "quality_rate": 0.995, "status": "completed", "scrap_count": 5 }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fraud-detection",
+      "title": "Banking Fraud Detection",
+      "avatar": "🏦",
+      "name": "Pacific Northwest Credit Union",
+      "color": "indigo",
+      "tags": [
+        { "label": "Financial Services", "color": "blue" },
+        { "label": "Real-time Monitoring", "color": "grape" },
+        { "label": "Seattle, WA", "color": "gray" },
+        { "label": "$2.1B Assets", "color": "teal" },
+        { "label": "PCI-DSS", "color": "orange" }
+      ],
+      "scenario": "Pacific Northwest Credit Union processes 50,000+ transactions daily. They need to detect fraudulent transactions in real-time by analyzing transaction patterns, customer behavior history, and external threat intelligence.",
+      "highlights": [
+        { "text": "detect fraudulent transactions", "color": "orange" },
+        { "text": "transaction patterns", "color": "blue" },
+        { "text": "customer behavior history", "color": "blue" },
+        { "text": "external threat intelligence", "color": "blue" }
+      ],
+      "dataSources": [
+        {
+          "name": "Transaction Stream",
+          "type": "Real-time Feed",
+          "icon": "IconCreditCard",
+          "description": "Card transactions, ACH transfers, wire payments",
+          "sampleData": {
+            "title": "Real-time Transaction Feed",
+            "format": "JSON Event Stream",
+            "records": [
+              { "txn_id": "TXN-2026011214300001", "account_id": "ACC-00045821", "type": "card_present", "amount": 47.52, "merchant": "SAFEWAY #1234", "merchant_category": "5411", "location": { "city": "Seattle", "state": "WA", "country": "US" }, "timestamp": "2026-01-12T14:30:00Z", "device_hash": "d4f8a2c9...", "auth_method": "chip" },
+              { "txn_id": "TXN-2026011214300002", "account_id": "ACC-00045821", "type": "card_not_present", "amount": 892.00, "merchant": "ELECTRONICS ONLINE", "merchant_category": "5732", "location": { "country": "RO" }, "timestamp": "2026-01-12T14:32:00Z", "ip_address": "185.220.xxx.xxx", "risk_score": 87, "velocity_check": "failed" },
+              { "txn_id": "TXN-2026011214300003", "account_id": "ACC-00045821", "type": "card_present", "amount": 1250.00, "merchant": "BEST BUY #0892", "merchant_category": "5732", "location": { "city": "Miami", "state": "FL", "country": "US" }, "timestamp": "2026-01-12T14:35:00Z", "velocity_alert": true, "distance_from_last_txn_miles": 2847 },
+              { "txn_id": "TXN-2026011214250001", "account_id": "ACC-00045821", "type": "card_present", "amount": 3.45, "merchant": "STARBUCKS #9821", "merchant_category": "5814", "location": { "city": "Seattle", "state": "WA", "country": "US" }, "timestamp": "2026-01-12T14:25:00Z", "device_hash": "d4f8a2c9...", "auth_method": "contactless" },
+              { "txn_id": "TXN-2026011208150001", "account_id": "ACC-00045821", "type": "ach_debit", "amount": 1850.00, "merchant": "RENT PAYMENT - AVALON APT", "merchant_category": "6513", "timestamp": "2026-01-12T08:15:00Z", "recurring": true, "risk_score": 5 },
+              { "txn_id": "TXN-2026011112300001", "account_id": "ACC-00045821", "type": "card_present", "amount": 156.78, "merchant": "COSTCO WHOLESALE #1142", "merchant_category": "5300", "location": { "city": "Seattle", "state": "WA", "country": "US" }, "timestamp": "2026-01-11T12:30:00Z", "device_hash": "d4f8a2c9...", "auth_method": "chip" },
+              { "txn_id": "TXN-2026011214310001", "account_id": "ACC-00078432", "type": "wire_transfer", "amount": 15000.00, "recipient": "OFFSHORE HOLDINGS LTD", "recipient_country": "CY", "timestamp": "2026-01-12T14:31:00Z", "first_time_recipient": true, "risk_score": 92, "requires_review": true }
+            ]
+          }
+        },
+        {
+          "name": "Customer Profiles",
+          "type": "Behavioral Data",
+          "icon": "IconUser",
+          "description": "Historical patterns, typical locations, spending habits",
+          "sampleData": {
+            "title": "Customer Behavioral Profile",
+            "format": "JSON",
+            "records": [
+              { "account_id": "ACC-00045821", "customer_since": "2019-06-15", "customer_type": "retail", "age": 34, "income_bracket": "75k-100k", "typical_locations": ["Seattle, WA", "Portland, OR", "Bellevue, WA"], "avg_monthly_spend": 2450, "avg_transaction_amount": 78.50, "typical_merchants": ["grocery", "gas", "restaurants", "online_retail"], "travel_history": ["Hawaii-2025-08", "Canada-2025-12"], "device_fingerprints": ["d4f8a2c9...", "b2c9e1f4..."], "login_patterns": { "typical_hours": ["07:00-09:00", "18:00-22:00"], "typical_devices": ["iPhone 15", "MacBook Pro"] } },
+              { "account_id": "ACC-00045821", "risk_indicators": { "address_changes_12mo": 0, "password_resets_30d": 0, "failed_logins_7d": 1, "new_payees_30d": 2, "large_txn_frequency": "monthly", "international_txn_frequency": "rare" }, "fraud_history": { "confirmed_fraud": 0, "disputed_txns": 1, "last_dispute": "2024-03-15", "dispute_resolution": "merchant_error" }, "account_alerts": { "travel_notice_active": false, "transaction_alerts": true, "threshold_amount": 500 } },
+              { "account_id": "ACC-00078432", "customer_since": "2022-11-20", "customer_type": "business", "business_type": "LLC", "typical_locations": ["Seattle, WA"], "avg_monthly_spend": 45000, "avg_transaction_amount": 2500, "typical_merchants": ["office_supplies", "software", "professional_services"], "wire_transfer_frequency": "weekly", "international_activity": "frequent" },
+              { "account_id": "ACC-00078432", "risk_indicators": { "address_changes_12mo": 1, "authorized_users_changes_90d": 2, "new_payees_30d": 8, "large_txn_frequency": "weekly" }, "fraud_history": { "confirmed_fraud": 0, "disputed_txns": 0 }, "compliance_flags": { "enhanced_due_diligence": true, "last_review_date": "2025-11-01" } }
+            ]
+          }
+        },
+        {
+          "name": "Threat Intelligence",
+          "type": "External Feed",
+          "icon": "IconAlertTriangle",
+          "description": "Compromised cards, known fraud patterns, merchant alerts",
+          "sampleData": {
+            "title": "Threat Intelligence Feed",
+            "format": "STIX 2.1",
+            "records": [
+              { "type": "indicator", "id": "indicator--2026-01-12-001", "pattern": "[ipv4-addr:value = '185.220.xxx.xxx']", "labels": ["malicious-ip", "tor-exit-node"], "confidence": 95, "valid_until": "2026-02-12", "source": "FS-ISAC", "first_seen": "2025-12-01" },
+              { "type": "indicator", "id": "indicator--2026-01-12-002", "pattern": "[merchant:id = 'ELECTRONICS ONLINE']", "labels": ["high-risk-merchant", "card-testing"], "confidence": 78, "last_updated": "2026-01-11", "source": "Visa Risk", "fraud_reports": 47 },
+              { "type": "indicator", "id": "indicator--2026-01-12-003", "pattern": "[bin:value LIKE '4532 14%']", "labels": ["compromised-bin", "data-breach"], "confidence": 88, "valid_until": "2026-01-31", "source": "Mastercard Alert", "breach_source": "RETAIL_BREACH_2025_12" },
+              { "type": "indicator", "id": "indicator--2026-01-12-004", "pattern": "[device:hash = 'a7b2c3d4...']", "labels": ["known-fraud-device", "account-takeover"], "confidence": 92, "first_seen": "2025-11-20", "associated_accounts": 12 },
+              { "type": "campaign", "id": "campaign--2026-Q1-001", "name": "Romanian Card Testing Ring", "description": "Organized fraud ring testing stolen cards with small online purchases before larger fraud", "first_seen": "2025-11-15", "last_activity": "2026-01-12", "estimated_losses": 2500000, "ttps": ["small_test_purchases", "international_shipping", "electronics_focus"] },
+              { "type": "campaign", "id": "campaign--2026-Q1-002", "name": "Pacific Northwest ATM Skimming", "description": "Coordinated ATM skimming operation targeting credit unions in WA and OR", "first_seen": "2025-10-01", "affected_institutions": 8, "known_atm_locations": ["Seattle", "Portland", "Tacoma", "Eugene"], "status": "active" },
+              { "type": "vulnerability", "id": "vuln--2026-01-10-001", "name": "Mobile App Session Hijack", "description": "Vulnerability in common mobile banking SDK allowing session token theft", "severity": "high", "affected_sdks": ["BankingKit v2.3", "FinanceCore v1.8"], "patch_available": true, "cve": "CVE-2026-0142" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

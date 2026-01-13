@@ -89,4 +89,17 @@ export const modules = [
       { label: 'Dental Records', href: `${REPO_BASE}/module-5-synthetic-data/datasets/dental-records` },
     ],
   },
+  {
+    id: 'case-study',
+    title: 'Pape Machinery Case Study',
+    summary:
+      'Apply AI to identify lost sales opportunities for implements and tractors, and generate insights from synthetic dealership data.',
+    href: `${REPO_BASE}/case-study-pape/README.md`,
+    isCaseStudy: true,
+    children: [
+      { label: 'Problem Overview', href: `${REPO_BASE}/case-study-pape/problem-overview.md` },
+      { label: 'Synthetic Sales Data', href: `${REPO_BASE}/case-study-pape/data` },
+      { label: 'AI Insights', href: `${REPO_BASE}/case-study-pape/insights.md` },
+    ],
+  },
 ];
