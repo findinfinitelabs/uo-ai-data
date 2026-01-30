@@ -1,0 +1,72 @@
+# Model Configuration for StableLM (Apache 2.0 - No gating required)
+
+# Available StabilityAI Models (Non-gated, Apache 2.0 licensed)
+models:
+  stablelm_zephyr:
+    name: "stabilityai/stablelm-2-zephyr-1_6b"
+    description: "Instruction-tuned 1.6B model, fast training, Apache 2.0"
+    recommended_for:
+      - "Synthetic data generation"
+      - "Text-to-SQL"
+      - "Data validation"
+      - "Quick prototyping"
+    
+  stablelm_base:
+    name: "stabilityai/stablelm-2-1_6b"
+    description: "Base 1.6B model, better for domain adaptation"
+    recommended_for:
+      - "Heavy fine-tuning on specialized data"
+      - "Custom instruction formats"
+    
+  stablelm_12b:
+    name: "stabilityai/stablelm-2-12b"
+    description: "Larger 12B model for higher quality (requires more VRAM)"
+    recommended_for:
+      - "Production quality outputs"
+      - "Complex reasoning tasks"
+      - "When you have 24GB+ VRAM"
+
+# Default model selection
+default_model: "stablelm_zephyr"
+
+# Generation Settings
+generation:
+  max_new_tokens: 1024
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 50
+  repetition_penalty: 1.1
+  do_sample: true
+
+# Database Connection Templates
+database:
+  postgresql:
+    connection_string: "postgresql://{user}:{password}@{host}:{port}/{database}"
+  mysql:
+    connection_string: "mysql+pymysql://{user}:{password}@{host}:{port}/{database}"
+  sqlite:
+    connection_string: "sqlite:///{database_path}"
+  sqlserver:
+    connection_string: "mssql+pyodbc://{user}:{password}@{host}:{port}/{database}?driver=ODBC+Driver+17+for+SQL+Server"
+
+# Data Schema Templates
+data_tasks:
+  synthetic_generation:
+    system_prompt: |
+      You are a data generation assistant. Generate realistic synthetic data 
+      that follows the patterns and constraints of the provided schema.
+      Ensure data is internally consistent and realistic.
+    
+  sql_generation:
+    system_prompt: |
+      You are a SQL expert. Convert natural language queries to SQL.
+      Use the provided database schema for accurate table and column names.
+      Generate efficient, readable SQL queries.
+    
+  data_validation:
+    system_prompt: |
+      You are a data quality analyst. Review the provided data and identify:
+      - Missing or null values that should be present
+      - Inconsistent formats or patterns
+      - Potential data entry errors
+      - Logical inconsistencies between fields

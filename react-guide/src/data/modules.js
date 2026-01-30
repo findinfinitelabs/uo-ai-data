@@ -21,59 +21,59 @@ export const modules = [
   },
   {
     id: 'module-2',
-    title: 'Using AI',
+    title: 'Regulations & Compliance',
     summary:
-      'Set up your AI learning environment using AWS Bedrock (school login) or run models locally on your Mac.',
-    href: `${REPO_BASE}/module-2-ai-setup/README.md`,
+      'HIPAA/GDPR basics, de-identification, and safe handling of synthetic healthcare data.',
+    href: `${REPO_BASE}/module-2-regulations/README.md`,
     children: [
       {
-        label: 'AWS Bedrock Setup',
-        href: `${REPO_BASE}/module-2-ai-setup/aws-bedrock/README.md`,
+        label: 'HIPAA Checklist',
+        href: `${REPO_BASE}/module-2-regulations/compliance-templates/hipaa-compliance-checklist.md`,
       },
       {
-        label: 'Local Setup (Ollama)',
-        href: `${REPO_BASE}/module-2-ai-setup/local-setup/README.md`,
+        label: 'De-identification',
+        href: `${REPO_BASE}/module-2-regulations/compliance-templates/deidentification-protocol.md`,
       },
       {
-        label: 'Quick Start Guide',
-        href: `${REPO_BASE}/module-2-ai-setup/quickstart.md`,
+        label: 'Data Handling Policy',
+        href: `${REPO_BASE}/module-2-regulations/compliance-templates/data-handling-policy.md`,
       },
     ],
   },
   {
     id: 'module-3',
-    title: 'Regulations & Compliance',
-    summary:
-      'HIPAA/GDPR basics, de-identification, and safe handling of synthetic healthcare data.',
-    href: `${REPO_BASE}/module-3-regulations/README.md`,
+    title: 'Ethical AI',
+    summary: 'Fairness, transparency, and accountability practices for healthcare AI systems.',
+    href: `${REPO_BASE}/module-3-ethical-ai/README.md`,
     children: [
       {
-        label: 'HIPAA Checklist',
-        href: `${REPO_BASE}/module-3-regulations/compliance-templates/hipaa-compliance-checklist.md`,
+        label: 'Ethical Framework',
+        href: `${REPO_BASE}/module-3-ethical-ai/ethics-frameworks/ethical-ai-framework.md`,
       },
       {
-        label: 'De-identification',
-        href: `${REPO_BASE}/module-3-regulations/compliance-templates/deidentification-protocol.md`,
-      },
-      {
-        label: 'Data Handling Policy',
-        href: `${REPO_BASE}/module-3-regulations/compliance-templates/data-handling-policy.md`,
+        label: 'Bias Assessment',
+        href: `${REPO_BASE}/module-3-ethical-ai/ethics-frameworks/bias-assessment-checklist.md`,
       },
     ],
   },
   {
     id: 'module-4',
-    title: 'Ethical AI',
-    summary: 'Fairness, transparency, and accountability practices for healthcare AI systems.',
-    href: `${REPO_BASE}/module-4-ethical-ai/README.md`,
+    title: 'Using AI',
+    summary:
+      'Set up your AI learning environment using AWS Bedrock (school login) or run models locally on your Mac.',
+    href: `${REPO_BASE}/module-4-ai-setup/README.md`,
     children: [
       {
-        label: 'Ethical Framework',
-        href: `${REPO_BASE}/module-4-ethical-ai/ethics-frameworks/ethical-ai-framework.md`,
+        label: 'AWS Bedrock Setup',
+        href: `${REPO_BASE}/module-4-ai-setup/aws-bedrock/README.md`,
       },
       {
-        label: 'Bias Assessment',
-        href: `${REPO_BASE}/module-4-ethical-ai/ethics-frameworks/bias-assessment-checklist.md`,
+        label: 'Local Setup (Ollama)',
+        href: `${REPO_BASE}/module-4-ai-setup/local-setup/README.md`,
+      },
+      {
+        label: 'Quick Start Guide',
+        href: `${REPO_BASE}/module-4-ai-setup/quickstart.md`,
       },
     ],
   },

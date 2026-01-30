@@ -42,6 +42,7 @@ import ModulePage from './pages/ModulePage';
 import LoginPage from './pages/LoginPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import AISetupPage from './pages/modules/AISetupPage';
+import EthicalAIPage from './pages/modules/EthicalAIPage';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -66,11 +67,19 @@ const aiSetupSubPages = [
   { id: 'agents', title: 'AI Agents', icon: IconRobot },
 ];
 
+// Ethical AI sub-navigation items
+const ethicalAISubPages = [
+  { id: 'bias-detection', title: 'Bias Detection', icon: IconScale },
+  { id: 'frameworks', title: 'Ethical Frameworks', icon: IconShieldCheck },
+  { id: 'documentation', title: 'Documenting Decisions', icon: IconFileText },
+  { id: 'human-in-loop', title: 'Human-in-the-Loop', icon: IconRobot },
+];
+
 const moduleIcons = {
   'module-1': IconFileText,
-  'module-2': IconServer,
-  'module-3': IconShieldCheck,
-  'module-4': IconScale,
+  'module-2': IconShieldCheck,
+  'module-3': IconScale,
+  'module-4': IconServer,
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
   'case-study-health': IconHeartRateMonitor,
@@ -118,7 +127,7 @@ function AppLayout() {
         {modules.map((mod, index) => {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
-          const isAISetupActive = mod.id === 'module-2' && location.pathname.startsWith('/ai-setup');
+          const isAISetupActive = mod.id === 'module-4' && location.pathname.startsWith('/ai-setup');
           const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
           const isCaseStudy = mod.isCaseStudy;
           
@@ -172,8 +181,8 @@ function AppLayout() {
             );
           }
           
-          // Special handling for Module 2 (Using AI) with AI Setup sub-navigation
-          if (mod.id === 'module-2') {
+          // Special handling for Module 4 (Using AI) with AI Setup sub-navigation
+          if (mod.id === 'module-4') {
             return (
               <Box key={mod.id}>
                 <NavLink
@@ -196,6 +205,44 @@ function AppLayout() {
                           label={subPage.title}
                           component={Link}
                           to={`/ai-setup/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+
+          // Special handling for Module 3 (Ethical AI) with sub-navigation
+          if (mod.id === 'module-3') {
+            const isEthicalAIActive = location.pathname.startsWith('/ethical-ai');
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={labelContent}
+                  component={Link}
+                  to="/ethical-ai"
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive || isEthicalAIActive}
+                />
+                <Collapse in={isActive || isEthicalAIActive}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {ethicalAISubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/ethical-ai/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/ethical-ai/${subPage.id}`}
                           leftSection={<SubIcon size={16} stroke={1.5} />}
                           mb={4}
                           className="nav-link sub-nav-link"
@@ -284,6 +331,22 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <AISetupPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ethical-ai"
+            element={
+              <ProtectedRoute>
+                <EthicalAIPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ethical-ai/:subPage"
+            element={
+              <ProtectedRoute>
+                <EthicalAIPage />
               </ProtectedRoute>
             }
           />

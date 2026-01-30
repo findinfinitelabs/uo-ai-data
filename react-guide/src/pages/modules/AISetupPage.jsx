@@ -98,7 +98,7 @@ export default function AISetupPage() {
           <Anchor component={Link} to="/" size="sm">
             Home
           </Anchor>
-          <Text size="sm">AI Environment Setup</Text>
+          <Text size="sm">Module 4: Using AI</Text>
         </Breadcrumbs>
 
         <Paper
@@ -114,9 +114,9 @@ export default function AISetupPage() {
             </ThemeIcon>
             <Box>
               <Badge color="blue" variant="filled" size="lg" mb="xs">
-                AI SETUP
+                MODULE 4
               </Badge>
-              <Title order={1}>AI Environment Setup</Title>
+              <Title order={1}>Using AI</Title>
             </Box>
           </Group>
           <Text size="lg" c="dimmed">
@@ -289,7 +289,7 @@ export default function AISetupPage() {
           Home
         </Anchor>
         <Anchor component={Link} to="/ai-setup" size="sm">
-          AI Environment Setup
+          Module 4: Using AI
         </Anchor>
         <Text size="sm">{currentPage.title}</Text>
       </Breadcrumbs>
@@ -307,7 +307,7 @@ export default function AISetupPage() {
           </ThemeIcon>
           <Box>
             <Badge color={currentPage.color} variant="filled" size="lg" mb="xs">
-              AI SETUP
+              MODULE 4
             </Badge>
             <Title order={1}>{currentPage.title}</Title>
           </Box>
