@@ -317,7 +317,7 @@ export default function DataSpecsPage() {
         ) : (
           <Button
             component={Link}
-            to="/module-2"
+            to="/module-4"
             variant="light"
             color="green"
             rightSection={<IconArrowRight size={16} />}

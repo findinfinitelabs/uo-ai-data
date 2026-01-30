@@ -1,0 +1,83 @@
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero span {
+  color: white !important;
+}
+
+.caseStudyCard {
+  border-left: 4px solid var(--mantine-color-blue-6);
+  background: var(--mantine-color-blue-0);
+}
+
+.warningCard {
+  border-left: 4px solid var(--mantine-color-orange-6);
+  background: var(--mantine-color-orange-0);
+}
+
+.successCard {
+  border-left: 4px solid var(--mantine-color-green-6);
+  background: var(--mantine-color-green-0);
+}
+
+.pitfallCard {
+  border-left: 4px solid var(--mantine-color-red-6);
+  background: var(--mantine-color-red-0);
+}
+
+.codeBlock {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.875rem;
+}
+
+.codeBlock pre,
+.codeBlock code {
+  background: transparent !important;
+  color: #d4d4d4 !important;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mantine-color-grape-6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--mantine-color-gray-0);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.frameworkCard {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.frameworkCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mantine-shadow-md);
+}
