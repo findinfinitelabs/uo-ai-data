@@ -598,6 +598,7 @@ const CreatingSpecsContent = () => {
         </Accordion.Item>
       </Accordion>
 
+      {showResults && (
       <Accordion 
         variant="separated" 
         radius="md" 
@@ -980,27 +981,45 @@ const CreatingSpecsContent = () => {
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
+      )}
         </>
       )}
 
       <Divider my="xl" />
 
-      <Title order={3} mb="md" className={styles.sectionTitle}>
-        AI Spec Generator
-      </Title>
-      
-      <Text size="md" mb="md">
-        Use these prompts to generate data specifications for your selected use case:
-      </Text>
-      
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" mb="xl">
+      <Paper 
+        p="xl" 
+        mb="xl" 
+        withBorder 
+        radius="md"
+        style={{ 
+          background: 'linear-gradient(135deg, var(--mantine-color-blue-0) 0%, var(--mantine-color-violet-0) 100%)',
+          borderLeft: '4px solid var(--mantine-color-blue-6)'
+        }}
+      >
+        <Group gap="md" mb="md" align="center">
+          <ThemeIcon size={48} radius="xl" color="blue" variant="light">
+            <IconRobot size={28} />
+          </ThemeIcon>
+          <Box style={{ flex: 1 }}>
+            <Title order={3} className={styles.sectionTitle} style={{ marginBottom: 0 }}>
+              AI Spec Generator
+            </Title>
+          </Box>
+        </Group>
+        
+        <Text size="md" mb="md">
+          Use these prompts to generate data specifications for your selected use case:
+        </Text>
+        
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
         <Card shadow="xs" padding="md" radius="md" withBorder>
           <Group gap="xs" mb="xs">
             <Badge color="blue" size="sm">1</Badge>
             <Text fw={600} size="sm">Generate JSON Schema</Text>
           </Group>
           <Paper p="xs" bg="gray.0" radius="sm">
-            <Text size="xs" style={{ lineHeight: 1.5 }}>
+            <Text size="md">
               Create a JSON Schema for a patient health record that includes: patient ID, demographics, vital signs from wearables, and visit history. Include validation constraints.
             </Text>
           </Paper>
@@ -1011,7 +1030,7 @@ const CreatingSpecsContent = () => {
             <Text fw={600} size="sm">Data Dictionary</Text>
           </Group>
           <Paper p="xs" bg="gray.0" radius="sm">
-            <Text size="xs" style={{ lineHeight: 1.5 }}>
+            <Text size="md">
               Create a data dictionary table for IoT sensor data including: field name, data type, description, valid ranges, and whether it is required. Format as markdown.
             </Text>
           </Paper>
@@ -1022,7 +1041,7 @@ const CreatingSpecsContent = () => {
             <Text fw={600} size="sm">Validation Rules</Text>
           </Group>
           <Paper p="xs" bg="gray.0" radius="sm">
-            <Text size="xs" style={{ lineHeight: 1.5 }}>
+            <Text size="md">
               Write validation rules for financial transaction data that should detect: invalid amounts, future dates, missing required fields, and format violations.
             </Text>
           </Paper>
@@ -1033,12 +1052,13 @@ const CreatingSpecsContent = () => {
             <Text fw={600} size="sm">Sample Data Generator</Text>
           </Group>
           <Paper p="xs" bg="gray.0" radius="sm">
-            <Text size="xs" style={{ lineHeight: 1.5 }}>
+            <Text size="md">
               Generate 5 synthetic sample records for a manufacturing equipment sensor dataset with realistic values for temperature, vibration, pressure, and timestamp.
             </Text>
           </Paper>
         </Card>
       </SimpleGrid>
+      </Paper>
 
       <Paper
         shadow="md"

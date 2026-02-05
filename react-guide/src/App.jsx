@@ -33,12 +33,21 @@ import {
   IconTerminal2,
   IconBuildingFactory2,
   IconRobot,
+  IconHeartbeat,
+  IconChartBar,
+  IconCircleCheck,
+  IconTrophy,
+  IconRocket,
+  IconBrain,
+  IconNetwork,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
 import ModulePage from './pages/ModulePage';
 import LoginPage from './pages/LoginPage';
+import ProgressPage from './pages/ProgressPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
+import RegulationsPage from './pages/modules/RegulationsPage';
 import AISetupPage from './pages/modules/AISetupPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
@@ -53,14 +62,23 @@ const module1SubPages = [
   { id: 'why-data-matters', title: 'Why Data Matters', icon: IconBulb },
   { id: 'creating-specs', title: 'Creating Specs', icon: IconCode },
   { id: 'prompt-to-spec', title: 'Prompt to Spec', icon: IconWand },
+  { id: 'quiz', title: 'Data Specs Challenge', icon: IconTrophy },
+];
+
+// Module 2 sub-navigation items
+const module2SubPages = [
+  { id: 'safe-harbor', title: 'Safe Harbor Method', icon: IconShieldCheck },
+  { id: 'expert-determination', title: 'Expert Determination', icon: IconScale },
+  { id: 'data-handling', title: 'Data Handling Policies', icon: IconFileText },
+  { id: 'compliance-checklist', title: 'Compliance Checklist', icon: IconCircleCheck },
 ];
 
 // AI Setup sub-navigation items
 const aiSetupSubPages = [
-  { id: 'aws-account', title: 'AWS Account Setup', icon: IconCloud },
-  { id: 'bedrock', title: 'AWS Bedrock', icon: IconBrandAws },
-  { id: 'local-llm', title: 'Local LLM', icon: IconTerminal2 },
-  { id: 'sagemaker', title: 'AWS SageMaker', icon: IconServer },
+  { id: 'eks-deployment', title: 'EKS Cluster Deployment', icon: IconCloud },
+  { id: 'ollama-installation', title: 'Ollama Installation', icon: IconRocket },
+  { id: 'knowledge-graph', title: 'Knowledge Graph Setup', icon: IconNetwork },
+  { id: 'integration', title: 'AI + KG Integration', icon: IconBrain },
 ];
 
 // Ethical AI sub-navigation items
@@ -78,6 +96,7 @@ const moduleIcons = {
   'module-4': IconServer,
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
+  'case-study-health': IconHeartbeat,
 };
 
 function AppLayout() {
@@ -114,12 +133,23 @@ function AppLayout() {
           active={location.pathname === '/'}
         />
 
+        <NavLink
+          component={Link}
+          to="/progress"
+          label="Your Progress"
+          leftSection={<IconChartBar size={20} stroke={1.5} />}
+          mb="xs"
+          className="nav-link"
+          active={location.pathname === '/progress'}
+        />
+
         <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
           Course Modules
         </Text>
         {modules.map((mod, index) => {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
+          const isRegulationsActive = mod.id === 'module-2' && location.pathname.startsWith('/regulations');
           const isAISetupActive = mod.id === 'module-4' && location.pathname.startsWith('/ai-setup');
           const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
           const isCaseStudy = mod.isCaseStudy;
@@ -142,7 +172,7 @@ function AppLayout() {
             return (
               <Box key={mod.id}>
                 <NavLink
-                  label={mod.title}
+                  label={labelContent}
                   component={Link}
                   to={`/${mod.id}`}
                   leftSection={<Icon size={20} stroke={1.5} />}
@@ -161,6 +191,43 @@ function AppLayout() {
                           label={subPage.title}
                           component={Link}
                           to={`/module-1/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+          
+          // Special handling for Module 2 (Regulations) with sub-navigation
+          if (mod.id === 'module-2') {
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={labelContent}
+                  component={Link}
+                  to="/regulations"
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive || isRegulationsActive}
+                />
+                <Collapse in={isActive || isRegulationsActive}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {module2SubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/regulations/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/regulations/${subPage.id}`}
                           leftSection={<SubIcon size={16} stroke={1.5} />}
                           mb={4}
                           className="nav-link sub-nav-link"
@@ -274,7 +341,7 @@ function AppLayout() {
           return (
             <NavLink
               key={mod.id}
-              label={mod.title}
+              label={labelContent}
               component={Link}
               to={`/${mod.id}`}
               leftSection={<Icon size={20} stroke={1.5} />}
@@ -348,6 +415,22 @@ function AppLayout() {
             }
           />
           <Route
+            path="/regulations"
+            element={
+              <ProtectedRoute>
+                <RegulationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/regulations/:subPage"
+            element={
+              <ProtectedRoute>
+                <RegulationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/ai-setup"
             element={
               <ProtectedRoute>
@@ -384,6 +467,14 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <CaseStudyHealthPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/progress"
+            element={
+              <ProtectedRoute>
+                <ProgressPage />
               </ProtectedRoute>
             }
           />

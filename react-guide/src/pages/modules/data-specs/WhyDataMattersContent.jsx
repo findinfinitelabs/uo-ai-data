@@ -90,42 +90,61 @@ const WhyDataMattersContent = () => {
         </Text>
       </Paper>
 
-      <Title order={3} mb="md" className={styles.sectionTitle}>
-        Why Most AI Projects Fail
-      </Title>
-      <Text size="sm" c="dimmed" mb="md">
-        Click each card to see a good vs. bad example
-      </Text>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" mb="xl">
-        <ExampleCard
-          exampleKey="garbage-in-garbage-out"
-          badge="Problem"
-          title="Garbage In, Garbage Out"
-          description="AI models are only as good as their training data. Poorly defined data leads to models that hallucinate, make biased predictions, or simply don't work."
-          onClick={openExample}
-        />
-        <ExampleCard
-          exampleKey="scope-creep"
-          badge="Problem"
-          title="Scope Creep"
-          description='Without clear specifications, projects expand endlessly. "Just add one more field" becomes a death spiral of changing requirements.'
-          onClick={openExample}
-        />
-        <ExampleCard
-          exampleKey="compliance-nightmares"
-          badge="Problem"
-          title="Compliance Nightmares"
-          description="Healthcare data without proper specifications often violates HIPAA. You can't de-identify data if you don't know what fields contain PHI."
-          onClick={openExample}
-        />
-        <ExampleCard
-          exampleKey="integration-failures"
-          badge="Problem"
-          title="Integration Failures"
-          description="When data formats don't match between systems, integrations break. Specifications ensure everyone speaks the same language."
-          onClick={openExample}
-        />
-      </SimpleGrid>
+      <Paper 
+        p="xl" 
+        mb="xl" 
+        withBorder 
+        radius="md"
+        style={{ 
+          background: 'linear-gradient(135deg, var(--mantine-color-red-0) 0%, var(--mantine-color-orange-0) 100%)',
+          borderLeft: '4px solid var(--mantine-color-red-6)'
+        }}
+      >
+        <Group gap="md" mb="md" align="center">
+          <ThemeIcon size={48} radius="xl" color="red" variant="light">
+            <IconAlertCircle size={28} />
+          </ThemeIcon>
+          <Box style={{ flex: 1 }}>
+            <Title order={3} className={styles.sectionTitle} style={{ marginBottom: 0 }}>
+              Why Most AI Projects Fail
+            </Title>
+          </Box>
+        </Group>
+        
+        <Text size="sm" c="dimmed" mb="md">
+          Click each card to see a good vs. bad example
+        </Text>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+          <ExampleCard
+            exampleKey="garbage-in-garbage-out"
+            badge="Problem"
+            title="Garbage In, Garbage Out"
+            description="AI models are only as good as their training data. Poorly defined data leads to models that hallucinate, make biased predictions, or simply don't work."
+            onClick={openExample}
+          />
+          <ExampleCard
+            exampleKey="scope-creep"
+            badge="Problem"
+            title="Scope Creep"
+            description='Without clear specifications, projects expand endlessly. "Just add one more field" becomes a death spiral of changing requirements.'
+            onClick={openExample}
+          />
+          <ExampleCard
+            exampleKey="compliance-nightmares"
+            badge="Problem"
+            title="Compliance Nightmares"
+            description="Healthcare data without proper specifications often violates HIPAA. You can't de-identify data if you don't know what fields contain PHI."
+            onClick={openExample}
+          />
+          <ExampleCard
+            exampleKey="integration-failures"
+            badge="Problem"
+            title="Integration Failures"
+            description="When data formats don't match between systems, integrations break. Specifications ensure everyone speaks the same language."
+            onClick={openExample}
+          />
+        </SimpleGrid>
+      </Paper>
 
       <Title order={3} mb="md" className={styles.sectionTitle}>
         The Solution: Data Specifications

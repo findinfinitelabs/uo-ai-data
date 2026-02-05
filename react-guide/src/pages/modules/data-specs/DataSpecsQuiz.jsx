@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Title,
   Text,
@@ -366,6 +366,20 @@ const DataSpecsQuiz = () => {
   const maxPossibleScore = QUIZ_QUESTIONS.reduce((sum, q) => sum + q.maxPoints, 0);
   const answeredCount = Object.keys(evaluations).length;
   const progressPercent = (answeredCount / QUIZ_QUESTIONS.length) * 100;
+
+  // Save progress to localStorage when quiz is completed
+  useEffect(() => {
+    if (showResults && answeredCount === QUIZ_QUESTIONS.length) {
+      const progressData = JSON.parse(localStorage.getItem('learningProgress') || '{}');
+      progressData['data-specs-quiz'] = {
+        score: totalScore,
+        totalQuestions: maxPossibleScore,
+        completed: true,
+        completedAt: new Date().toISOString(),
+      };
+      localStorage.setItem('learningProgress', JSON.stringify(progressData));
+    }
+  }, [showResults, answeredCount, totalScore, maxPossibleScore]);
 
   const evaluateAnswer = async (questionId, answer) => {
     if (!apiKey || apiKey === 'sk-your-key-here') {

@@ -860,9 +860,10 @@ export default function CaseStudyHealthPage() {
                 return (
                   <Box
                     key={item.id}
-                    mb="lg"
+                    mb="xl"
+                    pb="xl"
                     style={{
-                      opacity: isSelected ? 1 : 0.4,
+                      opacity: isSelected ? 1 : 0.85,
                       transition: 'all 0.3s ease',
                       transform: isSelected ? 'scale(1)' : 'scale(0.98)',
                     }}
@@ -943,7 +944,6 @@ export default function CaseStudyHealthPage() {
                           radius="md" 
                           style={{ 
                             background: item.insightBg,
-                            opacity: isSelected ? 1 : 0.7,
                           }}
                         >
                           <Text size="sm" fs="italic">
