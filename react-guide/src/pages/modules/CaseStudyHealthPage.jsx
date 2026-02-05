@@ -662,11 +662,14 @@ export default function CaseStudyHealthPage() {
         <Text size="sm">Maria Chen Health Platform</Text>
       </Breadcrumbs>
 
-      <Paper shadow="md" radius="lg" p="xl" mb="xl" style={{ background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%)' }}>
-        <Group gap="md" mb="md">
-          <ThemeIcon color="pink" size={56} radius="xl">
-            <IconHeart size={28} />
+      <Paper shadow="md" radius="lg" p="xl" mb="xl" style={{ background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%)', position: 'relative' }}>
+        <Box style={{ position: 'absolute', top: 16, right: 16 }}>
+          <ThemeIcon color="pink" size={40} radius="xl">
+            <IconHeart size={20} />
           </ThemeIcon>
+        </Box>
+        <Group gap="md" mb="md">
+          <Text style={{ fontSize: 56, lineHeight: 1 }}>👩🏻</Text>
           <Box>
             <Badge color="pink" variant="filled" size="lg" mb="xs">
               CASE STUDY
