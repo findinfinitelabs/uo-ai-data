@@ -41,9 +41,9 @@ import { modules } from '../data/modules';
 
 const moduleIcons = {
   'module-1': IconFileText,
-  'module-2': IconServer,
-  'module-3': IconShieldCheck,
-  'module-4': IconScale,
+  'module-2': IconShieldCheck,
+  'module-3': IconScale,
+  'module-4': IconServer,
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
   'case-study-health': IconHeartRateMonitor,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   Container,
@@ -16,7 +16,9 @@ import {
   Anchor,
   Breadcrumbs,
   SimpleGrid,
+  Modal,
 } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import {
   IconArrowLeft,
   IconCircleCheck,
@@ -29,11 +31,138 @@ import {
 } from '@tabler/icons-react';
 import { modules } from '../data/modules';
 
+// Ethical Pillars data with definitions and violation examples
+const ethicalPillarsData = {
+  fairness: {
+    title: 'Fairness',
+    icon: IconScale,
+    color: 'green',
+    shortDesc: 'Equal treatment across demographics',
+    definition: 'Fairness in AI means ensuring that algorithmic systems do not discriminate against individuals or groups based on protected characteristics such as race, gender, age, or socioeconomic status. It requires that AI models perform equally well across different demographic groups and that outcomes are equitable.',
+    violationTitle: 'Optum Algorithm Racial Bias (2019)',
+    violationDesc: 'A widely-used healthcare algorithm developed by Optum was found to systematically discriminate against Black patients. The algorithm used healthcare costs as a proxy for health needs, but because Black patients historically had less access to healthcare, they incurred lower costs. As a result, Black patients had to be significantly sicker than white patients to receive the same level of care recommendations. The bias affected an estimated 200 million patients annually.',
+    citation: 'Obermeyer, Z., Powers, B., Vogeli, C., & Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. Science, 366(6464), 447-453.',
+    citationUrl: 'https://www.science.org/doi/10.1126/science.aax2342',
+  },
+  transparency: {
+    title: 'Transparency',
+    icon: IconFileText,
+    color: 'blue',
+    shortDesc: 'Explainable decisions and processes',
+    definition: 'Transparency in AI requires that the decision-making processes of algorithmic systems be understandable and explainable to stakeholders. This includes clear documentation of how models work, what data they use, their limitations, and how decisions are made. Patients and healthcare providers should be able to understand why an AI system made a particular recommendation.',
+    violationTitle: 'IBM Watson for Oncology (2018)',
+    violationDesc: 'IBM\'s Watson for Oncology was marketed globally as an AI system to recommend cancer treatments. However, investigations revealed that the system\'s recommendations were based on a small number of synthetic cases rather than real patient data, and doctors had no visibility into how recommendations were generated. In some cases, Watson suggested treatments that were unsafe or inappropriate. The lack of transparency about how the system worked led to patient safety concerns.',
+    citation: 'Ross, C., & Swetlitz, I. (2018). IBM\'s Watson supercomputer recommended "unsafe and incorrect" cancer treatments, internal documents show. STAT News.',
+    citationUrl: 'https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/',
+  },
+  accountability: {
+    title: 'Accountability',
+    icon: IconShieldCheck,
+    color: 'grape',
+    shortDesc: 'Clear ownership and oversight',
+    definition: 'Accountability in AI means establishing clear lines of responsibility for AI system outcomes. Organizations must be able to identify who is responsible when AI systems cause harm, implement governance structures for AI oversight, and have mechanisms for redress when things go wrong. This includes audit trails, human oversight requirements, and clear policies for when AI recommendations should be overridden.',
+    violationTitle: 'Horizon Health Faulty Sepsis Algorithm (2021)',
+    violationDesc: 'Epic Systems\' sepsis prediction algorithm, deployed across hundreds of hospitals, was found to miss most sepsis cases while generating many false alarms. Despite evidence of poor performance, hospitals continued using it because no clear accountability existed for monitoring AI performance. The lack of oversight meant the algorithm operated for years without proper validation, potentially contributing to preventable patient deaths.',
+    citation: 'Wong, A., et al. (2021). External Validation of a Widely Implemented Proprietary Sepsis Prediction Model in Hospitalized Patients. JAMA Internal Medicine, 181(8), 1065-1070.',
+    citationUrl: 'https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2781307',
+  },
+  safety: {
+    title: 'Safety',
+    icon: IconCircleCheck,
+    color: 'teal',
+    shortDesc: 'Robust testing and monitoring',
+    definition: 'Safety in AI requires rigorous testing, validation, and continuous monitoring to ensure that AI systems do not cause harm. This includes pre-deployment testing across diverse populations, ongoing performance monitoring, mechanisms to detect and respond to failures, and fail-safe designs that default to human judgment in uncertain situations.',
+    violationTitle: 'Babylon Health Chatbot Misdiagnosis (2020)',
+    violationDesc: 'Babylon Health\'s AI-powered symptom checker app was found to provide potentially dangerous medical advice. In tests, the chatbot failed to identify serious conditions including heart attacks and meningitis, instead suggesting less urgent care. The company had marketed the app as being as accurate as doctors, but independent testing revealed significant safety gaps. The app was being used by millions of NHS patients in the UK.',
+    citation: 'Fraser, H., Coiera, E., & Wong, D. (2018). Safety of patient-facing digital symptom checkers. The Lancet, 392(10161), 2263-2264.',
+    citationUrl: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)32819-8/fulltext',
+  },
+};
+
+// Ethical Pillar Card Component with Modal
+function EthicalPillarCard({ pillarKey }) {
+  const [opened, { open, close }] = useDisclosure(false);
+  const pillar = ethicalPillarsData[pillarKey];
+  const Icon = pillar.icon;
+
+  return (
+    <>
+      <Modal opened={opened} onClose={close} title={pillar.title} size="lg" centered>
+        <Box>
+          <Group mb="md">
+            <ThemeIcon color={pillar.color} size={50} radius="xl">
+              <Icon size={26} />
+            </ThemeIcon>
+            <Box>
+              <Text fw={700} size="xl">{pillar.title}</Text>
+              <Badge color={pillar.color} variant="light">{pillar.shortDesc}</Badge>
+            </Box>
+          </Group>
+
+          <Divider my="md" />
+
+          <Text fw={600} size="lg" mb="xs">Definition</Text>
+          <Text size="sm" mb="lg" c="dimmed">{pillar.definition}</Text>
+
+          <Paper p="md" bg="red.0" radius="md" withBorder style={{ borderColor: 'var(--mantine-color-red-3)' }}>
+            <Badge color="red" variant="filled" mb="sm">Real-World Violation</Badge>
+            <Text fw={600} size="md" mb="xs">{pillar.violationTitle}</Text>
+            <Text size="sm" mb="md">{pillar.violationDesc}</Text>
+            <Text size="xs" c="dimmed" fs="italic" mb="xs">
+              <Text span fw={600}>Citation: </Text>
+              {pillar.citation}
+            </Text>
+            <Anchor href={pillar.citationUrl} target="_blank" size="xs">
+              View Source <IconExternalLink size={12} style={{ marginLeft: 4 }} />
+            </Anchor>
+          </Paper>
+        </Box>
+      </Modal>
+
+      <Card 
+        shadow="xs" 
+        padding="md" 
+        radius="md" 
+        withBorder 
+        onClick={open}
+        style={{ cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-4px)';
+          e.currentTarget.style.boxShadow = 'var(--mantine-shadow-md)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = 'var(--mantine-shadow-xs)';
+        }}
+      >
+        <ThemeIcon color={pillar.color} size={40} radius="xl" mb="sm">
+          <Icon size={20} />
+        </ThemeIcon>
+        <Text fw={600}>{pillar.title}</Text>
+        <Text size="sm" c="dimmed">{pillar.shortDesc}</Text>
+        <Text size="xs" c={pillar.color} mt="xs">Click to learn more →</Text>
+      </Card>
+    </>
+  );
+}
+
+// Ethical Pillars Grid Component
+function EthicalPillarsGrid() {
+  return (
+    <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="md">
+      <EthicalPillarCard pillarKey="fairness" />
+      <EthicalPillarCard pillarKey="transparency" />
+      <EthicalPillarCard pillarKey="accountability" />
+      <EthicalPillarCard pillarKey="safety" />
+    </SimpleGrid>
+  );
+}
+
 const moduleIcons = {
   'module-1': IconFileText,
-  'module-2': IconServer,
-  'module-3': IconShieldCheck,
-  'module-4': IconScale,
+  'module-2': IconShieldCheck,
+  'module-3': IconScale,
+  'module-4': IconServer,
   'module-5': IconDatabase,
 };
 
@@ -107,6 +236,97 @@ const moduleContent = {
     ],
   },
   'module-2': {
+    title: 'Regulations & Compliance',
+    subtitle: 'HIPAA/GDPR basics, de-identification, and safe handling of synthetic healthcare data.',
+    sections: [
+      {
+        title: 'Overview',
+        content: (
+          <>
+            <Text size="md" mb="md">
+              Healthcare data is among the most regulated in the world. This module covers the essential
+              compliance requirements you need to understand when working with AI in healthcare contexts.
+            </Text>
+            <Text size="md" mb="md" c="red.7" fw={600}>
+              ⚠ Important: Always use synthetic or properly de-identified data for AI experimentation.
+              Never use real patient data without proper authorization and safeguards.
+            </Text>
+          </>
+        ),
+      },
+      {
+        title: 'Key Regulations',
+        content: (
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+            <Card shadow="xs" padding="md" radius="md" withBorder>
+              <Badge color="blue" variant="filled" mb="sm">USA</Badge>
+              <Title order={5} mb="xs">HIPAA</Title>
+              <Text size="sm" c="dimmed">
+                Health Insurance Portability and Accountability Act. Protects patient health information (PHI)
+                and establishes standards for electronic healthcare transactions.
+              </Text>
+            </Card>
+            <Card shadow="xs" padding="md" radius="md" withBorder>
+              <Badge color="grape" variant="filled" mb="sm">EU</Badge>
+              <Title order={5} mb="xs">GDPR</Title>
+              <Text size="sm" c="dimmed">
+                General Data Protection Regulation. Applies to any EU citizen data and includes strict
+                consent and data handling requirements.
+              </Text>
+            </Card>
+          </SimpleGrid>
+        ),
+      },
+      {
+        title: 'What You\'ll Learn',
+        content: (
+          <List size="md" spacing="sm" icon={<ThemeIcon color="green" size={24} radius="xl"><IconCircleCheck size={16} /></ThemeIcon>}>
+            <List.Item>HIPAA Safe Harbor de-identification method (18 identifiers)</List.Item>
+            <List.Item>Expert Determination method for statistical de-identification</List.Item>
+            <List.Item>Data handling policies for AI projects</List.Item>
+            <List.Item>Compliance checklists for healthcare AI development</List.Item>
+          </List>
+        ),
+      },
+    ],
+  },
+  'module-3': {
+    title: 'Ethical AI',
+    subtitle: 'Fairness, transparency, and accountability practices for healthcare AI systems.',
+    sections: [
+      {
+        title: 'Overview',
+        content: (
+          <>
+            <Text size="md" mb="md">
+              AI systems in healthcare can have life-or-death implications. This module covers the ethical
+              frameworks and practices needed to build responsible AI systems.
+            </Text>
+            <Text size="md" mb="md">
+              <Text span fw={600}>Core principle:</Text> AI should augment human decision-making, not replace it,
+              especially in high-stakes healthcare contexts.
+            </Text>
+          </>
+        ),
+      },
+      {
+        title: 'Ethical Pillars',
+        content: <EthicalPillarsGrid />,
+      },
+      {
+        title: 'What You\'ll Learn',
+        content: (
+          <List size="md" spacing="sm" icon={<ThemeIcon color="green" size={24} radius="xl"><IconCircleCheck size={16} /></ThemeIcon>}>
+            <List.Item>Bias detection and mitigation strategies</List.Item>
+            <List.Item>Ethical AI frameworks (IEEE, EU AI Act principles)</List.Item>
+            <List.Item>Documenting AI system decisions and limitations</List.Item>
+            <List.Item>Human-in-the-loop design patterns</List.Item>
+          </List>
+        ),
+      },
+    ],
+  },
+  'module-4': {
     title: 'AI Environment Setup',
     subtitle: 'Set up your AI learning environment using AWS Bedrock (school login) or run models locally on your Mac.',
     sections: [
@@ -193,128 +413,6 @@ const moduleContent = {
               <Text size="sm" c="dimmed">Full precision, best quality</Text>
             </Card>
           </SimpleGrid>
-        ),
-      },
-    ],
-  },
-  'module-3': {
-    title: 'Regulations & Compliance',
-    subtitle: 'HIPAA/GDPR basics, de-identification, and safe handling of synthetic healthcare data.',
-    sections: [
-      {
-        title: 'Overview',
-        content: (
-          <>
-            <Text size="md" mb="md">
-              Healthcare data is among the most regulated in the world. This module covers the essential
-              compliance requirements you need to understand when working with AI in healthcare contexts.
-            </Text>
-            <Text size="md" mb="md" c="red.7" fw={600}>
-              ⚠ Important: Always use synthetic or properly de-identified data for AI experimentation.
-              Never use real patient data without proper authorization and safeguards.
-            </Text>
-          </>
-        ),
-      },
-      {
-        title: 'Key Regulations',
-        content: (
-          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <Badge color="blue" variant="filled" mb="sm">USA</Badge>
-              <Title order={5} mb="xs">HIPAA</Title>
-              <Text size="sm" c="dimmed">
-                Health Insurance Portability and Accountability Act. Protects patient health information (PHI)
-                and establishes standards for electronic healthcare transactions.
-              </Text>
-            </Card>
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <Badge color="grape" variant="filled" mb="sm">EU</Badge>
-              <Title order={5} mb="xs">GDPR</Title>
-              <Text size="sm" c="dimmed">
-                General Data Protection Regulation. Applies to any EU citizen data and includes strict
-                consent and data handling requirements.
-              </Text>
-            </Card>
-          </SimpleGrid>
-        ),
-      },
-      {
-        title: 'What You\'ll Learn',
-        content: (
-          <List size="md" spacing="sm" icon={<ThemeIcon color="green" size={24} radius="xl"><IconCircleCheck size={16} /></ThemeIcon>}>
-            <List.Item>HIPAA Safe Harbor de-identification method (18 identifiers)</List.Item>
-            <List.Item>Expert Determination method for statistical de-identification</List.Item>
-            <List.Item>Data handling policies for AI projects</List.Item>
-            <List.Item>Compliance checklists for healthcare AI development</List.Item>
-          </List>
-        ),
-      },
-    ],
-  },
-  'module-4': {
-    title: 'Ethical AI',
-    subtitle: 'Fairness, transparency, and accountability practices for healthcare AI systems.',
-    sections: [
-      {
-        title: 'Overview',
-        content: (
-          <>
-            <Text size="md" mb="md">
-              AI systems in healthcare can have life-or-death implications. This module covers the ethical
-              frameworks and practices needed to build responsible AI systems.
-            </Text>
-            <Text size="md" mb="md">
-              <Text span fw={600}>Core principle:</Text> AI should augment human decision-making, not replace it,
-              especially in high-stakes healthcare contexts.
-            </Text>
-          </>
-        ),
-      },
-      {
-        title: 'Ethical Pillars',
-        content: (
-          <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="md">
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <ThemeIcon color="green" size={40} radius="xl" mb="sm">
-                <IconScale size={20} />
-              </ThemeIcon>
-              <Text fw={600}>Fairness</Text>
-              <Text size="sm" c="dimmed">Equal treatment across demographics</Text>
-            </Card>
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <ThemeIcon color="blue" size={40} radius="xl" mb="sm">
-                <IconFileText size={20} />
-              </ThemeIcon>
-              <Text fw={600}>Transparency</Text>
-              <Text size="sm" c="dimmed">Explainable decisions and processes</Text>
-            </Card>
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <ThemeIcon color="grape" size={40} radius="xl" mb="sm">
-                <IconShieldCheck size={20} />
-              </ThemeIcon>
-              <Text fw={600}>Accountability</Text>
-              <Text size="sm" c="dimmed">Clear ownership and oversight</Text>
-            </Card>
-            <Card shadow="xs" padding="md" radius="md" withBorder>
-              <ThemeIcon color="teal" size={40} radius="xl" mb="sm">
-                <IconCircleCheck size={20} />
-              </ThemeIcon>
-              <Text fw={600}>Safety</Text>
-              <Text size="sm" c="dimmed">Robust testing and monitoring</Text>
-            </Card>
-          </SimpleGrid>
-        ),
-      },
-      {
-        title: 'What You\'ll Learn',
-        content: (
-          <List size="md" spacing="sm" icon={<ThemeIcon color="green" size={24} radius="xl"><IconCircleCheck size={16} /></ThemeIcon>}>
-            <List.Item>Bias detection and mitigation strategies</List.Item>
-            <List.Item>Ethical AI frameworks (IEEE, EU AI Act principles)</List.Item>
-            <List.Item>Documenting AI system decisions and limitations</List.Item>
-            <List.Item>Human-in-the-loop design patterns</List.Item>
-          </List>
         ),
       },
     ],

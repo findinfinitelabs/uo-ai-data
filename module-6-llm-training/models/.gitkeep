@@ -1,0 +1,3 @@
+# This directory stores downloaded and trained models
+# Models are typically large (5-15GB) and should not be committed to git
+# Add to .gitignore: module-6-llm-training/models/*

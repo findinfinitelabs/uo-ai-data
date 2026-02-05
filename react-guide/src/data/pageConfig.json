@@ -50,11 +50,11 @@
     },
     {
       "path": "/module-2",
-      "title": "Using AI",
-      "description": "Set up your AI learning environment",
-      "sections": 5,
-      "items": ["Why Deploy AI", "Which Option", "AWS Bedrock", "Local LLM", "MCP & Agents"],
-      "estimatedMinutes": 2
+      "title": "Regulations & Compliance",
+      "description": "HIPAA, GDPR, and data handling policies",
+      "sections": 4,
+      "items": ["HIPAA basics", "De-identification", "Data policies", "Compliance checklist"],
+      "estimatedMinutes": 12
     },
     {
       "path": "/ai-setup/aws-account",
@@ -106,19 +106,19 @@
     },
     {
       "path": "/module-3",
-      "title": "Regulations & Compliance",
-      "description": "HIPAA, GDPR, and data handling policies",
-      "sections": 4,
-      "items": ["HIPAA basics", "De-identification", "Data policies", "Compliance checklist"],
-      "estimatedMinutes": 12
-    },
-    {
-      "path": "/module-4",
       "title": "Ethical AI",
       "description": "Fairness, transparency, and accountability",
       "sections": 4,
       "items": ["Bias assessment", "Fairness metrics", "Transparency", "Accountability framework"],
       "estimatedMinutes": 10
+    },
+    {
+      "path": "/module-4",
+      "title": "Using AI",
+      "description": "Set up your AI learning environment",
+      "sections": 5,
+      "items": ["Why Deploy AI", "Which Option", "AWS Bedrock", "Local LLM", "MCP & Agents"],
+      "estimatedMinutes": 2
     },
     {
       "path": "/module-5",

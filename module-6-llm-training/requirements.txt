@@ -1,0 +1,37 @@
+# Core ML Libraries
+torch>=2.1.0
+transformers>=4.36.0
+accelerate>=0.25.0
+bitsandbytes>=0.41.0
+
+# Fine-tuning Libraries
+peft>=0.7.0
+trl>=0.7.0
+unsloth>=2024.1  # Fast LoRA training
+
+# Data Processing
+datasets>=2.15.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Database Connectivity
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0  # PostgreSQL
+pymysql>=1.1.0          # MySQL
+pyodbc>=5.0.0           # SQL Server
+
+# Hugging Face
+huggingface-hub>=0.19.0
+
+# Utilities
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+wandb>=0.16.0           # Experiment tracking (optional)
+
+# Inference & Export
+sentencepiece>=0.1.99
+protobuf>=4.25.0
+
+# For exporting to GGUF (Ollama compatible)
+# llama-cpp-python>=0.2.0  # Uncomment if needed
