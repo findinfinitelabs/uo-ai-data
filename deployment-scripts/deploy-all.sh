@@ -74,6 +74,7 @@ CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 AWS_REGION="${AWS_REGION:-us-east-1}"
 GPU_NODE_COUNT="${GPU_NODE_COUNT:-2}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
 # Deployment tracking
 START_TIME=$(date +%s)
@@ -203,6 +204,30 @@ log "  Account ID: ${ACCOUNT_ID}"
 log "  Identity:   ${USER_ARN}"
 log ""
 
+# Prompt for Student Number
+if [ "$SKIP_CONFIRMATION" = false ]; then
+    log -e "${BLUE}Student Identification${NC}"
+    read -p "Enter your student number (e.g., student0001): " -r STUDENT_ID
+    
+    # Validate input
+    if [ -z "$STUDENT_ID" ]; then
+        print_error "Student number is required"
+        exit 1
+    fi
+    
+    # Build resource group name
+    RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
+    
+    log ""
+    print_success "Student ID: ${STUDENT_ID}"
+    print_success "Resource Group: ${RESOURCE_GROUP}"
+    log ""
+else
+    # Use defaults if skipping confirmation
+    STUDENT_ID="${STUDENT_ID:-student0001}"
+    RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
+fi
+
 # Confirmation
 if [ "$SKIP_CONFIRMATION" = false ]; then
     print_warning "This will deploy a small/medium AI infrastructure stack (1 GPU node)"
@@ -242,6 +267,8 @@ export CLUSTER_NAME
 export AWS_REGION
 export GPU_NODE_COUNT
 export TABLE_PREFIX
+export RESOURCE_GROUP
+export STUDENT_ID
 
 # Step 1: Deploy EKS Cluster
 print_header "Step 1/5: Deploying EKS Cluster"

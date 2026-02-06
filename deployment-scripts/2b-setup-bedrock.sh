@@ -18,6 +18,8 @@ NC='\033[0m'
 AWS_REGION="${AWS_REGION:-us-east-1}"
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 NAMESPACE="${BEDROCK_NAMESPACE:-ollama}"
+STUDENT_ID="${STUDENT_ID:-student0001}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}AWS Bedrock Setup${NC}"
@@ -146,6 +148,7 @@ EOF
         --policy-name "${POLICY_NAME}" \
         --policy-document file:///tmp/bedrock-policy.json \
         --description "Allow EKS pods to access AWS Bedrock" \
+        --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
         --query 'Policy.Arn' \
         --output text)
     
@@ -202,6 +205,7 @@ EOF
         --role-name "${ROLE_NAME}" \
         --assume-role-policy-document file:///tmp/trust-policy.json \
         --description "IAM role for EKS pods to access Bedrock" \
+        --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
         --query 'Role.Arn' \
         --output text)
     

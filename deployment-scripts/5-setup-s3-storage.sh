@@ -26,6 +26,8 @@ CLUSTER_NAME=${CLUSTER_NAME:-healthcare-ai-cluster}
 AWS_REGION=${AWS_REGION:-us-east-1}
 S3_BUCKET_NAME=${S3_BUCKET_NAME:-healthcare-ai-datasets-$(date +%s)}
 NAMESPACE=${NAMESPACE:-default}
+STUDENT_ID=${STUDENT_ID:-student0001}
+RESOURCE_GROUP=${RESOURCE_GROUP:-dataai-account-student0001}
 
 echo "=============================================="
 echo "   S3 Storage Setup for Dataset Publishing"
@@ -126,6 +128,13 @@ aws s3api put-public-access-block \
     --region ${AWS_REGION}
 print_status "Blocked public access"
 
+# Add tags to S3 bucket
+aws s3api put-bucket-tagging \
+    --bucket ${S3_BUCKET_NAME} \
+    --tagging 'TagSet=[{Key=Project,Value=healthcare-ai},{Key=Environment,Value=innovation-sandbox},{Key=ResourceGroup,Value='"${RESOURCE_GROUP}"'},{Key=Owner,Value='"${STUDENT_ID}"'}]' \
+    --region ${AWS_REGION}
+print_status "Added resource group tags"
+
 # Step 3: Create IAM Policy for S3 Access
 echo ""
 echo -e "${BLUE}Step 3: Creating IAM Policy for S3 Access${NC}"
@@ -161,6 +170,7 @@ if [ -z "$POLICY_ARN" ]; then
     POLICY_ARN=$(aws iam create-policy \
         --policy-name ${S3_POLICY_NAME} \
         --policy-document file:///tmp/s3-policy.json \
+        --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
         --query 'Policy.Arn' \
         --output text)
     print_status "Created IAM policy: ${S3_POLICY_NAME}"

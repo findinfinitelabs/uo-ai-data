@@ -15,6 +15,8 @@ NC='\033[0m'
 # Configuration
 AWS_REGION="${AWS_REGION:-us-east-1}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
+STUDENT_ID="${STUDENT_ID:-student0001}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Healthcare Data Setup (DynamoDB)${NC}"
@@ -86,7 +88,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=patient_id,KeyType=HASH \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai Key=Environment,Value=innovation-sandbox \
+                    --tags Key=Project,Value=healthcare-ai Key=Environment,Value=innovation-sandbox Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
             *-diagnoses)
@@ -98,7 +100,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=diagnosis_code,KeyType=HASH \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai \
+                    --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
             *-medications)
@@ -110,7 +112,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=medication_id,KeyType=HASH \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai \
+                    --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
             *-providers)
@@ -122,7 +124,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=npi,KeyType=HASH \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai \
+                    --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
             *-patient-diagnoses)
@@ -136,7 +138,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=diagnosis_code,KeyType=RANGE \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai \
+                    --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
             *-patient-medications)
@@ -150,7 +152,7 @@ for TABLE in "${TABLES[@]}"; do
                         AttributeName=medication_id,KeyType=RANGE \
                     --billing-mode PAY_PER_REQUEST \
                     --region "${AWS_REGION}" \
-                    --tags Key=Project,Value=healthcare-ai \
+                    --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
                     >/dev/null 2>&1
                 ;;
         esac

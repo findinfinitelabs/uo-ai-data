@@ -18,6 +18,8 @@ REGION="${AWS_REGION:-us-east-1}"
 K8S_VERSION="${K8S_VERSION:-1.28}"
 GPU_INSTANCE_TYPE="${GPU_INSTANCE_TYPE:-g4dn.xlarge}"
 GPU_NODE_COUNT="${GPU_NODE_COUNT:-1}"  # Reduced to 1 for small/medium cluster
+STUDENT_ID="${STUDENT_ID:-student0001}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}EKS Cluster Deployment for Healthcare AI${NC}"
@@ -29,6 +31,7 @@ echo "  Region: $REGION"
 echo "  Kubernetes Version: $K8S_VERSION"
 echo "  GPU Instance Type: $GPU_INSTANCE_TYPE"
 echo "  GPU Node Count: $GPU_NODE_COUNT"
+echo "  Resource Group: $RESOURCE_GROUP"
 echo ""
 
 # Function to check if command exists
@@ -96,9 +99,17 @@ fi
 
 AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
 AWS_USER=$(aws sts get-caller-identity --query Arn --output text)
+
+# Update resource group name with account number if using default
+if [ "$RESOURCE_GROUP" = "dataai-account-student0001" ]; then
+    RESOURCE_GROUP="dataai-account${AWS_ACCOUNT}-${STUDENT_ID}"
+fi
+
 print_status "AWS credentials verified"
 echo "  Account: $AWS_ACCOUNT"
 echo "  User/Role: $AWS_USER"
+echo "  Student ID: $STUDENT_ID"
+echo "  Resource Group: $RESOURCE_GROUP"
 
 # Step 3: Create Cluster Configuration
 echo ""
@@ -112,6 +123,12 @@ metadata:
   name: ${CLUSTER_NAME}
   region: ${REGION}
   version: "${K8S_VERSION}"
+  tags:
+    Environment: innovation-sandbox
+    Project: healthcare-ai
+    ResourceGroup: ${RESOURCE_GROUP}
+    Owner: ${STUDENT_ID}
+    ManagedBy: eksctl
 
 vpc:
   cidr: "10.0.0.0/16"
@@ -133,6 +150,8 @@ managedNodeGroups:
       Environment: innovation-sandbox
       Project: healthcare-ai
       ManagedBy: eksctl
+      ResourceGroup: ${RESOURCE_GROUP}
+      Owner: ${STUDENT_ID}
 
   - name: general-nodes
     instanceType: t3.medium
@@ -143,6 +162,8 @@ managedNodeGroups:
     tags:
       Environment: innovation-sandbox
       Project: healthcare-ai
+      ResourceGroup: ${RESOURCE_GROUP}
+      Owner: ${STUDENT_ID}
 
 iam:
   withOIDC: true
@@ -218,6 +239,18 @@ if kubectl get pods -n kube-system | grep nvidia-device-plugin | grep Running &>
 else
     print_warning "NVIDIA plugin may still be starting. Check with: kubectl get pods -n kube-system | grep nvidia"
 fi
+
+# Step 8b: Create AWS Resource Group
+echo ""
+echo -e "${BLUE}Step 8b: Creating AWS Resource Group${NC}"
+
+aws resource-groups create-group \
+    --name "${RESOURCE_GROUP}" \
+    --description "Healthcare AI infrastructure resources for ${STUDENT_ID}" \
+    --resource-query '{"Type":"TAG_FILTERS_1_0","Query":"{\"ResourceTypeFilters\":[\"AWS::AllSupported\"],\"TagFilters\":[{\"Key\":\"ResourceGroup\",\"Values\":[\"'"${RESOURCE_GROUP}"'\"]}]}"}' \
+    --region ${REGION} 2>/dev/null || print_warning "Resource group may already exist"
+
+print_status "AWS Resource Group configured: ${RESOURCE_GROUP}"
 
 # Step 9: Save Cluster Info
 echo ""
