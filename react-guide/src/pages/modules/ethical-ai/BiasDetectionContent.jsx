@@ -179,8 +179,23 @@ export default function BiasDetectionContent() {
         <Divider my="lg" />
 
         <Text fw={700} mb="md" size="lg">🔍 How to Evaluate Tails</Text>
-        <Paper p="md" className={styles.codeBlock}>
-          <Code block style={{ background: 'transparent', color: '#d4d4d4' }}>
+        <Alert icon={<IconBulb />} color="yellow" variant="light" mb="md">
+          <Text size="sm" fw={600} mb="xs">
+            ⚡ Critical Code: Run ALL 4 methods to detect hidden bias in tail distributions
+          </Text>
+          <Text size="sm">
+            Copy and adapt this code to your healthcare AI project. Each highlighted method catches different types of tail problems.
+          </Text>
+        </Alert>
+        <Paper p="md" style={{ background: '#1e1e1e', borderRadius: '8px', border: '2px solid #ffd700' }}>
+          <pre style={{ 
+            margin: 0, 
+            fontFamily: 'monospace', 
+            fontSize: '13px', 
+            lineHeight: '1.6',
+            color: '#d4d4d4',
+            overflow: 'auto'
+          }}>
 {`# Tail analysis for bias detection
 import numpy as np
 from scipy import stats
@@ -191,39 +206,85 @@ def evaluate_tails(df, predictions, actuals, confidence_scores):
     NEVER skip this step, even with millions of samples!
     """
     
-    # Method 1: Low-frequency subgroups
+    `}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ METHOD 1: Low-frequency subgroups</span>{`
     group_counts = df.groupby(['age_group', 'ethnicity', 'diagnosis']).size()
-    rare_groups = group_counts[group_counts < 100].index  # Groups with <100 samples
+    rare_groups = group_counts[group_counts < 100].index  # <100 samples
     
     for group in rare_groups:
         mask = (df['age_group'] == group[0]) & \\
                (df['ethnicity'] == group[1]) & \\
                (df['diagnosis'] == group[2])
-        tail_accuracy = accuracy_score(actuals[mask], predictions[mask])
-        print(f"TAIL GROUP {group}: {sum(mask)} samples, {tail_accuracy:.1%} accuracy")
+        `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>tail_accuracy = accuracy_score(actuals[mask], predictions[mask])</span>{`
+        print(f"TAIL: {sum(mask)} samples, {tail_accuracy:.1%} accuracy")
     
-    # Method 2: Confidence-based tails (model's uncertain predictions)
+    `}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ METHOD 2: Confidence-based tails</span>{`
     low_confidence_mask = confidence_scores < np.percentile(confidence_scores, 10)
-    tail_accuracy = accuracy_score(actuals[low_confidence_mask], 
-                                   predictions[low_confidence_mask])
+    `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>tail_accuracy = accuracy_score(actuals[low_confidence_mask], predictions[low_confidence_mask])</span>{`
     print(f"LOW CONFIDENCE TAIL (bottom 10%): {tail_accuracy:.1%} accuracy")
     
-    # Method 3: Feature-space outliers
+    `}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ METHOD 3: Feature-space outliers</span>{`
     from sklearn.ensemble import IsolationForest
     outlier_detector = IsolationForest(contamination=0.05)
     outliers = outlier_detector.fit_predict(feature_matrix) == -1
-    tail_accuracy = accuracy_score(actuals[outliers], predictions[outliers])
+    `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>tail_accuracy = accuracy_score(actuals[outliers], predictions[outliers])</span>{`
     print(f"FEATURE-SPACE OUTLIERS: {tail_accuracy:.1%} accuracy")
     
-    # Method 4: Error concentration analysis
+    `}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ METHOD 4: Error concentration analysis</span>{`
     errors = predictions != actuals
-    # Check if errors cluster in specific subgroups
     for col in ['ethnicity', 'age_group', 'insurance_type']:
-        error_rates = df.groupby(col).apply(lambda x: errors[x.index].mean())
+        `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>error_rates = df.groupby(col).apply(lambda x: errors[x.index].mean())</span>{`
         if error_rates.max() / error_rates.min() > 2:
             print(f"WARNING: Error rate varies >2x across {col}!")
             print(error_rates.sort_values(ascending=False))`}
-          </Code>
+          </pre>
         </Paper>
 
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" mt="lg">
@@ -263,22 +324,62 @@ def evaluate_tails(df, predictions, actuals, confidence_scores):
           <Text size="sm" mb="sm">
             Never rely on aggregate metrics alone. Break down model performance by demographic groups.
           </Text>
-          <Paper p="md" className={styles.codeBlock}>
-            <Code block>
+          <Alert icon={<IconBulb />} color="yellow" variant="light" mb="md">
+            <Text size="sm" fw={600} mb="xs">
+              ⚡ Critical: Test EACH demographic group separately
+            </Text>
+            <Text size="sm">
+              Aggregate accuracy can hide serious disparities. Always disaggregate by gender, ethnicity, age groups.
+            </Text>
+          </Alert>
+          <Paper p="md" style={{ background: '#1e1e1e', borderRadius: '8px', border: '2px solid #ffd700' }}>
+            <pre style={{ 
+              margin: 0, 
+              fontFamily: 'monospace', 
+              fontSize: '13px', 
+              lineHeight: '1.6',
+              color: '#d4d4d4',
+              overflow: 'auto'
+            }}>
 {`# Example: Disaggregated evaluation
 from sklearn.metrics import classification_report
 
+`}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ LOOP THROUGH ALL DEMOGRAPHIC GROUPS</span>{`
 for group in ['male', 'female', 'non-binary']:
-    mask = df['gender'] == group
+    `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>mask = df['gender'] == group</span>{`
     y_true_group = y_true[mask]
     y_pred_group = y_pred[mask]
     
     print(f"\\n=== Performance for {group} ===")
-    print(classification_report(y_true_group, y_pred_group))
+    `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>print(classification_report(y_true_group, y_pred_group))</span>{`
     
 # Also check: accuracy, precision, recall, F1 by group
-# Flag if any group has >10% worse performance`}
-            </Code>
+# `}<span style={{ 
+      background: '#661a1a', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ff6b6b',
+      fontWeight: 'bold'
+    }}>{'Flag if any group has >10% worse performance'}</span>
+            </pre>
           </Paper>
         </Box>
 
@@ -327,23 +428,57 @@ for group in ['male', 'female', 'non-binary']:
           <Text size="sm" mb="sm">
             Identify features that may encode protected attributes indirectly.
           </Text>
-          <Paper p="md" className={styles.codeBlock}>
-            <Code block>
+          <Alert icon={<IconBulb />} color="yellow" variant="light" mb="md">
+            <Text size="sm" fw={600} mb="xs">
+              ⚡ Critical: Detect features that leak protected attributes
+            </Text>
+            <Text size="sm">
+              Zip code can encode race, insurance type can encode socioeconomic status. Check correlations &gt;0.3.
+            </Text>
+          </Alert>
+          <Paper p="md" style={{ background: '#1e1e1e', borderRadius: '8px', border: '2px solid #ffd700' }}>
+            <pre style={{ 
+              margin: 0, 
+              fontFamily: 'monospace', 
+              fontSize: '13px', 
+              lineHeight: '1.6',
+              color: '#d4d4d4',
+              overflow: 'auto'
+            }}>
 {`# Check correlation between features and protected attributes
 import pandas as pd
 
 protected_attrs = ['gender', 'race', 'age_group']
 features = ['zip_code', 'insurance_type', 'referral_source']
 
+`}<span style={{ 
+      background: '#264f78', 
+      padding: '3px 8px', 
+      borderRadius: '4px', 
+      color: '#4fc3f7',
+      fontWeight: 'bold'
+    }}>⚡ TEST ALL FEATURE-ATTRIBUTE PAIRS</span>{`
 for attr in protected_attrs:
     print(f"\\n=== Correlations with {attr} ===")
     for feat in features:
         # For categorical: use chi-square test
         # For continuous: use point-biserial correlation
-        correlation = calculate_correlation(df[feat], df[attr])
-        if abs(correlation) > 0.3:
+        `}<span style={{ 
+      background: '#4a4a00', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ffd700',
+      fontWeight: 'bold'
+    }}>correlation = calculate_correlation(df[feat], df[attr])</span>{`
+        `}<span style={{ 
+      background: '#661a1a', 
+      padding: '2px 6px', 
+      borderRadius: '3px', 
+      color: '#ff6b6b',
+      fontWeight: 'bold'
+    }}>{'if abs(correlation) > 0.3:'}</span>{`
             print(f"  WARNING: {feat} highly correlated ({correlation:.2f})")`}
-            </Code>
+            </pre>
           </Paper>
         </Box>
       </Paper>

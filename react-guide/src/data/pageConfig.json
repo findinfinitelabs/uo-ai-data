@@ -57,6 +57,22 @@
       "estimatedMinutes": 12
     },
     {
+      "path": "/regulations/expert-determination",
+      "title": "Expert Determination Quiz",
+      "description": "Test your knowledge of statistical de-identification techniques",
+      "sections": 1,
+      "items": ["Knowledge Check Quiz"],
+      "estimatedMinutes": 15
+    },
+    {
+      "path": "/regulations/data-handling",
+      "title": "Data Handling Exercise",
+      "description": "Generate synthetic healthcare data with AI",
+      "sections": 2,
+      "items": ["Data Lifecycle Policies", "Synthetic Data Generator"],
+      "estimatedMinutes": 20
+    },
+    {
       "path": "/ai-setup/aws-account",
       "title": "AWS Account Setup",
       "description": "Create and configure AWS account for AI services",
@@ -119,6 +135,14 @@
       "sections": 5,
       "items": ["Why Deploy AI", "Which Option", "AWS Bedrock", "Local LLM", "MCP & Agents"],
       "estimatedMinutes": 2
+    },
+    {
+      "path": "/module-4/deployment",
+      "title": "Infrastructure Deployment",
+      "description": "Complete guide to deploying healthcare AI infrastructure on AWS",
+      "sections": 6,
+      "items": ["Prerequisites", "Deployment Steps (7 steps)", "Access & Usage", "Troubleshooting", "Cleanup"],
+      "estimatedMinutes": 60
     },
     {
       "path": "/module-5",

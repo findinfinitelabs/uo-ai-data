@@ -56,7 +56,7 @@ import styles from './DataSpecs.module.css';
 const PATIENT_PERSONA = {
   name: 'Maria Chen',
   age: 52,
-  avatar: '👩🏾‍💼',
+  avatar: '👩🏻',
   occupation: 'Marketing Executive',
   location: 'Portland, OR',
   healthConditions: ['Active', 'Pre-diabetic', 'High Stress'],
@@ -751,10 +751,10 @@ Return ONLY valid JSON with this structure:
       >
         <Group gap="lg" align="flex-start" wrap="wrap">
           <Box hiddenFrom="xs">
-            <Text style={{ fontSize: 48 }}>{PATIENT_PERSONA.avatar}</Text>
+            <Text style={{ fontSize: 48 }}>👩</Text>
           </Box>
           <Box visibleFrom="xs">
-            <Text style={{ fontSize: 64 }}>{PATIENT_PERSONA.avatar}</Text>
+            <Text style={{ fontSize: 64 }}>👩</Text>
           </Box>
           <Box style={{ flex: 1, minWidth: 280 }}>
             <Group gap="sm" mb="xs" wrap="wrap">

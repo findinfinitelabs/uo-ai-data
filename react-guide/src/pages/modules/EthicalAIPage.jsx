@@ -28,12 +28,12 @@ import {
 
 // Import content components
 import {
-  BiasDetectionContent,
-  EthicalFrameworksContent,
   DocumentingDecisionsContent,
   HumanInLoopContent,
   styles,
 } from './ethical-ai';
+import BiasDetectionPage from './ethical-ai/BiasDetectionPage';
+import EthicalFrameworksPage from './ethical-ai/EthicalFrameworksPage';
 
 // Sub-page configuration
 const subPages = {
@@ -42,14 +42,14 @@ const subPages = {
     subtitle: 'Identify and address unfair biases in AI systems',
     icon: IconChartBar,
     color: 'red',
-    content: <BiasDetectionContent />,
+    // Handled by BiasDetectionPage component
   },
   'frameworks': {
     title: 'Ethical AI Frameworks',
     subtitle: 'IEEE, EU AI Act, OECD, and NIST guidelines',
     icon: IconGavel,
     color: 'blue',
-    content: <EthicalFrameworksContent />,
+    // Handled by EthicalFrameworksPage component
   },
   'documentation': {
     title: 'Documenting AI Decisions',
@@ -70,7 +70,17 @@ const subPages = {
 const subPageOrder = ['bias-detection', 'frameworks', 'documentation', 'human-in-loop'];
 
 export default function EthicalAIPage() {
-  const { subPage } = useParams();
+  const { subPage, biasSubPage, frameworkSubPage } = useParams();
+
+  // Special handling for bias-detection pages (nested routing)
+  if (subPage === 'bias-detection' || biasSubPage) {
+    return <BiasDetectionPage />;
+  }
+
+  // Special handling for frameworks pages (nested routing)
+  if (subPage === 'frameworks' || frameworkSubPage) {
+    return <EthicalFrameworksPage />;
+  }
 
   // If no subpage, show the overview with links
   if (!subPage) {

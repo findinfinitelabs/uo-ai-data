@@ -40,16 +40,18 @@ import {
   IconRocket,
   IconBrain,
   IconNetwork,
+  IconWorld,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
 import ModulePage from './pages/ModulePage';
 import LoginPage from './pages/LoginPage';
 import ProgressPage from './pages/ProgressPage';
+import DeploymentPage from './pages/DeploymentPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import RegulationsPage from './pages/modules/RegulationsPage';
-import AISetupPage from './pages/modules/AISetupPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
+import Module4Page from './pages/modules/Module4Page';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -73,20 +75,28 @@ const module2SubPages = [
   { id: 'compliance-checklist', title: 'Compliance Checklist', icon: IconCircleCheck },
 ];
 
-// AI Setup sub-navigation items
-const aiSetupSubPages = [
-  { id: 'eks-deployment', title: 'EKS Cluster Deployment', icon: IconCloud },
-  { id: 'ollama-installation', title: 'Ollama Installation', icon: IconRocket },
-  { id: 'knowledge-graph', title: 'Knowledge Graph Setup', icon: IconNetwork },
-  { id: 'integration', title: 'AI + KG Integration', icon: IconBrain },
-];
-
 // Ethical AI sub-navigation items
 const ethicalAISubPages = [
   { id: 'bias-detection', title: 'Bias Detection', icon: IconScale },
   { id: 'frameworks', title: 'Ethical Frameworks', icon: IconShieldCheck },
   { id: 'documentation', title: 'Documenting Decisions', icon: IconFileText },
   { id: 'human-in-loop', title: 'Human-in-the-Loop', icon: IconRobot },
+];
+
+// Bias Detection sub-sub-navigation items
+const biasDetectionSubPages = [
+  { id: 'tails-problem', title: 'Tails Problem', icon: IconChartBar },
+  { id: 'detection-strategies', title: 'Detection Strategies', icon: IconBulb },
+  { id: 'mitigation', title: 'Mitigation', icon: IconShieldCheck },
+  { id: 'common-pitfalls', title: 'Common Pitfalls', icon: IconCircleCheck },
+];
+
+// Ethical Frameworks sub-sub-navigation items
+const frameworksSubPages = [
+  { id: 'major-frameworks', title: 'Major Frameworks', icon: IconWorld },
+  { id: 'comparison', title: 'Framework Comparison', icon: IconScale },
+  { id: 'practical-application', title: 'Practical Application', icon: IconBulb },
+  { id: 'common-pitfalls', title: 'Common Pitfalls', icon: IconCircleCheck },
 ];
 
 const moduleIcons = {
@@ -143,6 +153,16 @@ function AppLayout() {
           active={location.pathname === '/progress'}
         />
 
+        <NavLink
+          component={Link}
+          to="/aws-setup"
+          label="AWS Environment Setup"
+          leftSection={<IconRocket size={20} stroke={1.5} />}
+          mb="xs"
+          className="nav-link"
+          active={location.pathname === '/aws-setup'}
+        />
+
         <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
           Course Modules
         </Text>
@@ -150,7 +170,7 @@ function AppLayout() {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
           const isRegulationsActive = mod.id === 'module-2' && location.pathname.startsWith('/regulations');
-          const isAISetupActive = mod.id === 'module-4' && location.pathname.startsWith('/ai-setup');
+          const isModule4Active = mod.id === 'module-4';
           const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
           const isCaseStudy = mod.isCaseStudy;
           
@@ -241,43 +261,6 @@ function AppLayout() {
             );
           }
           
-          // Special handling for Module 4 (Using AI) with AI Setup sub-navigation
-          if (mod.id === 'module-4') {
-            return (
-              <Box key={mod.id}>
-                <NavLink
-                  label={labelContent}
-                  component={Link}
-                  to="/ai-setup"
-                  leftSection={<Icon size={20} stroke={1.5} />}
-                  mb="xs"
-                  className="nav-link"
-                  active={isActive || isAISetupActive}
-                />
-                <Collapse in={isActive || isAISetupActive}>
-                  <Box ml="xl" className="sub-nav-container">
-                    {aiSetupSubPages.map((subPage) => {
-                      const SubIcon = subPage.icon;
-                      const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
-                      return (
-                        <NavLink
-                          key={subPage.id}
-                          label={subPage.title}
-                          component={Link}
-                          to={`/ai-setup/${subPage.id}`}
-                          leftSection={<SubIcon size={16} stroke={1.5} />}
-                          mb={4}
-                          className="nav-link sub-nav-link"
-                          active={isSubActive}
-                        />
-                      );
-                    })}
-                  </Box>
-                </Collapse>
-              </Box>
-            );
-          }
-
           // Special handling for Module 3 (Ethical AI) with sub-navigation
           if (mod.id === 'module-3') {
             const isEthicalAIActive = location.pathname.startsWith('/ethical-ai');
@@ -296,18 +279,70 @@ function AppLayout() {
                   <Box ml="xl" className="sub-nav-container">
                     {ethicalAISubPages.map((subPage) => {
                       const SubIcon = subPage.icon;
-                      const isSubActive = location.pathname === `/ethical-ai/${subPage.id}`;
+                      const isSubActive = location.pathname === `/ethical-ai/${subPage.id}` || location.pathname.startsWith(`/ethical-ai/${subPage.id}/`);
+                      const isBiasDetection = subPage.id === 'bias-detection';
+                      const isFrameworks = subPage.id === 'frameworks';
+                      const isBiasSubPageActive = location.pathname.startsWith('/ethical-ai/bias-detection/');
+                      const isFrameworksSubPageActive = location.pathname.startsWith('/ethical-ai/frameworks/');
+                      
                       return (
-                        <NavLink
-                          key={subPage.id}
-                          label={subPage.title}
-                          component={Link}
-                          to={`/ethical-ai/${subPage.id}`}
-                          leftSection={<SubIcon size={16} stroke={1.5} />}
-                          mb={4}
-                          className="nav-link sub-nav-link"
-                          active={isSubActive}
-                        />
+                        <Box key={subPage.id}>
+                          <NavLink
+                            label={subPage.title}
+                            component={Link}
+                            to={`/ethical-ai/${subPage.id}`}
+                            leftSection={<SubIcon size={16} stroke={1.5} />}
+                            mb={4}
+                            className="nav-link sub-nav-link"
+                            active={isSubActive}
+                          />
+                          {isBiasDetection && (
+                            <Collapse in={isSubActive}>
+                              <Box ml="lg" className="sub-nav-container">
+                                {biasDetectionSubPages.map((biasSubPage) => {
+                                  const BiasIcon = biasSubPage.icon;
+                                  const isBiasSubActive = location.pathname === `/ethical-ai/bias-detection/${biasSubPage.id}`;
+                                  return (
+                                    <NavLink
+                                      key={biasSubPage.id}
+                                      label={biasSubPage.title}
+                                      component={Link}
+                                      to={`/ethical-ai/bias-detection/${biasSubPage.id}`}
+                                      leftSection={<BiasIcon size={14} stroke={1.5} />}
+                                      mb={2}
+                                      className="nav-link sub-nav-link"
+                                      active={isBiasSubActive}
+                                      style={{ fontSize: '13px', paddingLeft: '8px' }}
+                                    />
+                                  );
+                                })}
+                              </Box>
+                            </Collapse>
+                          )}
+                          {isFrameworks && (
+                            <Collapse in={isSubActive}>
+                              <Box ml="lg" className="sub-nav-container">
+                                {frameworksSubPages.map((frameworkSubPage) => {
+                                  const FrameworkIcon = frameworkSubPage.icon;
+                                  const isFrameworkSubActive = location.pathname === `/ethical-ai/frameworks/${frameworkSubPage.id}`;
+                                  return (
+                                    <NavLink
+                                      key={frameworkSubPage.id}
+                                      label={frameworkSubPage.title}
+                                      component={Link}
+                                      to={`/ethical-ai/frameworks/${frameworkSubPage.id}`}
+                                      leftSection={<FrameworkIcon size={14} stroke={1.5} />}
+                                      mb={2}
+                                      className="nav-link sub-nav-link"
+                                      active={isFrameworkSubActive}
+                                      style={{ fontSize: '13px', paddingLeft: '8px' }}
+                                    />
+                                  );
+                                })}
+                              </Box>
+                            </Collapse>
+                          )}
+                        </Box>
                       );
                     })}
                   </Box>
@@ -351,41 +386,6 @@ function AppLayout() {
             />
           );
         })}
-
-        <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
-          AI Environment
-        </Text>
-        <Box>
-          <NavLink
-            label="AI Setup"
-            component={Link}
-            to="/ai-setup"
-            leftSection={<IconCloud size={20} stroke={1.5} />}
-            mb="xs"
-            className="nav-link"
-            active={location.pathname.startsWith('/ai-setup')}
-          />
-          <Collapse in={location.pathname.startsWith('/ai-setup')}>
-            <Box ml="xl" className="sub-nav-container">
-              {aiSetupSubPages.map((subPage) => {
-                const SubIcon = subPage.icon;
-                const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
-                return (
-                  <NavLink
-                    key={subPage.id}
-                    label={subPage.title}
-                    component={Link}
-                    to={`/ai-setup/${subPage.id}`}
-                    leftSection={<SubIcon size={16} stroke={1.5} />}
-                    mb={4}
-                    className="nav-link sub-nav-link"
-                    active={isSubActive}
-                  />
-                );
-              })}
-            </Box>
-          </Collapse>
-        </Box>
       </AppShell.Navbar>
       <AppShell.Main style={{ paddingTop: 56 }}>
         <ReadingProgress />
@@ -431,18 +431,18 @@ function AppLayout() {
             }
           />
           <Route
-            path="/ai-setup"
+            path="/module-4"
             element={
               <ProtectedRoute>
-                <AISetupPage />
+                <Module4Page />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/ai-setup/:subPage"
+            path="/module-4/:subPage"
             element={
               <ProtectedRoute>
-                <AISetupPage />
+                <Module4Page />
               </ProtectedRoute>
             }
           />
@@ -463,6 +463,22 @@ function AppLayout() {
             }
           />
           <Route
+            path="/ethical-ai/bias-detection/:biasSubPage"
+            element={
+              <ProtectedRoute>
+                <EthicalAIPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ethical-ai/frameworks/:frameworkSubPage"
+            element={
+              <ProtectedRoute>
+                <EthicalAIPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/case-study-health"
             element={
               <ProtectedRoute>
@@ -475,6 +491,14 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <ProgressPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/aws-setup"
+            element={
+              <ProtectedRoute>
+                <DeploymentPage />
               </ProtectedRoute>
             }
           />

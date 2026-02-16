@@ -414,42 +414,53 @@ function Primer() {
       <Title order={3} mb="md" className="section-title">
         AI Basics We Use
       </Title>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" mb="lg">
-        {aiBasics.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Card
-              key={item.id}
-              shadow="sm"
-              padding="lg"
-              radius="md"
-              withBorder
-              className="ai-basics-card"
-            >
-              <Group mb="sm">
-                <ThemeIcon color="green" size={40} radius="xl">
-                  <Icon size={22} />
-                </ThemeIcon>
-                <Text fw={600} size="lg">
-                  {item.title}
-                </Text>
-              </Group>
-              <Text size="sm" c="dimmed" className="ai-basics-card-summary">
-                {item.summary}
-              </Text>
-              <Button
-                variant="light"
-                color="green"
-                fullWidth
-                mt="md"
-                onClick={() => openModal(item)}
-              >
-                Learn More
-              </Button>
-            </Card>
-          );
-        })}
-      </SimpleGrid>
+      <Box style={{ display: 'flex', gap: 'var(--mantine-spacing-md)', alignItems: 'flex-start' }} mb="lg">
+        <Box style={{ flex: 1 }}>
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+            {aiBasics.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Card
+                  key={item.id}
+                  shadow="sm"
+                  padding="lg"
+                  radius="md"
+                  withBorder
+                  className="ai-basics-card"
+                >
+                  <Group mb="sm">
+                    <ThemeIcon color="green" size={40} radius="xl">
+                      <Icon size={22} />
+                    </ThemeIcon>
+                    <Text fw={600} size="lg">
+                      {item.title}
+                    </Text>
+                  </Group>
+                  <Text size="sm" c="dimmed" className="ai-basics-card-summary">
+                    {item.summary}
+                  </Text>
+                  <Button
+                    variant="light"
+                    color="green"
+                    fullWidth
+                    mt="md"
+                    onClick={() => openModal(item)}
+                  >
+                    Learn More
+                  </Button>
+                </Card>
+              );
+            })}
+          </SimpleGrid>
+        </Box>
+        <Box style={{ flexShrink: 0 }}>
+          <img 
+            src="/menti_1.png" 
+            alt="AI Basics Overview" 
+            style={{ maxWidth: '200px', height: 'auto', borderRadius: 'var(--mantine-radius-md)' }}
+          />
+        </Box>
+      </Box>
     </>
   );
 }
