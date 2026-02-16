@@ -49,6 +49,7 @@ import ProgressPage from './pages/ProgressPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import RegulationsPage from './pages/modules/RegulationsPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
+import Module4Page from './pages/modules/Module4Page';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -70,6 +71,11 @@ const module2SubPages = [
   { id: 'expert-determination', title: 'Expert Determination', icon: IconScale },
   { id: 'data-handling', title: 'Data Handling Policies', icon: IconFileText },
   { id: 'compliance-checklist', title: 'Compliance Checklist', icon: IconCircleCheck },
+];
+
+// Module 4 sub-navigation items
+const module4SubPages = [
+  { id: 'deployment', title: 'Infrastructure Deployment', icon: IconRocket },
 ];
 
 // Ethical AI sub-navigation items
@@ -141,6 +147,7 @@ function AppLayout() {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
           const isRegulationsActive = mod.id === 'module-2' && location.pathname.startsWith('/regulations');
+          const isModule4Active = mod.id === 'module-4';
           const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
           const isCaseStudy = mod.isCaseStudy;
           
@@ -218,6 +225,43 @@ function AppLayout() {
                           label={subPage.title}
                           component={Link}
                           to={`/regulations/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+          
+          // Special handling for Module 4 (Using AI) with sub-navigation
+          if (mod.id === 'module-4') {
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={labelContent}
+                  component={Link}
+                  to="/module-4"
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isActive}
+                />
+                <Collapse in={isActive}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {module4SubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/module-4/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/module-4/${subPage.id}`}
                           leftSection={<SubIcon size={16} stroke={1.5} />}
                           mb={4}
                           className="nav-link sub-nav-link"
@@ -345,6 +389,22 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <RegulationsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-4"
+            element={
+              <ProtectedRoute>
+                <Module4Page />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-4/:subPage"
+            element={
+              <ProtectedRoute>
+                <Module4Page />
               </ProtectedRoute>
             }
           />

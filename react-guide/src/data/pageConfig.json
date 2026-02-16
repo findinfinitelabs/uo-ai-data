@@ -121,6 +121,14 @@
       "estimatedMinutes": 2
     },
     {
+      "path": "/module-4/deployment",
+      "title": "Infrastructure Deployment",
+      "description": "Complete guide to deploying healthcare AI infrastructure on AWS",
+      "sections": 6,
+      "items": ["Prerequisites", "Deployment Steps (7 steps)", "Access & Usage", "Troubleshooting", "Cleanup"],
+      "estimatedMinutes": 60
+    },
+    {
       "path": "/module-5",
       "title": "Synthetic Data",
       "description": "Generate and validate synthetic healthcare data",

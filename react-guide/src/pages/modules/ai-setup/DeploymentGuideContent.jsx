@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Title, Text, List, ThemeIcon, Alert, Code, Stack, Timeline, Badge, Stepper, Group, Box } from '@mantine/core';
+import { Card, Title, Text, List, ThemeIcon, Alert, Code, Stack, Timeline, Badge, Stepper, Group, Box, Divider, Grid } from '@mantine/core';
 import {
   IconCheck,
   IconAlertCircle,
@@ -13,6 +13,10 @@ import {
   IconKey,
   IconServer,
   IconInfoCircle,
+  IconLock,
+  IconSettings,
+  IconBrandDocker,
+  IconPlug,
 } from '@tabler/icons-react';
 
 export default function DeploymentGuideContent() {
@@ -111,17 +115,62 @@ export default function DeploymentGuideContent() {
           Step-by-Step Deployment
         </Title>
 
-        <Stepper active={activeStep} onStepClick={setActiveStep} orientation="vertical" breakpoint="sm">
-          {/* Step 0: Setup AWS Credentials */}
-          <Stepper.Step
-            label="Setup AWS Credentials"
-            description="Configure AWS SSO authentication"
-            icon={<IconKey size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Text size="sm">Configure your AWS Innovation Sandbox access:</Text>
-              <Code block>
-                {`# Run the setup wizard
+        <Grid gutter="xl">
+          {/* Left Column: Stepper Navigation */}
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Stepper active={activeStep} onStepClick={setActiveStep} orientation="vertical">
+              <Stepper.Step
+                label="Setup AWS Credentials"
+                description="Configure AWS SSO authentication"
+                icon={<IconKey size={18} />}
+              />
+              <Stepper.Step
+                label="Start Deployment Script"
+                description="Launch the automated deployment"
+                icon={<IconTerminal size={18} />}
+              />
+              <Stepper.Step
+                label="EKS Cluster Creation"
+                description="20-30 minutes - Kubernetes cluster with GPU"
+                icon={<IconCloud size={18} />}
+              />
+              <Stepper.Step
+                label="Install Ollama"
+                description="10-15 minutes - Self-hosted LLM engine"
+                icon={<IconRocket size={18} />}
+              />
+              <Stepper.Step
+                label="Configure AWS Bedrock"
+                description="2-3 minutes - Managed AI models"
+                icon={<IconBrandAws size={18} />}
+              />
+              <Stepper.Step
+                label="Setup Data Storage"
+                description="5-10 minutes - DynamoDB + Neo4j"
+                icon={<IconDatabase size={18} />}
+              />
+              <Stepper.Step
+                label="Deploy Integration Service"
+                description="5-10 minutes - Flask API + web UI"
+                icon={<IconNetwork size={18} />}
+              />
+              <Stepper.Step
+                label="Configure S3 Storage"
+                description="2-3 minutes - Dataset publishing"
+                icon={<IconServer size={18} />}
+              />
+            </Stepper>
+          </Grid.Col>
+
+          {/* Right Column: Step Content */}
+          <Grid.Col span={{ base: 12, md: 8 }}>
+            <Box>
+              {/* Step 0: Setup AWS Credentials */}
+              {activeStep === 0 && (
+                <Stack gap="md">
+                  <Text size="sm">Configure your AWS Innovation Sandbox access:</Text>
+                  <Code block>
+                    {`# Run the setup wizard
 cd deployment-scripts
 ./setup-aws-credentials.sh
 
@@ -130,222 +179,593 @@ cd deployment-scripts
 # 2. Choose region: us-west-2
 # 3. Select your role: LCBPEGA_IsbAdminsPS
 # 4. Name your profile (e.g., dataai-christol)`}
-              </Code>
-              <Alert icon={<IconInfoCircle />} color="blue" variant="light">
-                This creates a <Code>.env</Code> file with all your AWS configuration
-              </Alert>
-            </Stack>
-          </Stepper.Step>
+                  </Code>
+                  
+                  <Divider label="What's Happening" labelPosition="center" my="md" />
+                  
+                  <Alert icon={<IconLock />} title="AWS SSO Authentication Flow" color="blue" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm">
+                        <strong>1. SSO Login:</strong> Opens your browser to authenticate with AWS Identity Center
+                      </Text>
+                      <Text size="sm">
+                        <strong>2. Credential Caching:</strong> Stores temporary credentials (~/.aws/sso/cache/)
+                      </Text>
+                      <Text size="sm">
+                        <strong>3. Profile Configuration:</strong> Creates named profile in ~/.aws/config
+                      </Text>
+                      <Text size="sm">
+                        <strong>4. Environment File:</strong> Generates deployment-scripts/.env with:
+                      </Text>
+                      <Code block mt="xs">
+                        {`AWS_PROFILE=dataai-christol
+AWS_REGION=us-west-2
+AWS_ACCOUNT_ID=547741150715
+RESOURCE_GROUP=dataai-account547741150715-christol`}
+                      </Code>
+                    </Stack>
+                  </Alert>
 
-          {/* Step 1: Start Deployment */}
-          <Stepper.Step
-            label="Start Deployment Script"
-            description="Launch the automated deployment"
-            icon={<IconTerminal size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Text size="sm">Run the master deployment script:</Text>
-              <Code block>
-                {`# Set your AWS profile
+                  <Alert icon={<IconSettings />} title="Why This Matters" color="grape" variant="light">
+                    <Text size="sm">
+                      All deployment scripts source this .env file to authenticate API calls. The profile uses
+                      temporary STS tokens (valid 8 hours) with admin permissions scoped to your Innovation Sandbox account.
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 1: Start Deployment */}
+              {activeStep === 1 && (
+                <Stack gap="md">
+                  <Text size="sm">Run the master deployment script:</Text>
+                  <Code block>
+                    {`# Set your AWS profile
 export AWS_PROFILE=dataai-christol  # Use your profile name
 
 # Start deployment
 ./deploy-all.sh`}
-              </Code>
-              <Text size="sm" fw={600}>
-                You'll be prompted for:
-              </Text>
-              <List size="sm">
-                <List.Item>
-                  <strong>Student ID:</strong> Your UO email username (e.g., christol)
-                </List.Item>
-                <List.Item>
-                  <strong>Deployment confirmation:</strong> Type "yes" to proceed
-                </List.Item>
-                <List.Item>
-                  <strong>Graph database choice:</strong> Select option 2 (Neo4j recommended)
-                </List.Item>
-                <List.Item>
-                  <strong>EKS deployment:</strong> Type "yes" to create cluster
-                </List.Item>
-              </List>
-            </Stack>
-          </Stepper.Step>
-
-          {/* Step 2: EKS Cluster */}
-          <Stepper.Step
-            label="EKS Cluster Creation"
-            description="20-30 minutes - Kubernetes cluster with GPU"
-            icon={<IconCloud size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="blue" variant="light" leftSection={<IconClock size={14} />}>
-                20-30 minutes
-              </Badge>
-              <Text size="sm">
-                Creating production-grade Kubernetes cluster in AWS:
-              </Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Creates VPC with public/private subnets</List.Item>
-                <List.Item>Deploys EKS control plane (Kubernetes 1.30)</List.Item>
-                <List.Item>Launches node groups:
-                  <List withPadding size="xs" mt={4}>
-                    <List.Item>1x g4dn.xlarge (GPU for AI workloads)</List.Item>
-                    <List.Item>1x t3.medium (general purpose)</List.Item>
+                  </Code>
+                  <Text size="sm" fw={600}>
+                    You'll be prompted for:
+                  </Text>
+                  <List size="sm">
+                    <List.Item>
+                      <strong>Student ID:</strong> Your UO email username (e.g., christol)
+                    </List.Item>
+                    <List.Item>
+                      <strong>Deployment confirmation:</strong> Type "yes" to proceed
+                    </List.Item>
+                    <List.Item>
+                      <strong>Graph database choice:</strong> Select option 2 (Neo4j recommended)
+                    </List.Item>
+                    <List.Item>
+                      <strong>EKS deployment:</strong> Type "yes" to create cluster
+                    </List.Item>
                   </List>
-                </List.Item>
-                <List.Item>Enables OIDC provider for IAM integration</List.Item>
-                <List.Item>Installs core addons (VPC CNI, CoreDNS, kube-proxy)</List.Item>
-              </List>
-              <Alert icon={<IconInfoCircle />} color="green" variant="light">
-                <Text size="sm">
-                  <strong>What's happening:</strong> AWS CloudFormation is creating 4 stacks in parallel.
-                  You can monitor progress in the AWS Console → CloudFormation.
-                </Text>
-              </Alert>
-            </Stack>
-          </Stepper.Step>
 
-          {/* Step 3: Ollama Installation */}
-          <Stepper.Step
-            label="Install Ollama"
-            description="10-15 minutes - Self-hosted LLM engine"
-            icon={<IconRocket size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="violet" variant="light" leftSection={<IconClock size={14} />}>
-                10-15 minutes
-              </Badge>
-              <Text size="sm">Deploying Ollama for running open-source AI models:</Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Creates Kubernetes namespace: <Code>ollama</Code></List.Item>
-                <List.Item>Deploys Ollama pod with GPU access</List.Item>
-                <List.Item>Downloads Llama 3 8B model (~4.7GB)</List.Item>
-                <List.Item>Creates LoadBalancer service for external access</List.Item>
-                <List.Item>AWS provisions Network Load Balancer (takes 3-5 min)</List.Item>
-              </List>
-              <Alert icon={<IconAlertCircle />} color="yellow" variant="light">
-                <Text size="sm">
-                  Model download is large - may take longer on slower connections
-                </Text>
-              </Alert>
-            </Stack>
-          </Stepper.Step>
+                  <Divider label="What's Happening" labelPosition="center" my="md" />
 
-          {/* Step 4: AWS Bedrock */}
-          <Stepper.Step
-            label="Configure AWS Bedrock"
-            description="2-3 minutes - Managed AI models"
-            icon={<IconBrandAws size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="orange" variant="light" leftSection={<IconClock size={14} />}>
-                2-3 minutes
-              </Badge>
-              <Text size="sm">Setting up AWS Bedrock for managed AI models:</Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Creates IAM policy for Bedrock API access</List.Item>
-                <List.Item>Creates IAM role with IRSA (IAM Roles for Service Accounts)</List.Item>
-                <List.Item>Links role to kubernetes service account</List.Item>
-                <List.Item>Verifies access to recommended models:
-                  <List withPadding size="xs" mt={4}>
-                    <List.Item>Claude 3 Sonnet/Haiku (Anthropic)</List.Item>
-                    <List.Item>Llama 3 70B (Meta)</List.Item>
-                    <List.Item>Mistral 7B</List.Item>
+                  <Alert icon={<IconSettings />} title="Deploy-All.sh Orchestration" color="cyan" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm">
+                        <strong>Phase 1:</strong> Validates prerequisites (AWS CLI, kubectl, eksctl, docker)
+                      </Text>
+                      <Text size="sm">
+                        <strong>Phase 2:</strong> Loads .env configuration and verifies AWS credentials
+                      </Text>
+                      <Text size="sm">
+                        <strong>Phase 3:</strong> Tests AWS connectivity with `aws sts get-caller-identity`
+                      </Text>
+                      <Text size="sm">
+                        <strong>Phase 4:</strong> Creates resource tagging strategy using your Student ID
+                      </Text>
+                      <Text size="sm">
+                        <strong>Phase 5:</strong> Sequentially calls deployment scripts:
+                      </Text>
+                      <List size="xs" mt={4}>
+                        <List.Item>1-deploy-eks-cluster.sh</List.Item>
+                        <List.Item>2-install-ollama.sh</List.Item>
+                        <List.Item>2b-setup-bedrock.sh</List.Item>
+                        <List.Item>3-setup-knowledge-graph.sh OR 3c-install-neo4j-graph.sh</List.Item>
+                        <List.Item>4-deploy-integration.sh</List.Item>
+                        <List.Item>5-setup-s3-storage.sh</List.Item>
+                      </List>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconInfoCircle />} title="Resource Tagging" color="green" variant="light">
+                    <Text size="sm">
+                      All AWS resources are tagged with <Code>ResourceGroup: dataai-account[ID]-[studentID]</Code> to
+                      track costs, manage permissions, and enable automated cleanup.
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 2: EKS Cluster */}
+              {activeStep === 2 && (
+                <Stack gap="md">
+                  <Badge color="blue" variant="light" leftSection={<IconClock size={14} />}>
+                    20-30 minutes
+                  </Badge>
+                  <Text size="sm">
+                    Creating production-grade Kubernetes cluster in AWS:
+                  </Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Creates VPC with public/private subnets</List.Item>
+                    <List.Item>Deploys EKS control plane (Kubernetes 1.30)</List.Item>
+                    <List.Item>Launches node groups:
+                      <List withPadding size="xs" mt={4}>
+                        <List.Item>1x g4dn.xlarge (GPU for AI workloads)</List.Item>
+                        <List.Item>1x t3.medium (general purpose)</List.Item>
+                      </List>
+                    </List.Item>
+                    <List.Item>Enables OIDC provider for IAM integration</List.Item>
+                    <List.Item>Installs core addons (VPC CNI, CoreDNS, kube-proxy)</List.Item>
                   </List>
-                </List.Item>
-              </List>
-            </Stack>
-          </Stepper.Step>
 
-          {/* Step 5: Data Storage */}
-          <Stepper.Step
-            label="Setup Data Storage"
-            description="5-10 minutes - DynamoDB + Neo4j"
-            icon={<IconDatabase size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="teal" variant="light" leftSection={<IconClock size={14} />}>
-                5-10 minutes
-              </Badge>
-              <Text size="sm" fw={600}>
-                DynamoDB Tables (3-5 min):
-              </Text>
-              <List size="sm" spacing="xs">
-                <List.Item>healthcare-patients (patient records)</List.Item>
-                <List.Item>healthcare-diagnoses (diagnosis codes)</List.Item>
-                <List.Item>healthcare-medications (prescriptions)</List.Item>
-                <List.Item>healthcare-providers (doctors/clinics)</List.Item>
-                <List.Item>healthcare-patient-diagnoses (relationships)</List.Item>
-                <List.Item>healthcare-patient-medications (prescriptions)</List.Item>
-              </List>
-              
-              <Text size="sm" fw={600} mt="md">
-                Neo4j Graph Database (3-5 min):
-              </Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Deploys Neo4j Community Edition StatefulSet</List.Item>
-                <List.Item>Creates persistent volume for data storage</List.Item>
-                <List.Item>Exposes web browser and Bolt protocol</List.Item>
-                <List.Item>Credentials: neo4j / healthcare2024</List.Item>
-              </List>
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
 
-              <Alert icon={<IconInfoCircle />} color="blue" variant="light">
-                <Text size="sm">
-                  <strong>Why Neo4j?</strong> Cost-effective alternative to AWS Neptune (~$2/mo vs $216/mo)
-                </Text>
-              </Alert>
-            </Stack>
-          </Stepper.Step>
+                  <Alert icon={<IconCloud />} title="CloudFormation Stack Creation" color="blue" variant="light">
+                    <Text size="sm" fw={600} mb="xs">4 Parallel CloudFormation Stacks:</Text>
+                    <List size="sm" spacing={4}>
+                      <List.Item>
+                        <strong>Stack 1 - VPC:</strong> Creates custom VPC (172.31.0.0/16) with 3 public + 3 private subnets across availability zones, Internet Gateway, NAT Gateways, and route tables
+                      </List.Item>
+                      <List.Item>
+                        <strong>Stack 2 - EKS Control Plane:</strong> Managed Kubernetes API servers, etcd cluster, and AWS-managed control plane (runs in AWS VPC, not visible to you)
+                      </List.Item>
+                      <List.Item>
+                        <strong>Stack 3 - GPU Node Group:</strong> EC2 Auto Scaling Group with g4dn.xlarge instances (NVIDIA T4 Tensor Core GPU, 4 vCPU, 16GB RAM)
+                      </List.Item>
+                      <List.Item>
+                        <strong>Stack 4 - General Node Group:</strong> t3.medium instances for system pods (2 vCPU, 4GB RAM)
+                      </List.Item>
+                    </List>
+                  </Alert>
 
-          {/* Step 6: Integration Service */}
-          <Stepper.Step
-            label="Deploy Integration Service"
-            description="5-10 minutes - Flask API + web UI"
-            icon={<IconNetwork size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="grape" variant="light" leftSection={<IconClock size={14} />}>
-                5-10 minutes
-              </Badge>
-              <Text size="sm">Building and deploying the integration layer:</Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Builds Docker image with Flask API</List.Item>
-                <List.Item>Pushes to AWS ECR (Elastic Container Registry)</List.Item>
-                <List.Item>Deploys to Kubernetes with connections to:
-                  <List withPadding size="xs" mt={4}>
-                    <List.Item>Ollama (local models)</List.Item>
-                    <List.Item>Bedrock (managed models)</List.Item>
-                    <List.Item>DynamoDB (healthcare data)</List.Item>
-                    <List.Item>Neo4j (graph relationships)</List.Item>
+                  <Alert icon={<IconSettings />} title="Infrastructure Configuration" color="violet" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm">
+                        <strong>Cluster Name:</strong> <Code>ollama-ai-cluster</Code>
+                      </Text>
+                      <Text size="sm">
+                        <strong>Kubernetes Version:</strong> 1.30 (latest stable)
+                      </Text>
+                      <Text size="sm">
+                        <strong>OIDC Provider:</strong> Enabled for IRSA (IAM Roles for Service Accounts) - allows pods to assume IAM roles without credentials
+                      </Text>
+                      <Text size="sm">
+                        <strong>Networking:</strong> VPC CNI plugin for native AWS networking (each pod gets a VPC IP)
+                      </Text>
+                      <Text size="sm">
+                        <strong>GPU Support:</strong> NVIDIA device plugin DaemonSet automatically installed to schedule AI workloads on GPU nodes
+                      </Text>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconInfoCircle />} color="green" variant="light">
+                    <Text size="sm">
+                      <strong>Monitoring Progress:</strong> AWS CloudFormation continues working even if eksctl times out.
+                      Check AWS Console → CloudFormation to see real-time stack status. GPU provisioning takes longest (25-30 min).
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 3: Ollama Installation */}
+              {activeStep === 3 && (
+                <Stack gap="md">
+                  <Badge color="violet" variant="light" leftSection={<IconClock size={14} />}>
+                    10-15 minutes
+                  </Badge>
+                  <Text size="sm">Deploying Ollama for running open-source AI models:</Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Creates Kubernetes namespace: <Code>ollama</Code></List.Item>
+                    <List.Item>Deploys Ollama pod with GPU access</List.Item>
+                    <List.Item>Downloads Llama 3 8B model (~4.7GB)</List.Item>
+                    <List.Item>Creates LoadBalancer service for external access</List.Item>
+                    <List.Item>AWS provisions Network Load Balancer (takes 3-5 min)</List.Item>
                   </List>
-                </List.Item>
-                <List.Item>Creates web UI for querying data with AI</List.Item>
-                <List.Item>Exposes LoadBalancer on port 8080</List.Item>
-              </List>
-            </Stack>
-          </Stepper.Step>
 
-          {/* Step 7: S3 Storage */}
-          <Stepper.Step
-            label="Configure S3 Storage"
-            description="2-3 minutes - Dataset publishing"
-            icon={<IconServer size={18} />}
-          >
-            <Stack gap="md" mt="md">
-              <Badge color="pink" variant="light" leftSection={<IconClock size={14} />}>
-                2-3 minutes
-              </Badge>
-              <Text size="sm">Setting up S3 for dataset exports:</Text>
-              <List size="sm" spacing="xs">
-                <List.Item>Creates S3 bucket with versioning</List.Item>
-                <List.Item>Configures bucket policy for secure access</List.Item>
-                <List.Item>Enables CORS for web uploads</List.Item>
-                <List.Item>Links to integration service for dataset exports</List.Item>
-              </List>
-            </Stack>
-          </Stepper.Step>
-        </Stepper>
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
+
+                  <Alert icon={<IconRocket />} title="Kubernetes Deployment Process" color="violet" variant="light">
+                    <List size="sm" spacing={4}>
+                      <List.Item>
+                        <strong>Step 1:</strong> Creates <Code>ollama</Code> namespace for resource isolation
+                      </List.Item>
+                      <List.Item>
+                        <strong>Step 2:</strong> kubectl applies deployment.yaml with:
+                        <List withPadding size="xs" mt={4}>
+                          <List.Item>Container image: <Code>ollama/ollama:latest</Code></List.Item>
+                          <List.Item>Resource limits: 1 GPU, 8GB RAM, 4 CPU cores</List.Item>
+                          <List.Item>Node selector: targets g4dn.xlarge GPU node</List.Item>
+                          <List.Item>Volume mount for model storage (10GB PVC)</List.Item>
+                        </List>
+                      </List.Item>
+                      <List.Item>
+                        <strong>Step 3:</strong> Kubernetes scheduler places pod on GPU node
+                      </List.Item>
+                      <List.Item>
+                        <strong>Step 4:</strong> Ollama container starts, detects NVIDIA GPU via device plugin
+                      </List.Item>
+                      <List.Item>
+                        <strong>Step 5:</strong> Executes <Code>ollama pull llama3</Code> (downloads 4.7GB model from Ollama registry)
+                      </List.Item>
+                      <List.Item>
+                        <strong>Step 6:</strong> Creates LoadBalancer service → AWS provisions Network Load Balancer in VPC
+                      </List.Item>
+                    </List>
+                  </Alert>
+
+                  <Alert icon={<IconSettings />} title="Model Loading Details" color="orange" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm">
+                        <strong>Llama 3 8B Model:</strong> 8 billion parameters, quantized to 4-bit (Q4_0 format)
+                      </Text>
+                      <Text size="sm">
+                        <strong>GPU Acceleration:</strong> NVIDIA T4 provides ~30-50 tokens/second inference speed
+                      </Text>
+                      <Text size="sm">
+                        <strong>Model Storage:</strong> Models cached in PersistentVolume survive pod restarts
+                      </Text>
+                      <Text size="sm">
+                        <strong>API Endpoint:</strong> Exposed on port 11434 (REST API compatible with OpenAI format)
+                      </Text>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconAlertCircle />} color="yellow" variant="light">
+                    <Text size="sm">
+                      <strong>Download Time Varies:</strong> Model download is 4.7GB - may take 5-10 minutes depending on network speed.
+                      Check progress: <Code>kubectl logs -n ollama deployment/ollama -f</Code>
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 4: AWS Bedrock */}
+              {activeStep === 4 && (
+                <Stack gap="md">
+                  <Badge color="orange" variant="light" leftSection={<IconClock size={14} />}>
+                    2-3 minutes
+                  </Badge>
+                  <Text size="sm">Setting up AWS Bedrock for managed AI models:</Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Creates IAM policy for Bedrock API access</List.Item>
+                    <List.Item>Creates IAM role with IRSA (IAM Roles for Service Accounts)</List.Item>
+                    <List.Item>Links role to kubernetes service account</List.Item>
+                    <List.Item>Verifies access to recommended models:
+                      <List withPadding size="xs" mt={4}>
+                        <List.Item>Claude 3 Sonnet/Haiku (Anthropic)</List.Item>
+                        <List.Item>Llama 3 70B (Meta)</List.Item>
+                        <List.Item>Mistral 7B</List.Item>
+                      </List>
+                    </List.Item>
+                  </List>
+
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
+
+                  <Alert icon={<IconLock />} title="IRSA (IAM Roles for Service Accounts)" color="orange" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>How Pods Get AWS Permissions (No Hardcoded Credentials!):</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>1. Create IAM Policy:</strong> Defines <Code>bedrock:InvokeModel</Code> permissions for Claude, Llama, Mistral model ARNs
+                        </List.Item>
+                        <List.Item>
+                          <strong>2. Create IAM Role:</strong> Trust policy allows OIDC provider (EKS cluster) to assume role
+                        </List.Item>
+                        <List.Item>
+                          <strong>3. Annotate ServiceAccount:</strong> <Code>eks.amazonaws.com/role-arn: arn:aws:iam::547741150715:role/bedrock-access</Code>
+                        </List.Item>
+                        <List.Item>
+                          <strong>4. Pod Inherits Role:</strong> When pod uses this ServiceAccount, EKS mutating webhook injects AWS credentials as environment variables
+                        </List.Item>
+                        <List.Item>
+                          <strong>5. AWS SDK Auto-Authenticates:</strong> boto3/AWS SDK reads credentials from pod environment → assumes role → calls Bedrock API
+                        </List.Item>
+                      </List>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconBrandAws />} title="Bedrock Model Access" color="blue" variant="light">
+                    <Text size="sm" mb="xs">
+                      <strong>Available Foundation Models (pre-enabled in Innovation Sandbox):</strong>
+                    </Text>
+                    <List size="sm" spacing={4}>
+                      <List.Item>
+                        <strong>Claude 3.5 Sonnet:</strong> <Code>anthropic.claude-3-5-sonnet-20240620-v1:0</Code>
+                        <br /><Text size="xs" c="dimmed">Best for complex reasoning, coding, analysis (~$3/M input tokens)</Text>
+                      </List.Item>
+                      <List.Item>
+                        <strong>Claude 3 Haiku:</strong> <Code>anthropic.claude-3-haiku-20240307-v1:0</Code>
+                        <br /><Text size="xs" c="dimmed">Fast responses, cost-effective (~$0.25/M input tokens)</Text>
+                      </List.Item>
+                      <List.Item>
+                        <strong>Llama 3 70B:</strong> <Code>meta.llama3-70b-instruct-v1:0</Code>
+                        <br /><Text size="xs" c="dimmed">Open-source, strong performance, no per-token cost</Text>
+                      </List.Item>
+                    </List>
+                  </Alert>
+
+                  <Alert icon={<IconInfoCircle />} title="Why Use Bedrock?" color="green" variant="light">
+                    <Text size="sm">
+                      Bedrock provides managed, serverless access to frontier models without GPU costs. Pay only for tokens processed.
+                      Scales instantly to millions of requests. Complements local Ollama for cost-effective hybrid deployment.
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 5: Data Storage */}
+              {activeStep === 5 && (
+                <Stack gap="md">
+                  <Badge color="teal" variant="light" leftSection={<IconClock size={14} />}>
+                    5-10 minutes
+                  </Badge>
+                  <Text size="sm" fw={600}>
+                    DynamoDB Tables (3-5 min):
+                  </Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>healthcare-patients (patient records)</List.Item>
+                    <List.Item>healthcare-diagnoses (diagnosis codes)</List.Item>
+                    <List.Item>healthcare-medications (prescriptions)</List.Item>
+                    <List.Item>healthcare-providers (doctors/clinics)</List.Item>
+                    <List.Item>healthcare-patient-diagnoses (relationships)</List.Item>
+                    <List.Item>healthcare-patient-medications (prescriptions)</List.Item>
+                  </List>
+                  
+                  <Text size="sm" fw={600} mt="md">
+                    Neo4j Graph Database (3-5 min):
+                  </Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Deploys Neo4j Community Edition StatefulSet</List.Item>
+                    <List.Item>Creates persistent volume for data storage</List.Item>
+                    <List.Item>Exposes web browser and Bolt protocol</List.Item>
+                    <List.Item>Credentials: neo4j / healthcare2024</List.Item>
+                  </List>
+
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
+
+                  <Alert icon={<IconDatabase />} title="DynamoDB Table Creation" color="teal" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>AWS API Calls (3-5 minutes total):</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>CreateTable API:</strong> 6 parallel API calls for each table
+                        </List.Item>
+                        <List.Item>
+                          <strong>Billing Mode:</strong> PAY_PER_REQUEST (on-demand) - no provisioned capacity, scales automatically
+                        </List.Item>
+                        <List.Item>
+                          <strong>Schema:</strong> Each table has partition key (<Code>patient_id</Code>, <Code>diagnosis_id</Code>, etc.)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Encryption:</strong> Server-side encryption at rest (AWS-managed keys)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Point-in-Time Recovery:</strong> Enabled for data protection (7-day backups)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Tags:</strong> ResourceGroup tag applied for cost tracking
+                        </List.Item>
+                      </List>
+                      <Text size="xs" c="dimmed" mt="xs">
+                        Tables are immediately available after ~60-90 seconds but may show "CREATING" status briefly
+                      </Text>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconServer />} title="Neo4j Kubernetes Deployment" color="cyan" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>StatefulSet vs Deployment (Why StatefulSet?):</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>Stable Network Identity:</strong> Pod always named <Code>neo4j-0</Code> (not random)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Persistent Volume Claim:</strong> Creates EBS volume (20GB gp3) that persists across pod restarts
+                        </List.Item>
+                        <List.Item>
+                          <strong>Ordered Deployment:</strong> Waits for volume mount before starting database
+                        </List.Item>
+                        <List.Item>
+                          <strong>Headless Service:</strong> <Code>neo4j-service</Code> provides stable DNS for Bolt protocol (port 7687)
+                        </List.Item>
+                      </List>
+                      <Text size="sm" mt="md">
+                        <strong>Neo4j Browser:</strong> Web UI exposed on port 7474 for visual graph exploration
+                      </Text>
+                      <Text size="sm">
+                        <strong>Data Model:</strong> Graph stores patient-diagnosis-provider relationships as nodes and edges (vs DynamoDB's flat tables)
+                      </Text>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconInfoCircle />} color="blue" variant="light">
+                    <Text size="sm">
+                      <strong>Hybrid Storage Strategy:</strong> DynamoDB for fast lookups and scalability (~$3/mo for dataset).
+                      Neo4j for complex relationship queries and graph analytics (~$2/mo vs Neptune's $216/mo).
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 6: Integration Service */}
+              {activeStep === 6 && (
+                <Stack gap="md">
+                  <Badge color="grape" variant="light" leftSection={<IconClock size={14} />}>
+                    5-10 minutes
+                  </Badge>
+                  <Text size="sm">Building and deploying the integration layer:</Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Builds Docker image with Flask API</List.Item>
+                    <List.Item>Pushes to AWS ECR (Elastic Container Registry)</List.Item>
+                    <List.Item>Deploys to Kubernetes with connections to:
+                      <List withPadding size="xs" mt={4}>
+                        <List.Item>Ollama (local models)</List.Item>
+                        <List.Item>Bedrock (managed models)</List.Item>
+                        <List.Item>DynamoDB (healthcare data)</List.Item>
+                        <List.Item>Neo4j (graph relationships)</List.Item>
+                      </List>
+                    </List.Item>
+                    <List.Item>Creates web UI for querying data with AI</List.Item>
+                    <List.Item>Exposes LoadBalancer on port 8080</List.Item>
+                  </List>
+
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
+
+                  <Alert icon={<IconBrandDocker />} title="Docker Build & Registry Push" color="grape" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>Container Image Build Process (3-4 minutes):</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>1. Create Dockerfile:</strong> Multi-stage build with Python 3.11 slim base
+                        </List.Item>
+                        <List.Item>
+                          <strong>2. Install Dependencies:</strong>
+                          <List withPadding size="xs" mt={4}>
+                            <List.Item><Code>flask</Code> - Web framework for REST API</List.Item>
+                            <List.Item><Code>boto3</Code> - AWS SDK for Bedrock + DynamoDB</List.Item>
+                            <List.Item><Code>neo4j</Code> - Python driver for graph queries</List.Item>
+                            <List.Item><Code>requests</Code> - HTTP client for Ollama API</List.Item>
+                            <List.Item><Code>langchain</Code> - LLM orchestration framework</List.Item>
+                          </List>
+                        </List.Item>
+                        <List.Item>
+                          <strong>3. Build Image:</strong> <Code>docker build -t healthcare-ai-bridge:latest .</Code>
+                        </List.Item>
+                        <List.Item>
+                          <strong>4. Tag for ECR:</strong> <Code>547741150715.dkr.ecr.us-west-2.amazonaws.com/healthcare-ai-bridge:latest</Code>
+                        </List.Item>
+                        <List.Item>
+                          <strong>5. Push to ECR:</strong> Creates private repository if doesn't exist, pushes layers (~500MB)
+                        </List.Item>
+                      </List>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconPlug />} title="Service Integration Architecture" color="blue" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>How Components Connect:</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>Ollama Connection:</strong> HTTP client → <Code>ollama-service.ollama.svc.cluster.local:11434</Code> (in-cluster DNS)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Bedrock Connection:</strong> boto3 client → Uses IRSA role from ServiceAccount → Calls us-west-2 Bedrock API
+                        </List.Item>
+                        <List.Item>
+                          <strong>DynamoDB Connection:</strong> boto3 resource → PAY_PER_REQUEST tables → Query/Scan operations
+                        </List.Item>
+                        <List.Item>
+                          <strong>Neo4j Connection:</strong> Bolt driver → <Code>neo4j-service.neo4j.svc.cluster.local:7687</Code> → Cypher query execution
+                        </List.Item>
+                      </List>
+                      <Text size="sm" mt="md">
+                        <strong>API Endpoints Exposed:</strong>
+                      </Text>
+                      <List size="sm" spacing={2}>
+                        <List.Item><Code>GET /health</Code> - Health check</List.Item>
+                        <List.Item><Code>POST /query</Code> - Natural language query with AI model selection</List.Item>
+                        <List.Item><Code>GET /graph</Code> - Neo4j relationship visualization</List.Item>
+                        <List.Item><Code>POST /export</Code> - Export dataset to S3</List.Item>
+                      </List>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconSettings />} title="Deployment Configuration" color="violet" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm">
+                        <strong>Replicas:</strong> 2 pods for high availability (LoadBalancer distributes traffic)
+                      </Text>
+                      <Text size="sm">
+                        <strong>Resource Limits:</strong> 512MB RAM, 0.5 CPU per pod
+                      </Text>
+                      <Text size="sm">
+                        <strong>Environment Variables:</strong> Injected from ConfigMap (service URLs, region) + ServiceAccount (AWS credentials)
+                      </Text>
+                      <Text size="sm">
+                        <strong>LoadBalancer:</strong> AWS provisions Network Load Balancer → forwards port 8080 → pods
+                      </Text>
+                    </Stack>
+                  </Alert>
+                </Stack>
+              )}
+
+              {/* Step 7: S3 Storage */}
+              {activeStep === 7 && (
+                <Stack gap="md">
+                  <Badge color="pink" variant="light" leftSection={<IconClock size={14} />}>
+                    2-3 minutes
+                  </Badge>
+                  <Text size="sm">Setting up S3 for dataset exports:</Text>
+                  <List size="sm" spacing="xs">
+                    <List.Item>Creates S3 bucket with versioning</List.Item>
+                    <List.Item>Configures bucket policy for secure access</List.Item>
+                    <List.Item>Enables CORS for web uploads</List.Item>
+                    <List.Item>Links to integration service for dataset exports</List.Item>
+                  </List>
+
+                  <Divider label="What's Happening Behind the Scenes" labelPosition="center" my="md" />
+
+                  <Alert icon={<IconServer />} title="S3 Bucket Configuration" color="pink" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>Bucket Setup (2-3 minutes):</Text>
+                      <List size="sm" spacing={4}>
+                        <List.Item>
+                          <strong>Bucket Name:</strong> <Code>healthcare-ai-datasets-[account-id]-[student-id]</Code> (globally unique)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Versioning:</strong> Enabled to track dataset changes over time
+                        </List.Item>
+                        <List.Item>
+                          <strong>Encryption:</strong> Server-side encryption (SSE-S3) for data at rest
+                        </List.Item>
+                        <List.Item>
+                          <strong>Public Access:</strong> Blocked by default (private bucket)
+                        </List.Item>
+                        <List.Item>
+                          <strong>Lifecycle Policy:</strong> Moves old versions to Glacier after 90 days (cost savings)
+                        </List.Item>
+                      </List>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconSettings />} title="CORS & Access Configuration" color="blue" variant="light">
+                    <Stack gap="xs">
+                      <Text size="sm" fw={600}>Cross-Origin Resource Sharing (CORS):</Text>
+                      <Text size="sm">
+                        Allows web UI to upload datasets directly from browser to S3
+                      </Text>
+                      <Code block mt="xs">
+                        {`{
+  "AllowedOrigins": ["http://localhost:8080", "*.elb.amazonaws.com"],
+  "AllowedMethods": ["GET", "PUT", "POST"],
+  "AllowedHeaders": ["*"],
+  "ExposeHeaders": ["ETag"]
+}`}
+                      </Code>
+                      <Text size="sm" mt="md">
+                        <strong>Bucket Policy:</strong> Grants integration service IAM role PutObject/GetObject permissions
+                      </Text>
+                    </Stack>
+                  </Alert>
+
+                  <Alert icon={<IconInfoCircle />} title="Dataset Publishing Workflow" color="green" variant="light">
+                    <Text size="sm">
+                      Integration service exports synthetic data from DynamoDB → formats as CSV/JSON → uploads to S3 →
+                      generates pre-signed URLs for sharing. Students can download datasets for local analysis or model training.
+                    </Text>
+                  </Alert>
+                </Stack>
+              )}
+            </Box>
+          </Grid.Col>
+        </Grid>
       </Card>
 
       {/* Accessing Your Infrastructure */}
