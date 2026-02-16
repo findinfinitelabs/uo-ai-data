@@ -48,7 +48,6 @@ import LoginPage from './pages/LoginPage';
 import ProgressPage from './pages/ProgressPage';
 import DataSpecsPage from './pages/modules/DataSpecsPage';
 import RegulationsPage from './pages/modules/RegulationsPage';
-import AISetupPage from './pages/modules/AISetupPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import { AuthProvider } from './contexts/AuthContext';
@@ -71,14 +70,6 @@ const module2SubPages = [
   { id: 'expert-determination', title: 'Expert Determination', icon: IconScale },
   { id: 'data-handling', title: 'Data Handling Policies', icon: IconFileText },
   { id: 'compliance-checklist', title: 'Compliance Checklist', icon: IconCircleCheck },
-];
-
-// AI Setup sub-navigation items
-const aiSetupSubPages = [
-  { id: 'eks-deployment', title: 'EKS Cluster Deployment', icon: IconCloud },
-  { id: 'ollama-installation', title: 'Ollama Installation', icon: IconRocket },
-  { id: 'knowledge-graph', title: 'Knowledge Graph Setup', icon: IconNetwork },
-  { id: 'integration', title: 'AI + KG Integration', icon: IconBrain },
 ];
 
 // Ethical AI sub-navigation items
@@ -150,7 +141,6 @@ function AppLayout() {
           const Icon = moduleIcons[mod.id];
           const isActive = location.pathname === `/${mod.id}` || location.pathname.startsWith(`/${mod.id}/`);
           const isRegulationsActive = mod.id === 'module-2' && location.pathname.startsWith('/regulations');
-          const isAISetupActive = mod.id === 'module-4' && location.pathname.startsWith('/ai-setup');
           const moduleNumber = mod.id.startsWith('module-') ? mod.id.replace('module-', '') : null;
           const isCaseStudy = mod.isCaseStudy;
           
@@ -240,43 +230,6 @@ function AppLayout() {
               </Box>
             );
           }
-          
-          // Special handling for Module 4 (Using AI) with AI Setup sub-navigation
-          if (mod.id === 'module-4') {
-            return (
-              <Box key={mod.id}>
-                <NavLink
-                  label={labelContent}
-                  component={Link}
-                  to="/ai-setup"
-                  leftSection={<Icon size={20} stroke={1.5} />}
-                  mb="xs"
-                  className="nav-link"
-                  active={isActive || isAISetupActive}
-                />
-                <Collapse in={isActive || isAISetupActive}>
-                  <Box ml="xl" className="sub-nav-container">
-                    {aiSetupSubPages.map((subPage) => {
-                      const SubIcon = subPage.icon;
-                      const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
-                      return (
-                        <NavLink
-                          key={subPage.id}
-                          label={subPage.title}
-                          component={Link}
-                          to={`/ai-setup/${subPage.id}`}
-                          leftSection={<SubIcon size={16} stroke={1.5} />}
-                          mb={4}
-                          className="nav-link sub-nav-link"
-                          active={isSubActive}
-                        />
-                      );
-                    })}
-                  </Box>
-                </Collapse>
-              </Box>
-            );
-          }
 
           // Special handling for Module 3 (Ethical AI) with sub-navigation
           if (mod.id === 'module-3') {
@@ -351,41 +304,6 @@ function AppLayout() {
             />
           );
         })}
-
-        <Text size="xs" tt="uppercase" fw={700} c="yellow" mb="xs" mt="md">
-          AI Environment
-        </Text>
-        <Box>
-          <NavLink
-            label="AI Setup"
-            component={Link}
-            to="/ai-setup"
-            leftSection={<IconCloud size={20} stroke={1.5} />}
-            mb="xs"
-            className="nav-link"
-            active={location.pathname.startsWith('/ai-setup')}
-          />
-          <Collapse in={location.pathname.startsWith('/ai-setup')}>
-            <Box ml="xl" className="sub-nav-container">
-              {aiSetupSubPages.map((subPage) => {
-                const SubIcon = subPage.icon;
-                const isSubActive = location.pathname === `/ai-setup/${subPage.id}`;
-                return (
-                  <NavLink
-                    key={subPage.id}
-                    label={subPage.title}
-                    component={Link}
-                    to={`/ai-setup/${subPage.id}`}
-                    leftSection={<SubIcon size={16} stroke={1.5} />}
-                    mb={4}
-                    className="nav-link sub-nav-link"
-                    active={isSubActive}
-                  />
-                );
-              })}
-            </Box>
-          </Collapse>
-        </Box>
       </AppShell.Navbar>
       <AppShell.Main style={{ paddingTop: 56 }}>
         <ReadingProgress />
@@ -427,22 +345,6 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <RegulationsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/ai-setup"
-            element={
-              <ProtectedRoute>
-                <AISetupPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/ai-setup/:subPage"
-            element={
-              <ProtectedRoute>
-                <AISetupPage />
               </ProtectedRoute>
             }
           />
