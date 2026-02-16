@@ -35,6 +35,7 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { modules } from '../data/modules';
+import DeploymentGuideContent from './modules/ai-setup/DeploymentGuideContent';
 
 // Regulation data for HIPAA and GDPR with detailed content
 const regulationData = {
@@ -957,6 +958,10 @@ const moduleContent = {
             </Card>
           </SimpleGrid>
         ),
+      },
+      {
+        title: 'Full Infrastructure Deployment Guide',
+        content: <DeploymentGuideContent />,
       },
     ],
   },
