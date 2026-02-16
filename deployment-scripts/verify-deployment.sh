@@ -18,7 +18,7 @@ NC='\033[0m'
 
 # Configuration
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 
 print_header() {
     echo ""

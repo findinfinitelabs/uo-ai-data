@@ -162,13 +162,90 @@ case $AUTH_OPTION in
             if aws sts get-caller-identity --profile "$SSO_PROFILE" &> /dev/null; then
                 echo ""
                 echo -e "${GREEN}✓ SSO profile verified!${NC}"
+                
+                # Get full AWS identity information
+                ACCOUNT_ID=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query Account --output text 2>/dev/null)
+                USER_ID=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query UserId --output text 2>/dev/null)
+                ARN=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query Arn --output text 2>/dev/null)
+                REGION=$(aws configure get region --profile "$SSO_PROFILE" 2>/dev/null || echo "us-west-2")
+                
+                # Create/update .env file
+                cat > .env << EOF
+# Healthcare AI Infrastructure Configuration
+# Auto-generated from AWS SSO configuration on $(date)
+
+# ============================================
+# AWS Identity
+# ============================================
+AWS_PROFILE=$SSO_PROFILE
+AWS_REGION=$REGION
+AWS_ACCOUNT_ID=$ACCOUNT_ID
+AWS_USER_ID=$USER_ID
+AWS_ARN=$ARN
+
+# ============================================
+# Student Information
+# ============================================
+# Will be prompted during deploy-all.sh if not set
+# STUDENT_ID=your-student-id
+# RESOURCE_GROUP=dataai-account${ACCOUNT_ID}-your-student-id
+
+# ============================================
+# EKS Cluster Configuration
+# ============================================
+CLUSTER_NAME=ollama-ai-cluster
+K8S_VERSION=1.28
+GPU_INSTANCE_TYPE=g4dn.xlarge
+GPU_NODE_COUNT=1
+
+# ============================================
+# Ollama Configuration
+# ============================================
+OLLAMA_NAMESPACE=ollama
+OLLAMA_REPLICAS=1
+STORAGE_SIZE=50Gi
+OLLAMA_VERSION=latest
+
+# ============================================
+# AWS Bedrock Configuration
+# ============================================
+BEDROCK_REGION=$REGION
+BEDROCK_MODEL=anthropic.claude-3-haiku-20240307-v1:0
+USE_BEDROCK=true
+
+# ============================================
+# DynamoDB Configuration
+# ============================================
+TABLE_PREFIX=healthcare
+BILLING_MODE=PAY_PER_REQUEST
+
+# ============================================
+# Integration Service Configuration
+# ============================================
+INTEGRATION_NAMESPACE=ollama
+IMAGE_NAME=healthcare-ai-bridge
+IMAGE_TAG=latest
+
+# ============================================
+# S3 Storage Configuration
+# ============================================
+S3_BUCKET_NAME=
+S3_EXPORT_ENABLED=true
+
+# ============================================
+# Advanced Settings (Optional)
+# ============================================
+# USE_ECR=true
+# DEBUG=false
+# DEPLOYMENT_TIMEOUT=600
+EOF
+                
                 echo ""
                 echo "Add this to your shell profile (~/.bashrc or ~/.zshrc):"
                 echo "  export AWS_PROFILE=$SSO_PROFILE"
                 echo ""
                 export AWS_PROFILE="$SSO_PROFILE"
-                echo "AWS_PROFILE=$SSO_PROFILE" >> config.env
-                echo -e "${GREEN}✓ Updated config.env with AWS_PROFILE${NC}"
+                echo -e "${GREEN}✓ Created .env file with AWS configuration${NC}"
             else
                 echo ""
                 echo -e "${YELLOW}⚠ Could not verify profile. You may need to login:${NC}"
@@ -194,9 +271,86 @@ case $AUTH_OPTION in
         if aws sts get-caller-identity --profile "$PROFILE_NAME" &> /dev/null; then
             echo ""
             echo -e "${GREEN}✓ Profile verified!${NC}"
+            
+            # Get full AWS identity information
+            ACCOUNT_ID=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query Account --output text 2>/dev/null)
+            USER_ID=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query UserId --output text 2>/dev/null)
+            ARN=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query Arn --output text 2>/dev/null)
+            REGION=$(aws configure get region --profile "$PROFILE_NAME" 2>/dev/null || echo "us-west-2")
+            
+            # Create/update .env file
+            cat > .env << EOF
+# Healthcare AI Infrastructure Configuration
+# Auto-generated from AWS profile configuration on $(date)
+
+# ============================================
+# AWS Identity
+# ============================================
+AWS_PROFILE=$PROFILE_NAME
+AWS_REGION=$REGION
+AWS_ACCOUNT_ID=$ACCOUNT_ID
+AWS_USER_ID=$USER_ID
+AWS_ARN=$ARN
+
+# ============================================
+# Student Information
+# ============================================
+# Will be prompted during deploy-all.sh if not set
+# STUDENT_ID=your-student-id
+# RESOURCE_GROUP=dataai-account${ACCOUNT_ID}-your-student-id
+
+# ============================================
+# EKS Cluster Configuration
+# ============================================
+CLUSTER_NAME=ollama-ai-cluster
+K8S_VERSION=1.28
+GPU_INSTANCE_TYPE=g4dn.xlarge
+GPU_NODE_COUNT=1
+
+# ============================================
+# Ollama Configuration
+# ============================================
+OLLAMA_NAMESPACE=ollama
+OLLAMA_REPLICAS=1
+STORAGE_SIZE=50Gi
+OLLAMA_VERSION=latest
+
+# ============================================
+# AWS Bedrock Configuration
+# ============================================
+BEDROCK_REGION=$REGION
+BEDROCK_MODEL=anthropic.claude-3-haiku-20240307-v1:0
+USE_BEDROCK=true
+
+# ============================================
+# DynamoDB Configuration
+# ============================================
+TABLE_PREFIX=healthcare
+BILLING_MODE=PAY_PER_REQUEST
+
+# ============================================
+# Integration Service Configuration
+# ============================================
+INTEGRATION_NAMESPACE=ollama
+IMAGE_NAME=healthcare-ai-bridge
+IMAGE_TAG=latest
+
+# ============================================
+# S3 Storage Configuration
+# ============================================
+S3_BUCKET_NAME=
+S3_EXPORT_ENABLED=true
+
+# ============================================
+# Advanced Settings (Optional)
+# ============================================
+# USE_ECR=true
+# DEBUG=false
+# DEPLOYMENT_TIMEOUT=600
+EOF
+            
             export AWS_PROFILE="$PROFILE_NAME"
-            echo "AWS_PROFILE=$PROFILE_NAME" >> config.env
-            echo -e "${GREEN}✓ Updated config.env with AWS_PROFILE${NC}"
+            echo -e "${GREEN}✓ Created .env file with AWS configuration${NC}"
         else
             echo ""
             echo -e "${RED}✗ Could not access profile: $PROFILE_NAME${NC}"
@@ -307,15 +461,16 @@ for service in "${REQUIRED_SERVICES[@]}"; do
             fi
             ;;
         iam)
-            if aws iam list-roles --max-items 1 &> /dev/null; then
-                echo -e "  ${GREEN}✓${NC} IAM access"
-            else
-                echo -e "  ${YELLOW}⚠${NC} IAM access (may be needed)"
-            fi
-            ;;
-        bedrock-runtime)
-            if aws bedrock-runtime list-foundation-models --region "$REGION" &> /dev/null; then
-                echo -e "  ${GREEN}✓${NC} Bedrock access"
+          Configuration saved to .env file"
+    echo ""
+    echo "Next steps:"
+    echo "  1. Review .env file (optional)"
+    echo "     cat .env"
+    echo ""
+    echo "  2. Run deployment:"
+    echo "     ./deploy-all.sh"
+    echo ""
+    echo "Note: The .env file will be automatically loaded by cho -e "  ${GREEN}✓${NC} Bedrock access"
             else
                 echo -e "  ${YELLOW}⚠${NC} Bedrock access (optional)"
             fi

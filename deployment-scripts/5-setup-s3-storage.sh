@@ -13,17 +13,19 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Load configuration
-if [ -f ./config.env ]; then
+if [ -f ./.env ]; then
+    source ./.env
+elif [ -f ./config.env ]; then
     source ./config.env
 else
-    echo -e "${RED}Configuration file config.env not found!${NC}"
-    echo "Please copy config.env.example to config.env and configure it."
+    echo -e "${RED}Configuration file .env not found!${NC}"
+    echo "Please run setup-aws-credentials.sh first to create .env file."
     exit 1
 fi
 
 # Set defaults if not in config
 CLUSTER_NAME=${CLUSTER_NAME:-healthcare-ai-cluster}
-AWS_REGION=${AWS_REGION:-us-east-1}
+AWS_REGION=${AWS_REGION:-us-west-2}
 S3_BUCKET_NAME=${S3_BUCKET_NAME:-healthcare-ai-datasets-$(date +%s)}
 NAMESPACE=${NAMESPACE:-default}
 STUDENT_ID=${STUDENT_ID:-student0001}
@@ -232,7 +234,7 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(obj)
 
 class DatasetExporter:
-    def __init__(self, bucket_name, aws_region='us-east-1'):
+    def __init__(self, bucket_name, aws_region='us-west-2'):
         self.bucket_name = bucket_name
         self.s3_client = boto3.client('s3', region_name=aws_region)
         self.dynamodb = boto3.resource('dynamodb', region_name=aws_region)

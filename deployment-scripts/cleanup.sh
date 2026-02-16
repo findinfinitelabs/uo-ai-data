@@ -47,7 +47,7 @@ NC='\033[0m'
 
 # Configuration
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 
 print_header() {
     echo ""
@@ -74,7 +74,10 @@ print_header "Healthcare AI Infrastructure Cleanup"
 echo "This will remove:"
 echo "  - EKS Cluster: ${CLUSTER_NAME}"
 echo "  - Region: ${AWS_REGION}"
+echo "  - DynamoDB tables (healthcare-*)"
+echo "  - S3 buckets (healthcare-ai-data-*)"
 echo "  - All deployed applications (Ollama, Neo4j, Integration service)"
+echo "  - IAM roles created by eksctl"
 if [ "$KEEP_DATA" = false ]; then
     echo "  - All persistent volumes (models, graph data)"
 else
@@ -164,8 +167,43 @@ print_success "Namespace 'ollama' removed"
 kubectl delete namespace neo4j 2>/dev/null || true
 print_success "Namespace 'neo4j' removed"
 
-# Step 3: Delete EKS Cluster
-print_header "Step 3: Deleting EKS Cluster"
+# Step 3: Delete DynamoDB Tables
+print_header "Step 3: Deleting DynamoDB Tables"
+
+echo "Finding healthcare DynamoDB tables..."
+DYNAMODB_TABLES=$(aws dynamodb list-tables --region ${AWS_REGION} --query 'TableNames[?starts_with(@, `healthcare-`)]' --output text 2>/dev/null || echo "")
+
+if [ -n "$DYNAMODB_TABLES" ]; then
+    echo "Found tables: $DYNAMODB_TABLES"
+    echo ""
+    for TABLE in $DYNAMODB_TABLES; do
+        echo "Deleting table: $TABLE"
+        aws dynamodb delete-table --table-name "$TABLE" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Table $TABLE deleted"
+    done
+else
+    print_warning "No healthcare DynamoDB tables found"
+fi
+
+# Step 4: Delete S3 Buckets
+print_header "Step 4: Deleting S3 Buckets"
+
+echo "Finding healthcare S3 buckets..."
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
+S3_BUCKETS=$(aws s3 ls | grep "healthcare-ai-data" | awk '{print $3}' 2>/dev/null || echo "")
+
+if [ -n "$S3_BUCKETS" ]; then
+    for BUCKET in $S3_BUCKETS; do
+        echo "Emptying and deleting bucket: $BUCKET"
+        aws s3 rb s3://$BUCKET --force --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Bucket $BUCKET deleted"
+    done
+else
+    print_warning "No healthcare S3 buckets found"
+fi
+
+# Step 5: Delete EKS Cluster
+print_header "Step 5: Deleting EKS Cluster"
 
 echo "This will take 10-15 minutes..."
 echo ""
@@ -183,8 +221,44 @@ else
     echo "  - CloudFormation Stacks"
 fi
 
-# Step 4: Clean up local artifacts
-print_header "Step 4: Cleaning Local Artifacts"
+# Step 6: Clean up IAM Roles (created by eksctl)
+print_header "Step 6: Cleaning Up IAM Roles"
+
+echo "Finding eksctl-created IAM roles..."
+IAM_ROLES=$(aws iam list-roles --query "Roles[?contains(RoleName, 'eksctl-${CLUSTER_NAME}')].RoleName" --output text 2>/dev/null || echo "")
+
+if [ -n "$IAM_ROLES" ]; then
+    for ROLE in $IAM_ROLES; do
+        echo "Checking role: $ROLE"
+        # Detach managed policies
+        ATTACHED_POLICIES=$(aws iam list-attached-role-policies --role-name "$ROLE" --query 'AttachedPolicies[].PolicyArn' --output text 2>/dev/null || echo "")
+        for POLICY_ARN in $ATTACHED_POLICIES; do
+            aws iam detach-role-policy --role-name "$ROLE" --policy-arn "$POLICY_ARN" 2>/dev/null || true
+        done
+        
+        # Delete inline policies
+        INLINE_POLICIES=$(aws iam list-role-policies --role-name "$ROLE" --query 'PolicyNames[]' --output text 2>/dev/null || echo "")
+        for POLICY in $INLINE_POLICIES; do
+            aws iam delete-role-policy --role-name "$ROLE" --policy-name "$POLICY" 2>/dev/null || true
+        done
+        
+        # Delete instance profiles
+        INSTANCE_PROFILES=$(aws iam list-instance-profiles-for-role --role-name "$ROLE" --query 'InstanceProfiles[].InstanceProfileName' --output text 2>/dev/null || echo "")
+        for PROFILE in $INSTANCE_PROFILES; do
+            aws iam remove-role-from-instance-profile --instance-profile-name "$PROFILE" --role-name "$ROLE" 2>/dev/null || true
+            aws iam delete-instance-profile --instance-profile-name "$PROFILE" 2>/dev/null || true
+        done
+        
+        # Delete role
+        aws iam delete-role --role-name "$ROLE" 2>/dev/null || true
+        print_success "Role $ROLE removed"
+    done
+else
+    print_warning "No eksctl-created IAM roles found"
+fi
+
+# Step 7: Clean up local artifacts
+print_header "Step 7: Cleaning Local Artifacts"
 
 echo "Removing local configuration files..."
 rm -f cluster-info.txt 2>/dev/null || true
@@ -216,12 +290,41 @@ echo ""
 if [ "$KEEP_DATA" = true ]; then
     print_warning "Persistent volumes were preserved"
     echo "To fully clean up, run: ./cleanup.sh (without --keep-data)"
-    echo ""
+    ecVerifying cleanup..."
+echo ""
+
+# Check for remaining resources
+REMAINING_CLUSTERS=$(eksctl get cluster --region ${AWS_REGION} 2>/dev/null | grep ${CLUSTER_NAME} || echo "")
+REMAINING_TABLES=$(aws dynamodb list-tables --region ${AWS_REGION} --query 'TableNames[?starts_with(@, `healthcare-`)]' --output text 2>/dev/null || echo "")
+REMAINING_BUCKETS=$(aws s3 ls | grep "healthcare-ai-data" || echo "")
+
+if [ -n "$REMAINING_CLUSTERS" ]; then
+    print_warning "EKS cluster still exists: $REMAINING_CLUSTERS"
 fi
 
+if [ -n "$REMAINING_TABLES" ]; then
+    print_warning "DynamoDB tables still exist: $REMAINING_TABLES"
+fi
+
+if [ -n "$REMAINING_BUCKETS" ]; then
+    print_warning "S3 buckets still exist: $REMAINING_BUCKETS"
+fi
+
+if [ -z "$REMAINING_CLUSTERS" ] && [ -z "$REMAINING_TABLES" ] && [ -z "$REMAINING_BUCKETS" ]; then
+    print_success "All resources successfully removed!"
+fi
+
+echo ""
 echo "Remaining charges (if any):"
 echo "  - EBS snapshots (if created): ~\$0.05/GB/month"
 echo "  - ECR images (if pushed): ~\$0.10/GB/month"
+echo "  - CloudWatch logs: ~\$0.50/GB/month"
+echo ""
+echo "To check for any leftover resources by tag:"
+echo "  aws resourcegroupstaggingapi get-resources --region ${AWS_REGION} --tag-filters Key=Project,Values=healthcare-ai"
+echo ""
+echo "To check costs:"
+echo "  aws ce get-cost-and-usage --time-period Start=\$(date -u -d '7 days ago' +%Y-%m-%d),End=\$(date -u +%Y-%m-%d) --granularity DAILY --metrics BlendedCost
 echo ""
 echo "To check for any leftover resources:"
 echo "  aws resourcegroupstaggingapi get-resources --region ${AWS_REGION}"

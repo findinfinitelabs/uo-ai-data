@@ -1,0 +1,69 @@
+DynamoDB Healthcare Data Information
+=====================================
+Region: us-west-2
+Table Prefix: healthcare
+Deployed: Mon Feb 16 08:40:05 PST 2026
+
+Tables Created:
+===============
+- healthcare-patients
+- healthcare-diagnoses
+- healthcare-medications
+- healthcare-providers
+- healthcare-patient-diagnoses
+- healthcare-patient-medications
+
+Quick Commands:
+===============
+
+# List all tables
+aws dynamodb list-tables --region us-west-2
+
+# Describe a table
+aws dynamodb describe-table --table-name healthcare-patients --region us-west-2
+
+# Scan patients table
+aws dynamodb scan --table-name healthcare-patients --region us-west-2
+
+# Query patient diagnoses
+aws dynamodb query --table-name healthcare-patient-diagnoses \
+  --key-condition-expression "patient_id = :pid" \
+  --expression-attribute-values '{":pid":{"S":"ANON001"}}' \
+  --region us-west-2
+
+# Populate data
+python3 populate-healthcare-data.py us-west-2 healthcare
+
+# Delete all tables (cleanup)
+for table in healthcare-patients healthcare-diagnoses healthcare-medications healthcare-providers healthcare-patient-diagnoses healthcare-patient-medications; do
+  aws dynamodb delete-table --table-name $table --region us-west-2
+done
+
+Python Access Example:
+======================
+import boto3
+
+dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
+patients_table = dynamodb.Table('healthcare-patients')
+
+# Get all patients
+response = patients_table.scan()
+for patient in response['Items']:
+    print(patient)
+
+# Query specific patient
+response = patients_table.get_item(Key={'patient_id': 'ANON001'})
+patient = response.get('Item')
+
+Costs:
+======
+DynamoDB on-demand pricing:
+- Pay per request (no idle capacity costs)
+- Write: $1.25 per million requests
+- Read: $0.25 per million requests
+- Storage: $0.25/GB/month
+- Estimated cost for sample data: < $5/month
+
+Next Steps:
+===========
+Run: ./4-deploy-integration.sh

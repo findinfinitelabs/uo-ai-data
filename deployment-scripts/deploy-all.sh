@@ -69,16 +69,24 @@ else
     NC=''
 fi
 
+# Load configuration from .env file if it exists
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "${SCRIPT_DIR}/.env" ]; then
+    echo -e "${GREEN}Loading configuration from .env file...${NC}"
+    source "${SCRIPT_DIR}/.env"
+    echo -e "${GREEN}✓ Configuration loaded${NC}"
+    echo ""
+fi
+
 # Configuration (can be overridden by environment variables)
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 GPU_NODE_COUNT="${GPU_NODE_COUNT:-2}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
 # Deployment tracking
 START_TIME=$(date +%s)
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_FILE="${SCRIPT_DIR}/deployment-$(date +%Y%m%d-%H%M%S).log"
 
 # Functions
@@ -265,6 +273,8 @@ print_success "All scripts found and executable"
 # Export configuration
 export CLUSTER_NAME
 export AWS_REGION
+export K8S_VERSION
+export GPU_INSTANCE_TYPE
 export GPU_NODE_COUNT
 export TABLE_PREFIX
 export RESOURCE_GROUP
@@ -306,9 +316,50 @@ else
     exit 1
 fi
 
-# Step  3: Setup DynamoDB
-print_header "Step 3/5: Setting up DynamoDB Tables"
-print_info "This will take 3-5 minutes..."
+# Step 3: Data Storage (DynamoDB + Optional Graph Database)
+print_header "Step 3/5: Setting up Data Storage"
+
+# Ask about graph database preference
+GRAPH_CHOICE="none"
+if [ "$SKIP_CONFIRMATION" = false ]; then
+    log ""
+    log -e "${BLUE}Graph Database Options:${NC}"
+    log ""
+    log "1. DynamoDB only (cheapest, ~\$1/month)"
+    log "2. DynamoDB + Neo4j on EKS (recommended, ~\$2-3/month)"
+    log "3. DynamoDB + NetworkX in-memory (no persistence)"
+    log ""
+    log "${YELLOW}Note: AWS Neptune costs ~\$216/month minimum - not recommended for Innovation Studio${NC}"
+    log ""
+    read -p "Choose option (1-3) [default: 2]: " -r GRAPH_OPTION
+    GRAPH_OPTION="${GRAPH_OPTION:-2}"
+    
+    case "$GRAPH_OPTION" in
+        1)
+            GRAPH_CHOICE="none"
+            log ""
+            print_info "Using DynamoDB only"
+            ;;
+        2)
+            GRAPH_CHOICE="neo4j"
+            log ""
+            print_info "Will deploy Neo4j Community Edition to EKS"
+            ;;
+        3)
+            GRAPH_CHOICE="networkx"
+            log ""
+            print_info "Will use NetworkX in-memory graph (no persistence)"
+            ;;
+        *)
+            print_warning "Invalid option, using DynamoDB + Neo4j (option 2)"
+            GRAPH_CHOICE="neo4j"
+            ;;
+    esac
+fi
+
+# Setup DynamoDB tables
+log ""
+print_info "Setting up DynamoDB tables (3-5 minutes)..."
 log ""
 
 if bash "${SCRIPT_DIR}/3-setup-knowledge-graph.sh" 2>&1 | tee -a "$LOG_FILE"; then
@@ -316,6 +367,30 @@ if bash "${SCRIPT_DIR}/3-setup-knowledge-graph.sh" 2>&1 | tee -a "$LOG_FILE"; th
 else
     print_error "DynamoDB setup failed"
     exit 1
+fi
+
+# Setup graph database if requested
+if [ "$GRAPH_CHOICE" = "neo4j" ]; then
+    log ""
+    print_info "Installing Neo4j Graph Database (3-5 minutes)..."
+    log ""
+    
+    if bash "${SCRIPT_DIR}/3c-install-neo4j-graph.sh" 2>&1 | tee -a "$LOG_FILE"; then
+        print_success "Neo4j installation complete"
+    else
+        print_error "Neo4j installation failed"
+        exit 1
+    fi
+elif [ "$GRAPH_CHOICE" = "networkx" ]; then
+    log ""
+    print_info "Installing NetworkX libraries..."
+    log ""
+    
+    if bash "${SCRIPT_DIR}/3b-setup-networkx-graph.sh" 2>&1 | tee -a "$LOG_FILE"; then
+        print_success "NetworkX setup complete"
+    else
+        print_warning "NetworkX setup had issues, but continuing..."
+    fi
 fi
 
 # Step 4: Deploy Integration
@@ -385,6 +460,19 @@ log "   Region: ${AWS_REGION}"
 log "   Tables: ${TABLE_PREFIX}-patients, ${TABLE_PREFIX}-diagnoses, etc."
 log "   Access: Via IAM roles (IRSA)"
 log ""
+
+# Show Neo4j info if it was deployed
+if [ "$GRAPH_CHOICE" = "neo4j" ]; then
+    NEO4J_LB=$(kubectl get svc neo4j-service -n neo4j -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' 2>/dev/null || echo "localhost")
+    log "3b. Neo4j Graph Database (Knowledge Graph)"
+    log "   Browser: http://${NEO4J_LB}:7474"
+    log "   Bolt: bolt://${NEO4J_LB}:7687"
+    log "   Username: neo4j"
+    log "   Password: healthcare2024"
+    log "   Port-forward: kubectl port-forward -n neo4j svc/neo4j-service 7474:7474 7687:7687"
+    log "   Load data: python3 healthcare_neo4j_loader.py"
+    log ""
+fi
 
 log "4. Query Bridge (AI Integration)"
 log "   URL: http://${BRIDGE_LB}:8080"

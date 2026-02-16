@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Configuration
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
 STUDENT_ID="${STUDENT_ID:-student0001}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"

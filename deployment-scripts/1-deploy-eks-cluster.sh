@@ -14,8 +14,8 @@ NC='\033[0m' # No Color
 
 # Configuration
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
-REGION="${AWS_REGION:-us-east-1}"
-K8S_VERSION="${K8S_VERSION:-1.28}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
+K8S_VERSION="${K8S_VERSION:-1.30}"
 GPU_INSTANCE_TYPE="${GPU_INSTANCE_TYPE:-g4dn.xlarge}"
 GPU_NODE_COUNT="${GPU_NODE_COUNT:-1}"  # Reduced to 1 for small/medium cluster
 STUDENT_ID="${STUDENT_ID:-student0001}"
@@ -27,7 +27,7 @@ echo -e "${BLUE}========================================${NC}"
 echo ""
 echo -e "${YELLOW}Configuration:${NC}"
 echo "  Cluster Name: $CLUSTER_NAME"
-echo "  Region: $REGION"
+echo "  Region: $AWS_REGION"
 echo "  Kubernetes Version: $K8S_VERSION"
 echo "  GPU Instance Type: $GPU_INSTANCE_TYPE"
 echo "  GPU Node Count: $GPU_NODE_COUNT"
@@ -121,7 +121,7 @@ kind: ClusterConfig
 
 metadata:
   name: ${CLUSTER_NAME}
-  region: ${REGION}
+  region: ${AWS_REGION}
   version: "${K8S_VERSION}"
   tags:
     Environment: innovation-sandbox
@@ -208,7 +208,7 @@ fi
 echo ""
 echo -e "${BLUE}Step 6: Updating kubeconfig${NC}"
 
-aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER_NAME}
+aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
 print_status "kubeconfig updated"
 
 # Step 7: Verify Cluster
@@ -248,7 +248,7 @@ aws resource-groups create-group \
     --name "${RESOURCE_GROUP}" \
     --description "Healthcare AI infrastructure resources for ${STUDENT_ID}" \
     --resource-query '{"Type":"TAG_FILTERS_1_0","Query":"{\"ResourceTypeFilters\":[\"AWS::AllSupported\"],\"TagFilters\":[{\"Key\":\"ResourceGroup\",\"Values\":[\"'"${RESOURCE_GROUP}"'\"]}]}"}' \
-    --region ${REGION} 2>/dev/null || print_warning "Resource group may already exist"
+    --region ${AWS_REGION} 2>/dev/null || print_warning "Resource group may already exist"
 
 print_status "AWS Resource Group configured: ${RESOURCE_GROUP}"
 
@@ -260,7 +260,7 @@ cat > cluster-info.txt <<EOF
 EKS Cluster Information
 ========================
 Cluster Name: ${CLUSTER_NAME}
-Region: ${REGION}
+Region: ${AWS_REGION}
 Kubernetes Version: ${K8S_VERSION}
 Created: $(date)
 
@@ -271,10 +271,10 @@ Nodes:
 $(kubectl get nodes)
 
 To access this cluster later, run:
-  aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER_NAME}
+  aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
 
 To delete this cluster when done:
-  eksctl delete cluster --name ${CLUSTER_NAME} --region ${REGION}
+  eksctl delete cluster --name ${CLUSTER_NAME} --region ${AWS_REGION}
 
 Next Steps:
   1. Run: ./2-install-ollama.sh
@@ -292,7 +292,7 @@ echo -e "${GREEN}========================================${NC}"
 echo ""
 echo "Cluster Details:"
 echo "  Name: ${CLUSTER_NAME}"
-echo "  Region: ${REGION}"
+echo "  Region: ${AWS_REGION}"
 echo "  GPU Nodes: ${GPU_NODE_COUNT} x ${GPU_INSTANCE_TYPE}"
 echo ""
 echo "Next: Run ./2-install-ollama.sh to install Ollama on your cluster"

@@ -1,0 +1,9 @@
+Steps to get the deployment environment ready:
+
+1. brew install awscli
+2. brew install kubectl eksctl
+
+3. Check if AWS credentials are configured:
+aws sts get-caller-identity 2>&1 ; echo "NO_CREDENTIALS"
+
+4. ./setup-aws-credentials.sh using Option 2

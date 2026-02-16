@@ -18,7 +18,7 @@ NC='\033[0m'
 NAMESPACE="${INTEGRATION_NAMESPACE:-ollama}"
 IMAGE_NAME="${IMAGE_NAME:-healthcare-ai-bridge}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
 S3_BUCKET_NAME="${S3_BUCKET_NAME:-}"
 
