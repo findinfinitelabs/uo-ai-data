@@ -277,9 +277,10 @@ fi
 print_header "Step 6: Cleaning Up EC2 Resources"
 
 echo "Finding EC2 instances tagged with cluster..."
+# Search with multiple tag patterns to catch all EKS node instances
 INSTANCES=$(aws ec2 describe-instances --region ${AWS_REGION} \
-    --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" "Name=instance-state-name,Values=running,stopped,stopping,pending" \
-    --query 'Reservations[].Instances[].InstanceId' \
+    --filters "Name=instance-state-name,Values=running,stopped,stopping,pending" \
+    --query "Reservations[].Instances[?Tags[?Key=='eksctl.cluster.k8s.io/v1alpha1/cluster-name' && Value=='${CLUSTER_NAME}'] || Tags[?Key=='Name' && contains(Value, '${CLUSTER_NAME}')]].InstanceId" \
     --output text 2>/dev/null || echo "")
 
 if [ -n "$INSTANCES" ]; then
@@ -295,9 +296,10 @@ else
 fi
 
 echo "Finding network interfaces tagged with cluster..."
+# Search for ENIs with cluster tags (wait for instance termination to release them)
 ENIS=$(aws ec2 describe-network-interfaces --region ${AWS_REGION} \
     --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" \
-    --query 'NetworkInterfaces[?Status!=`in-use`].NetworkInterfaceId' \
+    --query 'NetworkInterfaces[?Status==`available`].NetworkInterfaceId' \
     --output text 2>/dev/null || echo "")
 
 if [ -n "$ENIS" ]; then
@@ -307,10 +309,29 @@ if [ -n "$ENIS" ]; then
         print_success "Network interface $ENI_ID deleted"
     done
 else
-    print_warning "No available network interfaces found"
+    # Also search by description pattern for EKS ENIs
+    echo "Checking for EKS ENIs by description..."
+    EKS_ENIS=$(aws ec2 describe-network-interfaces --region ${AWS_REGION} \
+        --filters "Name=description,Values=*${CLUSTER_NAME}*" "Name=status,Values=available" \
+        --query 'NetworkInterfaces[].NetworkInterfaceId' \
+        --output text 2>/dev/null || echo "")
+    
+    if [ -n "$EKS_ENIS" ]; then
+        for ENI_ID in $EKS_ENIS; do
+            echo "Deleting network interface: $ENI_ID"
+            aws ec2 delete-network-interface --network-interface-id "$ENI_ID" --region ${AWS_REGION} 2>/dev/null || true
+            print_success "Network interface $ENI_ID deleted"
+        done
+    else
+        print_warning "No available network interfaces found"
+    fi
 fi
 
 echo "Finding EBS volumes tagged with cluster..."
+# Wait a bit for instances to fully terminate and volumes to detach
+echo "Waiting for volumes to detach (30 seconds)..."
+sleep 30
+
 VOLUMES=$(aws ec2 describe-volumes --region ${AWS_REGION} \
     --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" "Name=status,Values=available" \
     --query 'Volumes[].VolumeId' \
@@ -323,7 +344,22 @@ if [ -n "$VOLUMES" ]; then
         print_success "Volume $VOLUME_ID deleted"
     done
 else
-    print_warning "No available EBS volumes found"
+    # Also check for volumes with cluster name in tags
+    echo "Checking for EKS volumes by Name tag..."
+    EKS_VOLUMES=$(aws ec2 describe-volumes --region ${AWS_REGION} \
+        --filters "Name=tag:Name,Values=*${CLUSTER_NAME}*" "Name=status,Values=available" \
+        --query 'Volumes[].VolumeId' \
+        --output text 2>/dev/null || echo "")
+    
+    if [ -n "$EKS_VOLUMES" ]; then
+        for VOLUME_ID in $EKS_VOLUMES; do
+            echo "Deleting EBS volume: $VOLUME_ID"
+            aws ec2 delete-volume --volume-id "$VOLUME_ID" --region ${AWS_REGION} 2>/dev/null || true
+            print_success "Volume $VOLUME_ID deleted"
+        done
+    else
+        print_warning "No available EBS volumes found"
+    fi
 fi
 
 # Step 7: Clean up IAM Roles (created by eksctl)
