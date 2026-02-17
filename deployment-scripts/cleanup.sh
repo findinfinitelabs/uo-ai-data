@@ -276,23 +276,35 @@ fi
 # Step 6: Clean up EC2 resources (Instances, Volumes, Network Interfaces)
 print_header "Step 6: Cleaning Up EC2 Resources"
 
-echo "Finding EC2 instances tagged with cluster..."
-# Search with multiple tag patterns to catch all EKS node instances
-INSTANCES=$(aws ec2 describe-instances --region ${AWS_REGION} \
-    --filters "Name=instance-state-name,Values=running,stopped,stopping,pending" \
-    --query "Reservations[].Instances[?Tags[?Key=='eksctl.cluster.k8s.io/v1alpha1/cluster-name' && Value=='${CLUSTER_NAME}'] || Tags[?Key=='Name' && contains(Value, '${CLUSTER_NAME}')]].InstanceId" \
-    --output text 2>/dev/null || echo "")
+if [ "$CLUSTER_EXISTS" = true ]; then
+    echo "Finding EC2 instances tagged with cluster..."
+    # Search with multiple approaches to catch all EKS node instances
+    INSTANCES=$(aws ec2 describe-instances --region ${AWS_REGION} \
+        --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" "Name=instance-state-name,Values=running,stopped,stopping,pending" \
+        --query 'Reservations[].Instances[].InstanceId' \
+        --output text 2>/dev/null || echo "")
+    
+    # Also check by Name tag pattern for nodes that may not have the eksctl tag
+    if [ -z "$INSTANCES" ]; then
+        INSTANCES=$(aws ec2 describe-instances --region ${AWS_REGION} \
+            --filters "Name=tag:Name,Values=*${CLUSTER_NAME}*Node*" "Name=instance-state-name,Values=running,stopped,stopping,pending" \
+            --query 'Reservations[].Instances[].InstanceId' \
+            --output text 2>/dev/null || echo "")
+    fi
 
-if [ -n "$INSTANCES" ]; then
-    for INSTANCE_ID in $INSTANCES; do
-        echo "Terminating EC2 instance: $INSTANCE_ID"
-        aws ec2 terminate-instances --instance-ids "$INSTANCE_ID" --region ${AWS_REGION} 2>/dev/null || true
-        print_success "Instance $INSTANCE_ID termination initiated"
-    done
-    echo "Waiting for instances to terminate (60 seconds)..."
-    sleep 60
+    if [ -n "$INSTANCES" ]; then
+        for INSTANCE_ID in $INSTANCES; do
+            echo "Terminating EC2 instance: $INSTANCE_ID"
+            aws ec2 terminate-instances --instance-ids "$INSTANCE_ID" --region ${AWS_REGION} 2>/dev/null || true
+            print_success "Instance $INSTANCE_ID termination initiated"
+        done
+        echo "Waiting for instances to terminate (90 seconds)..."
+        sleep 90
+    else
+        print_warning "No EC2 instances found"
+    fi
 else
-    print_warning "No EC2 instances found"
+    print_warning "Skipping - cluster not found"
 fi
 
 echo "Finding network interfaces tagged with cluster..."
@@ -435,7 +447,8 @@ echo ""
 if [ "$KEEP_DATA" = true ]; then
     print_warning "Persistent volumes were preserved"
     echo "To fully clean up, run: ./cleanup.sh (without --keep-data)"
-    ecVerifying cleanup..."
+    echo "Verifying cleanup..."
+fi
 echo ""
 
 # Check for remaining resources
