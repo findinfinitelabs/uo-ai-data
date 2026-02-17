@@ -10,6 +10,9 @@
 
 set -e
 
+# Disable AWS CLI pager to prevent interactive prompts
+export AWS_PAGER=""
+
 # Parse arguments
 FORCE=false
 KEEP_DATA=false
@@ -99,18 +102,16 @@ fi
 # Check if cluster exists
 echo ""
 echo "Checking if cluster exists..."
-if ! eksctl get cluster --name=${CLUSTER_NAME} --region=${AWS_REGION} &>/dev/null; then
-    print_error "Cluster ${CLUSTER_NAME} not found in region ${AWS_REGION}"
-    echo ""
-    echo "Available clusters:"
-    eksctl get cluster --region=${AWS_REGION} || echo "  None found"
-    exit 1
+CLUSTER_EXISTS=false
+if eksctl get cluster --name=${CLUSTER_NAME} --region=${AWS_REGION} &>/dev/null; then
+    print_success "Cluster found"
+    CLUSTER_EXISTS=true
+else
+    print_warning "Cluster ${CLUSTER_NAME} not found - will clean up remaining resources"
 fi
 
-print_success "Cluster found"
-
 # Option to back up data
-if [ "$KEEP_DATA" = false ]; then
+if [ "$CLUSTER_EXISTS" = true ] && [ "$KEEP_DATA" = false ]; then
     echo ""
     read -p "Create backup of Neo4j data before deletion? (y/n): " -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -131,41 +132,49 @@ fi
 # Step 1: Delete Kubernetes resources (preserves PVCs if requested)
 print_header "Step 1: Removing Kubernetes Applications"
 
-echo "Deleting integration service..."
-kubectl delete deployment kg-query-bridge -n ollama 2>/dev/null || true
-kubectl delete service kg-query-bridge -n ollama 2>/dev/null || true
-kubectl delete configmap kg-bridge-config -n ollama 2>/dev/null || true
-kubectl delete secret kg-bridge-secret -n ollama 2>/dev/null || true
-print_success "Integration service removed"
+if [ "$CLUSTER_EXISTS" = true ]; then
+    echo "Deleting integration service..."
+    kubectl delete deployment kg-query-bridge -n ollama 2>/dev/null || true
+    kubectl delete service kg-query-bridge -n ollama 2>/dev/null || true
+    kubectl delete configmap kg-bridge-config -n ollama 2>/dev/null || true
+    kubectl delete secret kg-bridge-secret -n ollama 2>/dev/null || true
+    print_success "Integration service removed"
 
-echo "Deleting Ollama..."
-kubectl delete deployment ollama -n ollama 2>/dev/null || true
-kubectl delete service ollama-service -n ollama 2>/dev/null || true
-if [ "$KEEP_DATA" = false ]; then
-    kubectl delete pvc ollama-models -n ollama 2>/dev/null || true
+    echo "Deleting Ollama..."
+    kubectl delete deployment ollama -n ollama 2>/dev/null || true
+    kubectl delete service ollama-service -n ollama 2>/dev/null || true
+    if [ "$KEEP_DATA" = false ]; then
+        kubectl delete pvc ollama-models -n ollama 2>/dev/null || true
+    fi
+    print_success "Ollama removed"
+
+    echo "Uninstalling Neo4j..."
+    helm uninstall neo4j-healthcare -n neo4j 2>/dev/null || true
+    if [ "$KEEP_DATA" = false ]; then
+        kubectl delete pvc -n neo4j --all 2>/dev/null || true
+    fi
+    print_success "Neo4j removed"
+
+    # Wait for resources to terminate
+    echo ""
+    echo "Waiting for resources to terminate (30 seconds)..."
+    sleep 30
+else
+    print_warning "Skipping - cluster not found"
 fi
-print_success "Ollama removed"
-
-echo "Uninstalling Neo4j..."
-helm uninstall neo4j-healthcare -n neo4j 2>/dev/null || true
-if [ "$KEEP_DATA" = false ]; then
-    kubectl delete pvc -n neo4j --all 2>/dev/null || true
-fi
-print_success "Neo4j removed"
-
-# Wait for resources to terminate
-echo ""
-echo "Waiting for resources to terminate (30 seconds)..."
-sleep 30
 
 # Step 2: Delete namespaces
 print_header "Step 2: Removing Namespaces"
 
-kubectl delete namespace ollama 2>/dev/null || true
-print_success "Namespace 'ollama' removed"
+if [ "$CLUSTER_EXISTS" = true ]; then
+    kubectl delete namespace ollama 2>/dev/null || true
+    print_success "Namespace 'ollama' removed"
 
-kubectl delete namespace neo4j 2>/dev/null || true
-print_success "Namespace 'neo4j' removed"
+    kubectl delete namespace neo4j 2>/dev/null || true
+    print_success "Namespace 'neo4j' removed"
+else
+    print_warning "Skipping - cluster not found"
+fi
 
 # Step 3: Delete DynamoDB Tables
 print_header "Step 3: Deleting DynamoDB Tables"
@@ -205,24 +214,120 @@ fi
 # Step 5: Delete EKS Cluster
 print_header "Step 5: Deleting EKS Cluster"
 
-echo "This will take 10-15 minutes..."
-echo ""
-
-if eksctl delete cluster --name=${CLUSTER_NAME} --region=${AWS_REGION} --wait; then
-    print_success "EKS cluster deleted successfully"
-else
-    print_error "Failed to delete cluster completely"
+if [ "$CLUSTER_EXISTS" = true ]; then
+    echo "This will take 10-15 minutes..."
     echo ""
-    echo "Check AWS Console for any remaining resources:"
-    echo "  - EC2 Instances"
-    echo "  - EBS Volumes"
-    echo "  - Load Balancers"
-    echo "  - VPC and Subnets"
-    echo "  - CloudFormation Stacks"
+
+    if eksctl delete cluster --name=${CLUSTER_NAME} --region=${AWS_REGION} --wait; then
+        print_success "EKS cluster deleted successfully"
+    else
+        print_error "Failed to delete cluster completely"
+        echo ""
+        echo "Check AWS Console for any remaining resources:"
+        echo "  - EC2 Instances"
+        echo "  - EBS Volumes"
+        echo "  - Load Balancers"
+        echo "  - VPC and Subnets"
+        echo "  - CloudFormation Stacks"
+    fi
+else
+    print_warning "Skipping - cluster not found"
 fi
 
-# Step 6: Clean up IAM Roles (created by eksctl)
-print_header "Step 6: Cleaning Up IAM Roles"
+# Step 5b: Clean up remaining VPC resources (NAT Gateways, ENIs, etc.)
+print_header "Step 5b: Cleaning Up VPC Resources"
+
+echo "Finding remaining NAT Gateways tagged with cluster..."
+NAT_GATEWAYS=$(aws resourcegroupstaggingapi get-resources \
+    --region ${AWS_REGION} \
+    --resource-type-filters "ec2:natgateway" \
+    --tag-filters "Key=eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" \
+    --query 'ResourceTagMappingList[].ResourceARN' \
+    --output text 2>/dev/null | awk -F'/' '{print $2}' || echo "")
+
+if [ -n "$NAT_GATEWAYS" ]; then
+    for NAT_ID in $NAT_GATEWAYS; do
+        echo "Deleting NAT Gateway: $NAT_ID"
+        aws ec2 delete-nat-gateway --nat-gateway-id "$NAT_ID" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "NAT Gateway $NAT_ID deletion initiated"
+    done
+    echo "Waiting for NAT Gateways to be deleted (60 seconds)..."
+    sleep 60
+else
+    print_warning "No NAT Gateways found"
+fi
+
+echo "Finding remaining Elastic IPs..."
+EIPS=$(aws ec2 describe-addresses --region ${AWS_REGION} \
+    --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" \
+    --query 'Addresses[].AllocationId' \
+    --output text 2>/dev/null || echo "")
+
+if [ -n "$EIPS" ]; then
+    for EIP_ID in $EIPS; do
+        echo "Releasing Elastic IP: $EIP_ID"
+        aws ec2 release-address --allocation-id "$EIP_ID" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Elastic IP $EIP_ID released"
+    done
+else
+    print_warning "No Elastic IPs found"
+fi
+
+# Step 6: Clean up EC2 resources (Instances, Volumes, Network Interfaces)
+print_header "Step 6: Cleaning Up EC2 Resources"
+
+echo "Finding EC2 instances tagged with cluster..."
+INSTANCES=$(aws ec2 describe-instances --region ${AWS_REGION} \
+    --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" "Name=instance-state-name,Values=running,stopped,stopping,pending" \
+    --query 'Reservations[].Instances[].InstanceId' \
+    --output text 2>/dev/null || echo "")
+
+if [ -n "$INSTANCES" ]; then
+    for INSTANCE_ID in $INSTANCES; do
+        echo "Terminating EC2 instance: $INSTANCE_ID"
+        aws ec2 terminate-instances --instance-ids "$INSTANCE_ID" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Instance $INSTANCE_ID termination initiated"
+    done
+    echo "Waiting for instances to terminate (60 seconds)..."
+    sleep 60
+else
+    print_warning "No EC2 instances found"
+fi
+
+echo "Finding network interfaces tagged with cluster..."
+ENIS=$(aws ec2 describe-network-interfaces --region ${AWS_REGION} \
+    --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" \
+    --query 'NetworkInterfaces[?Status!=`in-use`].NetworkInterfaceId' \
+    --output text 2>/dev/null || echo "")
+
+if [ -n "$ENIS" ]; then
+    for ENI_ID in $ENIS; do
+        echo "Deleting network interface: $ENI_ID"
+        aws ec2 delete-network-interface --network-interface-id "$ENI_ID" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Network interface $ENI_ID deleted"
+    done
+else
+    print_warning "No available network interfaces found"
+fi
+
+echo "Finding EBS volumes tagged with cluster..."
+VOLUMES=$(aws ec2 describe-volumes --region ${AWS_REGION} \
+    --filters "Name=tag:eksctl.cluster.k8s.io/v1alpha1/cluster-name,Values=${CLUSTER_NAME}" "Name=status,Values=available" \
+    --query 'Volumes[].VolumeId' \
+    --output text 2>/dev/null || echo "")
+
+if [ -n "$VOLUMES" ]; then
+    for VOLUME_ID in $VOLUMES; do
+        echo "Deleting EBS volume: $VOLUME_ID"
+        aws ec2 delete-volume --volume-id "$VOLUME_ID" --region ${AWS_REGION} 2>/dev/null || true
+        print_success "Volume $VOLUME_ID deleted"
+    done
+else
+    print_warning "No available EBS volumes found"
+fi
+
+# Step 7: Clean up IAM Roles (created by eksctl)
+print_header "Step 7: Cleaning Up IAM Roles"
 
 echo "Finding eksctl-created IAM roles..."
 IAM_ROLES=$(aws iam list-roles --query "Roles[?contains(RoleName, 'eksctl-${CLUSTER_NAME}')].RoleName" --output text 2>/dev/null || echo "")
@@ -257,8 +362,8 @@ else
     print_warning "No eksctl-created IAM roles found"
 fi
 
-# Step 7: Clean up local artifacts
-print_header "Step 7: Cleaning Local Artifacts"
+# Step 8: Clean up local artifacts
+print_header "Step 8: Cleaning Local Artifacts"
 
 echo "Removing local configuration files..."
 rm -f cluster-info.txt 2>/dev/null || true
@@ -274,8 +379,12 @@ rm -rf /tmp/kg-query-bridge 2>/dev/null || true
 print_success "Local artifacts cleaned"
 
 # Optional: Clean up docker images
-echo ""
-read -p "Remove local Docker images? (y/n): " -r
+if [ "$FORCE" = false ]; then
+    echo ""
+    read -p "Remove local Docker images? (y/n): " -r
+else
+    REPLY="y"
+fi
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     docker rmi kg-query-bridge:latest 2>/dev/null || true
     print_success "Docker images removed"
@@ -324,7 +433,7 @@ echo "To check for any leftover resources by tag:"
 echo "  aws resourcegroupstaggingapi get-resources --region ${AWS_REGION} --tag-filters Key=Project,Values=healthcare-ai"
 echo ""
 echo "To check costs:"
-echo "  aws ce get-cost-and-usage --time-period Start=\$(date -u -d '7 days ago' +%Y-%m-%d),End=\$(date -u +%Y-%m-%d) --granularity DAILY --metrics BlendedCost
+echo "  aws ce get-cost-and-usage --time-period Start=\$(date -u -d '7 days ago' +%Y-%m-%d),End=\$(date -u +%Y-%m-%d) --granularity DAILY --metrics BlendedCost"
 echo ""
 echo "To check for any leftover resources:"
 echo "  aws resourcegroupstaggingapi get-resources --region ${AWS_REGION}"
