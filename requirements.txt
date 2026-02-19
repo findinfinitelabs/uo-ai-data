@@ -1,0 +1,184 @@
+# ============================================================================
+# UO AI Data Class - Python Requirements
+# ============================================================================
+# 
+# This file contains Python dependencies for the core modules.
+# Cross-platform compatible: macOS, Linux, Windows
+#
+# Install with: pip install -r requirements.txt
+#
+# For module-specific requirements, see individual module folders.
+#
+# Python Version: 3.10 or later required
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Core Dependencies (All Modules - Cross-Platform)
+# ----------------------------------------------------------------------------
+
+# Data processing and analysis
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Configuration and utilities
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0                 # Progress bars
+
+# ----------------------------------------------------------------------------
+# Module 5: Synthetic Data Generation
+# ----------------------------------------------------------------------------
+# Note: Module 5 uses Python standard library only (no extra dependencies)
+# These packages are optional but helpful for validation and analysis:
+
+# jsonschema>=4.17.0  # Optional: JSON schema validation
+# faker>=20.0.0       # Optional: Generate realistic fake data (not used in base generators)
+
+# ----------------------------------------------------------------------------
+# Deployment Scripts (AWS Infrastructure)
+# ----------------------------------------------------------------------------
+
+# AWS SDK and tools
+boto3>=1.34.0                # AWS SDK for Python
+botocore>=1.34.0             # Core AWS functionality
+
+# Database connectivity (Cross-Platform)
+neo4j>=5.15.0                # Neo4j graph database driver
+pymongo>=4.6.0               # MongoDB driver (if needed)
+
+# PostgreSQL (Both platforms)
+psycopg2-binary>=2.9.0       # Binary works on macOS, Linux, Windows
+
+# MySQL (Both platforms)
+pymysql>=1.1.0               # Pure Python, works everywhere
+
+# SQL Server (Windows primarily, but works on macOS/Linux with drivers)
+pyodbc>=5.0.0                # Requires ODBC Driver installation
+                             # Windows: Usually pre-installed
+                             # macOS: brew install unixodbc
+                             # Linux: apt install unixodbc unixodbc-dev
+
+# Infrastructure automation
+kubernetes>=28.1.0           # Kubernetes Python client (optional)
+
+# ----------------------------------------------------------------------------
+# Data Validation and Quality
+# ----------------------------------------------------------------------------
+
+# Schema validation
+jsonschema>=4.17.0
+pydantic>=2.0.0
+
+# Data quality
+great-expectations>=0.18.0   # Optional: Advanced data validation
+
+# ----------------------------------------------------------------------------
+# Module 6: LLM Fine-Tuning
+# ----------------------------------------------------------------------------
+# WARNING: Module 6 has extensive dependencies (~5-10GB download)
+# Install separately with: pip install -r module-6-llm-training/requirements.txt
+#
+# Module 6 includes: PyTorch, Transformers, PEFT, BitsAndBytes, etc.
+# Only install if you're doing LLM fine-tuning work.
+
+# ----------------------------------------------------------------------------
+# Development and Testing (Optional)
+# ----------------------------------------------------------------------------
+
+# Code quality
+# black>=23.0.0              # Code formatter
+# flake8>=6.0.0              # Linting
+# pylint>=3.0.0              # Advanced linting
+# mypy>=1.0.0                # Type checking
+
+# Testing
+# pytest>=7.4.0              # Testing framework
+# pytest-cov>=4.1.0          # Coverage reporting
+
+# Jupyter notebooks
+# jupyter>=1.0.0             # Jupyter notebook
+# ipykernel>=6.25.0          # IPython kernel
+# matplotlib>=3.7.0          # Plotting
+# seaborn>=0.12.0            # Statistical visualization
+
+# ----------------------------------------------------------------------------
+# Installation Notes
+# ----------------------------------------------------------------------------
+#
+# Basic installation (required for most students):
+#   pip install -r requirements.txt
+#
+# Module 6 (LLM training) - install separately:
+#   pip install -r module-6-llm-training/requirements.txt
+#
+# Development tools - uncomment sections above and reinstall
+#
+# Recommended: Use virtual environment
+#   
+#   macOS/Linux:
+#     python3 -m venv venv
+#     source venv/bin/activate
+#     pip install -r requirements.txt
+#   
+#   Windows (PowerShell):
+#     python -m venv venv
+#     .\venv\Scripts\Activate.ps1
+#     pip install -r requirements.txt
+#   
+#   Windows (CMD):
+#     python -m venv venv
+#     venv\Scripts\activate.bat
+#     pip install -r requirements.txt
+#
+# ----------------------------------------------------------------------------
+# Platform-Specific Notes
+# ----------------------------------------------------------------------------
+#
+# macOS:
+#   - Use Homebrew for system dependencies: brew install unixodbc
+#   - Apple Silicon (M1/M2/M3): Most packages work, but some require Rosetta
+#   - For psycopg2 issues: Install PostgreSQL first via Homebrew
+#
+# Windows:
+#   - Use Git Bash, PowerShell, or WSL2 for shell scripts
+#   - ODBC drivers usually pre-installed for SQL Server
+#   - If pip install fails: Try installing Microsoft C++ Build Tools
+#     Download: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+#   - For deployment scripts: Install WSL2 (wsl --install)
+#
+# Linux (Ubuntu/Debian):
+#   - Install system dependencies first:
+#     sudo apt update
+#     sudo apt install python3-dev python3-pip build-essential
+#     sudo apt install libpq-dev  # For PostgreSQL
+#     sudo apt install unixodbc unixodbc-dev  # For ODBC
+#
+# Linux (Fedora/RHEL):
+#   - Install system dependencies:
+#     sudo dnf install python3-devel gcc gcc-c++
+#     sudo dnf install postgresql-devel  # For PostgreSQL
+#     sudo dnf install unixODBC-devel  # For ODBC
+#
+# ----------------------------------------------------------------------------
+# Troubleshooting Common Issues
+# ----------------------------------------------------------------------------
+#
+# Error: "Microsoft Visual C++ 14.0 or greater is required" (Windows)
+#   Solution: Install Visual C++ Build Tools
+#   https://visualstudio.microsoft.com/visual-cpp-build-tools/
+#
+# Error: "pg_config executable not found" (macOS)
+#   Solution: brew install postgresql
+#
+# Error: "error: command 'gcc' failed" (Linux)
+#   Solution: sudo apt install build-essential python3-dev
+#
+# Error: Module import fails after installation
+#   Solution: Make sure virtual environment is activated
+#   - Check: which python (should show venv path)
+#   - Reactivate: source venv/bin/activate (or Windows equivalent)
+#
+# Error: SSL certificate errors
+#   Solution: pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+#
+# ============================================================================

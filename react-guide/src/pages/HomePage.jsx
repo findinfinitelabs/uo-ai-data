@@ -260,6 +260,28 @@ const courseObjectives = [
     level: 'Basic',
     levelColor: 'green',
     time: '1 hr',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Reduce project failures:</Text> 70% of AI projects fail due to poor data quality. Clear specifications prevent costly rework and project abandonment.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Enable vendor management:</Text> Communicate precise requirements to AI vendors and technical teams, ensuring everyone delivers what you actually need.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Ensure reproducibility:</Text> Create documentation that allows teams to scale AI solutions consistently across departments and use cases.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Accelerate procurement:</Text> Write better RFPs with specific data requirements, reducing vendor selection time by months.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A healthcare system saved $2M by defining precise data specifications upfront, avoiding a complete rebuild of their patient risk prediction model.
+        </Text>
+      </>
+    ),
   },
   {
     icon: IconLock,
@@ -269,6 +291,28 @@ const courseObjectives = [
     level: 'Experienced',
     levelColor: 'blue',
     time: '1.5 hrs',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Avoid regulatory fines:</Text> HIPAA violations cost $100 to $50,000+ per violation. Understanding compliance prevents devastating penalties.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Build customer trust:</Text> Demonstrate data protection practices to patients and clients, strengthening brand reputation and retention.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Enable data partnerships:</Text> Safely share and exchange healthcare data with partners, unlocking collaboration opportunities.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Reduce legal risk:</Text> Implement proper de-identification before using data for AI training, protecting your organization from lawsuits.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A dental practice avoided a $250K fine by implementing proper HIPAA controls before launching their AI appointment optimization system.
+        </Text>
+      </>
+    ),
   },
   {
     icon: IconScale,
@@ -278,6 +322,28 @@ const courseObjectives = [
     level: 'Experienced',
     levelColor: 'blue',
     time: '1 hr',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Prevent discrimination lawsuits:</Text> Biased AI in hiring, lending, or healthcare can lead to multi-million dollar legal judgments and settlements.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Protect brand reputation:</Text> Public AI failures damage customer trust and stock value. Ethical practices prevent PR disasters.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Meet stakeholder expectations:</Text> Investors and boards increasingly require ethical AI governance frameworks before approving AI investments.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Improve patient outcomes:</Text> Fair AI reduces healthcare disparities and improves care quality, leading to better clinical results and patient satisfaction.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A health insurer caught bias in their AI claims processing before deployment, avoiding a class-action lawsuit that cost a competitor $40M.
+        </Text>
+      </>
+    ),
   },
   {
     icon: IconTestPipe,
@@ -287,6 +353,28 @@ const courseObjectives = [
     level: 'Advanced',
     levelColor: 'grape',
     time: '2 hrs',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Speed up innovation:</Text> Test AI solutions immediately without waiting months for real patient data approvals and IRB review.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Lower data acquisition costs:</Text> Generate unlimited training data instead of spending $50K-$500K purchasing real-world datasets.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Enable rapid prototyping:</Text> Show proof-of-concept to executives and investors without privacy concerns or complex legal agreements.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Support sales demos:</Text> Create realistic demonstrations for prospects without exposing real patient data or violating compliance.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A medical device startup used synthetic data to demonstrate their AI diagnostic tool to investors, securing $5M Series A funding in 3 months instead of 12.
+        </Text>
+      </>
+    ),
   },
   {
     icon: IconSparkles,
@@ -296,6 +384,28 @@ const courseObjectives = [
     level: 'Basic',
     levelColor: 'green',
     time: '1.5 hrs',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Make informed build vs. buy decisions:</Text> Understand when to use cloud APIs ($0.01-$0.10 per call) vs. local models (one-time setup cost).
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Reduce AI costs:</Text> Choose appropriate model sizes and techniques. Many problems solvable with $50/month instead of $5,000/month.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Evaluate vendor claims:</Text> Assess whether RAG, fine-tuning, or simple prompting actually solves your problem before signing contracts.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Empower business users:</Text> Implement AI solutions that non-technical staff can actually use, maximizing adoption and ROI.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A clinic saved $48K annually by switching from an enterprise AI platform to a local RAG solution for clinical documentation.
+        </Text>
+      </>
+    ),
   },
   {
     icon: IconUsers,
@@ -305,12 +415,76 @@ const courseObjectives = [
     level: 'Advanced',
     levelColor: 'grape',
     time: '1 hr',
+    businessValue: (
+      <>
+        <Text size="md" fw={700} mb="md" c="green">Immediate Business Impact</Text>
+        <List size="sm" spacing="sm" mb="md" withPadding>
+          <List.Item>
+            <Text span fw={600}>Bridge technical-business gap:</Text> Translate between data scientists and executives, preventing miscommunication that derails projects.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Lead cross-functional teams:</Text> Manage AI initiatives involving IT, legal, clinical, and business stakeholders effectively.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Deliver measurable ROI:</Text> Apply AI to concrete use cases like fraud detection, patient engagement, or operational efficiency with clear metrics.
+          </List.Item>
+          <List.Item>
+            <Text span fw={600}>Build portfolio value:</Text> Demonstrate hands-on experience with real case studies, increasing your compensation potential by 20-40%.
+          </List.Item>
+        </List>
+        <Text size="sm" c="dimmed">
+          <Text span fw={600}>Real-world example:</Text> A project manager led an AI implementation that reduced no-show appointments by 35%, saving their practice $180K annually in lost revenue.
+        </Text>
+      </>
+    ),
   },
 ];
 
 function CourseObjectives() {
+  const [openedObjective, setOpenedObjective] = useState(null);
+
   return (
     <>
+      <Modal
+        opened={openedObjective !== null}
+        onClose={() => setOpenedObjective(null)}
+        size="lg"
+        radius="md"
+        overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
+        title={null}
+        padding="xl"
+      >
+        {openedObjective && (
+          <>
+            <Group gap="md" mb="lg">
+              <ThemeIcon color="green" size={48} radius="xl" variant="light">
+                <openedObjective.icon size={24} />
+              </ThemeIcon>
+              <Box style={{ flex: 1 }}>
+                <Text fw={700} size="xl">
+                  {openedObjective.title}
+                </Text>
+                <Group gap="xs" mt="xs">
+                  <Badge size="sm" color={openedObjective.levelColor} variant="light">
+                    {openedObjective.level}
+                  </Badge>
+                  <Badge size="sm" color="gray" variant="outline">
+                    ⏱ {openedObjective.time}
+                  </Badge>
+                  <Badge size="sm" color="green" variant="filled">
+                    {openedObjective.percentage}% of course
+                  </Badge>
+                </Group>
+              </Box>
+            </Group>
+            <Divider mb="md" />
+            <Box>
+              {openedObjective.businessValue}
+            </Box>
+          </>
+        )}
+      </Modal>
+
       <Title order={3} mb="md" className="section-title">
         Course Objectives
       </Title>
@@ -330,6 +504,8 @@ function CourseObjectives() {
               radius="md"
               withBorder
               className="objective-card"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setOpenedObjective(obj)}
             >
               <Group justify="space-between" align="flex-start" mb="sm">
                 <ThemeIcon color="green" size={40} radius="xl" variant="light">
@@ -755,11 +931,7 @@ export default function HomePage() {
       <Divider my="xl" />
       <CourseObjectives />
       <Divider my="xl" />
-      <ModuleCards />
-      <Divider my="xl" />
       <Primer />
-      <Divider my="xl" />
-      <Models />
     </Container>
   );
 }

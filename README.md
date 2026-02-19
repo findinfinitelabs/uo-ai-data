@@ -118,9 +118,13 @@ Learn to:
 ### Prerequisites
 
 - Basic understanding of data structures (JSON, CSV)
-- Python 3.7+ (for Module 4 synthetic data generation)
-- Text editor or IDE
+- Python 3.10+ (for synthetic data generation and LLM training)
+- Node.js 18+ (for React guide application)
+- Text editor or IDE (VS Code recommended)
 - Git (for cloning this repository)
+
+📋 **Full Requirements**: See [SYSTEM-REQUIREMENTS.md](SYSTEM-REQUIREMENTS.md)  
+🪟 **Windows Users**: See [WINDOWS-SETUP.md](WINDOWS-SETUP.md)
 
 ### Quick Start
 
@@ -131,19 +135,47 @@ Learn to:
    cd uo-ai-data
    ```
 
-2. **Explore the modules in order**:
+2. **Run automated setup** (macOS/Linux/WSL2):
+
+   ```bash
+   ./setup.sh
+   ```
+
+   Or **manually install** Python dependencies:
+
+   ```bash
+   # Create virtual environment
+   python3 -m venv venv
+   source venv/bin/activate  # Windows: .\venv\Scripts\Activate.ps1
+   
+   # Install dependencies
+   pip install -r requirements.txt
+   ```
+
+3. **Explore the modules in order**:
    - Start with Module 1 to understand data specifications
    - Progress through Module 2 for compliance knowledge
    - Learn ethical considerations in Module 3
-   - Create synthetic data in Module 4
+   - Set up AI environment in Module 4
+   - Create synthetic data in Module 5
+   - Fine-tune LLMs in Module 6
 
-3. **Generate synthetic data** (Module 4):
+4. **Generate synthetic data** (Module 5):
 
    ```bash
-   cd module-4-synthetic-data
-   python generators/generate_patient_data.py
-   python generators/generate_dental_data.py
+   python module-5-synthetic-data/generators/generate_patient_data.py
+   python module-5-synthetic-data/generators/generate_dental_data.py
    ```
+
+5. **Start the React guide** (optional):
+
+   ```bash
+   cd react-guide
+   npm install
+   npm run dev
+   ```
+
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Repository Structure
 
