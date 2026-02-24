@@ -6,7 +6,7 @@ This guide walks you through setting up AWS Bedrock using your UO school credent
 
 - University of Oregon student or faculty account
 - Web browser (Chrome, Firefox, Safari)
-- Python 3.11+ installed (for API access)
+- Python 3.13+ installed (for API access)
 
 ## Step 1: Access AWS Through UO
 

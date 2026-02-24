@@ -115,4 +115,17 @@ export const modules = [
       { label: 'Privacy Considerations', href: `${REPO_BASE}/case-study-health/privacy.md` },
     ],
   },
+  {
+    id: 'case-study-dealership',
+    title: 'Precision Auto Service Analytics',
+    summary:
+      'Use AI to predict vehicle maintenance needs, optimize parts inventory, and improve customer service at auto dealerships with service ticket analysis.',
+    href: `${REPO_BASE}/case-study-dealership/README.md`,
+    isCaseStudy: true,
+    children: [
+      { label: 'Service Ticket Generator', href: `${REPO_BASE}/case-study-dealership/ticket-generator.md` },
+      { label: 'Predictive Maintenance', href: `${REPO_BASE}/case-study-dealership/predictions.md` },
+      { label: 'Inventory Optimization', href: `${REPO_BASE}/case-study-dealership/inventory.md` },
+    ],
+  },
 ];

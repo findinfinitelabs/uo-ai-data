@@ -36,6 +36,7 @@ import {
   IconUsers,
   IconBuildingFactory2,
   IconHeartRateMonitor,
+  IconCar,
 } from '@tabler/icons-react';
 import { modules } from '../data/modules';
 
@@ -47,6 +48,7 @@ const moduleIcons = {
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
   'case-study-health': IconHeartRateMonitor,
+  'case-study-dealership': IconCar,
 };
 
 function Hero() {

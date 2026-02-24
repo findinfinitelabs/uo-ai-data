@@ -539,7 +539,7 @@ if __name__ == '__main__':
       <Title order={3} mb="md">Step 2: Deploy Query Bridge</Title>
       <Text mb="sm">Create Dockerfile:</Text>
       <CodeBlock>
-{`FROM python:3.11-slim
+{`FROM python:3.13-slim
 WORKDIR /app
 RUN pip install flask neo4j requests
 COPY kg-query-bridge.py .

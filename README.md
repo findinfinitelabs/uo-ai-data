@@ -4,7 +4,7 @@
 [![Lint](https://img.shields.io/badge/lint-ESLint%20%7C%20Prettier%20%7C%20markdownlint-blue)](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml)
 [![Security](https://img.shields.io/badge/security-npm%20audit%20%7C%20dependency--review-green)](https://github.com/findinfinitelabs/uo-ai-data/actions/workflows/ci.yml)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
-[![Python](https://img.shields.io/badge/python-3.11-blue)](https://python.org/)
+[![Python](https://img.shields.io/badge/python-3.13-blue)](https://python.org/)
 
 ## Data Creation and Management for AI Training
 
@@ -118,7 +118,7 @@ Learn to:
 ### Prerequisites
 
 - Basic understanding of data structures (JSON, CSV)
-- Python 3.10+ (for synthetic data generation and LLM training)
+- Python 3.13+ (for synthetic data generation and LLM training)
 - Node.js 18+ (for React guide application)
 - Text editor or IDE (VS Code recommended)
 - Git (for cloning this repository)

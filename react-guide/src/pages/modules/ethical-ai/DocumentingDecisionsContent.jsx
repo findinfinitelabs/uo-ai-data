@@ -307,13 +307,13 @@ export default function DocumentingDecisionsContent() {
       {/* Decision Logs */}
       <Title order={2} mb="md">Decision Logs & Audit Trails</Title>
       
-      <Text mb="md">
+      <Text mb="md" c="dark">
         Beyond static documentation, you need logging systems that capture individual predictions 
         and the context in which they were made.
       </Text>
 
       <Paper p="lg" radius="md" withBorder mb="xl">
-        <Text fw={600} mb="md">What to Log for Each Prediction</Text>
+        <Text fw={600} mb="md" c="dark">What to Log for Each Prediction</Text>
         
         <Paper p="md" className={styles.codeBlock} mb="md">
           <Code block>
@@ -330,13 +330,13 @@ export default function DocumentingDecisionsContent() {
     "a1c_range": "5.7-6.4"
   },
   
-  // Output
-  "prediction": "high_risk",
-  "confidence": 0.78,
-  "risk_score": 0.82,
+  // ⭐ Output - THE PREDICTIONS ⭐
+  "prediction": "high_risk",           // ← Main prediction
+  "confidence": 0.78,                  // ← How confident
+  "risk_score": 0.82,                  // ← Numeric score
   
-  // Explanation
-  "top_contributing_factors": [
+  // ⭐ Explanation - WHY this prediction ⭐
+  "top_contributing_factors": [        // ← What drove decision
     {"feature": "a1c_range", "contribution": 0.35},
     {"feature": "family_history", "contribution": 0.28},
     {"feature": "bmi_category", "contribution": 0.22}
@@ -355,7 +355,7 @@ export default function DocumentingDecisionsContent() {
         </Paper>
 
         <Alert color="blue" variant="light" icon={<IconCircleCheck size={16} />}>
-          <Text size="sm">
+          <Text size="sm" c="dark">
             <Text span fw={600}>Why this matters:</Text> When an adverse event occurs, this log allows 
             you to reconstruct exactly what the model saw, what it predicted, and how the prediction 
             was used. This is essential for both learning from mistakes and regulatory compliance.
