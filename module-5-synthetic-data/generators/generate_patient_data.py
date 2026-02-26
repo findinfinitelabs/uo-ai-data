@@ -24,6 +24,7 @@ import random
 import json
 from datetime import datetime, timedelta
 import csv
+import os
 
 # Seed for reproducibility
 random.seed(42)
@@ -273,6 +274,9 @@ def main():
     for i in range(NUM_PATIENTS):
         patient = generate_patient()
         patients.append(patient)
+
+    # Create output directory if it doesn't exist
+    os.makedirs("datasets/patient-health", exist_ok=True)
 
     # Save as JSON
     json_file = "datasets/patient-health/synthetic_patients.json"

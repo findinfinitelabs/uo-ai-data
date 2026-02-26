@@ -17,7 +17,8 @@ CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
 K8S_VERSION="${K8S_VERSION:-1.30}"
 GPU_INSTANCE_TYPE="${GPU_INSTANCE_TYPE:-g4dn.xlarge}"
-GPU_NODE_COUNT="${GPU_NODE_COUNT:-1}"  # Reduced to 1 for small/medium cluster
+GPU_NODE_COUNT="${GPU_NODE_COUNT:-0}"  # Set to 0 for CPU-only cluster (cheaper)
+USE_GPU="${USE_GPU:-false}"  # Set to true to enable GPU nodes
 STUDENT_ID="${STUDENT_ID:-student0001}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
@@ -29,8 +30,13 @@ echo -e "${YELLOW}Configuration:${NC}"
 echo "  Cluster Name: $CLUSTER_NAME"
 echo "  Region: $AWS_REGION"
 echo "  Kubernetes Version: $K8S_VERSION"
-echo "  GPU Instance Type: $GPU_INSTANCE_TYPE"
-echo "  GPU Node Count: $GPU_NODE_COUNT"
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    echo "  GPU Instance Type: $GPU_INSTANCE_TYPE"
+    echo "  GPU Node Count: $GPU_NODE_COUNT"
+    echo "  Cluster Type: GPU-ENABLED"
+else
+    echo "  Cluster Type: CPU-ONLY (Small/Budget)"
+fi
 echo "  Resource Group: $RESOURCE_GROUP"
 echo ""
 
@@ -115,7 +121,9 @@ echo "  Resource Group: $RESOURCE_GROUP"
 echo ""
 echo -e "${BLUE}Step 3: Creating Cluster Configuration${NC}"
 
-cat > /tmp/eks-cluster-config.yaml <<EOF
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    # GPU-enabled cluster configuration
+    cat > /tmp/eks-cluster-config.yaml <<EOF
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
@@ -173,17 +181,71 @@ addons:
   - name: coredns
   - name: kube-proxy
 EOF
+else
+    # CPU-only cluster configuration (smaller and cheaper)
+    cat > /tmp/eks-cluster-config.yaml <<EOF
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ${CLUSTER_NAME}
+  region: ${AWS_REGION}
+  version: "${K8S_VERSION}"
+  tags:
+    Environment: innovation-sandbox
+    Project: healthcare-ai
+    ResourceGroup: ${RESOURCE_GROUP}
+    Owner: ${STUDENT_ID}
+    ManagedBy: eksctl
+
+vpc:
+  cidr: "10.0.0.0/16"
+  nat:
+    gateway: Single  # Single NAT gateway for cost savings
+
+managedNodeGroups:
+  - name: general-nodes
+    instanceType: t3.small  # Smaller instance for cost savings
+    minSize: 2
+    maxSize: 3
+    desiredCapacity: 2
+    volumeSize: 30
+    tags:
+      Environment: innovation-sandbox
+      Project: healthcare-ai
+      ResourceGroup: ${RESOURCE_GROUP}
+      Owner: ${STUDENT_ID}
+
+iam:
+  withOIDC: true
+
+addons:
+  - name: vpc-cni
+  - name: coredns
+  - name: kube-proxy
+EOF
+fi
 
 print_status "Cluster configuration created at /tmp/eks-cluster-config.yaml"
 
 # Step 4: Estimate Costs
 echo ""
 echo -e "${BLUE}Step 4: Cost Estimate${NC}"
-print_warning "GPU instances (${GPU_INSTANCE_TYPE}) cost approximately \$0.526/hour per node"
-print_warning "With ${GPU_NODE_COUNT} GPU nodes + 1 general node, estimated cost: ~\$15-20/day (small cluster)"
+
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    print_warning "GPU instances (${GPU_INSTANCE_TYPE}) cost approximately \$0.526/hour per node"
+    print_warning "With ${GPU_NODE_COUNT} GPU nodes + 1 general node, estimated cost: ~\$15-20/day"
+    echo ""
+    echo -e "${YELLOW}💡 This is a GPU-enabled cluster for AI inference${NC}"
+else
+    print_warning "CPU-only cluster with t3.small instances"
+    print_warning "Estimated cost: ~\$3-5/day (budget-friendly)"
+    echo ""
+    echo -e "${GREEN}💡 This is a small CPU-only cluster - perfect for development and testing${NC}"
+    echo -e "${GREEN}💡 To enable GPU support, set USE_GPU=true and GPU_NODE_COUNT=1${NC}"
+fi
+
 print_warning "Make sure you have sufficient Innovation Sandbox credits!"
-echo ""
-echo -e "${GREEN}💡 This is a small/medium cluster optimized for development and testing${NC}"
 echo ""
 read -p "Continue with deployment? (yes/no): " -r
 if [[ ! $REPLY =~ ^[Yy](es)?$ ]]; then
@@ -221,23 +283,29 @@ print_status "Cluster nodes are ready"
 kubectl get namespaces
 print_status "Default namespaces created"
 
-# Step 8: Install NVIDIA Device Plugin
-echo ""
-echo -e "${BLUE}Step 8: Installing NVIDIA Device Plugin for GPU Support${NC}"
+# Step 8: Install NVIDIA Device Plugin (GPU only)
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    echo ""
+    echo -e "${BLUE}Step 8: Installing NVIDIA Device Plugin for GPU Support${NC}"
 
-kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.14.0/nvidia-device-plugin.yml
+    kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.14.0/nvidia-device-plugin.yml
 
-echo "Waiting for NVIDIA plugin to be ready..."
-sleep 30
+    echo "Waiting for NVIDIA plugin to be ready..."
+    sleep 30
 
-if kubectl get pods -n kube-system | grep nvidia-device-plugin | grep Running &>/dev/null; then
-    print_status "NVIDIA device plugin installed successfully"
-    
-    # Verify GPU availability
-    GPU_COUNT=$(kubectl get nodes -o json | jq -r '.items[].status.allocatable."nvidia.com/gpu"' | grep -v null | wc -l)
-    print_status "GPU nodes available: $GPU_COUNT"
+    if kubectl get pods -n kube-system | grep nvidia-device-plugin | grep Running &>/dev/null; then
+        print_status "NVIDIA device plugin installed successfully"
+        
+        # Verify GPU availability
+        GPU_COUNT=$(kubectl get nodes -o json | jq -r '.items[].status.allocatable."nvidia.com/gpu"' | grep -v null | wc -l)
+        print_status "GPU nodes available: $GPU_COUNT"
+    else
+        print_warning "NVIDIA plugin may still be starting. Check with: kubectl get pods -n kube-system | grep nvidia"
+    fi
 else
-    print_warning "NVIDIA plugin may still be starting. Check with: kubectl get pods -n kube-system | grep nvidia"
+    echo ""
+    echo -e "${BLUE}Step 8: Skipping GPU Setup${NC}"
+    print_status "CPU-only cluster - GPU plugins not needed"
 fi
 
 # Step 8b: Create AWS Resource Group

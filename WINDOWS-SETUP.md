@@ -79,7 +79,7 @@ sudo apt upgrade -y
 
 ```bash
 # Install Python and build tools
-sudo apt install -y python3.11 python3.11-venv python3-pip
+sudo apt install -y python3.13 python3.13-venv python3-pip
 sudo apt install -y build-essential libpq-dev unixodbc-dev
 
 # Install Node.js
@@ -120,7 +120,7 @@ chmod +x setup.sh
 
 ### Step 1: Install Python
 
-1. Download Python 3.11 from [python.org](https://www.python.org/downloads/)
+1. Download Python 3.13 from [python.org](https://www.python.org/downloads/)
 2. **Important**: Check "Add Python to PATH" during installation
 3. Click "Install Now"
 
@@ -128,7 +128,7 @@ chmod +x setup.sh
 
 ```powershell
 python --version
-# Should show Python 3.11.x
+# Should show Python 3.13.x
 ```
 
 ### Step 2: Install Node.js
@@ -398,7 +398,7 @@ wsl --shutdown
 wsl --install
 
 # Restart computer, then in Ubuntu:
-sudo apt update && sudo apt install -y python3.11 python3-pip nodejs git
+sudo apt update && sudo apt install -y python3.13 python3-pip nodejs git
 git clone https://github.com/findinfinitelabs/uo-ai-data.git
 cd uo-ai-data
 ./setup.sh

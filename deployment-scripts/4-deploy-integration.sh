@@ -1088,7 +1088,7 @@ print_status "Created application files"
 
 # Create Dockerfile
 cat > Dockerfile <<'EOF'
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 

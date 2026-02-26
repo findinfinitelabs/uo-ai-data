@@ -623,7 +623,7 @@ export AWS_PROFILE=dataai-christol  # Use your profile name
                       <Text size="sm" fw={600}>Container Image Build Process (3-4 minutes):</Text>
                       <List size="sm" spacing={4}>
                         <List.Item>
-                          <strong>1. Create Dockerfile:</strong> Multi-stage build with Python 3.11 slim base
+                          <strong>1. Create Dockerfile:</strong> Multi-stage build with Python 3.13 slim base
                         </List.Item>
                         <List.Item>
                           <strong>2. Install Dependencies:</strong>

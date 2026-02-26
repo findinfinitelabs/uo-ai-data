@@ -148,16 +148,16 @@ Return the complete Python script ready to execute.`
       color: 'blue',
       description: 'Initial acquisition of patient data from various sources',
       scenario: {
-        title: '🏥 Real-World Example: Building a Readmission Predictor',
+        title: '🏥 Your Project: Building a Hospital Readmission Predictor',
         steps: [
-          'Your hospital wants to build an AI model to predict 30-day readmission risk',
-          'You submit a request to the EHR team to extract patient admission records from the last 3 years',
-          'Legal reviews and approves under Treatment/Operations exception (no patient authorization needed)',
-          'Data engineer creates an automated ETL job that extracts only necessary fields: demographics, diagnosis codes, procedures, medications, vital signs, discharge disposition',
-          'Payment and insurance details are excluded (not needed for prediction)',
-          'All data transfers happen over TLS 1.3 from the EHR database to your secure analytics environment',
-          'Every extraction is logged with timestamp, user ID, number of records, and purpose',
-          'Result: You receive a dataset with 50,000 admissions containing only the minimum necessary fields for your AI model'
+          'Your hospital assigns you to build an AI model to predict 30-day readmission risk',
+          'Step 1: Submit a data request to the EHR team for patient admission records from the last 3 years',
+          'Step 2: Work with Legal to establish HIPAA authorization under Treatment/Operations exception',
+          'Step 3: Define minimum necessary fields: demographics, diagnosis codes, procedures, medications, vital signs, discharge disposition (exclude payment/insurance data)',
+          'Step 4: Data engineer creates an automated ETL job with TLS 1.3 encryption',
+          'Step 5: Configure audit logging to capture timestamp, user ID, number of records, and purpose for each extraction',
+          'Result: You receive 50,000 admission records with only the fields needed for your model',
+          '✅ What you learned: How to collect PHI legally with proper authorization and minimum necessary principle'
         ]
       },
       policies: [
@@ -194,17 +194,17 @@ Return the complete Python script ready to execute.`
       color: 'teal',
       description: 'Secure storage of healthcare data during AI development',
       scenario: {
-        title: '🔒 Real-World Example: Storing Training Data Securely',
+        title: '🔒 Your Project Continues: Storing Your Training Data Securely',
         steps: [
-          'The extracted dataset arrives in your AWS S3 bucket configured for HIPAA compliance',
-          'S3 bucket has server-side encryption enabled using AWS KMS with a customer-managed key',
-          'Bucket policy restricts access to only authorized IAM roles (data scientists, ML engineers)',
-          'Data scientists access the data through a secure Jupyter Hub environment with MFA enabled',
-          'A separate S3 bucket stores de-identified data for model training - data scientists cannot access the PHI bucket',
-          'Physical servers are in AWS GovCloud with SOC 2 compliance and 24/7 monitoring',
-          'All access attempts are logged to CloudTrail and monitored by your security team',
-          'Quarterly access reviews ensure only active team members retain permissions',
-          'Result: Patient data is encrypted at rest, accessible only to authorized personnel, with complete audit trail'
+          'Step 1: The 50,000 admission records arrive in your AWS S3 bucket configured for HIPAA compliance',
+          'Step 2: Enable server-side encryption using AWS KMS with a customer-managed key',
+          'Step 3: Set bucket policy to restrict access to only your project team IAM roles (you + 2 data scientists)',
+          'Step 4: Create two separate buckets: "readmit-phi" (raw data) and "readmit-deidentified" (for model training)',
+          'Step 5: Access the PHI bucket only through secure Jupyter Hub with MFA enabled',
+          'Step 6: Configure CloudTrail logging to track all S3 access attempts',
+          'Step 7: Schedule quarterly access reviews to remove permissions for team members who leave the project',
+          'Result: Your patient data is encrypted at rest, access-controlled, with complete audit trail',
+          '✅ What you learned: How to configure secure storage with encryption, access controls, and separation of PHI from de-identified data'
         ]
       },
       policies: [
@@ -241,17 +241,19 @@ Return the complete Python script ready to execute.`
       color: 'indigo',
       description: 'AI model training, testing, and deployment activities',
       scenario: {
-        title: '🤖 Real-World Example: De-identifying Data for Model Training',
+        title: '🤖 Your Project Continues: De-identifying and Training Your Model',
         steps: [
-          'Privacy officer reviews the raw dataset and determines Safe Harbor de-identification is appropriate',
-          'You run an automated de-identification script that removes all 18 HIPAA identifiers',
-          'Dates are shifted by random offsets (maintaining intervals), ages >89 are aggregated, ZIP codes generalized to 3 digits',
-          'The de-identified dataset is saved to a separate "training data" bucket accessible to data scientists',
-          'You train your readmission model using SageMaker in a VPC with no internet access',
-          'All training logs are reviewed to ensure no PHI leaked into model artifacts',
-          'Model weights are saved to encrypted S3; model cards document the de-identification method used',
-          'During deployment, you set up a secure API endpoint with TLS encryption and API key authentication',
-          'Result: Model trained on de-identified data with no PHI exposure risk, deployed in HIPAA-compliant infrastructure'
+          'Step 1: Meet with your Privacy Officer to review de-identification requirements for your readmission dataset',
+          'Step 2: Apply Safe Harbor de-identification: remove all 18 HIPAA identifiers',
+          'Step 3: Shift dates by random offsets (±30 days) while preserving time intervals between events',
+          'Step 4: Aggregate ages >89 to "90+", generalize ZIP codes to first 3 digits',
+          'Step 5: Save de-identified data to "readmit-deidentified" bucket accessible to your data scientist teammates',
+          'Step 6: Train your XGBoost model using SageMaker in a VPC with no internet access',
+          'Step 7: Review training logs to confirm no PHI leaked into model artifacts or error messages',
+          'Step 8: Save model weights to encrypted S3; create model card documenting your de-identification method',
+          'Step 9: Deploy model as a secure API endpoint with TLS encryption and API key authentication',
+          'Result: Your readmission predictor is trained on de-identified data with 0.78 AUC, deployed securely',
+          '✅ What you learned: How to de-identify data using Safe Harbor, train ML models without PHI exposure, and deploy HIPAA-compliant APIs'
         ]
       },
       policies: [
@@ -288,18 +290,19 @@ Return the complete Python script ready to execute.`
       color: 'violet',
       description: 'Sharing data with research partners, vendors, or public repositories',
       scenario: {
-        title: '🤝 Real-World Example: Collaborating with a University Research Team',
+        title: '🤝 Your Project Continues: Collaborating with a University Research Team',
         steps: [
-          'A university research team wants to collaborate on improving your readmission model',
-          'Legal prepares a Data Use Agreement (DUA) that restricts use to approved research only',
-          'DUA prohibits re-identification attempts and requires data destruction after study completion',
-          'You apply Expert Determination de-identification (k≥10) to preserve more statistical utility',
-          'A qualified statistician certifies the re-identification risk is "very small" and documents the methodology',
-          'The de-identified dataset is transferred via encrypted SFTP to the university\'s secure server',
-          'You log the disclosure: what data, to whom, when, for what purpose, under what legal authority',
-          'The university signs acknowledgment of receipt and confirms secure storage procedures',
-          'After study completion, you receive a certificate of data destruction from the university',
-          'Result: Research collaboration enabled while maintaining HIPAA compliance and patient privacy'
+          'A university research team contacts you about collaborating to improve your readmission model',
+          'Step 1: Work with Legal to prepare a Data Use Agreement (DUA) restricting use to approved research only',
+          'Step 2: DUA specifies: no re-identification attempts, data destruction after study completion, no further sharing',
+          'Step 3: Apply Expert Determination de-identification (k≥10 anonymity) to preserve more statistical features',
+          'Step 4: Hire a qualified statistician to certify re-identification risk is "very small" and document methodology',
+          'Step 5: Transfer the enhanced de-identified dataset via encrypted SFTP to university\'s secure server',
+          'Step 6: Create disclosure log: what data shared, with whom, when, for what purpose, under what legal authority',
+          'Step 7: University signs acknowledgment of receipt and confirms secure storage procedures',
+          'After 18 months: University completes study and provides certificate of data destruction',
+          'Result: Successful research collaboration yielded 0.82 AUC model while maintaining HIPAA compliance',
+          '✅ What you learned: How to share de-identified data for research using DUAs, Expert Determination, and disclosure tracking'
         ]
       },
       policies: [
@@ -336,18 +339,20 @@ Return the complete Python script ready to execute.`
       color: 'orange',
       description: 'Determining how long to keep healthcare data',
       scenario: {
-        title: '📅 Real-World Example: Managing Data Retention for Compliance',
+        title: '📅 Your Project Continues: Managing Data Retention Over Time',
         steps: [
-          'Your compliance team establishes a retention schedule: raw PHI (6 years), training datasets (6 years), model artifacts (life of model)',
-          'You implement automated S3 lifecycle policies that move old data to Glacier after 2 years',
-          'After 6 years, data is automatically flagged for disposal review',
-          'Annually, you conduct a data inventory to identify datasets no longer needed for active projects',
-          'A patient submits a request to delete their data under state privacy law',
-          'You identify all instances of that patient\'s data across training sets, logs, and backups',
-          'The patient\'s records are removed from active datasets; you evaluate whether model retraining is needed',
-          'You document the deletion with timestamps and approver signatures',
-          'Version control (DVC + Git) tracks all dataset versions and allows rollback if needed',
-          'Result: Data retained only as long as legally required, with patient rights honored and full audit trail'
+          'Your readmission model has been in production for 3 years and you need to manage ongoing data retention',
+          'Step 1: Work with Compliance to establish retention schedule: raw PHI (6 years), training datasets (6 years), model artifacts (life of model)',
+          'Step 2: Implement S3 lifecycle policies to automatically move old data to Glacier after 2 years (cheaper storage)',
+          'Step 3: After 6 years, data is automatically flagged for disposal review',
+          'Step 4: Conduct annual data inventory to identify datasets no longer needed for active model improvement',
+          'Step 5: A patient submits a Right to Delete request under state privacy law',
+          'Step 6: You identify all instances of that patient\'s data across training sets, validation sets, logs, and backups',
+          'Step 7: Remove patient\'s 3 admission records from datasets; evaluate whether model retraining is needed (not required for 3/50,000 records)',
+          'Step 8: Document the deletion with timestamps, reason, approver signatures, and attestation',
+          'Step 9: Use Git + DVC version control to track all dataset versions if rollback ever needed',
+          'Result: Data retained only as long as legally required; patient rights honored with full audit trail',
+          '✅ What you learned: How to set retention schedules, honor patient delete requests, and maintain dataset version control'
         ]
       },
       policies: [
@@ -384,19 +389,22 @@ Return the complete Python script ready to execute.`
       color: 'red',
       description: 'Secure destruction of healthcare data at end of lifecycle',
       scenario: {
-        title: '🗑️ Real-World Example: Securely Disposing of Old Project Data',
+        title: '🗑️ Your Project Concludes: Securely Disposing of All Project Data',
         steps: [
-          'Your readmission predictor project concluded 6 years ago; retention period has expired',
-          'You create a disposal plan documenting all data locations: S3 buckets, RDS databases, EBS snapshots, local copies',
-          'For S3 data: you use cryptographic erasure by deleting the KMS encryption keys, rendering data unreadable',
-          'You enable S3 object versioning deletion to remove all historical versions',
-          'RDS database snapshots are deleted after confirming no legal holds',
-          'EBS volumes are wiped using AWS\'s secure deletion process',
-          'Any hard drives with data are sent to a certified destruction vendor',
-          'The vendor provides a Certificate of Destruction with serial numbers and destruction method',
-          'You create a disposal log entry: date, data description, deletion method, approver, certificate number',
-          'Six months later, you audit to confirm no residual copies exist in backups or archives',
-          'Result: All PHI securely destroyed and unrecoverable, with documented proof for compliance audits'
+          'Six years have passed since your readmission predictor project concluded; the retention period has expired',
+          'Hospital decides to decommission the model in favor of a newer commercial solution',
+          'Step 1: Create disposal plan documenting ALL data locations: S3 buckets (readmit-phi, readmit-deidentified), RDS snapshots, EBS volumes, CloudWatch logs, local copies',
+          'Step 2: For S3 data: Use cryptographic erasure by deleting the KMS encryption keys, rendering all data permanently unreadable',
+          'Step 3: Enable S3 object versioning deletion to remove all historical versions of files',
+          'Step 4: Delete RDS database snapshots after confirming no legal holds exist',
+          'Step 5: Wipe EBS volumes using AWS secure deletion that overwrites disk sectors',
+          'Step 6: Identify any team member laptops with local data copies; securely wipe those files',
+          'Step 7: For any physical hard drives: Send to certified destruction vendor (NAID AAA Certified)',
+          'Step 8: Vendor provides Certificate of Destruction with drive serial numbers and destruction method (shredding)',
+          'Step 9: Create disposal log entry: date, data description, deletion method, approver, certificate number',
+          'Step 10: Six months later, audit to confirm no residual copies in backups or disaster recovery systems',
+          'Result: All PHI from your 6-year project is securely destroyed and unrecoverable, with documented proof for future audits',
+          '✅ What you learned: How to completely dispose of PHI using cryptographic erasure, vendor destruction, and comprehensive audit trails'
         ]
       },
       policies: [
@@ -514,7 +522,7 @@ Return the complete Python script ready to execute.`
 
         <Paper p="md" mb="lg" withBorder>
           <Text fw={600} mb="md">Step 1: Configure Your DynamoDB Resources</Text>
-          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md" mb="md">
+          <SimpleGrid cols={2} spacing="md" mb="md">
             <Box>
               <Text size="sm" fw={600} mb="xs">AWS Region</Text>
               <Select
@@ -529,6 +537,7 @@ Return the complete Python script ready to execute.`
                   { value: 'eu-west-1', label: 'EU (Ireland)' },
                   { value: 'ap-southeast-1', label: 'Asia Pacific (Singapore)' },
                 ]}
+                description="Geographic location where your DynamoDB tables are hosted"
               />
             </Box>
             <Box>
@@ -714,7 +723,9 @@ Return the complete Python script ready to execute.`
       {/* Data Lifecycle Timeline */}
       <Title order={2} mb="md">Data Lifecycle: Policies at Each Stage</Title>
       <Text c="dimmed" mb="xl">
-        Follow data through its complete lifecycle in an AI project, with required policies at each stage.
+        Follow one healthcare AI project from start to finish. This timeline shows exactly what you need to do at each stage 
+        when building a hospital readmission predictor—from collecting data legally, through model training and deployment, 
+        to final disposal after 6 years. Each stage includes the specific HIPAA policies you must follow.
       </Text>
 
       <Timeline active={dataLifecycle.length} bulletSize={40} lineWidth={3}>
@@ -789,32 +800,6 @@ Return the complete Python script ready to execute.`
           );
         })}
       </Timeline>
-
-      {/* AI-Specific Policies */}
-      <Paper p="lg" mt="xl" mb="xl" withBorder>
-        <Group mb="md">
-          <ThemeIcon size={40} radius="md" color="grape">
-            <IconKey size={24} />
-          </ThemeIcon>
-          <Box>
-            <Title order={2}>AI-Specific Data Handling Policies</Title>
-            <Text size="sm" c="dimmed">Additional considerations for machine learning workflows</Text>
-          </Box>
-        </Group>
-
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
-          {aiSpecificPolicies.map((category) => (
-            <Card key={category.category} padding="lg" radius="md" withBorder>
-              <Text fw={600} mb="md">{category.category}</Text>
-              <List size="sm" spacing="xs">
-                {category.policies.map((policy, idx) => (
-                  <List.Item key={idx}>{policy}</List.Item>
-                ))}
-              </List>
-            </Card>
-          ))}
-        </SimpleGrid>
-      </Paper>
 
       {/* Best Practices Summary */}
       <Paper p="xl" withBorder bg="cyan.0">

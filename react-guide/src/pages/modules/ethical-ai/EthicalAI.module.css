@@ -44,7 +44,6 @@
 .codeBlock pre,
 .codeBlock code {
   background: transparent !important;
-  color: #d4d4d4 !important;
   font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
   font-size: 0.85rem;
   line-height: 1.5;

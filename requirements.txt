@@ -9,7 +9,7 @@
 #
 # For module-specific requirements, see individual module folders.
 #
-# Python Version: 3.10 or later required
+# Python Version: 3.13 or later required
 # ============================================================================
 
 # ----------------------------------------------------------------------------

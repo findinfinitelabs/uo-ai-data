@@ -1,0 +1,41 @@
+Healthcare AI Infrastructure Deployment Summary
+================================================
+Deployed: Wed Feb 25 20:07:47 HST 2026
+Duration: 45m 21s
+
+Configuration:
+--------------
+Cluster Name:    ollama-ai-cluster
+AWS Region:      us-west-2
+GPU Node Count:  2
+Table Prefix:    healthcare
+
+Services:
+---------
+Ollama:          http://:11434
+Bedrock:         Enabled (us-west-2)
+DynamoDB:        healthcare-* tables
+Query Bridge:    http://localhost:8080
+
+LLM Models:
+-----------
+Ollama:          mistral, llama2, mixtral
+Bedrock:         Claude 3, Llama 3, Mistral
+
+Data Storage:
+-------------
+DynamoDB Tables: healthcare-patients, healthcare-diagnoses,
+                 healthcare-medications, healthcare-providers,
+                 healthcare-patient-diagnoses, healthcare-patient-medications
+
+Next Steps:
+-----------
+1. Wait 2-3 minutes for LoadBalancers to fully provision
+2. Test the query bridge API with both Bedrock and Ollama
+3. Access healthcare data via natural language queries
+4. Check bedrock-info.txt and integration-info.txt for examples
+
+Cleanup:
+--------
+eksctl delete cluster --name=ollama-ai-cluster --region=us-west-2
+# Also delete DynamoDB tables and Bedrock IAM resources (see cleanup section above)

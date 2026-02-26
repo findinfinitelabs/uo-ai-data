@@ -149,7 +149,7 @@ python3 --version
 pip3 --version
 ```
 
-**Expected**: `Python 3.8+` and `pip 21+`
+**Expected**: `Python 3.13+` and `pip 21+`
 
 **If not installed**:
 ```bash
@@ -168,7 +168,7 @@ sudo apt install python3 python3-pip
 - [ ] kubectl installed and working
 - [ ] eksctl installed and working
 - [ ] helm installed and working
-- [ ] Python 3.8+ installed
+- [ ] Python 3.13+ installed
 - [ ] pip3 installed
 
 ---
@@ -510,7 +510,7 @@ chmod +x pre-flight-check.sh
 - [ ] AWS CLI installed and configured
 - [ ] SSO authentication working
 - [ ] kubectl, eksctl, helm installed
-- [ ] Python 3.8+ installed
+- [ ] Python 3.13+ installed
 - [ ] All permissions verified
 - [ ] Service quotas adequate
 - [ ] Budget approved by instructor

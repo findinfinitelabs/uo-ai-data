@@ -671,7 +671,7 @@ Testing from EKS Pod:
 =====================
 
 # Create a test pod
-kubectl run -it neptune-test --image=python:3.9 --rm --restart=Never -- bash
+kubectl run -it neptune-test --image=python:3.13 --rm --restart=Never -- bash
 
 # Inside the pod
 pip install gremlinpython

@@ -9,6 +9,7 @@ import random
 import json
 from datetime import datetime, timedelta
 import csv
+import os
 
 # Seed for reproducibility
 random.seed(42)
@@ -316,6 +317,9 @@ def main():
     for i in range(NUM_VISITS):
         visit = generate_dental_visit()
         visits.append(visit)
+
+    # Create output directory if it doesn't exist
+    os.makedirs("datasets/dental-records", exist_ok=True)
 
     # Save as JSON
     json_file = "datasets/dental-records/synthetic_dental_visits.json"

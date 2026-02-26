@@ -41,6 +41,7 @@ import {
   IconBrain,
   IconNetwork,
   IconWorld,
+  IconCar,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
@@ -53,6 +54,7 @@ import RegulationsPage from './pages/modules/RegulationsPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
 import Module4Page from './pages/modules/Module4Page';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
+import CaseStudyDealershipPage from './pages/modules/CaseStudyDealershipPage';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import UserMenu from './components/UserMenu';
@@ -107,6 +109,7 @@ const moduleIcons = {
   'module-5': IconDatabase,
   'case-study': IconBuildingFactory2,
   'case-study-health': IconHeartbeat,
+  'case-study-dealership': IconCar,
 };
 
 function AppLayout() {
@@ -483,6 +486,14 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <CaseStudyHealthPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/case-study-dealership"
+            element={
+              <ProtectedRoute>
+                <CaseStudyDealershipPage />
               </ProtectedRoute>
             }
           />
