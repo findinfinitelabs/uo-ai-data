@@ -1,0 +1,25 @@
+EKS Cluster Information
+========================
+Cluster Name: ollama-ai-cluster
+Region: us-west-2
+Kubernetes Version: 1.30
+Created: Wed Feb 25 19:38:38 HST 2026
+
+AWS Account: 547741150715
+AWS User/Role: arn:aws:sts::547741150715:assumed-role/AWSReservedSSO_LCBPEGA_IsbAdminsPS_c0a4d168a1178edf/christol@uoregon.edu
+
+Nodes:
+NAME                                        STATUS   ROLES    AGE   VERSION
+ip-10-0-21-210.us-west-2.compute.internal   Ready    <none>   80s   v1.30.14-eks-70ce843
+ip-10-0-72-56.us-west-2.compute.internal    Ready    <none>   79s   v1.30.14-eks-70ce843
+
+To access this cluster later, run:
+  aws eks update-kubeconfig --region us-west-2 --name ollama-ai-cluster
+
+To delete this cluster when done:
+  eksctl delete cluster --name ollama-ai-cluster --region us-west-2
+
+Next Steps:
+  1. Run: ./2-install-ollama.sh
+  2. Run: ./3-setup-knowledge-graph.sh
+  3. Run: ./4-deploy-integration.sh

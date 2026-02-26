@@ -1,0 +1,86 @@
+AWS Bedrock Configuration
+=========================
+Region: us-west-2
+Account: 547741150715
+Configured: Wed Feb 25 19:45:13 HST 2026
+
+IAM Configuration:
+==================
+Policy ARN: arn:aws:iam::547741150715:policy/BedrockAccessPolicy-ollama-ai-cluster
+Role ARN: arn:aws:iam::547741150715:role/BedrockAccessRole-ollama-ai-cluster
+Service Account: bedrock-service-account
+Namespace: ollama
+
+OIDC Provider: oidc.eks.us-west-2.amazonaws.com/id/32BAFD6EC780EC69BCF724FBD3DDA3DF
+
+Recommended Models:
+===================
+- anthropic.claude-3-sonnet-20240229-v1:0 (Best for complex reasoning)
+- anthropic.claude-3-haiku-20240307-v1:0 (Fast and cost-effective)
+- meta.llama3-70b-instruct-v1:0 (Open source, good performance)
+- mistral.mistral-7b-instruct-v0:2 (Lightweight, efficient)
+
+Model Access:
+=============
+Request access to models:
+https://console.aws.amazon.com/bedrock/home?region=us-west-2#/modelaccess
+
+Pricing (examples):
+===================
+Claude 3 Haiku:
+  - Input: $0.25 per 1M tokens
+  - Output: $1.25 per 1M tokens
+
+Claude 3 Sonnet:
+  - Input: $3 per 1M tokens
+  - Output: $15 per 1M tokens
+
+Llama 3 (8B):
+  - Input: $0.30 per 1M tokens
+  - Output: $0.60 per 1M tokens
+
+Testing Commands:
+=================
+
+# Test from command line
+aws bedrock list-foundation-models --region us-west-2
+
+# Test with Python
+python3 test-bedrock.py us-west-2
+
+# Test from within EKS pod
+kubectl run -it --rm bedrock-test \
+  --image=amazon/aws-cli \
+  --serviceaccount=bedrock-service-account \
+  --namespace=ollama \
+  -- aws bedrock list-foundation-models --region us-west-2
+
+Using Bedrock in Applications:
+===============================
+
+Python Example:
+--------------
+import boto3
+import json
+
+bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-west-2')
+
+body = json.dumps({
+    "anthropic_version": "bedrock-2023-05-31",
+    "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Your question here"}]
+})
+
+response = bedrock_runtime.invoke_model(
+    modelId='anthropic.claude-3-haiku-20240307-v1:0',
+    body=body
+)
+
+result = json.loads(response['body'].read())
+answer = result['content'][0]['text']
+
+Next Steps:
+===========
+1. Request access to desired models in AWS Console
+2. Run: ./4-deploy-integration.sh (will use both Ollama and Bedrock)
+3. Test the integration API
