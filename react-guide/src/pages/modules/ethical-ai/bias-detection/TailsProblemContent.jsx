@@ -29,6 +29,93 @@ export default function TailsProblemContent() {
         </Group>
       </Title>
 
+      {/* Analogy Section */}
+      <Paper p="xl" radius="md" withBorder mb="xl" bg="blue.0">
+        <Group mb="md" align="flex-start">
+          <IconBulb size={32} color="#1971c2" />
+          <Box style={{ flex: 1 }}>
+            <Text fw={700} size="lg" mb="xs" c="blue.9">Understanding Tails: The Restaurant Review Analogy</Text>
+            <Text size="md" mb="md">
+              Imagine you're building an AI that predicts restaurant ratings based on reviews. You have 100,000 reviews:
+            </Text>
+            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg" mb="md">
+              <Box>
+                <Text fw={600} mb="xs" c="blue.8">The Center (Most Data):</Text>
+                <List size="sm" spacing="xs">
+                  <List.Item>85,000 reviews for chain restaurants (McDonald's, Starbucks, Chipotle)</List.Item>
+                  <List.Item>Predictable patterns, consistent experience</List.Item>
+                  <List.Item>Your AI performs great: <strong>95% accuracy!</strong></List.Item>
+                </List>
+              </Box>
+              <Box>
+                <Text fw={600} mb="xs" c="orange.8">The Tails (Rare Cases):</Text>
+                <List size="sm" spacing="xs">
+                  <List.Item>50 reviews for Ethiopian restaurants</List.Item>
+                  <List.Item>30 reviews for kosher delis</List.Item>
+                  <List.Item>20 reviews for vegan soul food places</List.Item>
+                  <List.Item>Your AI performs terribly: <strong>55% accuracy</strong> 😱</List.Item>
+                </List>
+              </Box>
+            </SimpleGrid>
+            <Alert color="yellow" variant="light" mt="md">
+              <Text size="sm" fw={600} mb="xs">The Dangerous Part:</Text>
+              <Text size="sm">
+                Your overall accuracy is still 94.5%! But for people who love Ethiopian food or need kosher options, 
+                your AI is useless—or worse, actively misleading. <strong>In healthcare, those "tail" patients could die from wrong predictions.</strong>
+              </Text>
+            </Alert>
+          </Box>
+        </Group>
+      </Paper>
+
+      {/* Visual Graphic */}
+      <Paper p="lg" radius="md" withBorder mb="xl" bg="gray.0">
+        <Text fw={700} size="lg" mb="md" ta="center">📈 The Distribution Problem Visualized</Text>
+        <Paper p="md" bg="dark.9" radius="md" mb="md">
+          <Code block style={{ color: '#4ade80', fontSize: '12px', lineHeight: '1.4' }}>
+{`
+                           NORMAL DISTRIBUTION CURVE
+                          (Your Training Data)
+
+                                    ╱‾‾‾‾‾╲
+                                   ╱       ╲
+                                  ╱         ╲
+                                 ╱           ╲
+                               ╱               ╲
+        ← LEFT TAIL          ╱                   ╲         RIGHT TAIL →
+        (Underrepresented)  ╱    CENTER (Most)     ╲    (Underrepresented)
+                           ╱      Common Cases       ╲
+                          ╱      85-95% of data       ╲
+        ●●●●           ╱╱         ○○○○○○○○○            ╲╲            ●●●●
+        ●●●●●        ╱╱            ○○○○○○○○○             ╲╲         ●●●●●
+        ●●●●●●     ╱╱              ○○○○○○○○○              ╲╲      ●●●●●●
+        ───────────┴─────────────────────────────────────────┴───────────
+       Rare         │                                       │        Rare
+       diseases     │         Typical patients              │     conditions
+       Minorities   │         Common symptoms               │     Edge cases
+       Edge cases   │         Well-represented              │     Outliers
+                    │                                       │
+       📊 2-5%     │          📊 90-95%                    │    📊 2-5%
+       FAIL RATE:  │          FAIL RATE:                   │    FAIL RATE:
+       30-50% ⚠️   │          2-5% ✓                       │    30-50% ⚠️
+
+
+                      ⚡ THE CRITICAL INSIGHT ⚡
+        Your AI learns patterns from the CENTER but fails at the TAILS
+                 Yet the tails represent REAL PATIENTS!
+`}
+          </Code>
+        </Paper>
+        <Alert icon={<IconAlertTriangle />} color="red" mt="md">
+          <Text size="sm" fw={600} mb="xs">Why This Matters in Healthcare AI:</Text>
+          <Text size="sm">
+            A model with 95% overall accuracy might have 98% accuracy for white males age 40-60 (the center) 
+            but only 60% accuracy for elderly Asian women with rare conditions (the tail). <strong>Publishing "95% accurate" 
+            hides catastrophic failure for vulnerable populations.</strong>
+          </Text>
+        </Alert>
+      </Paper>
+
       <Alert 
         icon={<IconAlertTriangle size={20} />} 
         title="Even with massive data, you MUST evaluate the tails" 

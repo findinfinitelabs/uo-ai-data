@@ -17,6 +17,7 @@ import {
   Divider,
   Container,
   Collapse,
+  ScrollArea,
 } from '@mantine/core';
 import {
   IconFileText,
@@ -136,15 +137,16 @@ function AppLayout() {
         </Group>
         <Divider color="rgba(254, 225, 26, 0.3)" mb="md" />
 
-        <NavLink
-          component={Link}
-          to="/"
-          label="Home"
-          leftSection={<IconHome size={20} stroke={1.5} />}
-          mb="xs"
-          className="nav-link"
-          active={location.pathname === '/'}
-        />
+        <ScrollArea style={{ height: 'calc(100vh - 160px)' }} type="auto">
+          <NavLink
+            component={Link}
+            to="/"
+            label="Home"
+            leftSection={<IconHome size={20} stroke={1.5} />}
+            mb="xs"
+            className="nav-link"
+            active={location.pathname === '/'}
+          />
 
         <NavLink
           component={Link}
@@ -389,6 +391,7 @@ function AppLayout() {
             />
           );
         })}
+        </ScrollArea>
       </AppShell.Navbar>
       <AppShell.Main style={{ paddingTop: 56 }}>
         <ReadingProgress />

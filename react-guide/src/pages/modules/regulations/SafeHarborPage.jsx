@@ -14,6 +14,13 @@ import {
   Card,
   SimpleGrid,
   Alert,
+  Modal,
+  Button,
+  Anchor,
+  Textarea,
+  CopyButton,
+  ActionIcon,
+  Tooltip,
 } from '@mantine/core';
 import {
   IconShieldCheck,
@@ -27,10 +34,16 @@ import {
   IconCalendar,
   IconAlertCircle,
   IconDoorEnter,
+  IconInfoCircle,
+  IconBuildingBank,
+  IconShield,
+  IconCopy,
+  IconCheck,
 } from '@tabler/icons-react';
 
 const SafeHarborPage = () => {
   const [activeStage, setActiveStage] = useState(null);
+  const [policyModalOpened, setPolicyModalOpened] = useState(false);
 
   // The 18 HIPAA Safe Harbor identifiers
   const identifiers = [
@@ -253,9 +266,252 @@ const SafeHarborPage = () => {
       </Alert>
 
       {/* The 18 Identifiers */}
+      <Modal
+        opened={policyModalOpened}
+        onClose={() => setPolicyModalOpened(false)}
+        title="What is a Data Policy?"
+        size="lg"
+        centered
+      >
+        <Box>
+          <Group mb="md">
+            <ThemeIcon size={40} radius="md" color="blue" variant="light">
+              <IconShield size={24} />
+            </ThemeIcon>
+            <Box>
+              <Text fw={600} size="lg">Data Policy Definition</Text>
+              <Text size="sm" c="dimmed">A formal framework for data governance</Text>
+            </Box>
+          </Group>
+
+          <Text mb="md">
+            A <strong>data policy</strong> is a formal document that establishes rules, guidelines, and procedures 
+            for how an organization collects, stores, processes, shares, and protects data throughout its lifecycle.
+          </Text>
+
+          <Divider my="md" />
+
+          <Title order={4} mb="md">Key Components of a Data Policy</Title>
+          <List spacing="sm" mb="md">
+            <List.Item>
+              <Text fw={600}>Data Classification:</Text> Categorizing data by sensitivity (public, internal, confidential, restricted)
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Access Controls:</Text> Who can access what data and under what circumstances
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Data Handling Procedures:</Text> How data should be collected, stored, transmitted, and disposed of
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Compliance Requirements:</Text> Legal and regulatory obligations (HIPAA, GDPR, etc.)
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Breach Response:</Text> Procedures for handling data incidents and breaches
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Audit and Monitoring:</Text> How compliance is tracked and verified
+            </List.Item>
+          </List>
+
+          <Divider my="md" />
+
+          <Title order={4} mb="md">How It Fits Into Business</Title>
+          <Paper p="md" bg="blue.0" radius="md" mb="md">
+            <Group mb="xs">
+              <IconBuildingBank size={20} />
+              <Text fw={600}>Business Integration</Text>
+            </Group>
+            <Text size="sm" mb="xs">
+              A data policy serves as the foundation for:
+            </Text>
+            <List size="sm" spacing="xs">
+              <List.Item>Protecting the organization from legal liability and regulatory fines</List.Item>
+              <List.Item>Building customer trust through transparent data practices</List.Item>
+              <List.Item>Enabling secure data-driven decision making and AI initiatives</List.Item>
+              <List.Item>Establishing accountability across departments and roles</List.Item>
+              <List.Item>Reducing risk of data breaches and associated costs</List.Item>
+              <List.Item>Supporting business continuity and disaster recovery</List.Item>
+            </List>
+          </Paper>
+
+          <Alert icon={<IconInfoCircle />} color="green" mb="md">
+            <Text size="sm" fw={600} mb="xs">For Healthcare AI:</Text>
+            <Text size="sm">
+              Your data policy must explicitly address the 18 HIPAA identifiers and specify 
+              de-identification methods (Safe Harbor or Expert Determination) to ensure compliance 
+              when using patient data for AI training and analytics.
+            </Text>
+          </Alert>
+
+          <Divider my="md" />
+
+          <Title order={4} mb="md">Prompt to Create Your Policy</Title>
+          <Text size="sm" mb="sm" c="dimmed">
+            Use this prompt with an AI assistant or as a guide to write your data policy:
+          </Text>
+          <Paper p="md" bg="gray.0" radius="md" mb="md" style={{ position: 'relative' }}>
+            <Group justify="space-between" mb="xs">
+              <Text size="xs" fw={600} tt="uppercase" c="dimmed">AI Prompt Template</Text>
+              <CopyButton value={`Create a comprehensive data handling and de-identification policy for a healthcare AI project that addresses all 18 HIPAA Safe Harbor identifiers. The policy should include:
+
+1. An executive summary explaining the purpose and scope of the policy
+2. Definitions of key terms (PHI, de-identification, Safe Harbor method)
+3. A detailed section for each of the 18 HIPAA identifiers with:
+   - What the identifier is and examples
+   - When and where it's collected in our healthcare workflow
+   - Specific procedures for removing or generalizing it
+   - Technical implementation details
+   - Exceptions or special cases
+
+4. Data lifecycle procedures:
+   - Collection and initial storage
+   - Processing and analysis
+   - De-identification workflow
+   - Quality assurance and validation
+   - Secure disposal
+
+5. Roles and responsibilities:
+   - Data steward
+   - Privacy officer
+   - IT security team
+   - Department heads
+   - External partners/vendors
+
+6. Compliance and audit:
+   - Documentation requirements
+   - Regular audit procedures
+   - Re-identification risk assessment
+   - Incident response procedures
+
+7. Training requirements for staff
+
+8. Policy review and update schedule
+
+The 18 HIPAA Safe Harbor Identifiers to address:
+1. Names (individual, relatives, employers)
+2. Geographic subdivisions smaller than state (except first 3 ZIP digits if population ≥ 20,000)
+3. Dates (birth, admission, discharge, death - keep year only)
+4. Phone numbers
+5. Fax numbers
+6. Email addresses
+7. Social Security Numbers
+8. Medical Record Numbers (MRNs)
+9. Health Plan beneficiary numbers
+10. Account numbers
+11. Certificate/license numbers
+12. Vehicle identifiers and serial numbers
+13. Device identifiers and serial numbers
+14. Web URLs
+15. IP addresses
+16. Biometric identifiers
+17. Full-face photos and comparable images
+18. Any other unique identifying number, characteristic, or code
+
+Format the policy in a professional business document style with clear sections, numbered lists, and practical examples relevant to a healthcare AI system that processes patient data for training machine learning models.`}>
+                {({ copied, copy }) => (
+                  <Tooltip label={copied ? 'Copied!' : 'Copy prompt'} withArrow position="left">
+                    <ActionIcon color={copied ? 'teal' : 'gray'} variant="subtle" onClick={copy}>
+                      {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+              </CopyButton>
+            </Group>
+            <Textarea
+              readOnly
+              autosize
+              minRows={8}
+              maxRows={15}
+              value={`Create a comprehensive data handling and de-identification policy for a healthcare AI project that addresses all 18 HIPAA Safe Harbor identifiers. The policy should include:
+
+1. An executive summary explaining the purpose and scope of the policy
+2. Definitions of key terms (PHI, de-identification, Safe Harbor method)
+3. A detailed section for each of the 18 HIPAA identifiers with:
+   - What the identifier is and examples
+   - When and where it's collected in our healthcare workflow
+   - Specific procedures for removing or generalizing it
+   - Technical implementation details
+   - Exceptions or special cases
+
+4. Data lifecycle procedures:
+   - Collection and initial storage
+   - Processing and analysis
+   - De-identification workflow
+   - Quality assurance and validation
+   - Secure disposal
+
+5. Roles and responsibilities:
+   - Data steward
+   - Privacy officer
+   - IT security team
+   - Department heads
+   - External partners/vendors
+
+6. Compliance and audit:
+   - Documentation requirements
+   - Regular audit procedures
+   - Re-identification risk assessment
+   - Incident response procedures
+
+7. Training requirements for staff
+
+8. Policy review and update schedule
+
+The 18 HIPAA Safe Harbor Identifiers to address:
+1. Names (individual, relatives, employers)
+2. Geographic subdivisions smaller than state (except first 3 ZIP digits if population ≥ 20,000)
+3. Dates (birth, admission, discharge, death - keep year only)
+4. Phone numbers
+5. Fax numbers
+6. Email addresses
+7. Social Security Numbers
+8. Medical Record Numbers (MRNs)
+9. Health Plan beneficiary numbers
+10. Account numbers
+11. Certificate/license numbers
+12. Vehicle identifiers and serial numbers
+13. Device identifiers and serial numbers
+14. Web URLs
+15. IP addresses
+16. Biometric identifiers
+17. Full-face photos and comparable images
+18. Any other unique identifying number, characteristic, or code
+
+Format the policy in a professional business document style with clear sections, numbered lists, and practical examples relevant to a healthcare AI system that processes patient data for training machine learning models.`}
+              styles={{
+                input: {
+                  fontFamily: 'monospace',
+                  fontSize: '12px',
+                  backgroundColor: 'white',
+                },
+              }}
+            />
+          </Paper>
+
+          <Group justify="flex-end">
+            <Button onClick={() => setPolicyModalOpened(false)}>Got it</Button>
+          </Group>
+        </Box>
+      </Modal>
+
       <Paper p="lg" mb="xl" withBorder>
         <Title order={2} mb="md">The 18 HIPAA Safe Harbor Identifiers</Title>
         <Text c="dimmed" mb="lg">All of these must be removed or generalized for proper de-identification:</Text>
+        <Text fw={700} size="lg" mb="lg">
+          Assignment: Write a{' '}
+          <Anchor
+            component="button"
+            type="button"
+            onClick={() => setPolicyModalOpened(true)}
+            fw={700}
+            c="blue"
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}
+          >
+            policy
+          </Anchor>
+          {' '}that includes all of these identifiers and how they should be handled.
+        </Text>
+
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
           {identifiers.map((identifier) => (
             <Card key={identifier.id} padding="md" radius="md" withBorder>
@@ -272,7 +528,7 @@ const SafeHarborPage = () => {
       {/* Patient Journey Timeline */}
       <Title order={2} mb="md">Patient Journey: Identifiers at Each Stage</Title>
       <Text c="dimmed" mb="xl">
-        Follow a patient's journey through a healthcare facility to see which identifiers are collected and used at each stage.
+        Follow a patient&apos;s journey through a healthcare facility to see which identifiers are collected and used at each stage.
         Click on any stage to see details about de-identification requirements and AI use cases.
       </Text>
 
@@ -369,7 +625,7 @@ const SafeHarborPage = () => {
             <Text fw={600}>AI Training Implications:</Text> De-identified data can be used for AI training without individual patient authorization
           </List.Item>
           <List.Item>
-            <Text fw={600}>Device and Technical IDs:</Text> Don't forget non-obvious identifiers like device serial numbers, IP addresses, and URLs
+            <Text fw={600}>Device and Technical IDs:</Text> Do not forget non-obvious identifiers like device serial numbers, IP addresses, and URLs
           </List.Item>
           <List.Item>
             <Text fw={600}>Generalization vs. Removal:</Text> Some identifiers like dates and ZIP codes can be generalized instead of completely removed
