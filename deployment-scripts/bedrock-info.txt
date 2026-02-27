@@ -2,7 +2,7 @@ AWS Bedrock Configuration
 =========================
 Region: us-west-2
 Account: 547741150715
-Configured: Wed Feb 25 19:45:13 HST 2026
+Configured: Fri Feb 27 10:17:20 PST 2026
 
 IAM Configuration:
 ==================
