@@ -41,6 +41,7 @@ const subPages = {
     icon: IconShieldCheck,
     color: 'blue',
     content: <SafeHarborPage />,
+    type: 'assignment',
   },
   'expert-determination': {
     title: 'Expert Determination',
@@ -48,6 +49,7 @@ const subPages = {
     icon: IconScale,
     color: 'indigo',
     content: <ExpertDeterminationPage />,
+    type: 'quiz',
   },
   'data-handling': {
     title: 'Data Handling Policies',
@@ -55,6 +57,7 @@ const subPages = {
     icon: IconFileText,
     color: 'cyan',
     content: <DataHandlingPage />,
+    type: 'assignment',
   },
   'compliance-checklist': {
     title: 'Compliance Checklist',
@@ -62,6 +65,7 @@ const subPages = {
     icon: IconCircleCheck,
     color: 'grape',
     content: <ComplianceChecklistPage />,
+    type: 'interactive',
   },
 };
 
@@ -87,7 +91,7 @@ const RegulationsHomePage = () => {
           This module covers the essential compliance frameworks, de-identification methods, and best practices for building 
           HIPAA-compliant AI systems.
         </Text>
-        <Text fw={600} mb="xs">What You'll Learn:</Text>
+        <Text fw={600} mb="xs">What You will Learn:</Text>
         <Text size="sm">
           • HIPAA Safe Harbor and Expert Determination de-identification methods
           <br />
@@ -104,6 +108,16 @@ const RegulationsHomePage = () => {
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
         {Object.entries(subPages).map(([key, page]) => {
           const PageIcon = page.icon;
+          const typeColors = {
+            quiz: 'orange',
+            assignment: 'green',
+            interactive: 'violet',
+          };
+          const typeLabels = {
+            quiz: 'Quiz',
+            assignment: 'Assignment',
+            interactive: 'Interactive',
+          };
           return (
             <Card
               key={key}
@@ -115,15 +129,18 @@ const RegulationsHomePage = () => {
               to={`/regulations/${key}`}
               style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
             >
-              <Group mb="md">
+              <Group mb="xs" justify="space-between">
                 <ThemeIcon size={60} radius="md" color={page.color} variant="light">
                   <PageIcon size={30} />
                 </ThemeIcon>
-                <Box style={{ flex: 1 }}>
-                  <Text fw={600} size="lg" mb="xs">{page.title}</Text>
-                  <Text size="sm" c="dimmed">{page.subtitle}</Text>
-                </Box>
+                <Badge size="lg" color={typeColors[page.type]} variant="filled">
+                  {typeLabels[page.type]}
+                </Badge>
               </Group>
+              <Box mb="md">
+                <Text fw={600} size="lg" mb="xs">{page.title}</Text>
+                <Text size="sm" c="dimmed">{page.subtitle}</Text>
+              </Box>
               <Group justify="flex-end" mt="md">
                 <Button
                   variant="light"
