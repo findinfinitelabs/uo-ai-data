@@ -179,33 +179,10 @@ fi
 print_success "AWS CLI installed"
 
 # Check if AWS credentials are configured
-if ! aws sts get-caller-identity &> /dev/null; then
-    print_error "AWS credentials not configured or invalid"
-    log ""
-    log -e "${YELLOW}No valid AWS credentials found!${NC}"
-    log ""
-    log "Your AWS credentials need to be configured before deployment."
-    log ""
-    log "For federated/SSO accounts (like yours with account 375523929321):"
-    log "  1. Run the setup wizard:"
-    log "     ./setup-aws-credentials.sh"
-    log ""
-    log "  2. Or manually configure SSO:"
-    log "     aws configure sso"
-    log "     aws sso login --profile YOUR_PROFILE"
-    log "     export AWS_PROFILE=YOUR_PROFILE"
-    log ""
-    log "For standard IAM users:"
-    log "  1. Run: aws configure"
-    log "  2. Enter your Access Key ID and Secret Access Key"
-    log ""
-    log "After configuring credentials, run this script again."
-    log ""
-    exit 1
-fi
+aws sts get-caller-identity --profile uo-innovation
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
-USER_ARN=$(aws sts get-caller-identity --query Arn --output text 2>/dev/null)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
+USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
 
 print_success "AWS credentials verified"
 log "  Account ID: ${ACCOUNT_ID}"
