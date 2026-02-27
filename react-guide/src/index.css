@@ -80,6 +80,7 @@ body {
 .app-navbar,
 .app-navbar.mantine-AppShell-navbar {
   background-color: var(--uo-green) !important;
+  z-index: 100 !important;
 }
 
 /* NavLink */
@@ -115,6 +116,7 @@ body {
 .app-footer,
 .app-footer.mantine-AppShell-footer {
   background-color: var(--uo-green) !important;
+  z-index: 200 !important;
 }
 
 .footer-logo {
