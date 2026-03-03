@@ -179,10 +179,10 @@ fi
 print_success "AWS CLI installed"
 
 # Check if AWS credentials are configured
-aws sts get-caller-identity --profile uo-innovation
+aws sts get-caller-identity --profile uo-innovation --profile uo-innovation
 
-ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
-USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --profile uo-innovation --query Account --output text 2>/dev/null)
+USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --profile uo-innovation --query Arn --output text 2>/dev/null)
 
 print_success "AWS credentials verified"
 log "  Account ID: ${ACCOUNT_ID}"

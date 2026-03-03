@@ -95,7 +95,7 @@ print_status "eksctl installed"
 echo ""
 echo -e "${BLUE}Step 2: Verifying AWS Credentials${NC}"
 
-if ! aws sts get-caller-identity &>/dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &>/dev/null; then
     print_error "AWS credentials are not configured"
     echo ""
     echo "Please run: aws configure"
@@ -103,8 +103,8 @@ if ! aws sts get-caller-identity &>/dev/null; then
     exit 1
 fi
 
-AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
-AWS_USER=$(aws sts get-caller-identity --query Arn --output text)
+AWS_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
+AWS_USER=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text)
 
 # Update resource group name with account number if using default
 if [ "$RESOURCE_GROUP" = "dataai-account-student0001" ]; then

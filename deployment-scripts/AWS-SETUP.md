@@ -56,7 +56,7 @@ echo 'export AWS_PROFILE=healthcare-prod' >> ~/.bashrc
 #### Step 4: Verify Access
 
 ```bash
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 You should see:
@@ -104,7 +104,7 @@ Enter:
 #### Step 3: Verify
 
 ```bash
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 #### Step 4: Deploy
@@ -278,10 +278,10 @@ Before deploying, verify:
 aws --version
 
 # 2. Credentials work
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # 3. Correct account (should show 375523929321 for you)
-aws sts get-caller-identity --query Account --output text
+aws sts get-caller-identity --profile uo-innovation --query Account --output text
 
 # 4. Can access EKS
 aws eks list-clusters --region us-east-1
@@ -358,7 +358,7 @@ echo "AWS_PROFILE=healthcare-prod" >> config.env
 ### Step 5: Verify Access
 
 ```bash
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 # Should show Account: 375523929321
 
 # Check permissions

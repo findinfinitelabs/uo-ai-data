@@ -52,13 +52,13 @@ if ! command_exists aws; then
 fi
 print_status "AWS CLI installed"
 
-if ! aws sts get-caller-identity &>/dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &>/dev/null; then
     print_error "AWS credentials not configured"
     exit 1
 fi
 print_status "AWS credentials configured"
 
-AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+AWS_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
 print_status "AWS Account: ${AWS_ACCOUNT}"
 
 # Step 2: Check Bedrock Availability

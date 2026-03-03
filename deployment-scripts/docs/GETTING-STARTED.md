@@ -68,7 +68,7 @@ aws sso login --profile healthcare-prod
 export AWS_PROFILE=healthcare-prod
 
 # Verify access
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 # Should show: "Account": "375523929321"
 ```
 
@@ -184,7 +184,7 @@ kubectl port-forward -n ollama svc/healthcare-ai-bridge 8080:8080
 
 ```bash
 # Check current credentials
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # If SSO expired
 aws sso login --profile healthcare-prod
@@ -250,7 +250,7 @@ eksctl delete cluster --name ollama-ai-cluster --region us-east-1
 
 1. Check the error message in terminal
 2. Look in `deployment-*.log` for details
-3. Verify AWS credentials: `aws sts get-caller-identity`
+3. Verify AWS credentials: `aws sts get-caller-identity --profile uo-innovation`
 4. Check permissions: `./create-iam-policy.sh`
 5. Review [AWS-SETUP.md](./AWS-SETUP.md) for detailed troubleshooting
 

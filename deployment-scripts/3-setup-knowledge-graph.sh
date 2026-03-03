@@ -49,7 +49,7 @@ if ! command_exists aws; then
 fi
 print_status "AWS CLI installed"
 
-if ! aws sts get-caller-identity &>/dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &>/dev/null; then
     print_error "AWS credentials not configured"
     exit 1
 fi

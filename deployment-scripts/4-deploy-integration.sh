@@ -1137,7 +1137,7 @@ echo -e "${BLUE}Step 4: Container Registry${NC}"
 read -p "Push to AWS ECR? (y/n): " -r
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+    AWS_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
     ECR_REPO="${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}"
     
     echo "Creating ECR repository..."

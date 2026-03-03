@@ -301,7 +301,7 @@ Default output format [None]: json
 aws --version
 
 # Test authentication
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 Expected output:

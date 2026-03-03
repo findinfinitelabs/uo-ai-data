@@ -47,11 +47,11 @@ echo ""
 echo -e "${BLUE}Checking current AWS configuration...${NC}"
 echo ""
 
-if aws sts get-caller-identity &> /dev/null; then
+if aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
     echo -e "${GREEN}✓ AWS credentials are already configured!${NC}"
     echo ""
-    CURRENT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
-    CURRENT_USER=$(aws sts get-caller-identity --query Arn --output text 2>/dev/null)
+    CURRENT_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
+    CURRENT_USER=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
     CURRENT_REGION=$(aws configure get region 2>/dev/null || echo "us-east-1")
     
     echo "Current Configuration:"
@@ -115,10 +115,10 @@ case $AUTH_OPTION in
         aws configure set output json
         
         # Verify
-        if aws sts get-caller-identity &> /dev/null; then
+        if aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
             echo ""
             echo -e "${GREEN}✓ AWS credentials configured successfully!${NC}"
-            ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+            ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
             echo "  Account ID: ${ACCOUNT}"
         else
             echo ""
@@ -150,7 +150,7 @@ case $AUTH_OPTION in
         echo "   export AWS_PROFILE=YOUR_PROFILE_NAME"
         echo ""
         echo "4. Verify access:"
-        echo "   aws sts get-caller-identity"
+        echo "   aws sts get-caller-identity --profile uo-innovation"
         echo ""
         read -p "Have you completed SSO setup? (yes/no): " -r
         
@@ -159,14 +159,14 @@ case $AUTH_OPTION in
             read -p "Enter your AWS SSO profile name: " SSO_PROFILE
             
             # Try to use the profile
-            if aws sts get-caller-identity --profile "$SSO_PROFILE" &> /dev/null; then
+            if aws sts get-caller-identity --profile uo-innovation --profile "$SSO_PROFILE" &> /dev/null; then
                 echo ""
                 echo -e "${GREEN}✓ SSO profile verified!${NC}"
                 
                 # Get full AWS identity information
-                ACCOUNT_ID=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query Account --output text 2>/dev/null)
-                USER_ID=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query UserId --output text 2>/dev/null)
-                ARN=$(aws sts get-caller-identity --profile "$SSO_PROFILE" --query Arn --output text 2>/dev/null)
+                ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --profile "$SSO_PROFILE" --query Account --output text 2>/dev/null)
+                USER_ID=$(aws sts get-caller-identity --profile uo-innovation --profile "$SSO_PROFILE" --query UserId --output text 2>/dev/null)
+                ARN=$(aws sts get-caller-identity --profile uo-innovation --profile "$SSO_PROFILE" --query Arn --output text 2>/dev/null)
                 REGION=$(aws configure get region --profile "$SSO_PROFILE" 2>/dev/null || echo "us-west-2")
                 
                 # Create/update .env file
@@ -268,14 +268,14 @@ EOF
         echo ""
         read -p "Enter profile name to use: " PROFILE_NAME
         
-        if aws sts get-caller-identity --profile "$PROFILE_NAME" &> /dev/null; then
+        if aws sts get-caller-identity --profile uo-innovation --profile "$PROFILE_NAME" &> /dev/null; then
             echo ""
             echo -e "${GREEN}✓ Profile verified!${NC}"
             
             # Get full AWS identity information
-            ACCOUNT_ID=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query Account --output text 2>/dev/null)
-            USER_ID=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query UserId --output text 2>/dev/null)
-            ARN=$(aws sts get-caller-identity --profile "$PROFILE_NAME" --query Arn --output text 2>/dev/null)
+            ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --profile "$PROFILE_NAME" --query Account --output text 2>/dev/null)
+            USER_ID=$(aws sts get-caller-identity --profile uo-innovation --profile "$PROFILE_NAME" --query UserId --output text 2>/dev/null)
+            ARN=$(aws sts get-caller-identity --profile uo-innovation --profile "$PROFILE_NAME" --query Arn --output text 2>/dev/null)
             REGION=$(aws configure get region --profile "$PROFILE_NAME" 2>/dev/null || echo "us-west-2")
             
             # Create/update .env file
@@ -374,7 +374,7 @@ EOF
         read -p "Have you set these variables? (yes/no): " -r
         
         if [[ $REPLY =~ ^[Yy](es)?$ ]]; then
-            if aws sts get-caller-identity &> /dev/null; then
+            if aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
                 echo ""
                 echo -e "${GREEN}✓ Credentials verified!${NC}"
             else
@@ -402,8 +402,8 @@ echo -e "${BOLD}${CYAN}   Verifying AWS Access${NC}"
 echo -e "${BOLD}${CYAN}============================================${NC}"
 echo ""
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
-USER_ARN=$(aws sts get-caller-identity --query Arn --output text 2>/dev/null)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
+USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
 REGION=$(aws configure get region 2>/dev/null || echo "us-east-1")
 
 if [ -z "$ACCOUNT_ID" ]; then

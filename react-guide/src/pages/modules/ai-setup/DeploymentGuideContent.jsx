@@ -255,7 +255,7 @@ export AWS_PROFILE=dataai-christol  # Use your profile name
                         <strong>Phase 2:</strong> Loads .env configuration and verifies AWS credentials
                       </Text>
                       <Text size="sm">
-                        <strong>Phase 3:</strong> Tests AWS connectivity with `aws sts get-caller-identity`
+                        <strong>Phase 3:</strong> Tests AWS connectivity with `aws sts get-caller-identity --profile uo-innovation`
                       </Text>
                       <Text size="sm">
                         <strong>Phase 4:</strong> Creates resource tagging strategy using your Student ID

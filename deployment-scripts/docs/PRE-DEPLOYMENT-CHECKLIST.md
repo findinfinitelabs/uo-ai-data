@@ -55,7 +55,7 @@ export AWS_PROFILE=uo-innovation
 ### 1.3 Verify Credentials
 
 ```bash
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 **Expected output**:
@@ -71,7 +71,7 @@ aws sts get-caller-identity
 - [ ] AWS CLI installed (v2.x or higher)
 - [ ] SSO configured (profile created)
 - [ ] Successfully logged in
-- [ ] `aws sts get-caller-identity` works
+- [ ] `aws sts get-caller-identity --profile uo-innovation` works
 - [ ] Account ID matches Innovation Sandbox (e.g., 375523929321)
 
 ---
@@ -210,7 +210,7 @@ aws bedrock list-foundation-models --region us-east-1
 ### 3.5 Test IAM Permissions
 
 ```bash
-aws iam get-user 2>/dev/null || aws sts get-caller-identity
+aws iam get-user 2>/dev/null || aws sts get-caller-identity --profile uo-innovation
 ```
 
 **Expected**: Your user/role information
@@ -324,7 +324,7 @@ EOF
 
 # Create budget
 aws budgets create-budget \
-    --account-id $(aws sts get-caller-identity --query Account --output text) \
+    --account-id $(aws sts get-caller-identity --profile uo-innovation --query Account --output text) \
     --budget file://budget-config.json
 ```
 
@@ -477,8 +477,8 @@ else
 fi
 
 # AWS Auth
-if aws sts get-caller-identity &> /dev/null; then
-    ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+if aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
+    ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
     echo "✓ AWS Authenticated: Account $ACCOUNT"
 else
     echo "✗ AWS Authentication: FAILED"
