@@ -29,16 +29,24 @@ aws configure sso
 
 You'll be prompted for:
 
-- **SSO start URL**: Provided by your IT/AWS admin (e.g., `https://your-org.awsapps.com/start`)
-- **SSO region**: Usually `us-east-1` (where SSO service runs)
-- **Account ID**: Your AWS account (e.g., `375523929321`)
-- **Role name**: The role you want to assume (e.g., `PowerUserAccess`)
-- **Profile name**: A name for this configuration (e.g., `healthcare-prod`)
+- **SSO session name**: `<your DuckID>`
+- **SSO start URL**: `https://d-9267f25f0e.awsapps.com/start/#`
+- **SSO region**: `us-west-2`
+- **SSO Registration Scopes**: `sso:account:access`
+
+Then, a URL will be printed in the console (`https://oidc.us-west-2.amazonaws.com/authorize?...`). Ctrl+click this link to open it in a browser window.
+You will be prompted to authorize via UO's Duo authorization.  
+Once you've done this, close the browser and return to VSCode.  
+You should be prompted for:
+
+- **Default client region**: `us-west-2`
+- **CLI default output format**: `json`
+- **Profile name**: `uo-innovation`
 
 #### Step 2: Login to SSO
 
 ```bash
-aws sso login --profile healthcare-prod
+aws sso login --profile uo-innovation
 ```
 
 This opens your browser to authenticate via SSO.
@@ -47,10 +55,10 @@ This opens your browser to authenticate via SSO.
 
 ```bash
 # In your current shell
-export AWS_PROFILE=healthcare-prod
+export AWS_PROFILE=uo-innovation
 
 # Or add to ~/.bashrc or ~/.zshrc to persist
-echo 'export AWS_PROFILE=healthcare-prod' >> ~/.bashrc
+echo 'export AWS_PROFILE=uo-innovation' >> ~/.bashrc
 ```
 
 #### Step 4: Verify Access
