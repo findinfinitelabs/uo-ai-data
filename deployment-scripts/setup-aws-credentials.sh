@@ -194,7 +194,7 @@ AWS_ARN=$ARN
 # EKS Cluster Configuration
 # ============================================
 CLUSTER_NAME=ollama-ai-cluster
-K8S_VERSION=1.28
+K8S_VERSION=1.35
 GPU_INSTANCE_TYPE=g4dn.xlarge
 GPU_NODE_COUNT=1
 
