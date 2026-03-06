@@ -47,7 +47,7 @@ echo ""
 echo -e "${BLUE}Checking current AWS configuration...${NC}"
 echo ""
 
-if aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
+if aws sts get-caller-identity &> /dev/null; then
     echo -e "${GREEN}✓ AWS credentials are already configured!${NC}"
     echo ""
     CURRENT_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
@@ -159,7 +159,7 @@ case $AUTH_OPTION in
             read -p "Enter your AWS SSO profile name: " SSO_PROFILE
             
             # Try to use the profile
-            if aws sts get-caller-identity --profile uo-innovation --profile "$SSO_PROFILE" &> /dev/null; then
+            if aws sts get-caller-identity --profile "$SSO_PROFILE" &> /dev/null; then
                 echo ""
                 echo -e "${GREEN}✓ SSO profile verified!${NC}"
                 
@@ -461,19 +461,15 @@ for service in "${REQUIRED_SERVICES[@]}"; do
             fi
             ;;
         iam)
-          Configuration saved to .env file"
-    echo ""
-    echo "Next steps:"
-    echo "  1. Review .env file (optional)"
-    echo "     cat .env"
-    echo ""
-    echo "  2. Run deployment:"
-    echo "     ./deploy-all.sh"
-    echo ""
-    echo "Note: The .env file will be automatically loaded by cho -e "  ${GREEN}✓${NC} Bedrock access"
-            else
-                echo -e "  ${YELLOW}⚠${NC} Bedrock access (optional)"
-            fi
+            echo "Configuration saved to .env file"
+            echo ""
+            echo "Next steps:"
+            echo "  1. Review .env file {optional}"
+            echo "     cat .env"
+            echo ""
+            echo "  2. Run deployment:"
+            echo "     ./deploy-all.sh"
+            echo ""
             ;;
     esac
 done
