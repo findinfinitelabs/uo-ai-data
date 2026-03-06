@@ -179,10 +179,15 @@ fi
 print_success "AWS CLI installed"
 
 # Check if AWS credentials are configured
-aws sts get-caller-identity --profile uo-innovation --profile uo-innovation
+if aws sts get-caller-identity --profile uo-innovation > /dev/null 2>&1; then
+    print_success "AWS credentials set"
+else
+    print_error "AWS credentials not set. Run `aws configure sso` and then setup-aws-credentials.sh"
+    exit 1
+fi
 
-ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --profile uo-innovation --query Account --output text 2>/dev/null)
-USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --profile uo-innovation --query Arn --output text 2>/dev/null)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
+USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
 
 print_success "AWS credentials verified"
 log "  Account ID: ${ACCOUNT_ID}"
@@ -192,11 +197,11 @@ log ""
 # Prompt for Student Number
 if [ "$SKIP_CONFIRMATION" = false ]; then
     log -e "${BLUE}Student Identification${NC}"
-    read -p "Enter your student number (e.g., student0001): " -r STUDENT_ID
+    read -p "Enter your DuckID (e.g., wgoodson): " -r STUDENT_ID
     
     # Validate input
     if [ -z "$STUDENT_ID" ]; then
-        print_error "Student number is required"
+        print_error "DuckID is required"
         exit 1
     fi
     
