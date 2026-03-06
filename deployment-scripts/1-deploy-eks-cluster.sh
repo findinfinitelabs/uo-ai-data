@@ -259,7 +259,7 @@ echo -e "${BLUE}Step 5: Deploying EKS Cluster${NC}"
 echo "This will take 15-20 minutes..."
 echo ""
 
-if eksctl create cluster -f /tmp/eks-cluster-config.yaml; then
+if eksctl create cluster -f /tmp/eks-cluster-config.yaml --profile=uo-innovation; then
     print_status "EKS cluster created successfully!"
 else
     print_error "Failed to create EKS cluster"
