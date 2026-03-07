@@ -270,7 +270,7 @@ fi
 echo ""
 echo -e "${BLUE}Step 6: Updating kubeconfig${NC}"
 
-aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
+aws eks update-kubeconfig --profile uo-innovation --region ${AWS_REGION} --name ${CLUSTER_NAME}
 print_status "kubeconfig updated"
 
 # Step 7: Verify Cluster
