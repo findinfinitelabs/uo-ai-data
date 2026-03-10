@@ -14,9 +14,13 @@ NC='\033[0m'
 
 # Configuration
 NAMESPACE="${OLLAMA_NAMESPACE:-ollama}"
-OLLAMA_REPLICAS="${OLLAMA_REPLICAS:-2}"
+# Changed default replicas from 2 to 1.
+OLLAMA_REPLICAS="${OLLAMA_REPLICAS:-1}"
 STORAGE_SIZE="${STORAGE_SIZE:-50Gi}"
 OLLAMA_VERSION="${OLLAMA_VERSION:-latest}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
+USE_GPU="${USE_GPU:-false}"
+SKIP_CONFIRMATION="${SKIP_CONFIRMATION:-false}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Ollama Installation on EKS${NC}"
@@ -51,7 +55,8 @@ print_status "kubectl installed"
 
 if ! kubectl cluster-info &>/dev/null; then
     print_error "Not connected to any Kubernetes cluster"
-    echo "Run: aws eks update-kubeconfig --region us-east-1 --name ollama-ai-cluster"
+    # FIX: Replaced hardcoded us-east-1 with ${AWS_REGION} variable.
+    echo "Run: aws eks update-kubeconfig --region ${AWS_REGION} --name ollama-ai-cluster"
     exit 1
 fi
 print_status "Connected to Kubernetes cluster"
@@ -83,7 +88,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp3
+  storageClassName: gp2
   resources:
     requests:
       storage: ${STORAGE_SIZE}
@@ -100,6 +105,35 @@ print_status "Storage ready"
 # Step 4: Deploy Ollama
 echo ""
 echo -e "${BLUE}Step 4: Deploying Ollama${NC}"
+
+# GPU resource requests, nodeSelector, and tolerations are now
+# conditional on USE_GPU=true.
+if [ "$USE_GPU" = "true" ]; then
+    RESOURCE_BLOCK="        resources:
+          requests:
+            memory: \"4Gi\"
+            cpu: \"2\"
+            nvidia.com/gpu: \"1\"
+          limits:
+            memory: \"8Gi\"
+            cpu: \"4\"
+            nvidia.com/gpu: \"1\""
+    SCHEDULING_BLOCK="      nodeSelector:
+        workload: ai-inference
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule"
+else
+    RESOURCE_BLOCK="        resources:
+          requests:
+            memory: \"8Gi\"
+            cpu: \"2\"
+          limits:
+            memory: \"12Gi\"
+            cpu: \"4\""
+    SCHEDULING_BLOCK=""
+fi
 
 cat > /tmp/ollama-deployment.yaml <<EOF
 apiVersion: apps/v1
@@ -134,15 +168,7 @@ spec:
         volumeMounts:
         - name: ollama-models
           mountPath: /root/.ollama
-        resources:
-          requests:
-            memory: "4Gi"
-            cpu: "2"
-            nvidia.com/gpu: "1"
-          limits:
-            memory: "8Gi"
-            cpu: "4"
-            nvidia.com/gpu: "1"
+${RESOURCE_BLOCK}
         livenessProbe:
           httpGet:
             path: /
@@ -162,12 +188,7 @@ spec:
       - name: ollama-models
         persistentVolumeClaim:
           claimName: ollama-models
-      nodeSelector:
-        workload: ai-inference
-      tolerations:
-      - key: nvidia.com/gpu
-        operator: Exists
-        effect: NoSchedule
+${SCHEDULING_BLOCK}
 ---
 apiVersion: v1
 kind: Service
@@ -185,7 +206,9 @@ spec:
       targetPort: 11434
       name: http
   type: LoadBalancer
-  sessionAffinity: ClientIP
+  # Removed sessionAffinity: ClientIP. The classic AWS load balancer
+  # does not support ClientIP affinity and will fail to provision with
+  # "unsupported load balancer affinity: ClientIP" error.
 EOF
 
 kubectl apply -f /tmp/ollama-deployment.yaml
@@ -220,38 +243,41 @@ else
     OLLAMA_URL="http://localhost:11434"
 fi
 
-# Step 7: Pull AI Models
+# Step 7: Download AI Models
 echo ""
 echo -e "${BLUE}Step 7: Downloading AI Models${NC}"
+echo ""
+echo "Model strategy for this class:"
+echo "  - Mistral 7B (~4.1GB) is the only required model."
+echo "  - It serves as the Ollama fallback backend when Bedrock is unavailable."
+echo "  - AWS Bedrock (Claude 3 Haiku) is the primary LLM for all coursework."
+echo ""
 
 # Get first pod name
 POD_NAME=$(kubectl get pods -n ${NAMESPACE} -l app=ollama -o jsonpath='{.items[0].metadata.name}')
 print_status "Using pod: $POD_NAME"
 
-echo ""
-echo "Pulling Llama 2 (7B parameters - ~4GB)..."
-if kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama pull llama2; then
-    print_status "Llama 2 model downloaded"
-else
-    print_warning "Failed to download Llama 2"
-fi
-
-echo ""
-echo "Pulling Mistral (7B parameters - excellent for instructions)..."
+echo "Pulling Mistral 7B..."
 if kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama pull mistral; then
-    print_status "Mistral model downloaded"
+    print_status "Mistral model downloaded (~4.1GB)"
 else
-    print_warning "Failed to download Mistral"
+    print_warning "Failed to download Mistral — check pod logs:"
+    echo "  kubectl logs -n ${NAMESPACE} ${POD_NAME}"
 fi
 
-echo ""
-read -p "Download Mixtral model? (larger, 8x7B parameters - ~26GB) (y/n): " -r
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Pulling Mixtral (this will take several minutes)..."
-    if kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama pull mixtral; then
-        print_status "Mixtral model downloaded"
-    else
-        print_warning "Failed to download Mixtral"
+# Optional small model for experimentation — safe disk footprint
+if [ "$SKIP_CONFIRMATION" = false ]; then
+    echo ""
+    echo "Optional: phi3 (~2.3GB) and llama3.2 (~2GB) are small enough to"
+    echo "coexist with Mistral if students want to compare models."
+    read -p "Download phi3 as an optional second model? (y/n): " -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Pulling phi3..."
+        if kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama pull phi3; then
+            print_status "phi3 model downloaded"
+        else
+            print_warning "Failed to download phi3"
+        fi
     fi
 fi
 
@@ -263,8 +289,8 @@ echo "Available models:"
 kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama list
 
 echo ""
-echo "Testing Llama 2 model..."
-TEST_RESPONSE=$(kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama run llama2 "What is a knowledge graph? Answer in one sentence." 2>/dev/null || echo "Test failed")
+echo "Testing Mistral model..."
+TEST_RESPONSE=$(kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama run mistral "What is a knowledge graph? Answer in one sentence." 2>/dev/null || echo "Test failed")
 echo "Response: $TEST_RESPONSE"
 
 if [[ "$TEST_RESPONSE" != "Test failed" ]]; then
@@ -283,6 +309,7 @@ Ollama Deployment Information
 Namespace: ${NAMESPACE}
 Replicas: ${OLLAMA_REPLICAS}
 Storage: ${STORAGE_SIZE}
+GPU Enabled: ${USE_GPU}
 Deployed: $(date)
 
 Service URL: ${OLLAMA_URL}
@@ -300,7 +327,7 @@ kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama list
 kubectl exec -n ${NAMESPACE} ${POD_NAME} -- ollama pull <model-name>
 
 # Run a model interactively
-kubectl exec -it -n ${NAMESPACE} ${POD_NAME} -- ollama run llama2
+kubectl exec -it -n ${NAMESPACE} ${POD_NAME} -- ollama run mistral
 
 # View logs
 kubectl logs -n ${NAMESPACE} -l app=ollama --tail=100
@@ -310,7 +337,7 @@ kubectl port-forward -n ${NAMESPACE} svc/ollama-service 11434:11434
 
 # Test API locally (after port-forward)
 curl http://localhost:11434/api/generate -d '{
-  "model": "llama2",
+  "model": "mistral",
   "prompt": "Why is healthcare data compliance important?",
   "stream": false
 }'
@@ -331,6 +358,11 @@ echo ""
 echo "Service URL: ${OLLAMA_URL}"
 echo "Namespace: ${NAMESPACE}"
 echo "Pods: ${OLLAMA_REPLICAS}"
+if [ "$USE_GPU" = "true" ]; then
+    echo "GPU: Enabled"
+else
+    echo "GPU: Disabled (CPU-only)"
+fi
 echo ""
 echo "To access locally:"
 echo "  kubectl port-forward -n ${NAMESPACE} svc/ollama-service 11434:11434"

@@ -16,8 +16,9 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Configuration
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-us-west-2}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
+SKIP_CONFIRMATION="${SKIP_CONFIRMATION:-false}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Knowledge Graph Setup (NetworkX)${NC}"
@@ -58,19 +59,22 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class DecimalEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
             return float(obj)
         return super(DecimalEncoder, self).default(obj)
 
+
 class HealthcareKnowledgeGraph:
-    def __init__(self, aws_region='us-east-1', table_prefix='healthcare'):
+    # FIX: Default region corrected from us-east-1 to us-west-2.
+    def __init__(self, aws_region='us-west-2', table_prefix='healthcare'):
         self.aws_region = aws_region
         self.table_prefix = table_prefix
         self.graph = nx.MultiDiGraph()  # Directed graph with multiple edges
         self.dynamodb = boto3.resource('dynamodb', region_name=aws_region)
-        
+
         # Initialize tables
         self.patients = self.dynamodb.Table(f'{table_prefix}-patients')
         self.diagnoses = self.dynamodb.Table(f'{table_prefix}-diagnoses')
@@ -78,29 +82,29 @@ class HealthcareKnowledgeGraph:
         self.providers = self.dynamodb.Table(f'{table_prefix}-providers')
         self.patient_diagnoses = self.dynamodb.Table(f'{table_prefix}-patient-diagnoses')
         self.patient_medications = self.dynamodb.Table(f'{table_prefix}-patient-medications')
-        
+
         logger.info("Healthcare Knowledge Graph initialized")
-    
+
     def build_graph(self):
         """Build the complete knowledge graph from DynamoDB"""
         logger.info("Building knowledge graph from DynamoDB...")
-        
+
         # Add nodes
         self._add_patient_nodes()
         self._add_diagnosis_nodes()
         self._add_medication_nodes()
         self._add_provider_nodes()
-        
+
         # Add edges (relationships)
         self._add_diagnosis_relationships()
         self._add_medication_relationships()
-        
+
         logger.info(f"Graph built: {self.graph.number_of_nodes()} nodes, {self.graph.number_of_edges()} edges")
         return {
             'nodes': self.graph.number_of_nodes(),
             'edges': self.graph.number_of_edges()
         }
-    
+
     def _add_patient_nodes(self):
         """Add patient nodes"""
         response = self.patients.scan()
@@ -111,7 +115,7 @@ class HealthcareKnowledgeGraph:
                 age=int(item.get('age', 0)),
                 gender=item.get('gender', 'Unknown')
             )
-    
+
     def _add_diagnosis_nodes(self):
         """Add diagnosis nodes"""
         response = self.diagnoses.scan()
@@ -123,7 +127,7 @@ class HealthcareKnowledgeGraph:
                 name=item.get('name', ''),
                 category=item.get('category', 'General')
             )
-    
+
     def _add_medication_nodes(self):
         """Add medication nodes"""
         response = self.medications.scan()
@@ -136,7 +140,7 @@ class HealthcareKnowledgeGraph:
                 drug_class=item.get('class', 'General'),
                 form=item.get('form', 'Tablet')
             )
-    
+
     def _add_provider_nodes(self):
         """Add provider nodes"""
         response = self.providers.scan()
@@ -148,7 +152,7 @@ class HealthcareKnowledgeGraph:
                 name=item.get('name', ''),
                 specialty=item.get('specialty', 'General')
             )
-    
+
     def _add_diagnosis_relationships(self):
         """Add patient-diagnosis edges"""
         response = self.patient_diagnoses.scan()
@@ -161,7 +165,7 @@ class HealthcareKnowledgeGraph:
                 severity=item.get('severity', 'Unknown'),
                 provider=item.get('provider_npi', '')
             )
-    
+
     def _add_medication_relationships(self):
         """Add patient-medication edges"""
         response = self.patient_medications.scan()
@@ -174,19 +178,19 @@ class HealthcareKnowledgeGraph:
                 frequency=item.get('frequency', 'Unknown'),
                 medication_name=item.get('medication_name', '')
             )
-    
+
     def find_patients_with_diagnosis(self, diagnosis_code: str) -> List[str]:
         """Find all patients with a specific diagnosis"""
         diag_node = f"DIAG_{diagnosis_code}"
         if diag_node not in self.graph:
             return []
         return list(self.graph.predecessors(diag_node))
-    
+
     def find_patient_diagnoses(self, patient_id: str) -> List[Dict]:
         """Get all diagnoses for a patient"""
         if patient_id not in self.graph:
             return []
-        
+
         diagnoses = []
         for successor in self.graph.successors(patient_id):
             if self.graph.nodes[successor]['type'] == 'Diagnosis':
@@ -199,12 +203,12 @@ class HealthcareKnowledgeGraph:
                     'severity': list(edge_data.values())[0].get('severity', '')
                 })
         return diagnoses
-    
+
     def find_patient_medications(self, patient_id: str) -> List[Dict]:
         """Get all medications for a patient"""
         if patient_id not in self.graph:
             return []
-        
+
         medications = []
         for successor in self.graph.successors(patient_id):
             if self.graph.nodes[successor]['type'] == 'Medication':
@@ -217,13 +221,13 @@ class HealthcareKnowledgeGraph:
                     'frequency': list(edge_data.values())[0].get('frequency', '')
                 })
         return medications
-    
+
     def find_common_comorbidities(self, diagnosis_code: str, limit: int = 5) -> List[Dict]:
         """Find diagnoses commonly co-occurring with a given diagnosis"""
         patients = self.find_patients_with_diagnosis(diagnosis_code)
         if not patients:
             return []
-        
+
         # Count other diagnoses among these patients
         comorbidity_counts = {}
         for patient in patients:
@@ -237,7 +241,7 @@ class HealthcareKnowledgeGraph:
                             'count': 0
                         }
                     comorbidity_counts[key]['count'] += 1
-        
+
         # Sort by count
         sorted_comorbidities = sorted(
             comorbidity_counts.values(),
@@ -245,78 +249,74 @@ class HealthcareKnowledgeGraph:
             reverse=True
         )
         return sorted_comorbidities[:limit]
-    
+
     def find_medication_patterns(self, limit: int = 10) -> List[Dict]:
         """Find common medication combinations"""
-        # Count medications per patient
         med_combinations = {}
         for node in self.graph.nodes():
             if self.graph.nodes[node]['type'] == 'Patient':
                 meds = [m['name'] for m in self.find_patient_medications(node)]
                 if len(meds) > 1:
-                    # Sort to make combinations consistent
                     med_combo = tuple(sorted(meds))
                     med_combinations[med_combo] = med_combinations.get(med_combo, 0) + 1
-        
-        # Sort by frequency
+
         sorted_combos = sorted(
             med_combinations.items(),
             key=lambda x: x[1],
             reverse=True
         )
-        
+
         return [
             {'medications': list(combo), 'count': count}
             for combo, count in sorted_combos[:limit]
         ]
-    
+
     def find_shortest_path(self, start_node: str, end_node: str) -> List[str]:
         """Find shortest path between two nodes"""
         try:
             return nx.shortest_path(self.graph, start_node, end_node)
         except (nx.NetworkXNoPath, nx.NodeNotFound):
             return []
-    
+
     def get_node_neighbors(self, node_id: str, depth: int = 1) -> Dict:
         """Get all neighbors within specified depth"""
         if node_id not in self.graph:
             return {}
-        
+
         neighbors = {'nodes': [], 'edges': []}
         visited = set()
         queue = [(node_id, 0)]
-        
+
         while queue:
             current, current_depth = queue.pop(0)
             if current in visited or current_depth > depth:
                 continue
-            
+
             visited.add(current)
             node_data = dict(self.graph.nodes[current])
             node_data['id'] = current
             neighbors['nodes'].append(node_data)
-            
+
             if current_depth < depth:
                 for successor in self.graph.successors(current):
                     if successor not in visited:
                         queue.append((successor, current_depth + 1))
-                        # Add edge info
                         edge_data = self.graph.get_edge_data(current, successor)
                         neighbors['edges'].append({
                             'source': current,
                             'target': successor,
                             'data': list(edge_data.values())[0] if edge_data else {}
                         })
-        
+
         return neighbors
-    
+
     def get_graph_stats(self) -> Dict:
         """Get graph statistics"""
         patient_nodes = [n for n, d in self.graph.nodes(data=True) if d['type'] == 'Patient']
         diagnosis_nodes = [n for n, d in self.graph.nodes(data=True) if d['type'] == 'Diagnosis']
         medication_nodes = [n for n, d in self.graph.nodes(data=True) if d['type'] == 'Medication']
         provider_nodes = [n for n, d in self.graph.nodes(data=True) if d['type'] == 'Provider']
-        
+
         return {
             'total_nodes': self.graph.number_of_nodes(),
             'total_edges': self.graph.number_of_edges(),
@@ -327,31 +327,36 @@ class HealthcareKnowledgeGraph:
             'density': nx.density(self.graph),
             'is_connected': nx.is_weakly_connected(self.graph)
         }
-    
+
     def export_for_visualization(self) -> Dict:
         """Export graph in format suitable for D3.js visualization"""
         nodes = []
         links = []
-        
+
         for node_id, node_data in self.graph.nodes(data=True):
             nodes.append({
                 'id': node_id,
                 **node_data
             })
-        
+
         for source, target, edge_data in self.graph.edges(data=True):
             links.append({
                 'source': source,
                 'target': target,
                 **edge_data
             })
-        
+
         return {'nodes': nodes, 'links': links}
+
 
 # Singleton instance
 _graph_instance = None
 
-def get_knowledge_graph(aws_region='us-east-1', table_prefix='healthcare'):
+
+# FIX: Default region corrected from us-east-1 to us-west-2 in the singleton
+#      factory function. Callers that omit the region argument (including
+#      test_knowledge_graph.py) will now target the correct cluster region.
+def get_knowledge_graph(aws_region='us-west-2', table_prefix='healthcare'):
     """Get or create knowledge graph instance"""
     global _graph_instance
     if _graph_instance is None:
@@ -370,16 +375,24 @@ cat > test_knowledge_graph.py <<'EOFTEST'
 #!/usr/bin/env python3
 """Test the knowledge graph functionality"""
 
+import os
 from healthcare_knowledge_graph import get_knowledge_graph
-import json
 
-print("="*60)
+print("=" * 60)
 print("Healthcare Knowledge Graph Test")
-print("="*60)
+print("=" * 60)
 
-# Initialize graph
+# FIX: Pass region and table_prefix explicitly so the test script honours
+#      the same environment variables used by the shell scripts, rather than
+#      relying on the module-level defaults.
+region = os.environ.get('AWS_REGION', 'us-west-2')
+table_prefix = os.environ.get('TABLE_PREFIX', 'healthcare')
+
+print(f"\nRegion: {region}")
+print(f"Table prefix: {table_prefix}")
+
 print("\nInitializing knowledge graph...")
-kg = get_knowledge_graph()
+kg = get_knowledge_graph(aws_region=region, table_prefix=table_prefix)
 
 # Get stats
 print("\nGraph Statistics:")
@@ -391,10 +404,10 @@ for key, value in stats.items():
 print("\nTest Queries:")
 print("-" * 60)
 
-# Find patients with diabetes (example diagnosis code)
-print("\n1. Patients with specific diagnosis:")
+# Find patients with diabetes
+print("\n1. Patients with diabetes (E11.9):")
 patients = kg.find_patients_with_diagnosis('E11.9')
-print(f"   Found {len(patients)} patients")
+print(f"   Found {len(patients)} patient(s)")
 if patients:
     print(f"   Example: {patients[0]}")
 
@@ -405,27 +418,33 @@ if patients:
     diagnoses = kg.find_patient_diagnoses(patient_id)
     for diag in diagnoses[:3]:
         print(f"   - {diag['name']} ({diag['code']})")
-    
+
     print(f"\n3. Medications for patient {patient_id}:")
     meds = kg.find_patient_medications(patient_id)
     for med in meds[:3]:
         print(f"   - {med['name']} ({med['frequency']})")
 
 # Find comorbidities
-print("\n4. Common comorbidities:")
+print("\n4. Common comorbidities with diabetes (E11.9):")
 comorbidities = kg.find_common_comorbidities('E11.9', limit=3)
-for combo in comorbidities:
-    print(f"   - {combo['name']}: {combo['count']} patients")
+if comorbidities:
+    for combo in comorbidities:
+        print(f"   - {combo['name']}: {combo['count']} patient(s)")
+else:
+    print("   None found in sample data")
 
 # Medication patterns
 print("\n5. Common medication patterns:")
 patterns = kg.find_medication_patterns(limit=3)
-for pattern in patterns:
-    print(f"   - {', '.join(pattern['medications'])}: {pattern['count']} patients")
+if patterns:
+    for pattern in patterns:
+        print(f"   - {', '.join(pattern['medications'])}: {pattern['count']} patient(s)")
+else:
+    print("   No multi-medication patients in sample data")
 
-print("\n" + "="*60)
-print("✓ Knowledge graph test completed!")
-print("="*60)
+print("\n" + "=" * 60)
+print("Knowledge graph test completed!")
+print("=" * 60)
 EOFTEST
 
 chmod +x test_knowledge_graph.py
@@ -435,14 +454,32 @@ print_status "Created test_knowledge_graph.py"
 echo ""
 echo -e "${BLUE}Step 3: Installing Dependencies${NC}"
 
-pip3 install networkx boto3 --quiet 2>/dev/null || pip install networkx boto3 --quiet
-print_status "Installed networkx and boto3"
+# Use python3 -m pip instead of bare pip3
+if python3 -m pip install networkx boto3 --quiet 2>/dev/null; then
+    print_status "Installed networkx and boto3"
+else
+    print_warning "Could not install dependencies automatically. Install manually:"
+    echo "  pip install networkx boto3"
+fi
 
 # Step 4: Run Test
 echo ""
 echo -e "${BLUE}Step 4: Testing Knowledge Graph${NC}"
 
-python3 test_knowledge_graph.py
+# Wrapped test run in SKIP_CONFIRMATION check.
+if [ "$SKIP_CONFIRMATION" = false ]; then
+    read -p "Run knowledge graph test now? (y/n): " -r
+    RUN_TEST=$REPLY
+else
+    RUN_TEST="y"
+fi
+
+if [[ $RUN_TEST =~ ^[Yy]$ ]]; then
+    AWS_PROFILE=uo-innovation python3 test_knowledge_graph.py
+else
+    echo "To run the test later:"
+    echo "  AWS_PROFILE=uo-innovation python3 test_knowledge_graph.py"
+fi
 
 # Step 5: Save Configuration
 echo ""
@@ -455,6 +492,9 @@ Healthcare Knowledge Graph (NetworkX)
 Type: In-Memory Graph Database
 Library: NetworkX (Python)
 Storage: DynamoDB (data source)
+Region: ${AWS_REGION}
+Table Prefix: ${TABLE_PREFIX}
+Created: $(date)
 
 Files Created:
 --------------
@@ -477,8 +517,8 @@ print(f"Nodes: {stats['total_nodes']}, Edges: {stats['total_edges']}")
 patients = kg.find_patients_with_diagnosis('E11.9')  # Diabetes
 
 # Get patient's diagnoses and medications
-diagnoses = kg.find_patient_diagnoses('P001')
-medications = kg.find_patient_medications('P001')
+diagnoses = kg.find_patient_diagnoses('ANON001')
+medications = kg.find_patient_medications('ANON001')
 
 # Find comorbidities
 comorbidities = kg.find_common_comorbidities('E11.9', limit=5)
@@ -487,10 +527,10 @@ comorbidities = kg.find_common_comorbidities('E11.9', limit=5)
 patterns = kg.find_medication_patterns(limit=10)
 
 # Find shortest path between nodes
-path = kg.find_shortest_path('P001', 'DIAG_E11.9')
+path = kg.find_shortest_path('ANON001', 'DIAG_E11.9')
 
 # Get neighbors (relationship exploration)
-neighbors = kg.get_node_neighbors('P001', depth=2)
+neighbors = kg.get_node_neighbors('ANON001', depth=2)
 
 # Export for visualization
 viz_data = kg.export_for_visualization()
@@ -501,8 +541,8 @@ Query Examples:
    kg.find_patients_with_diagnosis('E11.9')
 
 2. Patient's complete medical profile:
-   diagnoses = kg.find_patient_diagnoses('P001')
-   medications = kg.find_patient_medications('P001')
+   diagnoses = kg.find_patient_diagnoses('ANON001')
+   medications = kg.find_patient_medications('ANON001')
 
 3. Common disease combinations:
    kg.find_common_comorbidities('E11.9')
@@ -511,16 +551,12 @@ Query Examples:
    kg.find_medication_patterns()
 
 5. Relationship exploration:
-   kg.get_node_neighbors('P001', depth=2)
+   kg.get_node_neighbors('ANON001', depth=2)
 
 Integration with Flask:
-----------------------
-Add to your Flask app (e.g., 4-deploy-integration.sh):
-
-```python
+-----------------------
 from healthcare_knowledge_graph import get_knowledge_graph
 
-# On app startup
 app = Flask(__name__)
 kg = get_knowledge_graph()
 
@@ -528,23 +564,22 @@ kg = get_knowledge_graph()
 def graph_query():
     data = request.json
     query_type = data.get('query_type')
-    
+
     if query_type == 'patient_profile':
         patient_id = data.get('patient_id')
         return jsonify({
             'diagnoses': kg.find_patient_diagnoses(patient_id),
             'medications': kg.find_patient_medications(patient_id)
         })
-    
+
     elif query_type == 'comorbidities':
         diagnosis_code = data.get('diagnosis_code')
         return jsonify(kg.find_common_comorbidities(diagnosis_code))
-    
+
     elif query_type == 'neighbors':
         node_id = data.get('node_id')
         depth = data.get('depth', 1)
         return jsonify(kg.get_node_neighbors(node_id, depth))
-```
 
 Cost & Performance:
 -------------------
@@ -555,12 +590,12 @@ Cost & Performance:
 
 Advantages:
 -----------
-✅ No additional AWS infrastructure
-✅ No monthly costs
-✅ Fast in-memory queries
-✅ Easy to integrate with Python
-✅ No VPC/security group complexity
-✅ NetworkX is a mature, well-documented library
+- No additional AWS infrastructure
+- No monthly costs
+- Fast in-memory queries
+- Easy to integrate with Python
+- No VPC/security group complexity
+- NetworkX is a mature, well-documented library
 
 Limitations:
 ------------
@@ -569,189 +604,33 @@ Limitations:
 - Single-server (not distributed)
 - No automatic persistence (uses DynamoDB as source of truth)
 
-For production with larger datasets or persistence requirements, 
-consider migrating to Neo4j or Amazon Neptune in the future.
+For production with larger datasets, consider migrating to
+Neo4j or Amazon Neptune in the future.
+
+Run Test:
+---------
+AWS_PROFILE=uo-innovation python3 test_knowledge_graph.py
 EOF
 
 print_status "Saved knowledge-graph-info.txt"
 
 # Summary
+# Removed the redundant python3 -c stats block that re-imported and
+# rebuilt the entire graph from DynamoDB just to print node/edge counts.
 echo ""
 echo "================================================================"
-echo -e "${GREEN}✓ Knowledge Graph Setup Complete!${NC}"
+echo -e "${GREEN}Knowledge Graph Setup Complete!${NC}"
 echo "================================================================"
 echo ""
 echo "Created Files:"
-echo "  • healthcare_knowledge_graph.py  - Graph library"
-echo "  • test_knowledge_graph.py        - Test script"
-echo "  • knowledge-graph-info.txt       - Usage guide"
-echo ""
-echo "Graph Statistics:"
-python3 -c "
-from healthcare_knowledge_graph import get_knowledge_graph
-import json
-kg = get_knowledge_graph()
-stats = kg.get_graph_stats()
-print(f\"  Nodes: {stats['total_nodes']}\")
-print(f\"  Edges: {stats['total_edges']}\")
-print(f\"  Patients: {stats['patients']}\")
-print(f\"  Diagnoses: {stats['diagnoses']}\")
-print(f\"  Medications: {stats['medications']}\")
-" 2>/dev/null || echo "  (Run test_knowledge_graph.py to see statistics)"
-echo ""
-echo "Next Steps:"
-echo "  1. Integrate into Flask app (4-deploy-integration.sh)"
-echo "  2. Add graph query endpoints"
-echo "  3. Update web UI with graph visualization"
+echo "  healthcare_knowledge_graph.py  - Graph library"
+echo "  test_knowledge_graph.py        - Test script"
+echo "  knowledge-graph-info.txt       - Usage guide"
 echo ""
 echo "Usage:"
-echo "  python3 test_knowledge_graph.py"
-echo "  python3 -c 'from healthcare_knowledge_graph import get_knowledge_graph; kg = get_knowledge_graph()'"
+echo "  AWS_PROFILE=uo-innovation python3 test_knowledge_graph.py"
 echo ""
 echo "Cost: FREE (no additional AWS services)"
 echo ""
+echo "Next: Run ./3c-install-neo4j-graph.sh or ./4-deploy-integration.sh"
 echo "================================================================"
-Amazon Neptune Knowledge Graph
-===============================
-Created: $(date)
-
-Connection Details:
-===================
-Cluster ID:       ${NEPTUNE_CLUSTER_ID}
-Writer Endpoint:  ${NEPTUNE_ENDPOINT}:8182
-Reader Endpoint:  ${NEPTUNE_READER_ENDPOINT}:8182
-Instance Class:   ${NEPTUNE_INSTANCE_CLASS}
-Region:           ${AWS_REGION}
-
-Gremlin Endpoint:
-=================
-wss://${NEPTUNE_ENDPOINT}:8182/gremlin
-
-Graph Structure:
-================
-Vertices (Nodes):
-  - Patient: patient_id, age, gender
-  - Diagnosis: diagnosis_code, name, category
-  - Medication: medication_id, name, class, form
-  - Provider: npi, name, specialty
-
-Edges (Relationships):
-  - DIAGNOSED_WITH: Patient → Diagnosis (date, severity)
-  - PRESCRIBED: Patient → Medication (date, frequency)
-
-Sample Gremlin Queries:
-=======================
-
-# Count all patients
-g.V().hasLabel('Patient').count()
-
-# Find patients with diabetes
-g.V().hasLabel('Diagnosis').has('name', containing('Diabetes'))
-  .in('DIAGNOSED_WITH').values('patient_id')
-
-# Find common medication combinations
-g.V().hasLabel('Patient')
-  .outE('PRESCRIBED').inV()
-  .groupCount().by('name').order(local).by(values, desc).limit(local, 5)
-
-# Find patients with multiple conditions
-g.V().hasLabel('Patient')
-  .where(outE('DIAGNOSED_WITH').count().is(gt(1)))
-  .project('patient', 'diagnosis_count')
-    .by('patient_id')
-    .by(outE('DIAGNOSED_WITH').count())
-
-# Path query: Patient → Diagnosis → Other Patients with same diagnosis
-g.V().has('Patient', 'patient_id', 'PAT001')
-  .out('DIAGNOSED_WITH')
-  .in('DIAGNOSED_WITH')
-  .path()
-
-Testing from EKS Pod:
-=====================
-
-# Create a test pod
-kubectl run -it neptune-test --image=python:3.13 --rm --restart=Never -- bash
-
-# Inside the pod
-pip install gremlinpython
-python3
-
-from gremlin_python.driver import client
-endpoint = '${NEPTUNE_ENDPOINT}'
-neptune_client = client.Client(f'wss://{endpoint}:8182/gremlin', 'g')
-result = neptune_client.submit('g.V().count()').all().result()
-print(f"Total vertices: {result[0]}")
-
-Access from Integration App:
-=============================
-The integration app will automatically use Neptune for:
-- Complex relationship queries
-- Path finding between entities
-- Pattern matching
-- Graph analytics
-
-Environment variables needed:
-export NEPTUNE_ENDPOINT=${NEPTUNE_ENDPOINT}
-export NEPTUNE_PORT=8182
-
-Cost Information:
-=================
-Instance: ${NEPTUNE_INSTANCE_CLASS}
-Estimated cost: ~\$0.096/hour (~\$2.30/day)
-Storage: \$0.10/GB-month
-I/O: \$0.20 per million requests
-
-Total monthly estimate: ~\$70-75 for small dataset
-
-Backup and Maintenance:
-=======================
-# Create manual snapshot
-aws neptune create-db-cluster-snapshot \\
-  --db-cluster-identifier ${NEPTUNE_CLUSTER_ID} \\
-  --db-cluster-snapshot-identifier ${NEPTUNE_CLUSTER_ID}-snapshot-\$(date +%Y%m%d) \\
-  --region ${AWS_REGION}
-
-# Re-sync data from DynamoDB
-python3 sync-dynamodb-to-neptune.py
-
-Cleanup:
-========
-# Delete instance
-aws neptune delete-db-instance \\
-  --db-instance-identifier ${NEPTUNE_CLUSTER_ID}-instance-1 \\
-  --region ${AWS_REGION}
-
-# Delete cluster (after instance is deleted)
-aws neptune delete-db-cluster \\
-  --db-cluster-identifier ${NEPTUNE_CLUSTER_ID} \\
-  --skip-final-snapshot \\
-  --region ${AWS_REGION}
-
-# Delete subnet group
-aws neptune delete-db-subnet-group \\
-  --db-subnet-group-name neptune-healthcare-subnet-group \\
-  --region ${AWS_REGION}
-
-# Delete security group
-aws ec2 delete-security-group \\
-  --group-id ${NEPTUNE_SG_ID} \\
-  --region ${AWS_REGION}
-EOF
-
-print_status "Configuration saved to neptune-info.txt"
-
-# Summary
-echo ""
-echo -e "${GREEN}========================================${NC}"
-echo -e "${GREEN}Neptune Knowledge Graph Setup Complete!${NC}"
-echo -e "${GREEN}========================================${NC}"
-echo ""
-echo "Writer Endpoint: ${NEPTUNE_ENDPOINT}:8182"
-echo "Reader Endpoint: ${NEPTUNE_READER_ENDPOINT}:8182"
-echo ""
-echo "Your healthcare data has been transformed into a knowledge graph!"
-echo "Use Gremlin queries to explore relationships and patterns."
-echo ""
-echo "See neptune-info.txt for queries and examples."
-echo ""

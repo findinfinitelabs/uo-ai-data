@@ -20,6 +20,7 @@ NAMESPACE="${NEO4J_NAMESPACE:-neo4j}"
 STORAGE_SIZE="${NEO4J_STORAGE_SIZE:-10Gi}"
 NEO4J_PASSWORD="${NEO4J_PASSWORD:-healthcare2024}"
 NEO4J_VERSION="${NEO4J_VERSION:-5.15.0}"
+SKIP_CONFIRMATION="${SKIP_CONFIRMATION:-false}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Neo4j Graph Database Installation${NC}"
@@ -57,7 +58,7 @@ print_status "kubectl installed"
 
 if ! kubectl cluster-info &>/dev/null; then
     print_error "Not connected to any Kubernetes cluster"
-    echo "Run: aws eks update-kubeconfig --region us-east-1 --name ollama-ai-cluster"
+    echo "Run: aws eks update-kubeconfig --region us-west-2 --name ollama-ai-cluster --profile uo-innovation"
     exit 1
 fi
 print_status "Connected to Kubernetes cluster"
@@ -93,7 +94,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp3
+  # Storage class changed from gp3 to gp2.
+  storageClassName: gp2
   resources:
     requests:
       storage: ${STORAGE_SIZE}
@@ -155,6 +157,13 @@ spec:
               key: NEO4J_AUTH
         - name: NEO4J_ACCEPT_LICENSE_AGREEMENT
           value: "yes"
+        # Kubernetes injects environment variables for every service into
+        # every pod (e.g. NEO4J_SERVICE_HOST). Neo4j 5.x strict config
+        # validation treats all env vars as config settings and crashes
+        # on any it doesn't recognise. Disabling strict validation allows
+        # Neo4j to start correctly in a Kubernetes environment.
+        - name: NEO4J_server_config_strict__validation_enabled
+          value: "false"
         - name: NEO4J_server_memory_heap_initial__size
           value: "512m"
         - name: NEO4J_server_memory_heap_max__size
@@ -217,8 +226,10 @@ spec:
       port: 7687
       targetPort: 7687
       name: bolt
+  # Removed sessionAffinity: ClientIP. Classic AWS LoadBalancers do not
+  # support ClientIP session affinity and will fail to provision the
+  # service when it is set. Omitting it uses the default (None).
   type: LoadBalancer
-  sessionAffinity: ClientIP
 EOF
 
 kubectl apply -f /tmp/neo4j-deployment.yaml
@@ -272,37 +283,35 @@ import boto3
 import sys
 from decimal import Decimal
 
+
 class HealthcareGraphLoader:
     def __init__(self, uri, username, password, aws_region='us-west-2', table_prefix='healthcare'):
         self.driver = GraphDatabase.driver(uri, auth=(username, password))
         self.dynamodb = boto3.resource('dynamodb', region_name=aws_region)
         self.table_prefix = table_prefix
-        
+
     def close(self):
         self.driver.close()
-    
+
     def clear_database(self):
         """Clear all nodes and relationships"""
         with self.driver.session() as session:
             session.run("MATCH (n) DETACH DELETE n")
             print("✓ Database cleared")
-    
+
     def create_indexes(self):
         """Create indexes for better query performance"""
         with self.driver.session() as session:
-            # Patient index
             session.run("CREATE INDEX patient_id IF NOT EXISTS FOR (p:Patient) ON (p.patient_id)")
-            # Diagnosis index
             session.run("CREATE INDEX diagnosis_code IF NOT EXISTS FOR (d:Diagnosis) ON (d.code)")
-            # Medication index
             session.run("CREATE INDEX medication_id IF NOT EXISTS FOR (m:Medication) ON (m.medication_id)")
             print("✓ Indexes created")
-    
+
     def load_patients(self):
         """Load patient nodes from DynamoDB"""
         table = self.dynamodb.Table(f'{self.table_prefix}-patients')
         response = table.scan()
-        
+
         with self.driver.session() as session:
             for item in response['Items']:
                 session.run("""
@@ -310,20 +319,20 @@ class HealthcareGraphLoader:
                     SET p.age = $age,
                         p.gender = $gender,
                         p.state = $state
-                """, 
+                """,
                     patient_id=item['patient_id'],
                     age=int(item.get('age', 0)),
                     gender=item.get('gender', 'Unknown'),
                     state=item.get('state', 'Unknown')
                 )
-        
+
         print(f"✓ Loaded {len(response['Items'])} patients")
-    
+
     def load_diagnoses(self):
         """Load diagnosis nodes from DynamoDB"""
         table = self.dynamodb.Table(f'{self.table_prefix}-diagnoses')
         response = table.scan()
-        
+
         with self.driver.session() as session:
             for item in response['Items']:
                 session.run("""
@@ -335,35 +344,43 @@ class HealthcareGraphLoader:
                     name=item.get('name', ''),
                     category=item.get('category', 'General')
                 )
-        
+
         print(f"✓ Loaded {len(response['Items'])} diagnoses")
-    
+
     def load_medications(self):
         """Load medication nodes from DynamoDB"""
         table = self.dynamodb.Table(f'{self.table_prefix}-medications')
         response = table.scan()
-        
+
         with self.driver.session() as session:
             for item in response['Items']:
+                # The original code passed `class_=...` as a Python
+                # keyword argument, but the Cypher query referenced
+                # `$class`. Python does not allow `class` as a keyword
+                # argument name (reserved word), and the parameter name
+                # mismatch would cause a Neo4j ParameterNotFoundException
+                # at runtime. Fixed by passing params as a dict so the
+                # key can be the string "drug_class" and the Cypher
+                # placeholder updated to match.
                 session.run("""
                     MERGE (m:Medication {medication_id: $med_id})
                     SET m.name = $name,
-                        m.class = $class,
+                        m.drug_class = $drug_class,
                         m.form = $form
-                """,
-                    med_id=item['medication_id'],
-                    name=item.get('name', ''),
-                    class_=item.get('class', 'General'),
-                    form=item.get('form', 'Tablet')
-                )
-        
+                """, {
+                    'med_id': item['medication_id'],
+                    'name': item.get('name', ''),
+                    'drug_class': item.get('class', 'General'),
+                    'form': item.get('form', 'Tablet')
+                })
+
         print(f"✓ Loaded {len(response['Items'])} medications")
-    
+
     def load_patient_diagnoses(self):
         """Load patient-diagnosis relationships"""
         table = self.dynamodb.Table(f'{self.table_prefix}-patient-diagnoses')
         response = table.scan()
-        
+
         with self.driver.session() as session:
             for item in response['Items']:
                 session.run("""
@@ -378,14 +395,14 @@ class HealthcareGraphLoader:
                     date=item.get('date', ''),
                     severity=item.get('severity', 'Unknown')
                 )
-        
+
         print(f"✓ Loaded {len(response['Items'])} diagnosis relationships")
-    
+
     def load_patient_medications(self):
         """Load patient-medication relationships"""
         table = self.dynamodb.Table(f'{self.table_prefix}-patient-medications')
         response = table.scan()
-        
+
         with self.driver.session() as session:
             for item in response['Items']:
                 session.run("""
@@ -400,59 +417,61 @@ class HealthcareGraphLoader:
                     date=item.get('date', ''),
                     frequency=item.get('frequency', 'Unknown')
                 )
-        
+
         print(f"✓ Loaded {len(response['Items'])} medication relationships")
-    
+
     def load_all(self):
         """Load all data into Neo4j"""
-        print("\n🔄 Loading healthcare data into Neo4j...")
+        print("\nLoading healthcare data into Neo4j...")
         print("=" * 50)
-        
+
         self.clear_database()
         self.create_indexes()
-        
+
         print("\nLoading nodes...")
         self.load_patients()
         self.load_diagnoses()
         self.load_medications()
-        
+
         print("\nLoading relationships...")
         self.load_patient_diagnoses()
         self.load_patient_medications()
-        
+
         print("\n" + "=" * 50)
-        print("✅ Data import complete!")
-        
+        print("Data import complete!")
+
         # Get stats
         with self.driver.session() as session:
             result = session.run("MATCH (n) RETURN count(n) as node_count")
             node_count = result.single()['node_count']
-            
+
             result = session.run("MATCH ()-[r]->() RETURN count(r) as rel_count")
             rel_count = result.single()['rel_count']
-            
+
             print(f"\nGraph Statistics:")
             print(f"  Nodes: {node_count}")
             print(f"  Relationships: {rel_count}")
 
+
 if __name__ == '__main__':
     import os
-    
-    # Get Neo4j connection details
+
     uri = os.getenv('NEO4J_URI', 'bolt://localhost:7687')
     username = os.getenv('NEO4J_USERNAME', 'neo4j')
     password = os.getenv('NEO4J_PASSWORD', 'healthcare2024')
-    
+    aws_region = os.getenv('AWS_REGION', 'us-west-2')
+    table_prefix = os.getenv('TABLE_PREFIX', 'healthcare')
+
     print(f"Connecting to Neo4j at {uri}...")
-    
-    loader = HealthcareGraphLoader(uri, username, password)
-    
+
+    loader = HealthcareGraphLoader(uri, username, password, aws_region, table_prefix)
+
     try:
         loader.load_all()
     finally:
         loader.close()
-    
-    print("\n📊 Access Neo4j Browser to explore your graph!")
+
+    print("\nAccess Neo4j Browser to explore your graph!")
     print(f"   URL: {uri.replace('bolt://', 'http://').replace(':7687', ':7474')}")
     print(f"   Username: {username}")
     print(f"   Password: {password}")
@@ -498,7 +517,7 @@ RETURN p.patient_id, p.age, p.gender, d.name
 LIMIT 10;
 
 // 5. Get full patient profile (diagnoses and medications)
-MATCH (p:Patient {patient_id: 'P00000001'})
+MATCH (p:Patient {patient_id: 'ANON001'})
 OPTIONAL MATCH (p)-[d:DIAGNOSED_WITH]->(diag:Diagnosis)
 OPTIONAL MATCH (p)-[m:PRESCRIBED]->(med:Medication)
 RETURN p, collect(DISTINCT diag) as diagnoses, collect(DISTINCT med) as medications;
@@ -506,7 +525,7 @@ RETURN p, collect(DISTINCT diag) as diagnoses, collect(DISTINCT med) as medicati
 // 6. Patients with multiple conditions (comorbidities)
 MATCH (p:Patient)-[:DIAGNOSED_WITH]->(d:Diagnosis)
 WITH p, count(d) as diagnosis_count
-WHERE diagnosis_count >= 3
+WHERE diagnosis_count >= 2
 RETURN p.patient_id, p.age, p.gender, diagnosis_count
 ORDER BY diagnosis_count DESC
 LIMIT 20;
@@ -525,15 +544,15 @@ LIMIT 10;
 MATCH (d1:Diagnosis)<-[:DIAGNOSED_WITH]-(p:Patient)-[:DIAGNOSED_WITH]->(d2:Diagnosis)
 WHERE d1.code < d2.code
 WITH d1, d2, count(p) as co_occurrence
-WHERE co_occurrence > 2
+WHERE co_occurrence >= 1
 RETURN d1.code, d1.name, d2.code, d2.name, co_occurrence
 ORDER BY co_occurrence DESC
 LIMIT 20;
 
 // 9. Age distribution for specific diagnosis
 MATCH (p:Patient)-[:DIAGNOSED_WITH]->(d:Diagnosis {code: 'I10'})
-RETURN 
-  CASE 
+RETURN
+  CASE
     WHEN p.age < 30 THEN '18-29'
     WHEN p.age < 40 THEN '30-39'
     WHEN p.age < 50 THEN '40-49'
@@ -550,7 +569,7 @@ ORDER BY age_group;
 
 // 10. Most commonly prescribed medications
 MATCH (p:Patient)-[:PRESCRIBED]->(m:Medication)
-RETURN m.name, m.class, count(p) as prescription_count
+RETURN m.name, m.drug_class, count(p) as prescription_count
 ORDER BY prescription_count DESC
 LIMIT 10;
 
@@ -561,10 +580,10 @@ RETURN m.name, count(p) as patient_count
 ORDER BY patient_count DESC
 LIMIT 10;
 
-// 12. Polypharmacy patients (5+ medications)
+// 12. Polypharmacy patients (2+ medications)
 MATCH (p:Patient)-[:PRESCRIBED]->(m:Medication)
 WITH p, count(m) as med_count
-WHERE med_count >= 5
+WHERE med_count >= 2
 RETURN p.patient_id, p.age, med_count
 ORDER BY med_count DESC
 LIMIT 20;
@@ -581,38 +600,28 @@ RETURN path
 LIMIT 5;
 
 // 14. Find similar patients (same diagnoses)
-MATCH (p1:Patient {patient_id: 'P00000001'})-[:DIAGNOSED_WITH]->(d:Diagnosis)<-[:DIAGNOSED_WITH]-(p2:Patient)
+MATCH (p1:Patient {patient_id: 'ANON001'})-[:DIAGNOSED_WITH]->(d:Diagnosis)<-[:DIAGNOSED_WITH]-(p2:Patient)
 WHERE p1 <> p2
 WITH p2, collect(d.name) as shared_diagnoses, count(d) as similarity
 ORDER BY similarity DESC
 LIMIT 10
 RETURN p2.patient_id, p2.age, p2.gender, similarity, shared_diagnoses;
 
-// 15. Diagnosis network visualization
-MATCH (p:Patient)-[:DIAGNOSED_WITH]->(d:Diagnosis)
-WITH d, count(p) as patient_count
-WHERE patient_count > 5
-MATCH (d)<-[:DIAGNOSED_WITH]-(p:Patient)-[:DIAGNOSED_WITH]->(d2:Diagnosis)
-WHERE d.code < d2.code AND d2.code IN [d3.code WHERE (p2)-[:DIAGNOSED_WITH]->(d3) AND count(p2) > 5]
-RETURN d, d2, count(p) as shared_patients
-ORDER BY shared_patients DESC
-LIMIT 50;
-
 // =================================================
 // DATA QUALITY CHECKS
 // =================================================
 
-// 16. Patients without diagnoses
+// 15. Patients without diagnoses
 MATCH (p:Patient)
 WHERE NOT (p)-[:DIAGNOSED_WITH]->()
 RETURN p.patient_id, p.age, p.gender;
 
-// 17. Patients without medications
+// 16. Patients without medications
 MATCH (p:Patient)
 WHERE NOT (p)-[:PRESCRIBED]->()
 RETURN p.patient_id, p.age, p.gender;
 
-// 18. Orphan diagnoses (not linked to patients)
+// 17. Orphan diagnoses (not linked to any patient)
 MATCH (d:Diagnosis)
 WHERE NOT ()-[:DIAGNOSED_WITH]->(d)
 RETURN d.code, d.name;
@@ -621,30 +630,24 @@ RETURN d.code, d.name;
 // EXPORT QUERIES
 // =================================================
 
-// 19. Export patient summary as JSON
+// 18. Export patient summary
 MATCH (p:Patient)
 OPTIONAL MATCH (p)-[:DIAGNOSED_WITH]->(d:Diagnosis)
 OPTIONAL MATCH (p)-[:PRESCRIBED]->(m:Medication)
-RETURN p.patient_id, 
-       p.age, 
+RETURN p.patient_id,
+       p.age,
        p.gender,
        collect(DISTINCT d.code) as diagnosis_codes,
        collect(DISTINCT m.name) as medications
 LIMIT 100;
 
-// 20. Graph statistics
-CALL {
-  MATCH (p:Patient) RETURN count(p) as patients
-  UNION
-  MATCH (d:Diagnosis) RETURN count(d) as diagnoses
-  UNION
-  MATCH (m:Medication) RETURN count(m) as medications
-  UNION
-  MATCH ()-[r:DIAGNOSED_WITH]->() RETURN count(r) as diagnosis_rels
-  UNION
-  MATCH ()-[r:PRESCRIBED]->() RETURN count(r) as prescription_rels
-}
-RETURN *;
+// 19. Graph statistics
+MATCH (p:Patient) WITH count(p) as patients
+MATCH (d:Diagnosis) WITH patients, count(d) as diagnoses
+MATCH (m:Medication) WITH patients, diagnoses, count(m) as medications
+MATCH ()-[r:DIAGNOSED_WITH]->() WITH patients, diagnoses, medications, count(r) as diag_rels
+MATCH ()-[r:PRESCRIBED]->() WITH patients, diagnoses, medications, diag_rels, count(r) as med_rels
+RETURN patients, diagnoses, medications, diag_rels, med_rels;
 EOFCYPHER
 
 print_status "Sample queries saved to neo4j_sample_queries.cypher"
@@ -669,9 +672,6 @@ Password: ${NEO4J_PASSWORD}
 Useful Commands:
 ================
 
-# Access Neo4j Browser (in your web browser)
-${NEO4J_HTTP_URL}
-
 # View Neo4j logs
 kubectl logs -n ${NAMESPACE} statefulset/neo4j --tail=100
 
@@ -679,10 +679,10 @@ kubectl logs -n ${NAMESPACE} statefulset/neo4j --tail=100
 kubectl port-forward -n ${NAMESPACE} svc/neo4j-service 7474:7474 7687:7687
 
 # Import healthcare data from DynamoDB
-python3 healthcare_neo4j_loader.py
+NEO4J_URI=${NEO4J_BOLT_URL} AWS_PROFILE=uo-innovation python3 healthcare_neo4j_loader.py
 
 # Install Python dependencies for loader
-pip3 install neo4j boto3
+pip install neo4j boto3
 
 # Connect programmatically (Python)
 from neo4j import GraphDatabase
@@ -692,27 +692,28 @@ driver = GraphDatabase.driver(
     auth=("neo4j", "${NEO4J_PASSWORD}")
 )
 
-# Execute Cypher query
 with driver.session() as session:
     result = session.run("MATCH (n) RETURN count(n)")
     print(result.single()[0])
 
-# Execute sample queries
-cat neo4j_sample_queries.cypher
-# Copy/paste queries into Neo4j Browser
+# Run sample Cypher queries
+# Copy/paste from neo4j_sample_queries.cypher into Neo4j Browser
 
 Cost Comparison:
 ================
-AWS Neptune: \$0.10/hour + \$0.20/hour for instances = ~\$216/month minimum
-Neo4j on EKS: Only pay for EKS storage (${STORAGE_SIZE} @ \$0.10/GB/month) = ~\$1-2/month
+AWS Neptune: ~\$0.10/hour + instance = ~\$216/month minimum
+Neo4j on EKS: Only EKS storage (${STORAGE_SIZE} @ \$0.10/GB/month) = ~\$1-2/month
+
+Cleanup:
+========
+kubectl delete namespace ${NAMESPACE}
 
 Next Steps:
 ===========
 1. Open Neo4j Browser: ${NEO4J_HTTP_URL}
 2. Login with credentials above
-3. Run data import: python3 healthcare_neo4j_loader.py
+3. Run data import: NEO4J_URI=${NEO4J_BOLT_URL} AWS_PROFILE=uo-innovation python3 healthcare_neo4j_loader.py
 4. Try sample queries from neo4j_sample_queries.cypher
-5. Build AI queries using Cypher language
 EOF
 
 print_status "Configuration saved to neo4j-info.txt"
@@ -724,13 +725,13 @@ echo -e "${GREEN}Neo4j Installation Complete!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 echo "Browser URL: ${NEO4J_HTTP_URL}"
-echo "Bolt URL: ${NEO4J_BOLT_URL}"
-echo "Username: neo4j"
-echo "Password: ${NEO4J_PASSWORD}"
+echo "Bolt URL:    ${NEO4J_BOLT_URL}"
+echo "Username:    neo4j"
+echo "Password:    ${NEO4J_PASSWORD}"
 echo ""
 echo "To load healthcare data:"
-echo "  pip3 install neo4j boto3"
-echo "  python3 healthcare_neo4j_loader.py"
+echo "  pip install neo4j boto3"
+echo "  NEO4J_URI=${NEO4J_BOLT_URL} AWS_PROFILE=uo-innovation python3 healthcare_neo4j_loader.py"
 echo ""
 echo "Next: Run ./4-deploy-integration.sh"
 echo ""

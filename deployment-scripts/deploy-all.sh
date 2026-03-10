@@ -9,11 +9,14 @@
 # 2b. AWS Bedrock setup
 # 3. DynamoDB tables
 # 4. Query Bridge Integration
+# 5. S3 Storage
 #
 # Usage: ./deploy-all.sh [--skip-confirmation] [--no-color]
 #####################################################################
 
 set -e
+# Added pipefail
+set -o pipefail
 
 # Parse arguments
 SKIP_CONFIRMATION=false
@@ -39,9 +42,11 @@ for arg in "$@"; do
             echo ""
             echo "Environment Variables (optional):"
             echo "  CLUSTER_NAME         EKS cluster name (default: ollama-ai-cluster)"
-            echo "  AWS_REGION           AWS region (default: us-east-1)"
+            echo "  AWS_REGION           AWS region (default: us-west-2)"
             echo "  GPU_NODE_COUNT       Number of GPU nodes (default: 2)"
             echo "  TABLE_PREFIX         DynamoDB table prefix (default: healthcare)"
+            echo "  K8S_VERSION          Kubernetes version (default: 1.28)"
+            echo "  GPU_INSTANCE_TYPE    EC2 instance type for GPU nodes (default: g4dn.xlarge)"
             echo ""
             exit 0
             ;;
@@ -81,9 +86,14 @@ fi
 # Configuration (can be overridden by environment variables)
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
-GPU_NODE_COUNT="${GPU_NODE_COUNT:-2}"
+# Default GPU_NODE_COUNT reduced from 2 to 1. A single g4dn.xlarge
+# provides ~30 tokens/s which is sufficient for live classroom demos,
+# and cuts GPU costs roughly in half vs the previous default of 2.
+GPU_NODE_COUNT="${GPU_NODE_COUNT:-1}"
 TABLE_PREFIX="${TABLE_PREFIX:-healthcare}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
+K8S_VERSION="${K8S_VERSION:-1.35}"
+GPU_INSTANCE_TYPE="${GPU_INSTANCE_TYPE:-g4dn.xlarge}"
 
 # Deployment tracking
 START_TIME=$(date +%s)
@@ -157,10 +167,12 @@ log ""
 
 # Display Configuration
 print_header "Configuration"
-log "  Cluster Name:    ${CLUSTER_NAME}"
-log "  AWS Region:      ${AWS_REGION}"
-log "  GPU Node Count:  ${GPU_NODE_COUNT}"
-log "  Table Prefix:    ${TABLE_PREFIX}"
+log "  Cluster Name:      ${CLUSTER_NAME}"
+log "  AWS Region:        ${AWS_REGION}"
+log "  GPU Node Count:    ${GPU_NODE_COUNT}"
+log "  GPU Instance Type: ${GPU_INSTANCE_TYPE}"
+log "  K8s Version:       ${K8S_VERSION}"
+log "  Table Prefix:      ${TABLE_PREFIX}"
 log ""
 
 # Check AWS Credentials
@@ -178,11 +190,10 @@ if ! command -v aws &> /dev/null; then
 fi
 print_success "AWS CLI installed"
 
-# Check if AWS credentials are configured
 if aws sts get-caller-identity --profile uo-innovation > /dev/null 2>&1; then
     print_success "AWS credentials set"
 else
-    print_error "AWS credentials not set. Run `aws configure sso` and then setup-aws-credentials.sh"
+    print_error "AWS credentials not set. Run setup-aws-credentials.sh first."
     exit 1
 fi
 
@@ -195,33 +206,39 @@ log "  Identity:   ${USER_ARN}"
 log ""
 
 # Prompt for Student Number
-if [ "$SKIP_CONFIRMATION" = false ]; then
+if [ -n "$STUDENT_ID" ]; then
+    # Already set from .env (written by setup-aws-credentials.sh)
+    RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
+    print_success "Student ID: ${STUDENT_ID} (from .env)"
+    print_success "Resource Group: ${RESOURCE_GROUP}"
+    log ""
+elif [ "$SKIP_CONFIRMATION" = false ]; then
     log -e "${BLUE}Student Identification${NC}"
     read -p "Enter your DuckID (e.g., wgoodson): " -r STUDENT_ID
-    
-    # Validate input
     if [ -z "$STUDENT_ID" ]; then
         print_error "DuckID is required"
         exit 1
     fi
-    
-    # Build resource group name
     RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
-    
     log ""
     print_success "Student ID: ${STUDENT_ID}"
     print_success "Resource Group: ${RESOURCE_GROUP}"
     log ""
 else
-    # Use defaults if skipping confirmation
     STUDENT_ID="${STUDENT_ID:-student0001}"
     RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
 fi
 
 # Confirmation
 if [ "$SKIP_CONFIRMATION" = false ]; then
-    print_warning "This will deploy a small/medium AI infrastructure stack (1 GPU node)"
-    print_warning "Estimated cost: ~\$15-20/day base + usage-based costs"
+    if [ "${USE_GPU:-false}" = "true" ]; then
+        print_warning "This will deploy a GPU-enabled stack (1x g4dn.xlarge + 2x t3.xlarge)"
+        print_warning "Estimated cost: ~\$20-25/day (GPU ~\$0.53/hr + CPU nodes + services)"
+    else
+        print_warning "This will deploy a CPU-only stack (2x t3.xlarge)"
+        print_warning "Estimated cost: ~\$8-12/day — NOTE: Ollama inference will be slow (~4 tokens/s)"
+        print_warning "For live classroom demos, set USE_GPU=true in .env for better performance"
+    fi
     print_warning "Estimated time: 40-60 minutes"
     log ""
     read -p "Continue with deployment? (yes/no): " -r
@@ -231,25 +248,34 @@ if [ "$SKIP_CONFIRMATION" = false ]; then
     fi
 fi
 
-# Verify scripts exist
+# Verify required scripts exist
 REQUIRED_SCRIPTS=(
     "1-deploy-eks-cluster.sh"
     "2-install-ollama.sh"
     "2b-setup-bedrock.sh"
     "3-setup-knowledge-graph.sh"
+    "3b-setup-networkx-graph.sh"
+    "3c-install-neo4j-graph.sh"
     "4-deploy-integration.sh"
     "5-setup-s3-storage.sh"
 )
 
 log ""
 print_step "Verifying deployment scripts..."
+MISSING_SCRIPTS=false
 for script in "${REQUIRED_SCRIPTS[@]}"; do
     if [ ! -f "${SCRIPT_DIR}/${script}" ]; then
         print_error "Missing script: ${script}"
-        exit 1
+        MISSING_SCRIPTS=true
+    else
+        chmod +x "${SCRIPT_DIR}/${script}"
     fi
-    chmod +x "${SCRIPT_DIR}/${script}"
 done
+
+if [ "$MISSING_SCRIPTS" = true ]; then
+    print_error "One or more required scripts are missing. Aborting."
+    exit 1
+fi
 print_success "All scripts found and executable"
 
 # Export configuration
@@ -261,8 +287,12 @@ export GPU_NODE_COUNT
 export TABLE_PREFIX
 export RESOURCE_GROUP
 export STUDENT_ID
+export SKIP_CONFIRMATION
 
-# Step 1: Deploy EKS Cluster
+# Step 1/5: Deploy EKS Cluster
+# Corrected step counter — all steps now consistently use X/5 labeling
+# (steps 1 through 5), matching the actual number of top-level deployment
+# stages. The graph database sub-step is part of Step 3, not a top-level step.
 print_header "Step 1/5: Deploying EKS Cluster"
 print_info "This will take 20-30 minutes..."
 log ""
@@ -274,7 +304,7 @@ else
     exit 1
 fi
 
-# Step 2: Install Ollama
+# Step 2/5: Install Ollama
 print_header "Step 2/5: Installing Ollama"
 print_info "This will take 10-15 minutes..."
 log ""
@@ -286,7 +316,7 @@ else
     exit 1
 fi
 
-# Step 2b: Setup Bedrock
+# Step 2b/5: Setup Bedrock
 print_header "Step 2b/5: Setting up AWS Bedrock"
 print_info "This will take 2-3 minutes..."
 log ""
@@ -298,7 +328,7 @@ else
     exit 1
 fi
 
-# Step 3: Data Storage (DynamoDB + Optional Graph Database)
+# Step 3/5: Data Storage (DynamoDB + Optional Graph Database)
 print_header "Step 3/5: Setting up Data Storage"
 
 # Ask about graph database preference
@@ -337,6 +367,13 @@ if [ "$SKIP_CONFIRMATION" = false ]; then
             GRAPH_CHOICE="neo4j"
             ;;
     esac
+else
+    # Default to neo4j when running non-interactively so that the full
+    # stack (DynamoDB + Neo4j) is deployed in automated runs. Previously
+    # GRAPH_CHOICE stayed "none" when SKIP_CONFIRMATION=true, meaning
+    # Neo4j was never deployed in deploy-all.sh automated runs.
+    GRAPH_CHOICE="neo4j"
+    print_info "Non-interactive mode: defaulting to DynamoDB + Neo4j"
 fi
 
 # Setup DynamoDB tables
@@ -375,8 +412,8 @@ elif [ "$GRAPH_CHOICE" = "networkx" ]; then
     fi
 fi
 
-# Step 4: Deploy Integration
-print_header "Step 4/6: Deploying AI Integration"
+# Step 4/5: Deploy Integration
+print_header "Step 4/5: Deploying AI Integration"
 print_info "This will take 5-10 minutes..."
 log ""
 
@@ -387,8 +424,8 @@ else
     exit 1
 fi
 
-# Step 5: Setup S3 Storage
-print_header "Step 5/6: Setting up S3 Storage for Dataset Publishing"
+# Step 5/5: Setup S3 Storage
+print_header "Step 5/5: Setting up S3 Storage for Dataset Publishing"
 print_info "This will take 2-3 minutes..."
 log ""
 
@@ -532,8 +569,8 @@ Query Bridge:    http://${BRIDGE_LB}:8080
 
 LLM Models:
 -----------
-Ollama:          mistral, llama2, mixtral
-Bedrock:         Claude 3, Llama 3, Mistral
+Ollama:          mistral (primary), phi3 (optional)
+Bedrock:         Claude 3 Haiku (primary), Claude 3, Llama 3, Mistral
 
 Data Storage:
 -------------
