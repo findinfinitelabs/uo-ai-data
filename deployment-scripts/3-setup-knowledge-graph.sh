@@ -204,6 +204,7 @@ Populates DynamoDB with sample healthcare data
 import boto3
 import sys
 from decimal import Decimal
+from boto3.dynamodb.conditions import Attr
 
 
 class HealthcareData:
@@ -335,9 +336,8 @@ class HealthcareData:
                 print(f"  Patient: {patient_id} (Age: {patient['age']}, Gender: {patient['gender']})")
 
                 # Get diagnoses
-                diag_response = self.patient_diagnoses_table.query(
-                    KeyConditionExpression='patient_id = :pid',
-                    ExpressionAttributeValues={':pid': patient_id}
+                diag_response = self.patient_diagnoses_table.scan(
+                    FilterExpression=Attr('patient_id').eq(patient_id)
                 )
                 if diag_response['Items']:
                     print(f"    Diagnoses:")
@@ -345,9 +345,8 @@ class HealthcareData:
                         print(f"      - {diag['diagnosis_code']} ({diag.get('severity', 'N/A')})")
 
                 # Get medications
-                med_response = self.patient_medications_table.query(
-                    KeyConditionExpression='patient_id = :pid',
-                    ExpressionAttributeValues={':pid': patient_id}
+                med_response = self.patient_medications_table.scan(
+                    FilterExpression=Attr('patient_id').eq(patient_id)
                 )
                 if med_response['Items']:
                     print(f"    Medications:")

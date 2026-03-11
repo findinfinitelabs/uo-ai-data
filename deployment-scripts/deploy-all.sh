@@ -278,12 +278,25 @@ if [ "$MISSING_SCRIPTS" = true ]; then
 fi
 print_success "All scripts found and executable"
 
+# Python virtual environment setup
+# Prepend venv bin to PATH so all child scripts use the venv's python3/pip
+VENV_DIR="${SCRIPT_DIR}/../.venv"
+if [ ! -d "${VENV_DIR}" ]; then
+    print_step "Creating Python virtual environment..."
+    python3 -m venv "${VENV_DIR}"
+    print_success "Python venv created at ${VENV_DIR}"
+else
+    print_success "Python venv found at ${VENV_DIR}"
+fi
+export PATH="${VENV_DIR}/bin:${PATH}"
+
 # Export configuration
 export CLUSTER_NAME
 export AWS_REGION
 export K8S_VERSION
 export GPU_INSTANCE_TYPE
 export GPU_NODE_COUNT
+export USE_GPU
 export TABLE_PREFIX
 export RESOURCE_GROUP
 export STUDENT_ID
@@ -332,8 +345,12 @@ fi
 print_header "Step 3/5: Setting up Data Storage"
 
 # Ask about graph database preference
-GRAPH_CHOICE="none"
-if [ "$SKIP_CONFIRMATION" = false ]; then
+# GRAPH_DATABASE can be pre-set in .env (neo4j | networkx | none) to skip this prompt entirely.
+GRAPH_CHOICE="${GRAPH_DATABASE:-}"
+
+if [ -n "$GRAPH_CHOICE" ]; then
+    print_info "Graph database: ${GRAPH_CHOICE} (from .env)"
+elif [ "$SKIP_CONFIRMATION" = false ]; then
     log ""
     log -e "${BLUE}Graph Database Options:${NC}"
     log ""
@@ -345,33 +362,14 @@ if [ "$SKIP_CONFIRMATION" = false ]; then
     log ""
     read -p "Choose option (1-3) [default: 2]: " -r GRAPH_OPTION
     GRAPH_OPTION="${GRAPH_OPTION:-2}"
-    
+
     case "$GRAPH_OPTION" in
-        1)
-            GRAPH_CHOICE="none"
-            log ""
-            print_info "Using DynamoDB only"
-            ;;
-        2)
-            GRAPH_CHOICE="neo4j"
-            log ""
-            print_info "Will deploy Neo4j Community Edition to EKS"
-            ;;
-        3)
-            GRAPH_CHOICE="networkx"
-            log ""
-            print_info "Will use NetworkX in-memory graph (no persistence)"
-            ;;
-        *)
-            print_warning "Invalid option, using DynamoDB + Neo4j (option 2)"
-            GRAPH_CHOICE="neo4j"
-            ;;
+        1) GRAPH_CHOICE="none";    print_info "Using DynamoDB only" ;;
+        2) GRAPH_CHOICE="neo4j";   print_info "Will deploy Neo4j Community Edition to EKS" ;;
+        3) GRAPH_CHOICE="networkx"; print_info "Will use NetworkX in-memory graph (no persistence)" ;;
+        *) GRAPH_CHOICE="neo4j";   print_warning "Invalid option, using DynamoDB + Neo4j (option 2)" ;;
     esac
 else
-    # Default to neo4j when running non-interactively so that the full
-    # stack (DynamoDB + Neo4j) is deployed in automated runs. Previously
-    # GRAPH_CHOICE stayed "none" when SKIP_CONFIRMATION=true, meaning
-    # Neo4j was never deployed in deploy-all.sh automated runs.
     GRAPH_CHOICE="neo4j"
     print_info "Non-interactive mode: defaulting to DynamoDB + Neo4j"
 fi

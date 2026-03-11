@@ -314,11 +314,25 @@ print_status "kubeconfig updated"
 echo ""
 echo -e "${BLUE}Step 6b: Installing EBS CSI Driver${NC}"
 
-# Get the node instance role name
-NODE_ROLE=$(aws iam list-roles \
+# Get the node instance role via nodegroup description (more reliable than
+# paginated iam list-roles which may miss the role on accounts with many roles)
+FIRST_NODEGROUP=$(aws eks list-nodegroups \
+    --cluster-name "${CLUSTER_NAME}" \
+    --region "${AWS_REGION}" \
     --profile uo-innovation \
-    --query "Roles[?starts_with(RoleName, 'eksctl-${CLUSTER_NAME}-nodegroup')].RoleName" \
-    --output text | head -1)
+    --query 'nodegroups[0]' \
+    --output text 2>/dev/null || echo "")
+NODE_ROLE=""
+if [ -n "$FIRST_NODEGROUP" ] && [ "$FIRST_NODEGROUP" != "None" ]; then
+    NODE_ROLE_ARN=$(aws eks describe-nodegroup \
+        --cluster-name "${CLUSTER_NAME}" \
+        --nodegroup-name "${FIRST_NODEGROUP}" \
+        --region "${AWS_REGION}" \
+        --profile uo-innovation \
+        --query 'nodegroup.nodeRole' \
+        --output text 2>/dev/null || echo "")
+    NODE_ROLE=$(basename "${NODE_ROLE_ARN}")
+fi
 
 if [ -z "$NODE_ROLE" ]; then
     print_warning "Could not automatically detect node instance role. Skipping EBS CSI IAM attachment."

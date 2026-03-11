@@ -59,6 +59,17 @@ write_env() {
 # Edit and re-run setup-aws-credentials.sh to regenerate.
 
 # ============================================
+# Deployment Behavior
+# ============================================
+# Skip all confirmation prompts for unattended deployment.
+# Set to false to run interactively.
+SKIP_CONFIRMATION=true
+
+# Graph database to deploy alongside DynamoDB.
+# Options: neo4j | networkx | none
+GRAPH_DATABASE=neo4j
+
+# ============================================
 # AWS Identity
 # ============================================
 AWS_PROFILE=${profile}
@@ -87,7 +98,7 @@ K8S_VERSION=1.35
 #
 # Recommended for classroom use: USE_GPU=true
 # ============================================
-USE_GPU=true
+USE_GPU=false
 GPU_NODE_COUNT=1
 GPU_INSTANCE_TYPE=g4dn.xlarge
 
