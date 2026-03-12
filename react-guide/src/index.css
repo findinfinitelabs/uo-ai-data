@@ -330,3 +330,18 @@ body {
 .example-card:active {
   transform: translateY(0);
 }
+
+/* Ensure code and text inside Mantine Stepper descriptions are always selectable */
+pre, code, kbd, samp {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+[class*="Stepper"] {
+  pointer-events: auto !important;
+}
+[class*="stepDescription"],
+[class*="stepDescription"] * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  pointer-events: auto !important;
+}

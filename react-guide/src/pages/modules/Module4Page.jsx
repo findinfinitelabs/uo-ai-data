@@ -27,6 +27,183 @@ import {
 } from '@tabler/icons-react';
 
 export default function Module4Page() {
+  const STORAGE_KEY = 'module4TimelineProgress';
+
+  const steps = useMemo(
+    () => [
+      {
+        title: 'Log in to AWS Innovation Sandbox',
+        detail: (
+          <Text size="sm">
+            Open{' '}
+            <Anchor href="https://d-9267f25f0e.awsapps.com/start/#/?tab=applications" target="_blank">
+              Innovation Sandbox <IconExternalLink size={12} />
+            </Anchor>{' '}
+            and sign in.
+          </Text>
+        ),
+      },
+      {
+        title: 'Get your AWS account ID',
+        detail: (
+          <Text size="sm">
+            Open{' '}
+            <Anchor href="https://d1xn1vzs9anoa4.cloudfront.net/" target="_blank">
+              account lookup page <IconExternalLink size={12} />
+            </Anchor>{' '}
+            and copy your account ID.
+          </Text>
+        ),
+      },
+      {
+        title: 'Confirm your account ID',
+        detail: (
+          <Text size="sm">
+            Example account ID is <Code>631285163678</Code>. Your value may be different.
+          </Text>
+        ),
+      },
+      {
+        title: 'Click Login to account',
+        detail: <Text size="sm">In the AWS app portal, choose <Code>Login to account</Code>.</Text>,
+      },
+      {
+        title: 'Select your role',
+        detail: <Text size="sm">Choose the role assigned to your class access.</Text>,
+      },
+      {
+        title: 'Open VS Code terminal in deployment-scripts',
+        detail: (
+          <Box>
+            <Text size="sm" mb="xs">In VS Code, open terminal and move to the deployment folder:</Text>
+            <Code block>cd deployment-scripts</Code>
+          </Box>
+        ),
+      },
+      {
+        title: 'Run AWS SSO configuration',
+        detail: <Code block>aws configure sso</Code>,
+      },
+      {
+        title: 'SSO Session Name',
+        detail: <Text size="sm">Use <Code>Winter 2026 Data and AI Training</Code>.</Text>,
+      },
+      {
+        title: 'Start URL',
+        detail: <Text size="sm">Use <Code>https://d-9267f25f0e.awsapps.com/start</Code>.</Text>,
+      },
+      {
+        title: 'SSO Region',
+        detail: <Text size="sm">Use <Code>us-west-2</Code>.</Text>,
+      },
+      {
+        title: 'Registration scope',
+        detail: <Text size="sm">Accept the default scope value.</Text>,
+      },
+      {
+        title: 'Choose account',
+        detail: <Text size="sm">When account options appear, select the account you logged into.</Text>,
+      },
+      {
+        title: 'Choose role users',
+        detail: <Text size="sm">Select <Code>users</Code> for role selection.</Text>,
+      },
+      {
+        title: 'Default region',
+        detail: <Text size="sm">Use <Code>us-west-2</Code> as the default AWS region.</Text>,
+      },
+      {
+        title: 'Output format',
+        detail: <Text size="sm">Accept the default output format option.</Text>,
+      },
+      {
+        title: 'Identity check',
+        detail: (
+          <Text size="sm">
+            Your AWS identity may appear as an email or student-number-style value. That variation is expected across students.
+          </Text>
+        ),
+      },
+      {
+        title: 'Run deployment',
+        detail: (
+          <Box>
+            <Text size="sm" mb="xs">From <Code>deployment-scripts</Code>, run:</Text>
+            <Code block>./deploy-all.sh</Code>
+          </Box>
+        ),
+      },
+      {
+        title: 'Provide credentials when prompted',
+        detail: <Text size="sm">During deployment, enter any required credentials to continue.</Text>,
+      },
+    ],
+    []
+  );
+
+  const [activeStep, setActiveStep] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState({});
+
+  const totalSteps = steps.length;
+  const completedCount = Object.keys(completedSteps).length;
+  const progress = Math.round((completedCount / totalSteps) * 100);
+
+  useEffect(() => {
+    try {
+      const savedProgress = localStorage.getItem(STORAGE_KEY);
+      if (!savedProgress) {
+        return;
+      }
+
+      const parsed = JSON.parse(savedProgress);
+      if (typeof parsed.activeStep === 'number') {
+        const clampedStep = Math.max(0, Math.min(parsed.activeStep, totalSteps - 1));
+        setActiveStep(clampedStep);
+      }
+
+      if (parsed.completedSteps && typeof parsed.completedSteps === 'object') {
+        const sanitizedCompleted = Object.entries(parsed.completedSteps).reduce((acc, [key, value]) => {
+          const index = Number(key);
+          if (Number.isInteger(index) && index >= 0 && index < totalSteps && value === true) {
+            acc[index] = true;
+          }
+          return acc;
+        }, {});
+        setCompletedSteps(sanitizedCompleted);
+      }
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, [totalSteps]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        activeStep,
+        completedSteps,
+      })
+    );
+  }, [activeStep, completedSteps]);
+
+  const markCompleteAndContinue = () => {
+    setCompletedSteps((prev) => ({ ...prev, [activeStep]: true }));
+    if (activeStep < totalSteps - 1) {
+      setActiveStep((prev) => prev + 1);
+    }
+  };
+
+  const handleStepClick = (stepIndex) => {
+    if (stepIndex === activeStep) {
+      markCompleteAndContinue();
+      return;
+    }
+
+    if (stepIndex < activeStep) {
+      setActiveStep(stepIndex);
+    }
+  };
+
   return (
     <Container size="lg" py="xl">
       <Breadcrumbs mb="lg">
