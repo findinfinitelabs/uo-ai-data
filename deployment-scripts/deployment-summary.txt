@@ -1,18 +1,18 @@
 Healthcare AI Infrastructure Deployment Summary
 ================================================
-Deployed: Wed Feb 25 20:07:47 HST 2026
-Duration: 45m 21s
+Deployed: Thu Mar 12 09:35:29 PDT 2026
+Duration: 3m 16s
 
 Configuration:
 --------------
 Cluster Name:    ollama-ai-cluster
 AWS Region:      us-west-2
-GPU Node Count:  2
+GPU Node Count:  1
 Table Prefix:    healthcare
 
 Services:
 ---------
-Ollama:          http://:11434
+Ollama:          http://localhost:11434
 Bedrock:         Enabled (us-west-2)
 DynamoDB:        healthcare-* tables
 Query Bridge:    http://localhost:8080

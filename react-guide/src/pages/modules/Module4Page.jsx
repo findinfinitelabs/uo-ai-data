@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Container,
@@ -10,20 +10,26 @@ import {
   Group,
   Box,
   Divider,
-  Card,
   Button,
   Anchor,
   Breadcrumbs,
-  SimpleGrid,
   Alert,
+  Stepper,
+  List,
+  Code,
+  Progress,
 } from '@mantine/core';
 import {
   IconArrowLeft,
   IconArrowRight,
   IconServer,
   IconRocket,
-  IconCloud,
   IconAlertCircle,
+  IconCircleCheck,
+  IconLogin,
+  IconTerminal2,
+  IconBrandAws,
+  IconExternalLink,
 } from '@tabler/icons-react';
 
 export default function Module4Page() {
@@ -237,90 +243,75 @@ export default function Module4Page() {
           </Box>
         </Group>
         <Text size="lg" c="white" opacity={0.95}>
-          Set up your AI learning environment using AWS Bedrock (school login) or run models locally on your Mac.
+          Complete this interactive setup timeline for AWS Innovation Sandbox SSO and deployment.
         </Text>
       </Paper>
 
       <Alert icon={<IconAlertCircle />} color="orange" variant="light" mb="xl">
         <Text fw={600} mb="xs">
-          ⚠️ AWS Environment Setup Required
+          ⚠️ Complete each step in order
         </Text>
         <Text size="sm">
-          Before continuing with this module, you must complete the{' '}
-          <Anchor component={Link} to="/aws-setup" fw={600}>
-            AWS Environment Setup
-          </Anchor>{' '}
-          to deploy your infrastructure. This is available in the navigation sidebar under "Your Progress."
+          Click the current step, do the action, then select <Code>Mark complete &amp; continue</Code>. The timeline advances automatically.
         </Text>
       </Alert>
 
-      <Title order={2} mb="lg">
-        Getting Started
-      </Title>
-
-      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg" mb="xl">
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Group mb="md">
-            <ThemeIcon size={40} color="blue" radius="md">
-              <IconCloud size={24} />
-            </ThemeIcon>
-            <Box>
-              <Text fw={600} size="lg">
-                Cloud Option
-              </Text>
-              <Text size="sm" c="dimmed">
-                AWS Bedrock
-              </Text>
-            </Box>
+      <Paper withBorder radius="md" p="lg" mb="xl">
+        <Group justify="space-between" mb="sm">
+          <Group gap="xs">
+            <IconLogin size={18} />
+            <Text fw={600}>Module 4 Setup Timeline</Text>
           </Group>
-          <Text size="sm" mb="md">
-            Use your UO credentials to access powerful cloud-hosted models like Claude 3, Llama 3, and Mistral.
+          <Text size="sm" c="dimmed">
+            {completedCount} / {totalSteps} complete
           </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ No local setup required
-          </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ Access to latest models
-          </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ UO SSO authentication
-          </Text>
-          <Text size="sm" c="orange">
-            ⚠ Requires internet connection
-          </Text>
-        </Card>
+        </Group>
+        <Progress value={progress} size="lg" radius="xl" mb="md" />
 
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Group mb="md">
-            <ThemeIcon size={40} color="green" radius="md">
-              <IconRocket size={24} />
-            </ThemeIcon>
-            <Box>
-              <Text fw={600} size="lg">
-                Local Option
-              </Text>
-              <Text size="sm" c="dimmed">
-                Ollama on Mac
-              </Text>
-            </Box>
-          </Group>
-          <Text size="sm" mb="md">
-            Run open-source models directly on your MacBook for complete privacy and offline access.
-          </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ 100% private—data stays local
-          </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ No API costs
-          </Text>
-          <Text size="sm" mb="xs" fw={600}>
-            ✓ Works offline
-          </Text>
-          <Text size="sm" c="orange">
-            ⚠ Requires 8GB+ RAM
-          </Text>
-        </Card>
-      </SimpleGrid>
+        <Stepper
+          active={activeStep}
+          onStepClick={handleStepClick}
+          orientation="vertical"
+          allowNextStepsSelect={false}
+          iconSize={28}
+        >
+          {steps.map((step, index) => (
+            <Stepper.Step
+              key={step.title}
+              label={`Step ${index + 1}`}
+              description={step.title}
+              completedIcon={<IconCircleCheck size={16} />}
+              icon={index === 6 || index === 15 ? <IconTerminal2 size={16} /> : index === 16 ? <IconBrandAws size={16} /> : undefined}
+            >
+              <Paper withBorder radius="md" p="md" mt="xs">
+                <Text fw={600} mb="xs">
+                  {step.title}
+                </Text>
+                {step.detail}
+                <Divider my="md" />
+                <Button
+                  size="xs"
+                  onClick={markCompleteAndContinue}
+                  disabled={Boolean(completedSteps[index]) || activeStep !== index}
+                  leftSection={completedSteps[index] ? <IconCircleCheck size={14} /> : null}
+                >
+                  {completedSteps[index] ? 'Completed' : 'Mark complete & continue'}
+                </Button>
+              </Paper>
+            </Stepper.Step>
+          ))}
+        </Stepper>
+      </Paper>
+
+      <Paper withBorder radius="md" p="lg" mb="xl">
+        <Text fw={600} mb="sm">Quick checklist</Text>
+        <List spacing="xs" size="sm">
+          <List.Item>Innovation Sandbox login successful</List.Item>
+          <List.Item>AWS account and role selected correctly</List.Item>
+          <List.Item><Code>aws configure sso</Code> completed with <Code>us-west-2</Code></List.Item>
+          <List.Item><Code>./deploy-all.sh</Code> executed from <Code>deployment-scripts</Code></List.Item>
+        </List>
+      </Paper>
 
       <Divider my="xl" />
 

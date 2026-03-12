@@ -14,9 +14,7 @@
 # Usage: ./deploy-all.sh [--skip-confirmation] [--no-color]
 #####################################################################
 
-set -e
-# Added pipefail
-set -o pipefail
+set -euo pipefail
 
 # Parse arguments
 SKIP_CONFIRMATION=false
@@ -190,17 +188,51 @@ if ! command -v aws &> /dev/null; then
 fi
 print_success "AWS CLI installed"
 
-if aws sts get-caller-identity --profile uo-innovation > /dev/null 2>&1; then
-    print_success "AWS credentials set"
-else
-    print_error "AWS credentials not set. Run setup-aws-credentials.sh first."
-    exit 1
+# Check if AWS credentials are configured
+AWS_PROFILE_TO_USE="${AWS_PROFILE:-}"
+
+# 1) Try configured profile (from shell or .env)
+if [ -n "$AWS_PROFILE_TO_USE" ]; then
+    if ! aws sts get-caller-identity --profile "$AWS_PROFILE_TO_USE" >/dev/null 2>&1; then
+        print_warning "Configured AWS_PROFILE '${AWS_PROFILE_TO_USE}' is not authenticated in this session"
+        AWS_PROFILE_TO_USE=""
+    fi
 fi
 
-ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
-USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text 2>/dev/null)
+# 2) Fallback to expected classroom profile
+if [ -z "$AWS_PROFILE_TO_USE" ] && aws configure list-profiles 2>/dev/null | grep -qx "uo-innovation"; then
+    if aws sts get-caller-identity --profile "uo-innovation" >/dev/null 2>&1; then
+        AWS_PROFILE_TO_USE="uo-innovation"
+    fi
+fi
+
+# 3) If no profile works, try default credential chain
+if [ -n "$AWS_PROFILE_TO_USE" ]; then
+    ACCOUNT_ID=$(aws sts get-caller-identity --profile "$AWS_PROFILE_TO_USE" --query Account --output text 2>/dev/null)
+    USER_ARN=$(aws sts get-caller-identity --profile "$AWS_PROFILE_TO_USE" --query Arn --output text 2>/dev/null)
+    export AWS_PROFILE="$AWS_PROFILE_TO_USE"
+    export AWS_DEFAULT_PROFILE="$AWS_PROFILE_TO_USE"
+else
+    if ! aws sts get-caller-identity >/dev/null 2>&1; then
+        print_error "AWS credentials are not configured"
+        log ""
+        log "Authenticate with one of your profiles, for example:"
+        log "  aws sso login --profile uo-innovation"
+        log "  export AWS_PROFILE=uo-innovation"
+        log ""
+        log "Available profiles:"
+        aws configure list-profiles 2>/dev/null | sed 's/^/  - /' | tee -a "$LOG_FILE" || true
+        exit 1
+    fi
+
+    ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
+    USER_ARN=$(aws sts get-caller-identity --query Arn --output text 2>/dev/null)
+fi
 
 print_success "AWS credentials verified"
+if [ -n "$AWS_PROFILE_TO_USE" ]; then
+    log "  AWS Profile: ${AWS_PROFILE_TO_USE}"
+fi
 log "  Account ID: ${ACCOUNT_ID}"
 log "  Identity:   ${USER_ARN}"
 log ""
