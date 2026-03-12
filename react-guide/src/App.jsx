@@ -43,6 +43,7 @@ import {
   IconNetwork,
   IconWorld,
   IconCar,
+  IconCloudUpload,
 } from '@tabler/icons-react';
 import { modules } from './data/modules';
 import HomePage from './pages/HomePage';
@@ -54,6 +55,7 @@ import DataSpecsPage from './pages/modules/DataSpecsPage';
 import RegulationsPage from './pages/modules/RegulationsPage';
 import EthicalAIPage from './pages/modules/EthicalAIPage';
 import Module4Page from './pages/modules/Module4Page';
+import Module5Page from './pages/modules/Module5Page';
 import CaseStudyHealthPage from './pages/modules/CaseStudyHealthPage';
 import CaseStudyDealershipPage from './pages/modules/CaseStudyDealershipPage';
 import { AuthProvider } from './contexts/AuthContext';
@@ -84,6 +86,16 @@ const ethicalAISubPages = [
   { id: 'frameworks', title: 'Ethical Frameworks', icon: IconShieldCheck },
   { id: 'documentation', title: 'Documenting Decisions', icon: IconFileText },
   { id: 'human-in-loop', title: 'Human-in-the-Loop', icon: IconRobot },
+];
+
+// Module 5 sub-navigation items (one per pipeline phase)
+const module5SubPages = [
+  { id: 'generate', title: 'Phase 1: Generate Data',  icon: IconDatabase },
+  { id: 'upload',   title: 'Phase 2: Upload to DB',   icon: IconCloudUpload },
+  { id: 'prepare',  title: 'Phase 3: Prepare Data',   icon: IconFileText },
+  { id: 'train',    title: 'Phase 4: Fine-tune Model', icon: IconBrain },
+  { id: 'export',   title: 'Phase 5: Export to Ollama', icon: IconRocket },
+  { id: 'query',    title: 'Phase 6: Query & Validate', icon: IconRobot },
 ];
 
 // Bias Detection sub-sub-navigation items
@@ -356,6 +368,44 @@ function AppLayout() {
             );
           }
           
+          // Special handling for Module 5 with phase sub-navigation
+          if (mod.id === 'module-5') {
+            const isModule5Active = location.pathname === '/module-5' || location.pathname.startsWith('/module-5/');
+            return (
+              <Box key={mod.id}>
+                <NavLink
+                  label={labelContent}
+                  component={Link}
+                  to="/module-5"
+                  leftSection={<Icon size={20} stroke={1.5} />}
+                  mb="xs"
+                  className="nav-link"
+                  active={isModule5Active}
+                />
+                <Collapse in={isModule5Active}>
+                  <Box ml="xl" className="sub-nav-container">
+                    {module5SubPages.map((subPage) => {
+                      const SubIcon = subPage.icon;
+                      const isSubActive = location.pathname === `/module-5/${subPage.id}`;
+                      return (
+                        <NavLink
+                          key={subPage.id}
+                          label={subPage.title}
+                          component={Link}
+                          to={`/module-5/${subPage.id}`}
+                          leftSection={<SubIcon size={16} stroke={1.5} />}
+                          mb={4}
+                          className="nav-link sub-nav-link"
+                          active={isSubActive}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          }
+
           // Case study - first one shows separator, rest just show as nav items
           if (isCaseStudy) {
             return (
@@ -449,6 +499,22 @@ function AppLayout() {
             element={
               <ProtectedRoute>
                 <Module4Page />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-5"
+            element={
+              <ProtectedRoute>
+                <Module5Page />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/module-5/:subPage"
+            element={
+              <ProtectedRoute>
+                <Module5Page />
               </ProtectedRoute>
             }
           />
