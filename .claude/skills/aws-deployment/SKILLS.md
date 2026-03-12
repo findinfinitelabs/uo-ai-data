@@ -34,7 +34,7 @@ Always verify credentials before deployment:
 
 ```bash
 # Check current identity
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # Should return:
 # {
@@ -50,7 +50,7 @@ SSO sessions expire, typically after 8-12 hours:
 
 ```bash
 # Check if session is valid
-aws sts get-caller-identity 2>/dev/null || echo "Session expired"
+aws sts get-caller-identity --profile uo-innovation 2>/dev/null || echo "Session expired"
 
 # Refresh session
 aws sso login --profile uo-innovation
@@ -286,7 +286,7 @@ aws sso login --profile uo-innovation
 **Issue: EKS cluster creation fails**
 ```bash
 # Check IAM permissions
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 aws iam get-user
 
 # Check service quotas

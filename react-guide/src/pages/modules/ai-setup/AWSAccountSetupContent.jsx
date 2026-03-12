@@ -370,7 +370,7 @@ Default output format: json`}</CodeBlock>
 aws --version
 
 # Test authentication
-aws sts get-caller-identity`}</CodeBlock>
+aws sts get-caller-identity --profile uo-innovation`}</CodeBlock>
           </Paper>
         </Stepper.Step>
 

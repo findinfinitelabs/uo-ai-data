@@ -81,7 +81,7 @@ aws configure
 **Verify your setup**:
 
 ```bash
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 # Should show your account ID and user ARN
 ```
 
@@ -555,7 +555,7 @@ aws dynamodb describe-table --table-name healthcare-patients --region us-east-1
 
 ```bash
 # Check IAM permissions
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # Verify IAM role for EKS service account
 kubectl get sa bedrock-service-account -n ollama -o yaml

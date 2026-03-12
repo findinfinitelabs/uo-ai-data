@@ -30,13 +30,13 @@ echo -e "${GREEN}✓ Found policy file${NC}"
 echo ""
 
 # Check AWS credentials
-if ! aws sts get-caller-identity &> /dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &> /dev/null; then
     echo -e "${RED}✗ AWS credentials not configured${NC}"
     echo "Please run: ./setup-aws-credentials.sh"
     exit 1
 fi
 
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
 echo "AWS Account: $ACCOUNT_ID"
 echo ""
 
@@ -117,7 +117,7 @@ echo "Policy ARN: $POLICY_ARN"
 echo ""
 
 # Offer to attach to current user (if applicable)
-CURRENT_USER_ARN=$(aws sts get-caller-identity --query Arn --output text)
+CURRENT_USER_ARN=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text)
 
 if [[ $CURRENT_USER_ARN == *"user/"* ]]; then
     # It's an IAM user

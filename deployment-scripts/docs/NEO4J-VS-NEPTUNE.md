@@ -283,7 +283,7 @@ kubectl port-forward -n neo4j svc/neo4j-service 7474:7474 7687:7687
 aws dynamodb list-tables --region us-east-1
 
 # Verify AWS credentials
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # Test Python dependencies
 python3 -c "from neo4j import GraphDatabase; import boto3; print('OK')"

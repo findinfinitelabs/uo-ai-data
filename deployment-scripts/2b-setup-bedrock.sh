@@ -20,6 +20,8 @@ CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 NAMESPACE="${BEDROCK_NAMESPACE:-ollama}"
 STUDENT_ID="${STUDENT_ID:-student0001}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
+# Added SKIP_CONFIRMATION variable with default.
+SKIP_CONFIRMATION="${SKIP_CONFIRMATION:-false}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}AWS Bedrock Setup${NC}"
@@ -52,13 +54,13 @@ if ! command_exists aws; then
 fi
 print_status "AWS CLI installed"
 
-if ! aws sts get-caller-identity &>/dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &>/dev/null; then
     print_error "AWS credentials not configured"
     exit 1
 fi
 print_status "AWS credentials configured"
 
-AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+AWS_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
 print_status "AWS Account: ${AWS_ACCOUNT}"
 
 # Step 2: Check Bedrock Availability
@@ -67,7 +69,11 @@ echo -e "${BLUE}Step 2: Checking Bedrock Availability${NC}"
 
 # List available models
 echo "Checking available Bedrock models in ${AWS_REGION}..."
-AVAILABLE_MODELS=$(aws bedrock list-foundation-models --region ${AWS_REGION} --query 'modelSummaries[*].modelId' --output text 2>/dev/null || echo "")
+AVAILABLE_MODELS=$(aws bedrock list-foundation-models \
+    --profile uo-innovation \
+    --region ${AWS_REGION} \
+    --query 'modelSummaries[*].modelId' \
+    --output text 2>/dev/null || echo "")
 
 if [ -z "$AVAILABLE_MODELS" ]; then
     print_warning "Bedrock may not be available in ${AWS_REGION} or you may need to enable it first"
@@ -77,12 +83,16 @@ if [ -z "$AVAILABLE_MODELS" ]; then
     echo "  2. Request model access for the models you want to use"
     echo "  3. Wait for approval (usually instant for most models)"
     echo ""
-    read -p "Have you already enabled Bedrock model access? (y/n): " -r
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo ""
-        echo "Please enable Bedrock model access first:"
-        echo "  https://console.aws.amazon.com/bedrock/home?region=${AWS_REGION}#/modelaccess"
-        exit 1
+    # Wrapped Bedrock availability prompt in SKIP_CONFIRMATION check
+    # so that deploy-all.sh --skip-confirmation does not hang.
+    if [ "$SKIP_CONFIRMATION" = false ]; then
+        read -p "Have you already enabled Bedrock model access? (y/n): " -r
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo ""
+            echo "Please enable Bedrock model access first:"
+            echo "  https://console.aws.amazon.com/bedrock/home?region=${AWS_REGION}#/modelaccess"
+            exit 1
+        fi
     fi
 else
     print_status "Bedrock is available"
@@ -108,8 +118,10 @@ RECOMMENDED_MODELS=(
 echo ""
 echo "Checking access to recommended models..."
 for MODEL in "${RECOMMENDED_MODELS[@]}"; do
-    # Try to get model details
-    if aws bedrock get-foundation-model --model-identifier "$MODEL" --region ${AWS_REGION} &>/dev/null; then
+    if aws bedrock get-foundation-model \
+        --profile uo-innovation \
+        --model-identifier "$MODEL" \
+        --region ${AWS_REGION} &>/dev/null; then
         print_status "$MODEL"
     else
         print_warning "$MODEL (not accessible - may need to request access)"
@@ -123,7 +135,10 @@ echo -e "${BLUE}Step 4: Creating IAM Policy for Bedrock Access${NC}"
 POLICY_NAME="BedrockAccessPolicy-${CLUSTER_NAME}"
 
 # Check if policy exists
-POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='${POLICY_NAME}'].Arn" --output text 2>/dev/null)
+POLICY_ARN=$(aws iam list-policies \
+    --profile uo-innovation \
+    --query "Policies[?PolicyName=='${POLICY_NAME}'].Arn" \
+    --output text 2>/dev/null)
 
 if [ -z "$POLICY_ARN" ]; then
     cat > /tmp/bedrock-policy.json <<EOF
@@ -143,15 +158,16 @@ if [ -z "$POLICY_ARN" ]; then
     ]
 }
 EOF
-    
+
     POLICY_ARN=$(aws iam create-policy \
+        --profile uo-innovation \
         --policy-name "${POLICY_NAME}" \
         --policy-document file:///tmp/bedrock-policy.json \
         --description "Allow EKS pods to access AWS Bedrock" \
         --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
         --query 'Policy.Arn' \
         --output text)
-    
+
     print_status "IAM policy created: ${POLICY_ARN}"
 else
     print_warning "IAM policy already exists: ${POLICY_ARN}"
@@ -165,7 +181,12 @@ SERVICE_ACCOUNT_NAME="bedrock-service-account"
 ROLE_NAME="BedrockAccessRole-${CLUSTER_NAME}"
 
 # Get OIDC provider for EKS cluster
-OIDC_PROVIDER=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_REGION} --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///")
+OIDC_PROVIDER=$(aws eks describe-cluster \
+    --profile uo-innovation \
+    --name ${CLUSTER_NAME} \
+    --region ${AWS_REGION} \
+    --query "cluster.identity.oidc.issuer" \
+    --output text | sed -e "s/^https:\/\///")
 
 if [ -z "$OIDC_PROVIDER" ]; then
     print_error "Could not find OIDC provider for cluster ${CLUSTER_NAME}"
@@ -176,7 +197,11 @@ fi
 print_status "OIDC Provider: ${OIDC_PROVIDER}"
 
 # Check if role exists
-ROLE_ARN=$(aws iam get-role --role-name "${ROLE_NAME}" --query 'Role.Arn' --output text 2>/dev/null || echo "")
+ROLE_ARN=$(aws iam get-role \
+    --profile uo-innovation \
+    --role-name "${ROLE_NAME}" \
+    --query 'Role.Arn' \
+    --output text 2>/dev/null || echo "")
 
 if [ -z "$ROLE_ARN" ]; then
     # Create trust policy
@@ -200,25 +225,44 @@ if [ -z "$ROLE_ARN" ]; then
     ]
 }
 EOF
-    
+
     ROLE_ARN=$(aws iam create-role \
+        --profile uo-innovation \
         --role-name "${ROLE_NAME}" \
         --assume-role-policy-document file:///tmp/trust-policy.json \
         --description "IAM role for EKS pods to access Bedrock" \
         --tags Key=Project,Value=healthcare-ai Key=ResourceGroup,Value="${RESOURCE_GROUP}" Key=Owner,Value="${STUDENT_ID}" \
         --query 'Role.Arn' \
         --output text)
-    
+
     print_status "IAM role created: ${ROLE_ARN}"
-    
+
     # Attach policy to role
     aws iam attach-role-policy \
+        --profile uo-innovation \
         --role-name "${ROLE_NAME}" \
         --policy-arn "${POLICY_ARN}"
-    
+
     print_status "Policy attached to role"
 else
     print_warning "IAM role already exists: ${ROLE_ARN}"
+
+    # Added policy attachment check for the case where the role already exists. 
+    ATTACHED=$(aws iam list-attached-role-policies \
+        --profile uo-innovation \
+        --role-name "${ROLE_NAME}" \
+        --query "AttachedPolicies[?PolicyArn=='${POLICY_ARN}'].PolicyArn" \
+        --output text 2>/dev/null)
+
+    if [ -z "$ATTACHED" ]; then
+        aws iam attach-role-policy \
+            --profile uo-innovation \
+            --role-name "${ROLE_NAME}" \
+            --policy-arn "${POLICY_ARN}"
+        print_status "Policy attached to existing role"
+    else
+        print_status "Policy already attached to role"
+    fi
 fi
 
 # Step 6: Create Kubernetes Service Account
@@ -253,32 +297,45 @@ print_status "Kubernetes service account created/updated"
 echo ""
 echo -e "${BLUE}Step 7: Testing Bedrock Access${NC}"
 
-echo "Creating test pod..."
-kubectl run bedrock-test --image=amazon/aws-cli --rm -it --restart=Never \
-  --namespace=${NAMESPACE} \
-  --serviceaccount=${SERVICE_ACCOUNT_NAME} \
-  --command -- aws bedrock list-foundation-models --region ${AWS_REGION} \
-  >/tmp/bedrock-test.log 2>&1 &
+# FIX: Replaced unreliable background pod test with a synchronous run.
+#      The original test launched the pod with & and checked after 5 seconds,
+#      which was never enough time for the pod to pull its image, start,
+#      authenticate via IRSA, and complete the CLI call. The result was
+#      always inconclusive. Now we run synchronously with a generous timeout
+#      and capture output directly.
+echo "Creating test pod (this may take up to 60 seconds)..."
+BEDROCK_TEST_OUTPUT=$(kubectl run bedrock-test \
+    --image=amazon/aws-cli \
+    --rm \
+    --restart=Never \
+    --namespace=${NAMESPACE} \
+    --serviceaccount=${SERVICE_ACCOUNT_NAME} \
+    --timeout=60s \
+    --command \
+    -- aws bedrock list-foundation-models --region ${AWS_REGION} 2>&1 || echo "TEST_FAILED")
 
-sleep 5
-
-if grep -q "modelSummaries" /tmp/bedrock-test.log 2>/dev/null; then
-    print_status "Bedrock access confirmed!"
-else
-    print_warning "Bedrock test inconclusive - check manually:"
+if echo "$BEDROCK_TEST_OUTPUT" | grep -q "modelSummaries"; then
+    print_status "Bedrock access confirmed via IRSA!"
+elif echo "$BEDROCK_TEST_OUTPUT" | grep -q "TEST_FAILED"; then
+    print_warning "Bedrock test pod did not complete. Check manually:"
     echo "  kubectl run bedrock-test --image=amazon/aws-cli --rm -it --restart=Never \\"
     echo "    --namespace=${NAMESPACE} --serviceaccount=${SERVICE_ACCOUNT_NAME} \\"
     echo "    -- aws bedrock list-foundation-models --region ${AWS_REGION}"
+else
+    print_warning "Bedrock test inconclusive. Output:"
+    echo "$BEDROCK_TEST_OUTPUT" | head -10
 fi
 
-# Clean up test pod
+# Clean up test pod if it still exists
 kubectl delete pod bedrock-test -n ${NAMESPACE} --ignore-not-found=true 2>/dev/null || true
 
 # Step 8: Create Test Script
 echo ""
 echo -e "${BLUE}Step 8: Creating Bedrock Test Script${NC}"
 
-cat > test-bedrock.py <<'EOF'
+# Changed default region fallback in test script from us-east-1 to
+# us-west-2 to match the cluster region.
+cat > test-bedrock.py <<EOF
 #!/usr/bin/env python3
 """
 Test AWS Bedrock access and models
@@ -289,21 +346,20 @@ import json
 import sys
 
 def test_bedrock(region):
-    print(f"🧪 Testing AWS Bedrock in {region}")
+    print(f"Testing AWS Bedrock in {region}")
     print("="*50)
-    
+
     bedrock = boto3.client('bedrock', region_name=region)
     bedrock_runtime = boto3.client('bedrock-runtime', region_name=region)
-    
+
     # List available models
-    print("\n1. Listing available models...")
+    print("\\n1. Listing available models...")
     try:
         response = bedrock.list_foundation_models()
         models = response['modelSummaries']
-        print(f"✓ Found {len(models)} models")
-        
-        # Show first few models
-        print("\nAvailable models (first 5):")
+        print(f"Found {len(models)} models")
+
+        print("\\nAvailable models (first 5):")
         for model in models[:5]:
             print(f"  - {model['modelId']}")
             print(f"    Provider: {model['providerName']}")
@@ -311,14 +367,14 @@ def test_bedrock(region):
             print(f"    Output: {model.get('outputModalities', ['text'])}")
             print()
     except Exception as e:
-        print(f"✗ Error listing models: {str(e)}")
+        print(f"Error listing models: {str(e)}")
         return False
-    
+
     # Test Claude model
-    print("\n2. Testing Claude 3 Haiku...")
+    print("\\n2. Testing Claude 3 Haiku...")
     try:
         prompt = "What is HIPAA in one sentence?"
-        
+
         body = json.dumps({
             "anthropic_version": "bedrock-2023-05-31",
             "max_tokens": 1024,
@@ -329,51 +385,54 @@ def test_bedrock(region):
                 }
             ]
         })
-        
+
         response = bedrock_runtime.invoke_model(
             modelId='anthropic.claude-3-haiku-20240307-v1:0',
             body=body
         )
-        
+
         response_body = json.loads(response['body'].read())
         answer = response_body['content'][0]['text']
-        
-        print(f"✓ Claude response: {answer}")
-        
+
+        print(f"Claude response: {answer}")
+
     except Exception as e:
-        print(f"✗ Error testing Claude: {str(e)}")
-        print("\nNote: You may need to request access to Claude models:")
+        print(f"Error testing Claude: {str(e)}")
+        print("\\nNote: You may need to request access to Claude models:")
         print(f"  https://console.aws.amazon.com/bedrock/home?region={region}#/modelaccess")
-    
+
     # Test Llama model
-    print("\n3. Testing Llama 3...")
+    print("\\n3. Testing Llama 3...")
     try:
         prompt = "What is AI? Answer in one sentence."
-        
+
         body = json.dumps({
             "prompt": prompt,
             "max_gen_len": 512,
             "temperature": 0.5,
         })
-        
+
         response = bedrock_runtime.invoke_model(
             modelId='meta.llama3-8b-instruct-v1:0',
             body=body
         )
-        
+
         response_body = json.loads(response['body'].read())
         answer = response_body['generation']
-        
-        print(f"✓ Llama response: {answer}")
-        
+
+        print(f"Llama response: {answer}")
+
     except Exception as e:
-        print(f"⚠ Llama not available: {str(e)}")
-    
-    print("\n✅ Bedrock testing complete!")
+        print(f"Llama not available: {str(e)}")
+
+    print("\\nBedrock testing complete!")
     return True
 
 if __name__ == "__main__":
-    region = sys.argv[1] if len(sys.argv) > 1 else 'us-east-1'
+    # FIX: Changed default region from us-east-1 to us-west-2 to match
+    #      the cluster region. Querying the wrong region returns empty
+    #      results or access errors.
+    region = sys.argv[1] if len(sys.argv) > 1 else '${AWS_REGION}'
     test_bedrock(region)
 EOF
 

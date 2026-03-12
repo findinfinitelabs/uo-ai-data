@@ -55,7 +55,7 @@ aws sso login --profile uo-innovation
 export AWS_PROFILE=uo-innovation
 
 # Verify access
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 ### Expected Output
@@ -124,7 +124,7 @@ Before running the deployment, verify:
 
 ```bash
 # Should show your Innovation Sandbox account
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 
 # Should show resources in us-east-1
 aws ec2 describe-regions --region us-east-1
@@ -318,14 +318,14 @@ open http://localhost:7474
 aws sso login --profile uo-innovation
 
 # Verify
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 ### Issue: Permission Denied
 
 ```bash
 # Check your role
-aws sts get-caller-identity | grep Role
+aws sts get-caller-identity --profile uo-innovation | grep Role
 
 # If you see "ReadOnlyAccess", you need PowerUserAccess or Admin role
 # Contact your instructor

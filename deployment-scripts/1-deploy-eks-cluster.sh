@@ -15,10 +15,11 @@ NC='\033[0m' # No Color
 # Configuration
 CLUSTER_NAME="${CLUSTER_NAME:-ollama-ai-cluster}"
 AWS_REGION="${AWS_REGION:-us-west-2}"
-K8S_VERSION="${K8S_VERSION:-1.30}"
+K8S_VERSION="${K8S_VERSION:-1.35}"
 GPU_INSTANCE_TYPE="${GPU_INSTANCE_TYPE:-g4dn.xlarge}"
 GPU_NODE_COUNT="${GPU_NODE_COUNT:-0}"  # Set to 0 for CPU-only cluster (cheaper)
 USE_GPU="${USE_GPU:-false}"  # Set to true to enable GPU nodes
+SKIP_CONFIRMATION="${SKIP_CONFIRMATION:-false}"
 STUDENT_ID="${STUDENT_ID:-student0001}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-dataai-account-student0001}"
 
@@ -91,11 +92,27 @@ if ! command_exists eksctl; then
 fi
 print_status "eksctl installed"
 
+# Added jq prerequisite check.
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    if ! command_exists jq; then
+        print_error "jq is not installed (required for GPU node verification). Installing now..."
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install jq
+        else
+            sudo apt-get install -y jq 2>/dev/null || sudo yum install -y jq 2>/dev/null || {
+                print_error "Could not install jq automatically. Please install it manually: https://stedolan.github.io/jq/download/"
+                exit 1
+            }
+        fi
+    fi
+    print_status "jq installed"
+fi
+
 # Step 2: Verify AWS Credentials
 echo ""
 echo -e "${BLUE}Step 2: Verifying AWS Credentials${NC}"
 
-if ! aws sts get-caller-identity &>/dev/null; then
+if ! aws sts get-caller-identity --profile uo-innovation &>/dev/null; then
     print_error "AWS credentials are not configured"
     echo ""
     echo "Please run: aws configure"
@@ -103,8 +120,8 @@ if ! aws sts get-caller-identity &>/dev/null; then
     exit 1
 fi
 
-AWS_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
-AWS_USER=$(aws sts get-caller-identity --query Arn --output text)
+AWS_ACCOUNT=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text)
+AWS_USER=$(aws sts get-caller-identity --profile uo-innovation --query Arn --output text)
 
 # Update resource group name with account number if using default
 if [ "$RESOURCE_GROUP" = "dataai-account-student0001" ]; then
@@ -205,7 +222,11 @@ vpc:
 
 managedNodeGroups:
   - name: general-nodes
-    instanceType: t3.small  # Smaller instance for cost savings
+    # FIX: Upgraded from t3.medium to t3.xlarge (16GB RAM). t3.medium (4GB)
+    #      does not provide enough container memory headroom for Mistral 7B
+    #      inference (~4.5GB required). t3.xlarge is the minimum for reliable
+    #      healthcare query quality with 7B parameter models.
+    instanceType: t3.xlarge
     minSize: 2
     maxSize: 3
     desiredCapacity: 2
@@ -238,8 +259,8 @@ if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
     echo ""
     echo -e "${YELLOW}💡 This is a GPU-enabled cluster for AI inference${NC}"
 else
-    print_warning "CPU-only cluster with t3.small instances"
-    print_warning "Estimated cost: ~\$3-5/day (budget-friendly)"
+    print_warning "CPU-only cluster with t3.xlarge instances"
+    print_warning "Estimated cost: ~\$8-12/day (required for Mistral 7B inference)"
     echo ""
     echo -e "${GREEN}💡 This is a small CPU-only cluster - perfect for development and testing${NC}"
     echo -e "${GREEN}💡 To enable GPU support, set USE_GPU=true and GPU_NODE_COUNT=1${NC}"
@@ -247,10 +268,14 @@ fi
 
 print_warning "Make sure you have sufficient Innovation Sandbox credits!"
 echo ""
-read -p "Continue with deployment? (yes/no): " -r
-if [[ ! $REPLY =~ ^[Yy](es)?$ ]]; then
-    echo "Deployment cancelled."
-    exit 0
+
+# Wrapped confirmation prompt in SKIP_CONFIRMATION check
+if [ "$SKIP_CONFIRMATION" = false ]; then
+    read -p "Continue with deployment? (yes/no): " -r
+    if [[ ! $REPLY =~ ^[Yy](es)?$ ]]; then
+        echo "Deployment cancelled."
+        exit 0
+    fi
 fi
 
 # Step 5: Deploy Cluster
@@ -259,19 +284,88 @@ echo -e "${BLUE}Step 5: Deploying EKS Cluster${NC}"
 echo "This will take 15-20 minutes..."
 echo ""
 
-if eksctl create cluster -f /tmp/eks-cluster-config.yaml; then
+# Handle AlreadyExistsException gracefully.
+if eksctl create cluster -f /tmp/eks-cluster-config.yaml --profile=uo-innovation; then
     print_status "EKS cluster created successfully!"
 else
-    print_error "Failed to create EKS cluster"
-    exit 1
+    EKSCTL_EXIT=$?
+    if aws eks describe-cluster \
+        --name ${CLUSTER_NAME} \
+        --region ${AWS_REGION} \
+        --profile uo-innovation \
+        --query 'cluster.status' \
+        --output text 2>/dev/null | grep -q "ACTIVE"; then
+        print_warning "Cluster already exists and is ACTIVE — skipping creation"
+    else
+        print_error "Failed to create EKS cluster (exit code ${EKSCTL_EXIT})"
+        exit 1
+    fi
 fi
 
 # Step 6: Update kubeconfig
 echo ""
 echo -e "${BLUE}Step 6: Updating kubeconfig${NC}"
 
-aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
+aws eks update-kubeconfig --profile uo-innovation --region ${AWS_REGION} --name ${CLUSTER_NAME}
 print_status "kubeconfig updated"
+
+# Step 6b: Install EBS CSI Driver
+# Added EBS CSI driver installation and IAM policy attachment.
+echo ""
+echo -e "${BLUE}Step 6b: Installing EBS CSI Driver${NC}"
+
+# Get the node instance role via nodegroup description (more reliable than
+# paginated iam list-roles which may miss the role on accounts with many roles)
+FIRST_NODEGROUP=$(aws eks list-nodegroups \
+    --cluster-name "${CLUSTER_NAME}" \
+    --region "${AWS_REGION}" \
+    --profile uo-innovation \
+    --query 'nodegroups[0]' \
+    --output text 2>/dev/null || echo "")
+NODE_ROLE=""
+if [ -n "$FIRST_NODEGROUP" ] && [ "$FIRST_NODEGROUP" != "None" ]; then
+    NODE_ROLE_ARN=$(aws eks describe-nodegroup \
+        --cluster-name "${CLUSTER_NAME}" \
+        --nodegroup-name "${FIRST_NODEGROUP}" \
+        --region "${AWS_REGION}" \
+        --profile uo-innovation \
+        --query 'nodegroup.nodeRole' \
+        --output text 2>/dev/null || echo "")
+    NODE_ROLE=$(basename "${NODE_ROLE_ARN}")
+fi
+
+if [ -z "$NODE_ROLE" ]; then
+    print_warning "Could not automatically detect node instance role. Skipping EBS CSI IAM attachment."
+    print_warning "You may need to manually attach AmazonEBSCSIDriverPolicy to your node role."
+else
+    print_status "Detected node role: ${NODE_ROLE}"
+
+    # Attach EBS CSI policy to node role
+    aws iam attach-role-policy \
+        --profile uo-innovation \
+        --role-name "${NODE_ROLE}" \
+        --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy 2>/dev/null \
+        && print_status "AmazonEBSCSIDriverPolicy attached to node role" \
+        || print_warning "Could not attach EBS CSI policy - it may already be attached"
+fi
+
+# Install EBS CSI addon
+print_status "Installing aws-ebs-csi-driver addon..."
+aws eks create-addon \
+    --cluster-name ${CLUSTER_NAME} \
+    --addon-name aws-ebs-csi-driver \
+    --region ${AWS_REGION} \
+    --profile uo-innovation 2>/dev/null \
+    || print_warning "EBS CSI addon may already be installed"
+
+echo "Waiting for EBS CSI driver to become active (this may take 5-10 minutes)..."
+aws eks wait addon-active \
+    --cluster-name ${CLUSTER_NAME} \
+    --addon-name aws-ebs-csi-driver \
+    --region ${AWS_REGION} \
+    --profile uo-innovation \
+    && print_status "EBS CSI driver is active" \
+    || print_warning "EBS CSI driver wait timed out - check status with: aws eks describe-addon --cluster-name ${CLUSTER_NAME} --addon-name aws-ebs-csi-driver --region ${AWS_REGION}"
 
 # Step 7: Verify Cluster
 echo ""
@@ -353,6 +447,8 @@ EOF
 print_status "Cluster information saved to cluster-info.txt"
 
 # Summary
+# Summary now branches on USE_GPU/GPU_NODE_COUNT so CPU-only runs do
+# not misleadingly report a GPU node count and instance type.
 echo ""
 echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}EKS Cluster Deployment Complete!${NC}"
@@ -361,7 +457,11 @@ echo ""
 echo "Cluster Details:"
 echo "  Name: ${CLUSTER_NAME}"
 echo "  Region: ${AWS_REGION}"
-echo "  GPU Nodes: ${GPU_NODE_COUNT} x ${GPU_INSTANCE_TYPE}"
+if [ "$USE_GPU" = "true" ] && [ "$GPU_NODE_COUNT" -gt 0 ]; then
+    echo "  GPU Nodes: ${GPU_NODE_COUNT} x ${GPU_INSTANCE_TYPE}"
+else
+    echo "  Cluster Type: CPU-only (t3.xlarge)"
+fi
 echo ""
 echo "Next: Run ./2-install-ollama.sh to install Ollama on your cluster"
 echo ""

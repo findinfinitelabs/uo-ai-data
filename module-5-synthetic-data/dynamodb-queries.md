@@ -9,7 +9,7 @@ This document provides scripts to interact with your deployed DynamoDB healthcar
 pip install boto3 faker
 
 # Ensure AWS credentials are configured
-aws sts get-caller-identity
+aws sts get-caller-identity --profile uo-innovation
 ```
 
 ## 1. Discover Your Deployed Resources

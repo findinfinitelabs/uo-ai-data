@@ -92,7 +92,7 @@ const EKSDeploymentContent = () => (
 # Default output format: json
 
 # Verify configuration
-aws sts get-caller-identity`}
+aws sts get-caller-identity --profile uo-innovation`}
       </CodeBlock>
     </Paper>
 

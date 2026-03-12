@@ -198,7 +198,7 @@ fi
 print_header "Step 4: Deleting S3 Buckets"
 
 echo "Finding healthcare S3 buckets..."
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
+ACCOUNT_ID=$(aws sts get-caller-identity --profile uo-innovation --query Account --output text 2>/dev/null)
 S3_BUCKETS=$(aws s3 ls | grep "healthcare-ai-data" | awk '{print $3}' 2>/dev/null || echo "")
 
 if [ -n "$S3_BUCKETS" ]; then
