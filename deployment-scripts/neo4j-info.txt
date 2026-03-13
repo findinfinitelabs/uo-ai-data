@@ -1,0 +1,57 @@
+Neo4j Graph Database Information
+=================================
+Namespace: neo4j
+Storage: 10Gi
+Version: 5.15.0
+Deployed: Thu Mar 12 19:04:38 PDT 2026
+
+Browser URL: http://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7474
+Bolt URL: bolt://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7687
+Username: neo4j
+Password: healthcare2024
+
+Useful Commands:
+================
+
+# View Neo4j logs
+kubectl logs -n neo4j statefulset/neo4j --tail=100
+
+# Port forward for local access
+kubectl port-forward -n neo4j svc/neo4j-service 7474:7474 7687:7687
+
+# Import healthcare data from DynamoDB
+NEO4J_URI=bolt://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7687 AWS_PROFILE=uo-innovation python3 healthcare_neo4j_loader.py
+
+# Install Python dependencies for loader
+pip install neo4j boto3
+
+# Connect programmatically (Python)
+from neo4j import GraphDatabase
+
+driver = GraphDatabase.driver(
+    "bolt://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7687",
+    auth=("neo4j", "healthcare2024")
+)
+
+with driver.session() as session:
+    result = session.run("MATCH (n) RETURN count(n)")
+    print(result.single()[0])
+
+# Run sample Cypher queries
+# Copy/paste from neo4j_sample_queries.cypher into Neo4j Browser
+
+Cost Comparison:
+================
+AWS Neptune: ~$0.10/hour + instance = ~$216/month minimum
+Neo4j on EKS: Only EKS storage (10Gi @ $0.10/GB/month) = ~$1-2/month
+
+Cleanup:
+========
+kubectl delete namespace neo4j
+
+Next Steps:
+===========
+1. Open Neo4j Browser: http://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7474
+2. Login with credentials above
+3. Run data import: NEO4J_URI=bolt://aca7477c155ea4b63b53c1357169604c-1102752196.us-west-2.elb.amazonaws.com:7687 AWS_PROFILE=uo-innovation python3 healthcare_neo4j_loader.py
+4. Try sample queries from neo4j_sample_queries.cypher

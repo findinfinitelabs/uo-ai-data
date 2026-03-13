@@ -1,0 +1,42 @@
+Ollama Deployment Information
+==============================
+Namespace: ollama
+Replicas: 1
+Storage: 50Gi
+GPU Enabled: false
+Deployed: Thu Mar 12 19:01:38 PDT 2026
+
+Service URL: http://a4d89f8c91686401a8ac05c7d3d50696-165800751.us-west-2.elb.amazonaws.com:11434
+
+Installed Models:
+NAME              ID              SIZE      MODIFIED       
+mistral:latest    6577803aa9a0    4.4 GB    18 seconds ago    
+
+Useful Commands:
+================
+
+# List all models
+kubectl exec -n ollama ollama-5d6465f7c-mrqw4 -- ollama list
+
+# Pull a new model
+kubectl exec -n ollama ollama-5d6465f7c-mrqw4 -- ollama pull <model-name>
+
+# Run a model interactively
+kubectl exec -it -n ollama ollama-5d6465f7c-mrqw4 -- ollama run mistral
+
+# View logs
+kubectl logs -n ollama -l app=ollama --tail=100
+
+# Port forward for local access
+kubectl port-forward -n ollama svc/ollama-service 11434:11434
+
+# Test API locally (after port-forward)
+curl http://localhost:11434/api/generate -d '{
+  "model": "mistral",
+  "prompt": "Why is healthcare data compliance important?",
+  "stream": false
+}'
+
+Next Steps:
+===========
+Run: ./3-setup-knowledge-graph.sh

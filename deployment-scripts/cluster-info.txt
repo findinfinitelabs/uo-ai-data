@@ -3,15 +3,15 @@ EKS Cluster Information
 Cluster Name: ollama-ai-cluster
 Region: us-west-2
 Kubernetes Version: 1.30
-Created: Wed Feb 25 19:38:38 HST 2026
+Created: Thu Mar 12 18:57:45 PDT 2026
 
-AWS Account: 547741150715
-AWS User/Role: arn:aws:sts::547741150715:assumed-role/AWSReservedSSO_LCBPEGA_IsbAdminsPS_c0a4d168a1178edf/christol@uoregon.edu
+AWS Account: 631285163678
+AWS User/Role: arn:aws:sts::631285163678:assumed-role/AWSReservedSSO_LCBPEGA_IsbAdminsPS_46c4ff7e69f08314/christol@uoregon.edu
 
 Nodes:
-NAME                                        STATUS   ROLES    AGE   VERSION
-ip-10-0-21-210.us-west-2.compute.internal   Ready    <none>   80s   v1.30.14-eks-70ce843
-ip-10-0-72-56.us-west-2.compute.internal    Ready    <none>   79s   v1.30.14-eks-70ce843
+NAME                                       STATUS   ROLES    AGE    VERSION
+ip-10-0-63-61.us-west-2.compute.internal   Ready    <none>   100s   v1.30.14-eks-f69f56f
+ip-10-0-89-33.us-west-2.compute.internal   Ready    <none>   100s   v1.30.14-eks-f69f56f
 
 To access this cluster later, run:
   aws eks update-kubeconfig --region us-west-2 --name ollama-ai-cluster

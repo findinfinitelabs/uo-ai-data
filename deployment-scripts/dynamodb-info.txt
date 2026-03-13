@@ -2,7 +2,7 @@ DynamoDB Healthcare Data Information
 =====================================
 Region: us-west-2
 Table Prefix: healthcare
-Deployed: Mon Feb 16 08:40:05 PST 2026
+Deployed: Thu Mar 12 19:02:16 PDT 2026
 
 Tables Created:
 ===============
@@ -17,26 +17,26 @@ Quick Commands:
 ===============
 
 # List all tables
-aws dynamodb list-tables --region us-west-2
+aws dynamodb list-tables --region us-west-2 --profile uo-innovation
 
 # Describe a table
-aws dynamodb describe-table --table-name healthcare-patients --region us-west-2
+aws dynamodb describe-table --table-name healthcare-patients --region us-west-2 --profile uo-innovation
 
 # Scan patients table
-aws dynamodb scan --table-name healthcare-patients --region us-west-2
+aws dynamodb scan --table-name healthcare-patients --region us-west-2 --profile uo-innovation
 
 # Query patient diagnoses
 aws dynamodb query --table-name healthcare-patient-diagnoses \
   --key-condition-expression "patient_id = :pid" \
   --expression-attribute-values '{":pid":{"S":"ANON001"}}' \
-  --region us-west-2
+  --region us-west-2 --profile uo-innovation
 
 # Populate data
-python3 populate-healthcare-data.py us-west-2 healthcare
+AWS_PROFILE=uo-innovation python3 populate-healthcare-data.py us-west-2 healthcare
 
 # Delete all tables (cleanup)
 for table in healthcare-patients healthcare-diagnoses healthcare-medications healthcare-providers healthcare-patient-diagnoses healthcare-patient-medications; do
-  aws dynamodb delete-table --table-name $table --region us-west-2
+  aws dynamodb delete-table --table-name $table --region us-west-2 --profile uo-innovation
 done
 
 Python Access Example:

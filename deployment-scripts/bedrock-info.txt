@@ -1,17 +1,17 @@
 AWS Bedrock Configuration
 =========================
 Region: us-west-2
-Account: 547741150715
-Configured: Wed Feb 25 19:45:13 HST 2026
+Account: 631285163678
+Configured: Thu Mar 12 19:01:50 PDT 2026
 
 IAM Configuration:
 ==================
-Policy ARN: arn:aws:iam::547741150715:policy/BedrockAccessPolicy-ollama-ai-cluster
-Role ARN: arn:aws:iam::547741150715:role/BedrockAccessRole-ollama-ai-cluster
+Policy ARN: arn:aws:iam::631285163678:policy/BedrockAccessPolicy-ollama-ai-cluster
+Role ARN: arn:aws:iam::631285163678:role/BedrockAccessRole-ollama-ai-cluster
 Service Account: bedrock-service-account
 Namespace: ollama
 
-OIDC Provider: oidc.eks.us-west-2.amazonaws.com/id/32BAFD6EC780EC69BCF724FBD3DDA3DF
+OIDC Provider: oidc.eks.us-west-2.amazonaws.com/id/EFE907E49DA89CCE7996911A49F214F0
 
 Recommended Models:
 ===================
