@@ -111,7 +111,7 @@ else
 fi
 
 # Option to back up data
-if [ "$CLUSTER_EXISTS" = true ] && [ "$KEEP_DATA" = false ]; then
+if [ "$CLUSTER_EXISTS" = true ] && [ "$KEEP_DATA" = false ] && [ "$FORCE" = false ]; then
     echo ""
     read -p "Create backup of Neo4j data before deletion? (y/n): " -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then

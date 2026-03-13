@@ -238,7 +238,7 @@ log "  Identity:   ${USER_ARN}"
 log ""
 
 # Prompt for Student Number
-if [ -n "$STUDENT_ID" ]; then
+if [ -n "${STUDENT_ID:-}" ]; then
     # Already set from .env (written by setup-aws-credentials.sh)
     RESOURCE_GROUP="dataai-account${ACCOUNT_ID}-${STUDENT_ID}"
     print_success "Student ID: ${STUDENT_ID} (from .env)"
@@ -447,7 +447,7 @@ print_header "Step 4/5: Deploying AI Integration"
 print_info "This will take 5-10 minutes..."
 log ""
 
-if bash "${SCRIPT_DIR}/4-deploy-integration.sh" 2>&1 | tee -a "$LOG_FILE"; then
+if SKIP_CONFIRMATION=true bash "${SCRIPT_DIR}/4-deploy-integration.sh" 2>&1 | tee -a "$LOG_FILE"; then
     print_success "Integration deployed successfully"
 else
     print_error "Integration deployment failed"

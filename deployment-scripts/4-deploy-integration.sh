@@ -902,7 +902,7 @@ print_status "Created requirements.txt"
 echo ""
 echo -e "${BLUE}Step 3: Building Docker Image${NC}"
 
-docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+docker build --platform linux/amd64 -t ${IMAGE_NAME}:${IMAGE_TAG} .
 print_status "Docker image built successfully"
 
 # Step 4: Push to ECR
