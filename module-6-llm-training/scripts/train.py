@@ -21,10 +21,9 @@ from datasets import load_dataset
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
 )
 from peft import LoraConfig, get_peft_model, TaskType
-from trl import SFTTrainer
+from trl import SFTTrainer, SFTConfig
 
 
 def load_config(config_path: str) -> dict:
@@ -117,7 +116,7 @@ def train(config_path: str, data_file: str, output_dir: str, resume_from: str = 
     eval_file = str(Path(data_file).parent / "eval.jsonl")
     train_dataset, eval_dataset = load_training_data(data_file, eval_file)
 
-    training_args = TrainingArguments(
+    training_args = SFTConfig(
         output_dir=out,
         num_train_epochs=t.get("num_train_epochs", 3),
         per_device_train_batch_size=t.get("per_device_train_batch_size", 1),
@@ -128,29 +127,29 @@ def train(config_path: str, data_file: str, output_dir: str, resume_from: str = 
         lr_scheduler_type=t.get("lr_scheduler_type", "cosine"),
         warmup_ratio=t.get("warmup_ratio", 0.03),
         weight_decay=t.get("weight_decay", 0.001),
-        optim="adamw_torch",           # CPU-compatible optimizer
+        optim="adamw_torch",
         max_grad_norm=t.get("max_grad_norm", 0.3),
         logging_steps=t.get("logging_steps", 5),
         save_steps=t.get("save_steps", 50),
         eval_steps=t.get("eval_steps", 50) if eval_dataset else None,
-        evaluation_strategy="steps" if eval_dataset else "no",
+        eval_strategy="steps" if eval_dataset else "no",
         save_total_limit=2,
         fp16=False,
-        bf16=False,                     # CPU does not support bf16
-        use_cpu=get_device() == "cpu",
+        bf16=False,
         push_to_hub=False,
         report_to="none",
+        # SFTConfig-specific
+        dataset_text_field="text",
+        max_length=t.get("max_seq_length", 512),
+        packing=False,
     )
 
     trainer = SFTTrainer(
         model=model,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
         args=training_args,
-        dataset_text_field="text",
-        max_seq_length=t.get("max_seq_length", 512),
-        packing=False,                  # Disable packing for CPU stability
     )
 
     print(f"\nOutput directory: {out}")

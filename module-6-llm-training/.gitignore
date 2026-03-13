@@ -1,0 +1,23 @@
+# Virtual environments
+.venv-train/
+.venv/
+venv/
+env/
+
+# Generated training data (run prepare_data.py to regenerate)
+data/processed/
+
+# Model artifacts (too large for git — download via download_model.py)
+models/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# HuggingFace cache
+.cache/
+
+# Jupyter
+*.ipynb_checkpoints
