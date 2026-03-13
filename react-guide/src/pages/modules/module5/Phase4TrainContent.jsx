@@ -50,23 +50,23 @@ export default function Phase4TrainContent() {
       </Group>
 
       <Text size="lg" c="dimmed" mb="xl">
-        With the JSONL training file ready, you will fine-tune <strong>StableLM 1.6B</strong>
+        With the JSONL training file ready, you will fine-tune <strong>TinyLlama 1.1B</strong>
         using LoRA (Low-Rank Adaptation). LoRA freezes the base model weights and trains only
-        small adapter layers, making fine-tuning feasible on a laptop-class CPU or a single GPU.
+        small adapter layers, making fine-tuning feasible on any Windows or macOS laptop CPU.
       </Text>
 
       <Alert icon={<IconInfoCircle size={16} />} color="blue" mb="md">
         <Text size="sm">
-          <strong>Why StableLM 1.6B?</strong> It is Apache 2.0 licensed, requires no gated
-          access approval, and is small enough to train on a standard MacBook or cloud CPU
-          instance in a reasonable time.
+          <strong>Why TinyLlama 1.1B?</strong> It is Apache 2.0 licensed, requires no Hugging
+          Face account or gated access approval, and at 1.1B parameters is small enough to
+          run and fine-tune on a standard Windows laptop CPU in under 90 minutes.
         </Text>
       </Alert>
 
       <Alert icon={<IconClock size={16} />} color="orange" mb="xl">
         <Text size="sm">
-          <strong>Training time estimate:</strong> CPU-only: ~60–120 minutes for 3 epochs on
-          100 patients. GPU (A10G/T4): ~8–15 minutes. Plan accordingly.
+          <strong>Training time estimate:</strong> CPU-only: ~30–90 minutes for 3 epochs on
+          100 patients (varies by CPU). No GPU required.
         </Text>
       </Alert>
 
@@ -118,7 +118,7 @@ export default function Phase4TrainContent() {
               </Text>
               {codeBlock('python scripts/download_model.py')}
               <Text size="sm" c="dimmed" mt={8}>
-                Model is cached in <Code>~/.cache/huggingface/</Code> (~3 GB).
+                Model is cached in <Code>~/.cache/huggingface/</Code> (~2.2 GB).
               </Text>
             </Box>
           }

@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """
-Fine-Tune Mistral 7B with LoRA/QLoRA
+Fine-Tune TinyLlama 1.1B with LoRA (CPU-compatible)
 
-This script fine-tunes Mistral 7B using parameter-efficient methods
-(LoRA/QLoRA) for data management and generation tasks.
+Runs on any Windows/macOS/Linux machine without a GPU.
+Expected time: ~30-60 min on a modern laptop CPU for 3 epochs / 300 examples.
+
+Usage:
+    python scripts/train.py \
+        --config configs/lora_config.yaml \
+        --data data/processed/train.jsonl \
+        --output models/healthcare-lora
 """
 
-import os
 import argparse
 from pathlib import Path
 
@@ -16,26 +21,18 @@ from datasets import load_dataset
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    BitsAndBytesConfig,
     TrainingArguments,
 )
-from peft import (
-    LoraConfig,
-    get_peft_model,
-    prepare_model_for_kbit_training,
-    TaskType,
-)
+from peft import LoraConfig, get_peft_model, TaskType
 from trl import SFTTrainer
 
 
 def load_config(config_path: str) -> dict:
-    """Load configuration from YAML file."""
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
 
 
-def get_device():
-    """Determine the best available device."""
+def get_device() -> str:
     if torch.cuda.is_available():
         return "cuda"
     elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
@@ -44,208 +41,107 @@ def get_device():
 
 
 def setup_model_and_tokenizer(config: dict):
-    """
-    Set up the model and tokenizer with optional quantization.
-    
-    Args:
-        config: Configuration dictionary
-    
-    Returns:
-        Tuple of (model, tokenizer)
-    """
     model_name = config["model"]["name"]
     cache_dir = config["model"].get("cache_dir", "./models")
+    device = get_device()
+
+    print(f"\nLoading model: {model_name}")
+    print(f"Device       : {device}")
+    if device == "cuda":
+        print(f"GPU          : {torch.cuda.get_device_name(0)}")
     
-    print(f"\n🔧 Loading model: {model_name}")
-    
-    # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(
-        model_name,
-        cache_dir=cache_dir,
-        trust_remote_code=True,
+        model_name, cache_dir=cache_dir, trust_remote_code=True
     )
-    
-    # Set padding token
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
-    
-    # Configure quantization
-    quant_config = config.get("quantization", {})
-    if quant_config.get("enabled", False):
-        print("📦 Using 4-bit quantization (QLoRA)")
-        bnb_config = BitsAndBytesConfig(
-            load_in_4bit=quant_config.get("load_in_4bit", True),
-            bnb_4bit_quant_type=quant_config.get("bnb_4bit_quant_type", "nf4"),
-            bnb_4bit_compute_dtype=getattr(
-                torch, 
-                quant_config.get("bnb_4bit_compute_dtype", "float16")
-            ),
-            bnb_4bit_use_double_quant=quant_config.get("bnb_4bit_use_double_quant", True),
-        )
-    else:
-        bnb_config = None
-        print("📦 Loading model in full precision")
-    
-    # Load model
+
+    # CPU-compatible: no quantization, float32
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
-        quantization_config=bnb_config,
         cache_dir=cache_dir,
-        device_map="auto",
-        trust_remote_code=True,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,
+        low_cpu_mem_usage=True,
     )
-    
-    # Prepare for k-bit training if quantized
-    if bnb_config:
-        model = prepare_model_for_kbit_training(model)
-    
-    # Enable gradient checkpointing
     model.gradient_checkpointing_enable()
-    
-    print("✅ Model loaded successfully")
+    print("Model loaded successfully")
     return model, tokenizer
 
 
 def setup_lora(model, config: dict):
-    """
-    Configure and apply LoRA adapters to the model.
-    
-    Args:
-        model: The base model
-        config: Configuration dictionary
-    
-    Returns:
-        Model with LoRA adapters
-    """
-    lora_config = config.get("lora", {})
-    
-    print("\n🔗 Configuring LoRA adapters")
-    print(f"   Rank (r): {lora_config.get('r', 64)}")
-    print(f"   Alpha: {lora_config.get('lora_alpha', 16)}")
-    print(f"   Target modules: {lora_config.get('target_modules', [])}")
-    
+    lora_cfg = config.get("lora", {})
     peft_config = LoraConfig(
-        r=lora_config.get("r", 64),
-        lora_alpha=lora_config.get("lora_alpha", 16),
-        lora_dropout=lora_config.get("lora_dropout", 0.1),
-        bias=lora_config.get("bias", "none"),
+        r=lora_cfg.get("r", 8),
+        lora_alpha=lora_cfg.get("lora_alpha", 16),
+        lora_dropout=lora_cfg.get("lora_dropout", 0.05),
+        bias=lora_cfg.get("bias", "none"),
         task_type=TaskType.CAUSAL_LM,
-        target_modules=lora_config.get("target_modules", [
-            "q_proj", "k_proj", "v_proj", "o_proj",
-            "gate_proj", "up_proj", "down_proj"
-        ]),
+        target_modules=lora_cfg.get("target_modules", ["q_proj", "v_proj"]),
     )
-    
     model = get_peft_model(model, peft_config)
-    
-    # Print trainable parameters
-    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    total_params = sum(p.numel() for p in model.parameters())
-    print(f"\n📊 Trainable parameters: {trainable_params:,} / {total_params:,}")
-    print(f"   Percentage: {100 * trainable_params / total_params:.2f}%")
-    
+    trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    total = sum(p.numel() for p in model.parameters())
+    print(f"LoRA adapters applied — trainable params: {trainable:,} / {total:,} ({100*trainable/total:.2f}%)")
     return model
 
 
-def load_training_data(config: dict):
-    """
-    Load training and evaluation datasets.
-    
-    Args:
-        config: Configuration dictionary
-    
-    Returns:
-        Tuple of (train_dataset, eval_dataset)
-    """
-    data_config = config.get("data", {})
-    train_file = data_config.get("train_file", "./data/processed/train.jsonl")
-    eval_file = data_config.get("eval_file", "./data/processed/eval.jsonl")
-    
-    print(f"\n📂 Loading training data from: {train_file}")
-    
-    # Check if files exist
+def load_training_data(train_file: str, eval_file: str = None):
     if not Path(train_file).exists():
         raise FileNotFoundError(
             f"Training file not found: {train_file}\n"
-            "Run: python scripts/prepare_data.py first"
+            "Run: python scripts/prepare_data.py --source dynamodb --profile uo-innovation first"
         )
-    
     train_dataset = load_dataset("json", data_files=train_file, split="train")
-    
-    if Path(eval_file).exists():
+    eval_dataset = None
+    if eval_file and Path(eval_file).exists():
         eval_dataset = load_dataset("json", data_files=eval_file, split="train")
-        print(f"   Training examples: {len(train_dataset)}")
-        print(f"   Evaluation examples: {len(eval_dataset)}")
-    else:
-        eval_dataset = None
-        print(f"   Training examples: {len(train_dataset)}")
-        print(f"   No evaluation file found (optional)")
-    
+    print(f"Training examples  : {len(train_dataset)}")
+    if eval_dataset:
+        print(f"Evaluation examples: {len(eval_dataset)}")
     return train_dataset, eval_dataset
 
 
-def train(config_path: str, resume_from: str = None):
-    """
-    Main training function.
-    
-    Args:
-        config_path: Path to configuration YAML file
-        resume_from: Path to checkpoint to resume from (optional)
-    """
+def train(config_path: str, data_file: str, output_dir: str, resume_from: str = None):
     print("\n" + "=" * 60)
-    print("🚀 MISTRAL 7B FINE-TUNING WITH LoRA")
+    print("  TinyLlama 1.1B  LoRA Fine-Tuning (CPU)")
     print("=" * 60)
-    
-    # Load configuration
+
     config = load_config(config_path)
-    
-    # Check device
-    device = get_device()
-    print(f"\n💻 Device: {device}")
-    if device == "cuda":
-        print(f"   GPU: {torch.cuda.get_device_name(0)}")
-        print(f"   VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
-    
-    # Setup model and tokenizer
+    t = config.get("training", {})
+    out = output_dir or t.get("output_dir", "./models/healthcare-lora")
+
     model, tokenizer = setup_model_and_tokenizer(config)
-    
-    # Apply LoRA
     model = setup_lora(model, config)
-    
-    # Load data
-    train_dataset, eval_dataset = load_training_data(config)
-    
-    # Training arguments
-    train_config = config.get("training", {})
-    output_dir = train_config.get("output_dir", "./models/mistral-7b-finetuned")
-    
+
+    eval_file = str(Path(data_file).parent / "eval.jsonl")
+    train_dataset, eval_dataset = load_training_data(data_file, eval_file)
+
     training_args = TrainingArguments(
-        output_dir=output_dir,
-        num_train_epochs=train_config.get("num_train_epochs", 3),
-        per_device_train_batch_size=train_config.get("per_device_train_batch_size", 4),
-        per_device_eval_batch_size=train_config.get("per_device_eval_batch_size", 4),
-        gradient_accumulation_steps=train_config.get("gradient_accumulation_steps", 4),
-        gradient_checkpointing=train_config.get("gradient_checkpointing", True),
-        learning_rate=train_config.get("learning_rate", 2e-4),
-        lr_scheduler_type=train_config.get("lr_scheduler_type", "cosine"),
-        warmup_ratio=train_config.get("warmup_ratio", 0.03),
-        weight_decay=train_config.get("weight_decay", 0.001),
-        optim=train_config.get("optim", "paged_adamw_32bit"),
-        max_grad_norm=train_config.get("max_grad_norm", 0.3),
-        logging_steps=train_config.get("logging_steps", 10),
-        save_steps=train_config.get("save_steps", 100),
-        eval_steps=train_config.get("eval_steps", 100) if eval_dataset else None,
+        output_dir=out,
+        num_train_epochs=t.get("num_train_epochs", 3),
+        per_device_train_batch_size=t.get("per_device_train_batch_size", 1),
+        per_device_eval_batch_size=t.get("per_device_eval_batch_size", 1),
+        gradient_accumulation_steps=t.get("gradient_accumulation_steps", 8),
+        gradient_checkpointing=t.get("gradient_checkpointing", True),
+        learning_rate=t.get("learning_rate", 2e-4),
+        lr_scheduler_type=t.get("lr_scheduler_type", "cosine"),
+        warmup_ratio=t.get("warmup_ratio", 0.03),
+        weight_decay=t.get("weight_decay", 0.001),
+        optim="adamw_torch",           # CPU-compatible optimizer
+        max_grad_norm=t.get("max_grad_norm", 0.3),
+        logging_steps=t.get("logging_steps", 5),
+        save_steps=t.get("save_steps", 50),
+        eval_steps=t.get("eval_steps", 50) if eval_dataset else None,
         evaluation_strategy="steps" if eval_dataset else "no",
-        save_total_limit=train_config.get("save_total_limit", 3),
-        fp16=train_config.get("fp16", False),
-        bf16=train_config.get("bf16", True),
+        save_total_limit=2,
+        fp16=False,
+        bf16=False,                     # CPU does not support bf16
+        use_cpu=get_device() == "cpu",
         push_to_hub=False,
-        report_to="wandb" if config.get("wandb", {}).get("enabled", False) else "none",
+        report_to="none",
     )
-    
-    # Create trainer
+
     trainer = SFTTrainer(
         model=model,
         tokenizer=tokenizer,
@@ -253,61 +149,38 @@ def train(config_path: str, resume_from: str = None):
         eval_dataset=eval_dataset,
         args=training_args,
         dataset_text_field="text",
-        max_seq_length=train_config.get("max_seq_length", 2048),
-        packing=train_config.get("packing", True),
+        max_seq_length=t.get("max_seq_length", 512),
+        packing=False,                  # Disable packing for CPU stability
     )
-    
+
+    print(f"\nOutput directory: {out}")
+    print(f"Epochs          : {t.get('num_train_epochs', 3)}")
+    print(f"Max seq length  : {t.get('max_seq_length', 512)}")
+    print("\nStarting training — watch for 'loss' decreasing each epoch...\n")
+
+    trainer.train(resume_from_checkpoint=resume_from)
+
+    print("\nSaving model...")
+    trainer.save_model(out)
+    tokenizer.save_pretrained(out)
+
     print("\n" + "=" * 60)
-    print("🎯 STARTING TRAINING")
+    print("  Training complete!")
     print("=" * 60)
-    print(f"\n   Output directory: {output_dir}")
-    print(f"   Epochs: {train_config.get('num_train_epochs', 3)}")
-    print(f"   Batch size: {train_config.get('per_device_train_batch_size', 4)}")
-    print(f"   Gradient accumulation: {train_config.get('gradient_accumulation_steps', 4)}")
-    print(f"   Effective batch size: {train_config.get('per_device_train_batch_size', 4) * train_config.get('gradient_accumulation_steps', 4)}")
-    print(f"   Learning rate: {train_config.get('learning_rate', 2e-4)}")
-    print("\n")
-    
-    # Train
-    if resume_from:
-        trainer.train(resume_from_checkpoint=resume_from)
-    else:
-        trainer.train()
-    
-    # Save the final model
-    print("\n💾 Saving final model...")
-    trainer.save_model(output_dir)
-    tokenizer.save_pretrained(output_dir)
-    
-    print("\n" + "=" * 60)
-    print("✅ TRAINING COMPLETE!")
-    print("=" * 60)
-    print(f"\nModel saved to: {output_dir}")
-    print("\nNext steps:")
-    print("  1. Test your model: python scripts/inference.py")
-    print("  2. Export for Ollama: python scripts/export_model.py")
+    print(f"\nAdapter saved to: {out}")
+    print("\nNext: python scripts/inference.py --model", out)
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Fine-tune Mistral 7B with LoRA"
-    )
-    parser.add_argument(
-        "--config",
-        type=str,
-        default="./configs/lora_config.yaml",
-        help="Path to training configuration file"
-    )
-    parser.add_argument(
-        "--resume-from",
-        type=str,
-        default=None,
-        help="Path to checkpoint to resume training from"
-    )
-    
+    parser = argparse.ArgumentParser(description="Fine-tune TinyLlama 1.1B with LoRA (CPU)")
+    parser.add_argument("--config", type=str, default="./configs/lora_config.yaml")
+    parser.add_argument("--data", type=str, default="./data/processed/train.jsonl",
+                        help="Path to training JSONL file")
+    parser.add_argument("--output", type=str, default="./models/healthcare-lora",
+                        help="Directory to save the LoRA adapter")
+    parser.add_argument("--resume-from", type=str, default=None)
     args = parser.parse_args()
-    
-    train(args.config, args.resume_from)
+    train(args.config, args.data, args.output, args.resume_from)
 
 
 if __name__ == "__main__":

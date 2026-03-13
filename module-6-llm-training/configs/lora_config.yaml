@@ -1,86 +1,39 @@
-# LoRA Fine-Tuning Configuration for Mistral 7B
-# Optimized for data management and generation tasks
+# LoRA Fine-Tuning Configuration
+# Model  : TinyLlama/TinyLlama-1.1B-Chat-v1.0
+# Runtime: CPU-only (Windows / macOS / Linux — no GPU required)
+# Time   : ~30-60 min on a modern laptop (3 epochs, 300 examples)
 
-# Model Settings
 model:
-  name: "mistralai/Mistral-7B-Instruct-v0.2"
-  # Alternative: "mistralai/Mistral-7B-v0.1" for base model
+  name: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
   cache_dir: "./models"
-  trust_remote_code: true
 
-# Quantization (for QLoRA - reduces VRAM usage)
-quantization:
-  enabled: true
-  load_in_4bit: true
-  bnb_4bit_compute_dtype: "float16"
-  bnb_4bit_quant_type: "nf4"
-  bnb_4bit_use_double_quant: true
-
-# LoRA Configuration
+# LoRA adapters — small rank keeps memory low on CPU
 lora:
-  r: 64                    # LoRA rank - higher = more capacity, more VRAM
-  lora_alpha: 16           # LoRA scaling factor
-  lora_dropout: 0.1        # Dropout for regularization
-  bias: "none"             # Don't train bias parameters
-  task_type: "CAUSAL_LM"   # Causal language modeling
-  
-  # Target modules for Mistral
+  r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
   target_modules:
     - "q_proj"
-    - "k_proj"
     - "v_proj"
+    - "k_proj"
     - "o_proj"
-    - "gate_proj"
-    - "up_proj"
-    - "down_proj"
 
-# Training Configuration
+# Training — tuned for CPU: batch=1, accumulate=8, short sequences
 training:
-  output_dir: "./models/mistral-7b-finetuned"
+  output_dir: "./models/healthcare-lora"
   num_train_epochs: 3
-  per_device_train_batch_size: 4
-  per_device_eval_batch_size: 4
-  gradient_accumulation_steps: 4    # Effective batch size = 16
-  gradient_checkpointing: true      # Saves VRAM
-  
-  # Learning Rate
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 8    # effective batch = 8
+  gradient_checkpointing: true
   learning_rate: 2.0e-4
   lr_scheduler_type: "cosine"
-  warmup_ratio: 0.03
+  warmup_ratio: 0.05
   weight_decay: 0.001
-  
-  # Optimization
-  optim: "paged_adamw_32bit"
   max_grad_norm: 0.3
-  
-  # Logging & Saving
-  logging_steps: 10
-  save_steps: 100
-  eval_steps: 100
-  save_total_limit: 3
-  
-  # Precision
-  fp16: false
-  bf16: true                        # Use bfloat16 if available
-  
-  # Misc
-  max_seq_length: 2048
-  packing: true                     # Pack multiple samples into one sequence
-
-# Data Configuration
-data:
-  train_file: "./data/processed/train.jsonl"
-  eval_file: "./data/processed/eval.jsonl"
-  
-  # Prompt template for instruction tuning
-  prompt_template: |
-    <s>[INST] {instruction}
-    
-    {input} [/INST]
-    {output}</s>
-
-# Wandb Logging (optional)
-wandb:
-  enabled: false
-  project: "mistral-finetuning"
-  run_name: "mistral-7b-data-gen"
+  logging_steps: 5
+  save_steps: 50
+  eval_steps: 50
+  max_seq_length: 512               # shorter = faster on CPU
