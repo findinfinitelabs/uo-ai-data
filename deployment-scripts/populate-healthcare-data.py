@@ -99,36 +99,29 @@ def upload_patients(records, dynamodb, table_prefix):
             }))
     print(f"  ✓ {len(seen_medications)} unique medications uploaded")
 
+    # patient-diagnoses table has diagnosis_code as HASH key only —
+    # write the same unique diagnosis catalog (mirrors diagnoses table)
     with patient_diagnoses_table.batch_writer() as batch:
-        for p in records:
-            for d in p.get("diagnoses", []):
-                code = d.get("code")
-                if not code:
-                    continue
-                batch.put_item(Item=to_decimal({
-                    "patient_id": p["patient_id"],
-                    "diagnosis_code": code,
-                    "onset_date": d.get("onset_date", ""),
-                    "status": d.get("status", ""),
-                }))
-                pd_count += 1
-    print(f"  ✓ {pd_count} patient-diagnosis links uploaded")
+        for code, d in seen_diagnoses.items():
+            batch.put_item(Item=to_decimal({
+                "diagnosis_code": code,
+                "name": d.get("description", code),
+                "category": d.get("status", "active"),
+            }))
+            pd_count += 1
+    print(f"  ✓ {pd_count} diagnoses written to patient-diagnoses table")
 
+    # patient-medications table has medication_id as HASH key only —
+    # write the same unique medication catalog (mirrors medications table)
     with patient_medications_table.batch_writer() as batch:
-        for p in records:
-            for m in p.get("medications", []):
-                name = m.get("name")
-                if not name:
-                    continue
-                batch.put_item(Item=to_decimal({
-                    "patient_id": p["patient_id"],
-                    "medication_id": name.upper().replace(" ", "_"),
-                    "medication_name": name,
-                    "dosage": m.get("dosage", ""),
-                    "start_date": m.get("start_date", ""),
-                }))
-                pm_count += 1
-    print(f"  ✓ {pm_count} patient-medication links uploaded")
+        for name, m in seen_medications.items():
+            batch.put_item(Item=to_decimal({
+                "medication_id": name.upper().replace(" ", "_"),
+                "name": name,
+                "dosage": m.get("dosage", ""),
+            }))
+            pm_count += 1
+    print(f"  ✓ {pm_count} medications written to patient-medications table")
 
 
 def ensure_dental_table(dynamodb, table_name):
