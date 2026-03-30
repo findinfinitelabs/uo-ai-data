@@ -11,7 +11,7 @@ export default function ModulePage() {
       <section className="hero-panel">
         <h2>Step not found</h2>
         <p>Select a step from the left navigation.</p>
-        <Link className="step-btn" to="/">
+        <Link className="step-btn" to="/foundations">
           Back to Overview
         </Link>
       </section>
@@ -35,7 +35,7 @@ export default function ModulePage() {
 
       <div className="pager">
         {prev ? (
-          <Link className="step-btn" to={`/module/${prev.id}`}>
+          <Link className="step-btn" to={`/foundations/module/${prev.id}`}>
             ← {prev.title}
           </Link>
         ) : (
@@ -43,11 +43,11 @@ export default function ModulePage() {
         )}
 
         {next ? (
-          <Link className="step-btn" to={`/module/${next.id}`}>
+          <Link className="step-btn" to={`/foundations/module/${next.id}`}>
             {next.title} →
           </Link>
         ) : (
-          <Link className="step-btn" to="/">
+          <Link className="step-btn" to="/foundations">
             Finish → Overview
           </Link>
         )}

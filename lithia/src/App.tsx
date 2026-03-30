@@ -1,15 +1,18 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout.tsx';
-import Home from './pages/Home.tsx';
-import ModulePage from './pages/ModulePage.tsx';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import BusinessTrainingPage from './pages/BusinessTrainingPage';
+import InnovationFrameworkPage from './pages/InnovationFrameworkPage';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/training" replace />} />
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="module/:id" element={<ModulePage />} />
+          <Route path="training" element={<BusinessTrainingPage />} />
+          <Route path="framework-lab" element={<InnovationFrameworkPage />} />
+          <Route path="foundations" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
