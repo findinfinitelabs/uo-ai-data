@@ -74,7 +74,7 @@ export default function StepWizard({ steps, initialStep = 0, onStepChange }: Ste
         <PromptCard label="Prompt to Use" content={step.prompt} tone="prompt" />
         <PromptCard label="Example Output" content={step.example} tone="example" />
 
-        <NotesEditor defaultFileName={`step-${current + 1}-notes`} />
+        <NotesEditor defaultFileName={`step-${current + 1}-notes`} title={step.title} />
       </div>
 
       {/* Navigation */}

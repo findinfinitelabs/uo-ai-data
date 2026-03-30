@@ -1,28 +1,41 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { useNotesFs } from '../context/useNotesFs';
+import { writeNote } from '../lib/notesFs';
 
 type NotesEditorProps = {
-  /** Default file name when saving */
   defaultFileName?: string;
+  /** Human-readable title shown above the editor and used in the document generator. */
+  title?: string;
 };
 
-export default function NotesEditor({ defaultFileName = 'my-notes' }: NotesEditorProps) {
+export default function NotesEditor({ defaultFileName = 'my-notes', title }: NotesEditorProps) {
   const [open, setOpen] = useState(false);
+  const [fileSaved, setFileSaved] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
   const storageKey = `notes:${defaultFileName}`;
+  const displayTitle = title ?? defaultFileName;
+  const { dirHandle, status } = useNotesFs();
 
-  // Load from localStorage when editor opens
+  // Load from localStorage when editor opens or when the storage key changes (e.g. step navigation)
   useEffect(() => {
     if (open && editorRef.current) {
-      const saved = localStorage.getItem(storageKey);
-      if (saved && editorRef.current.innerHTML === '') {
-        editorRef.current.innerHTML = saved;
-      }
+      editorRef.current.innerHTML = localStorage.getItem(storageKey) ?? '';
     }
   }, [open, storageKey]);
 
-  // Save to localStorage on every input
+  // Save to localStorage on every input, and to file if folder is connected
   function handleInput() {
-    localStorage.setItem(storageKey, editorRef.current?.innerHTML ?? '');
+    const html = editorRef.current?.innerHTML ?? '';
+    localStorage.setItem(storageKey, html);
+
+    if (dirHandle && status === 'connected') {
+      writeNote(dirHandle, defaultFileName, displayTitle, html)
+        .then(() => {
+          setFileSaved(true);
+          setTimeout(() => setFileSaved(false), 2000);
+        })
+        .catch(console.warn);
+    }
   }
 
   const exec = useCallback((command: string, value?: string) => {
@@ -34,9 +47,9 @@ export default function NotesEditor({ defaultFileName = 'my-notes' }: NotesEdito
     const html = editorRef.current?.innerHTML ?? '';
     const blob = new Blob(
       [
-        `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${defaultFileName}</title>` +
+        `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${displayTitle}</title>` +
           '<style>body{font-family:sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.6}</style>' +
-          `</head><body>${html}</body></html>`,
+          `</head><body><h1>${displayTitle}</h1>${html}</body></html>`,
       ],
       { type: 'text/html' },
     );
@@ -53,13 +66,23 @@ export default function NotesEditor({ defaultFileName = 'my-notes' }: NotesEdito
       <button
         className="notes-toggle"
         onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
+        type="button"
       >
-        {open ? '▾' : '▸'} My Notes
+        {open ? '▾' : '▸'} Notes — {displayTitle}
       </button>
 
       {open && (
         <div className="notes-editor">
+          {/* Section label */}
+          <div className="notes-section-label">
+            <span className="notes-section-title">{displayTitle}</span>
+            {status === 'connected' && (
+              <span className={`notes-file-indicator ${fileSaved ? 'notes-file-indicator--saved' : ''}`}>
+                {fileSaved ? '● Saved to folder' : '○ Folder connected'}
+              </span>
+            )}
+          </div>
+
           {/* Toolbar */}
           <div className="notes-toolbar">
             <button title="Bold" onMouseDown={(e) => { e.preventDefault(); exec('bold'); }}>
@@ -94,16 +117,21 @@ export default function NotesEditor({ defaultFileName = 'my-notes' }: NotesEdito
             contentEditable
             role="textbox"
             aria-multiline="true"
+            aria-label={`Notes for ${displayTitle}`}
             data-placeholder="Start typing your notes here…"
             onInput={handleInput}
           />
 
-          {/* Save */}
+          {/* Footer */}
           <div className="notes-footer">
             <button className="step-btn notes-save" onClick={handleSave}>
-              💾 Save Notes
+              💾 Download as HTML
             </button>
-            <span className="notes-hint">Downloads as an HTML file you can open anywhere</span>
+            <span className="notes-hint">
+              {status === 'connected'
+                ? `Auto-saving to folder • Download for a portable copy`
+                : `Connect a save folder in the header to auto-save to your computer`}
+            </span>
           </div>
         </div>
       )}

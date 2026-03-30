@@ -43,7 +43,6 @@ export default function BusinessTrainingPage() {
       <div className="page-bg-white">
         <section className="training-hero">
           <span className="training-hero-icon">🚀</span>
-          <p className="badge">Page 1 of 3</p>
           <h2>How a Business Works with Generative AI</h2>
           <p className="training-hero-sub">
             Start by reviewing the Lithia investor report and conducting market

@@ -5,11 +5,14 @@ import '@mantine/core/styles.css';
 import './index.css';
 import App from './App.tsx';
 import { uoTheme } from './theme';
+import { NotesFsProvider } from './context/NotesFsContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <MantineProvider theme={uoTheme}>
-      <App />
+      <NotesFsProvider>
+        <App />
+      </NotesFsProvider>
     </MantineProvider>
   </StrictMode>
 );

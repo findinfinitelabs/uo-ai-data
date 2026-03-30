@@ -43,7 +43,7 @@ export const trainingSteps: WizardStep[] = [
   },
   {
     title: 'Step 5. Build the Team Discussion Pack',
-    dueDate: 'Due April 17',
+    dueDate: 'Due May 1',
     objective:
       'Prepare a short package each team can present and refine before moving to the foundations page.',
     prompt:
