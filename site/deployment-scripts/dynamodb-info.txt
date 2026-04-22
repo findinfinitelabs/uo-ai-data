@@ -2,7 +2,7 @@ DynamoDB Healthcare Data Information
 =====================================
 Region: us-west-2
 Table Prefix: healthcare
-Deployed: Thu Mar 12 19:02:16 PDT 2026
+Deployed: Tue Apr 21 17:08:06 PDT 2026
 
 Tables Created:
 ===============

@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv*/
+venv*/
+env/
+.venv-train/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+*.cover
+.coverage
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Training artifacts
+*.bin
+*.safetensors
+*.ckpt
+runs/
+outputs/
+wandb/
+
+# HuggingFace model caches
+models--*/
+*.model
+*.tokenizer
+
+# Deployment logs
+deployment-scripts/deployment-*.log
+module-6-llm-training/models/
+module-6-llm-training/data/processed/

@@ -7,6 +7,7 @@ import FunctionalSpecsPage from './pages/FunctionalSpecsPage';
 import EvaluateRegulationsPage from './pages/EvaluateRegulationsPage';
 import CreateDataPage from './pages/CreateDataPage';
 import GenerateDocumentPage from './pages/GenerateDocumentPage';
+import EthicalAIPage from './pages/EthicalAIPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="functional-specs" element={<FunctionalSpecsPage />} />
           <Route path="evaluate-regulations" element={<EvaluateRegulationsPage />} />
           <Route path="create-data" element={<CreateDataPage />} />
+          <Route path="ethical-ai" element={<EthicalAIPage />} />
           <Route path="ai-design" element={<InnovationFrameworkPage />} />
           <Route path="generate-document" element={<GenerateDocumentPage />} />
           <Route path="foundations" element={<Navigate to="/design?phase=0" replace />} />

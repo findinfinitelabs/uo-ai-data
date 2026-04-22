@@ -187,6 +187,12 @@ export default function Layout() {
                 onClick={() => { navigate('/create-data'); }}
                 fw={500} fz="sm" variant="subtle" mb={1} style={{ borderRadius: 6 }}
               />
+              <NavLink
+                label="Ethical AI"
+                active={location.pathname === '/ethical-ai'}
+                onClick={() => { navigate('/ethical-ai'); }}
+                fw={500} fz="sm" variant="subtle" mb={1} style={{ borderRadius: 6 }}
+              />
             </NavLink>
           </NavLink>
 

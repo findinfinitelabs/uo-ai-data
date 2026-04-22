@@ -1,91 +1,402 @@
-import { useState } from 'react';
-import NotesEditor from '../components/NotesEditor';
+import { useState, useRef } from 'react';
 
-type PromptDef = { title: string; prompt: string };
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-const datasetPrompts: PromptDef[] = [
-  {
-    title: 'Identify the Datasets You Need',
-    prompt:
-      'Here are the feature scenarios for my product: [paste your feature scenarios]\n\nFor each scenario, identify what data must exist for the scenario to run. List every unique dataset needed across all scenarios. For each dataset:\n  - Dataset name\n  - What it represents (customers, vehicles, transactions, interactions, etc.)\n  - The key fields it must contain\n  - Which feature scenario(s) depend on it\n  - Estimated volume for a realistic pilot (e.g., 500 customers, 2,000 vehicle records)\n\nReturn the result as a table: Dataset Name | Description | Key Fields | Used In Scenario | Pilot Volume',
-  },
-  {
-    title: 'Generate a Synthetic Dataset',
-    prompt:
-      'Generate a realistic synthetic dataset for: [dataset name and description from the previous step]\n\nThe dataset should have these fields: [list fields]\n\nGenerate 20 rows of realistic sample data. Use these constraints:\n  - Customer names should be diverse and fictional\n  - Vehicle VINs should follow the standard 17-character format\n  - Dates should fall within the last 24 months\n  - Financial values should be realistic for US automotive retail\n  - Any AI scores or recommendations should fall within a plausible range (0–100 or percentage)\n\nOutput the data as a CSV with a header row. After the data, list any assumptions you made about value ranges or formats.',
-  },
-  {
-    title: 'Add Metadata to Each Record',
-    prompt:
-      'Here is my dataset: [paste dataset name and fields]\n\nHere are the regulatory findings for my product: [paste your regulation-to-field mapping from the Evaluate Regulations step]\n\nAdd a metadata block to each record in this dataset. Each record should include these additional fields:\n  - data_classification: one of Public | Internal | Confidential | Restricted\n  - contains_pii: true or false\n  - contains_phi: true or false\n  - contains_financial: true or false\n  - retention_days: number of days this record must be retained under applicable regulations\n  - encryption_required: true or false\n  - consent_collected: true or false (whether user consent was obtained for this data)\n  - data_source: where this data originates (user_input | crm_system | vehicle_database | third_party | ai_generated)\n  - sensitivity_score: 1 (public) to 5 (highly sensitive) — justify your score\n\nReturn the updated dataset as CSV including all original fields plus the new metadata columns. Then explain the classification decisions you made.',
-  },
-  {
-    title: 'Validate Dataset Against Feature Scenarios',
-    prompt:
-      'Here are my feature scenarios: [paste your feature scenarios]\n\nHere are my datasets with metadata: [paste your datasets]\n\nFor each feature scenario, validate that the required data exists:\n  1. Does the dataset contain the fields this scenario needs?\n  2. Are the data types and value ranges correct for the scenario to work?\n  3. Are there enough records for the scenario to produce a meaningful result?\n  4. Does any field in this scenario require consent that is not captured?\n  5. Is there a data gap — a field the scenario needs that no dataset provides?\n\nReturn a validation report: for each scenario, PASS or FAIL each check, and list any data gaps or fixes needed before the scenario can be tested.',
-  },
-  {
-    title: 'Create a Data Dictionary',
-    prompt:
-      'Based on all of the datasets and metadata I have defined: [paste all datasets]\n\nCreate a data dictionary for this product. For every field across all datasets, document:\n  - Field name\n  - Dataset / table it belongs to\n  - Data type (string, integer, boolean, date, enum, etc.)\n  - Description: what this field means in plain language\n  - Example value\n  - Allowed values or range (if applicable)\n  - Whether it is required or optional\n  - data_classification (Public | Internal | Confidential | Restricted)\n  - PII / PHI / Financial flag\n  - Regulation(s) that govern this field\n\nFormat the output as a Markdown table that could be included in a technical specification document.',
-  },
-];
+type TableDef = {
+  id: string;
+  name: string;
+  schema: ParsedFile | null;
+  dataset: ParsedFile | null;
+};
 
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  function handleCopy() {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    });
+type ParsedFile = {
+  filename: string;
+  content: unknown;
+  raw: string;
+};
+
+type DeployStatus = 'idle' | 'running' | 'done' | 'error';
+
+type DeployLog = { table: string; status: 'ok' | 'error'; message: string };
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function slugify(s: string) {
+  return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function readJson(file: File): Promise<ParsedFile> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const raw = e.target?.result as string;
+      try {
+        const content = JSON.parse(raw);
+        resolve({ filename: file.name, content, raw });
+      } catch {
+        reject(new Error(`${file.name} is not valid JSON`));
+      }
+    };
+    reader.onerror = () => reject(new Error(`Could not read ${file.name}`));
+    reader.readAsText(file);
+  });
+}
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function DropZone({
+  label,
+  file,
+  onFile,
+  onClear,
+}: {
+  label: string;
+  file: ParsedFile | null;
+  onFile: (f: ParsedFile) => void;
+  onClear: () => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setErr(null);
+    try {
+      const parsed = await readJson(files[0]);
+      onFile(parsed);
+    } catch (e: unknown) {
+      setErr((e as Error).message);
+    }
   }
+
   return (
-    <button className="design-prompt-copy" onClick={handleCopy}>
-      {copied ? '✓ Copied' : 'Copy'}
-    </button>
+    <div className="upload-section">
+      <div className="design-prompt-title" style={{ marginBottom: '0.4rem', fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#555' }}>{label}</div>
+      {file ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.6rem 0.9rem', background: '#f0f9f0', border: '1px solid #007030' }}>
+          <span style={{ fontSize: '1.1rem' }}>✓</span>
+          <span style={{ flex: 1, fontSize: '0.88rem', fontWeight: 600 }}>{file.filename}</span>
+          <button onClick={onClear} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: '1rem' }}>✕</button>
+        </div>
+      ) : (
+        <label
+          className={`upload-dropzone${dragging ? ' drag-over' : ''} upload-dropzone--label`}
+          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={(e) => { e.preventDefault(); setDragging(false); handleFiles(e.dataTransfer.files); }}
+        >
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".json,application/json"
+            className="upload-file-input-hidden"
+            onChange={(e) => handleFiles(e.target.files)}
+          />
+          <span className="upload-dropzone-icon">📂</span>
+          <span className="upload-dropzone-text">Drop JSON file or click to browse</span>
+          <span className="upload-dropzone-sub">.json only</span>
+        </label>
+      )}
+      {err && <p style={{ color: '#c0392b', fontSize: '0.82rem', marginTop: '0.3rem' }}>{err}</p>}
+    </div>
   );
 }
 
+// ─── Main Page ────────────────────────────────────────────────────────────────
+
 export default function CreateDataPage() {
+  const [tables, setTables] = useState<TableDef[]>([
+    { id: '1', name: '', schema: null, dataset: null },
+  ]);
+  const [deployStatus, setDeployStatus] = useState<DeployStatus>('idle');
+  const [deployLogs, setDeployLogs] = useState<DeployLog[]>([]);
+  const [prefix, setPrefix] = useState('lithia');
+
+  // ── table list management ──────────────────────────────────────
+  function addTable() {
+    setTables((t) => [...t, { id: Date.now().toString(), name: '', schema: null, dataset: null }]);
+  }
+
+  function removeTable(id: string) {
+    setTables((t) => t.filter((x) => x.id !== id));
+  }
+
+  function updateName(id: string, name: string) {
+    setTables((t) => t.map((x) => (x.id === id ? { ...x, name } : x)));
+  }
+
+  function setSchema(id: string, file: ParsedFile) {
+    setTables((t) => t.map((x) => (x.id === id ? { ...x, schema: file } : x)));
+  }
+
+  function setDataset(id: string, file: ParsedFile) {
+    setTables((t) => t.map((x) => (x.id === id ? { ...x, dataset: file } : x)));
+  }
+
+  // ── deploy ────────────────────────────────────────────────────
+  function buildScript() {
+    const lines: string[] = [
+      '#!/bin/bash',
+      '# Auto-generated by Lithia App — deploys student DynamoDB tables',
+      'set -e',
+      `AWS_REGION="${'us-west-2'}"`,
+      `TABLE_PREFIX="${prefix}"`,
+      '',
+    ];
+
+    for (const t of tables) {
+      const slug = slugify(t.name);
+      if (!slug) continue;
+      const tableName = `${prefix}-${slug}`;
+
+      // Infer primary key from schema if present
+      let pk = `${slug}_id`;
+      if (t.schema?.content) {
+        const schemaObj = t.schema.content as Record<string, unknown>;
+        const props = (schemaObj.properties ?? schemaObj) as Record<string, unknown>;
+        const keys = Object.keys(props);
+        const candidate = keys.find((k) => k.endsWith('_id') || k === 'id' || k === 'vin');
+        if (candidate) pk = candidate;
+      }
+
+      lines.push(`# Table: ${tableName}  (key: ${pk})`);
+      lines.push(
+        `aws dynamodb create-table \\`,
+        `  --profile uo-innovation \\`,
+        `  --table-name ${tableName} \\`,
+        `  --attribute-definitions AttributeName=${pk},AttributeType=S \\`,
+        `  --key-schema AttributeName=${pk},KeyType=HASH \\`,
+        `  --billing-mode PAY_PER_REQUEST \\`,
+        `  --region $AWS_REGION >/dev/null 2>&1 && echo "✓ ${tableName}" || echo "⚠ ${tableName} already exists"`,
+        '',
+      );
+
+      if (t.dataset?.content) {
+        const rows = Array.isArray(t.dataset.content)
+          ? t.dataset.content
+          : (t.dataset.content as Record<string, unknown[]>)[Object.keys(t.dataset.content as object)[0]];
+        if (Array.isArray(rows)) {
+          lines.push(`# Load ${rows.length} records into ${tableName}`);
+          lines.push(`python3 - <<'PYEOF'`);
+          lines.push(`import boto3, json`);
+          lines.push(`db = boto3.resource('dynamodb', region_name='us-west-2')`);
+          lines.push(`table = db.Table('${tableName}')`);
+          lines.push(`rows = json.loads(r'''${JSON.stringify(rows)}''')`);
+          lines.push(`with table.batch_writer() as b:`);
+          lines.push(`    for row in rows: b.put_item(Item=row)`);
+          lines.push(`print(f"  Loaded {len(rows)} records into ${tableName}")`);
+          lines.push(`PYEOF`);
+          lines.push('');
+        }
+      }
+    }
+
+    lines.push(`echo ""`, `echo "Done. Tables ready for AI queries."`);
+    return lines.join('\n');
+  }
+
+  function downloadScript() {
+    const script = buildScript();
+    const blob = new Blob([script], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'deploy-my-tables.sh';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function generateInferenceCmd() {
+    const tableArgs = tables
+      .filter((t) => slugify(t.name))
+      .map((t) => `${prefix}-${slugify(t.name)}`)
+      .join(' ');
+    return `AWS_PROFILE=uo-innovation python3 site/module-6-llm-training/scripts/inference.py \\
+  --model module-6-llm-training/models/healthcare-lora \\
+  --tables ${tableArgs} \\
+  --region us-west-2`;
+  }
+
+  const readyTables = tables.filter((t) => slugify(t.name) && t.schema && t.dataset);
+  const anyNamed = tables.some((t) => slugify(t.name));
+
   return (
     <div>
       <section className="training-hero">
         <div className="training-hero-text">
           <h2>Create Data</h2>
           <p className="training-hero-sub">
-            Identify the datasets your feature scenarios require, generate realistic synthetic data, add
-            regulatory metadata to every record, and validate your data against your specs.
+            Define your DynamoDB tables, upload a JSON schema and synthetic dataset for each one,
+            then download the deploy script to provision them in AWS and query them with TinyLlama.
           </p>
         </div>
-        <div className="hero-due-box">
-          <span>May 8</span>
-        </div>
+        <div className="hero-due-box"><span>May 8</span></div>
       </section>
 
       <div className="design-page-body">
-        <p className="design-phase-intro">
-          Run these prompts in order. Each step builds on the previous one — by the end you will have
-          synthetic datasets with full regulatory metadata and a data dictionary that documents every field
-          in your product. Use the outputs from <strong>Evaluate Regulations</strong> and{' '}
-          <strong>Create Functional Specifications</strong> as inputs here.
+
+        {/* Step 1 — Table prefix */}
+        <h3 className="design-section-heading">Step 1 — Set Your Table Prefix</h3>
+        <p className="design-phase-intro" style={{ marginBottom: '0.75rem' }}>
+          All your tables will be named <code>{prefix}-&lt;tablename&gt;</code>. Use your team name or product name.
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+          <input
+            value={prefix}
+            onChange={(e) => setPrefix(slugify(e.target.value) || e.target.value)}
+            placeholder="e.g. lithia"
+            style={{ padding: '0.5rem 0.75rem', border: '2px solid #007030', fontSize: '0.95rem', width: 200 }}
+          />
+          <span style={{ color: '#555', fontSize: '0.9rem' }}>→ tables will be: <strong>{prefix}-vehicles</strong>, <strong>{prefix}-customers</strong>, …</span>
+        </div>
+
+        {/* Step 2 — Define tables */}
+        <h3 className="design-section-heading">Step 2 — Define Your Tables</h3>
+        <p className="design-phase-intro" style={{ marginBottom: '1rem' }}>
+          Add one row per table. For each table upload:
+          <br />• <strong>Schema</strong> — a JSON object describing the fields (e.g. from ChatGPT or your design doc)
+          <br />• <strong>Synthetic Dataset</strong> — a JSON array of realistic sample records
         </p>
 
-        <h3 className="design-section-heading">Prompts — run in order</h3>
-        <div className="design-prompts-list">
-          {datasetPrompts.map((p, i) => (
-            <div key={p.title} className="design-prompt-block">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '1.5rem' }}>
+          {tables.map((t, i) => (
+            <div key={t.id} className="design-prompt-block">
               <div className="design-prompt-header">
                 <span className="design-prompt-num">{i + 1}</span>
-                <span className="design-prompt-title">{p.title}</span>
-                <CopyButton text={p.prompt} />
+                <input
+                  value={t.name}
+                  onChange={(e) => updateName(t.id, e.target.value)}
+                  placeholder="Table name  (e.g. vehicles)"
+                  style={{ flex: 1, padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.95rem' }}
+                />
+                {slugify(t.name) && (
+                  <span style={{ fontSize: '0.8rem', color: '#007030', fontWeight: 700 }}>
+                    → {prefix}-{slugify(t.name)}
+                  </span>
+                )}
+                {tables.length > 1 && (
+                  <button
+                    onClick={() => removeTable(t.id)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#aaa', fontSize: '1.1rem' }}
+                  >✕</button>
+                )}
               </div>
-              <p className="design-prompt-text">{p.prompt}</p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '0.75rem' }}>
+                <DropZone
+                  label="JSON Schema"
+                  file={t.schema}
+                  onFile={(f) => setSchema(t.id, f)}
+                  onClear={() => setSchema(t.id, null as unknown as ParsedFile)}
+                />
+                <DropZone
+                  label="Synthetic Dataset (JSON array)"
+                  file={t.dataset}
+                  onFile={(f) => setDataset(t.id, f)}
+                  onClear={() => setDataset(t.id, null as unknown as ParsedFile)}
+                />
+              </div>
+
+              {t.schema && (
+                <details style={{ marginTop: '0.5rem' }}>
+                  <summary style={{ fontSize: '0.8rem', color: '#555', cursor: 'pointer' }}>Preview schema</summary>
+                  <pre style={{ fontSize: '0.75rem', background: '#f5f5f5', padding: '0.5rem', overflow: 'auto', maxHeight: 160 }}>
+                    {JSON.stringify(t.schema.content, null, 2)}
+                  </pre>
+                </details>
+              )}
+              {t.dataset && (
+                <details style={{ marginTop: '0.25rem' }}>
+                  <summary style={{ fontSize: '0.8rem', color: '#555', cursor: 'pointer' }}>Preview dataset</summary>
+                  <pre style={{ fontSize: '0.75rem', background: '#f5f5f5', padding: '0.5rem', overflow: 'auto', maxHeight: 160 }}>
+                    {Array.isArray(t.dataset.content)
+                      ? `${(t.dataset.content as unknown[]).length} records\n${JSON.stringify((t.dataset.content as unknown[]).slice(0, 3), null, 2)}\n…`
+                      : JSON.stringify(t.dataset.content, null, 2).slice(0, 400)}
+                  </pre>
+                </details>
+              )}
             </div>
           ))}
         </div>
 
-        <h3 className="design-section-heading">Notes</h3>
-        <NotesEditor defaultFileName="specs:create-data" title="Dataset Design & Data Dictionary" />
+        <button
+          onClick={addTable}
+          style={{ background: 'none', border: '2px dashed #007030', color: '#007030', padding: '0.5rem 1.25rem', cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem' }}
+        >
+          + Add Another Table
+        </button>
+
+        {/* Step 3 — Download deploy script */}
+        <h3 className="design-section-heading" style={{ marginTop: '2.5rem' }}>Step 3 — Deploy to DynamoDB</h3>
+        <p className="design-phase-intro" style={{ marginBottom: '1rem' }}>
+          Download the generated shell script, then run it from the repo root. It will create your tables
+          in AWS and load your synthetic data. Requires the <code>uo-innovation</code> AWS profile to be logged in.
+        </p>
+
+        {readyTables.length > 0 && (
+          <div style={{ background: '#f0f9f0', border: '1px solid #007030', padding: '0.75rem 1rem', marginBottom: '1rem', fontSize: '0.88rem' }}>
+            <strong>Ready to deploy:</strong> {readyTables.map((t) => <code key={t.id} style={{ marginLeft: '0.4rem' }}>{prefix}-{slugify(t.name)}</code>)}
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <button
+            onClick={downloadScript}
+            disabled={!anyNamed}
+            style={{ background: anyNamed ? '#007030' : '#ccc', color: anyNamed ? '#FEE11A' : '#888', border: 'none', padding: '0.6rem 1.5rem', fontWeight: 800, fontSize: '0.9rem', cursor: anyNamed ? 'pointer' : 'not-allowed' }}
+          >
+            ↓ Download deploy-my-tables.sh
+          </button>
+        </div>
+
+        <div style={{ marginTop: '1rem', background: '#f5f5f5', border: '1px solid #ddd', padding: '0.75rem 1rem' }}>
+          <p style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.4rem', color: '#555' }}>Then run in your terminal:</p>
+          <code style={{ fontSize: '0.85rem', display: 'block', whiteSpace: 'pre-wrap' }}>
+            {`aws sso login --profile uo-innovation\nbash deploy-my-tables.sh`}
+          </code>
+        </div>
+
+        {/* Step 4 — Query with TinyLlama */}
+        <h3 className="design-section-heading" style={{ marginTop: '2.5rem' }}>Step 4 — Query with TinyLlama</h3>
+        <p className="design-phase-intro" style={{ marginBottom: '1rem' }}>
+          Once your data is in DynamoDB, run the local TinyLlama inference script with your table names.
+          The model will pull records from your tables as context before answering each question.
+        </p>
+
+        {anyNamed && (
+          <div style={{ background: '#f5f5f5', border: '1px solid #ddd', padding: '0.75rem 1rem', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.4rem', color: '#555' }}>Run from repo root:</p>
+            <code style={{ fontSize: '0.82rem', display: 'block', whiteSpace: 'pre-wrap' }}>
+              {generateInferenceCmd()}
+            </code>
+          </div>
+        )}
+
+        <div style={{ background: '#fffbea', border: '1px solid #f4c95d', padding: '1rem 1.25rem', fontSize: '0.88rem', lineHeight: 1.6 }}>
+          <strong>💡 Prompt ideas for your data:</strong>
+          <ul style={{ marginTop: '0.5rem', paddingLeft: '1.2rem' }}>
+            <li>Summarize the records in my {tables[0]?.name || 'vehicles'} table.</li>
+            <li>Which records have the highest value and what do they have in common?</li>
+            <li>Are there any missing fields or data quality issues in my dataset?</li>
+            <li>What patterns do you notice across my {tables[1]?.name || 'customers'} records?</li>
+          </ul>
+        </div>
+
+        {/* Deploy status */}
+        {deployStatus !== 'idle' && (
+          <div style={{ marginTop: '1.5rem' }}>
+            <h3 className="design-section-heading">Deploy Log</h3>
+            {deployLogs.map((l, i) => (
+              <div key={i} style={{ fontSize: '0.88rem', padding: '0.3rem 0', color: l.status === 'ok' ? '#007030' : '#c0392b' }}>
+                {l.status === 'ok' ? '✓' : '✗'} <strong>{l.table}</strong> — {l.message}
+              </div>
+            ))}
+            {deployStatus === 'done' && <p style={{ marginTop: '0.5rem', fontWeight: 700, color: '#007030' }}>All done. Tables are live in DynamoDB.</p>}
+            {deployStatus === 'error' && <p style={{ marginTop: '0.5rem', color: '#c0392b' }}>Some tables failed. Check the log above.</p>}
+          </div>
+        )}
+
       </div>
     </div>
   );
