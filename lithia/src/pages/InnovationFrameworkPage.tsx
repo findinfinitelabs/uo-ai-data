@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import NotesEditor from '../components/NotesEditor';
-import PromptCard from '../components/PromptCard';
 
 // ─── Phase definitions ──────────────────────────────────────────
 const PHASES = [
   { id: 0, label: 'Connect to Database', icon: '🔌' },
-  { id: 1, label: 'Explore Your Data',   icon: '🔍' },
-  { id: 2, label: 'Train AI Model',      icon: '🤖' },
+  { id: 1, label: 'Create Datasets',      icon: '📊' },
+  { id: 2, label: 'Train AI Model',       icon: '🤖' },
 ];
 
 const DB_OPTIONS = [
@@ -15,44 +14,6 @@ const DB_OPTIONS = [
   { value: 'postgres',   label: 'PostgreSQL' },
   { value: 'mysql',      label: 'MySQL' },
   { value: 'csv',        label: 'CSV / Flat File' },
-];
-
-const INSIGHT_PROMPTS = [
-  {
-    label: 'Prompt 1 — Summarise the Dataset',
-    content:
-      'I have connected a database containing Lithia Motors customer and vehicle records. ' +
-      'Please give me a plain-English summary of what data fields exist, what time range is covered, ' +
-      'and what the record volume looks like. Flag any fields that appear to be null or sparse.',
-  },
-  {
-    label: 'Prompt 2 — Find Patterns & Trends',
-    content:
-      'Looking at this dataset, what are the most significant patterns or trends you can identify? ' +
-      'Focus on customer behaviour, vehicle service frequency, and any geographic or demographic clusters. ' +
-      'Present your findings as bullet points with a one-line explanation for each.',
-  },
-  {
-    label: 'Prompt 3 — Surface Anomalies',
-    content:
-      'Are there any outliers, anomalies, or data quality issues in this dataset? ' +
-      'List each anomaly, explain why it stands out, and suggest whether it is a data error ' +
-      'or a legitimate business signal worth investigating.',
-  },
-  {
-    label: 'Prompt 4 — Generate Business Insights',
-    content:
-      'Based on the patterns in this dataset, what are the top 3 actionable business insights ' +
-      'that Lithia Motors could act on in the next quarter? For each insight explain: ' +
-      '(1) what the data shows, (2) what the business opportunity is, and (3) how to measure success.',
-  },
-  {
-    label: 'Prompt 5 — Connect to Your Product Concept',
-    content:
-      'Given the AI product concept our team defined in the Product Design phase, ' +
-      'which fields and patterns in this dataset are most relevant to validating or challenging that concept? ' +
-      'Suggest specific queries or visualisations that would help us build the business case.',
-  },
 ];
 
 // ─── InfoBubble ──────────────────────────────────────────────────────────────
@@ -800,194 +761,941 @@ function ConnectPhase() {
   );
 }
 
-// ─── Phase 2 — Explore Your Data ───────────────────────────────
-type ChatMessage = { role: 'user' | 'assistant'; text: string };
+// ─── Phase 2 — Create Datasets ─────────────────────────────────
+type ColDef = { name: string; type: string; note?: string };
+type UploadStep = { id: string; label: string; cmd: string; status: StepStatus; detail: string };
+type ValidationIssue = { record: number; field: string; message: string; severity: 'error' | 'warn' };
+type TableDataset = {
+  name: string; open: boolean;
+  schemaStatus: 'empty' | 'parsed' | 'locked' | 'error';
+  schemaFile: string; columns: ColDef[]; schemaErr: string; schemaSteps: UploadStep[];
+  tableKey?: string; // actual partition key attribute name from DynamoDB describe-table
+  dataStatus: 'empty' | 'parsed' | 'uploading' | 'done' | 'error';
+  dataFile: string; records: Record<string, unknown>[]; dataErr: string;
+  recordsWritten: number; dataSteps: UploadStep[];
+  dataIssues: ValidationIssue[];
+  previewRows?: Record<string, unknown>[];
+  previewLoading?: boolean;
+  previewErr?: string;
+  previewOpen?: boolean;
+};
 
-const TOOL_LINKS = [
-  {
-    name: 'Lovable',
-    url: 'https://lovable.dev',
-    icon: '💜',
-    desc: 'AI-powered app builder — connect your data and build interfaces visually.',
-  },
-  {
-    name: 'Base44',
-    url: 'https://base44.com',
-    icon: '🟦',
-    desc: 'No-code platform for building data-driven apps with your database.',
-  },
-];
+/** Parse a raw boto3/Python error string into a student-friendly explanation */
+function parseUploadError(raw: string): { headline: string; hint: string } {
+  const l = raw.toLowerCase();
+  if (l.includes('serializationexception') || (l.includes('float') && l.includes('decimal')))
+    return { headline: 'Type serialization error', hint: 'A field value could not be converted to a DynamoDB type. Common causes: a Number (N) column contains a non-numeric string, or a value is Python None / NaN. Fix the data file or change the column type in the schema table above.' };
+  if (l.includes('validationexception') && l.includes('does not match the schema'))
+    return { headline: 'Key does not match table schema', hint: 'The record\'s primary key field name or type doesn\'t match what DynamoDB expects for this table. Check that your data file uses the exact same key attribute name as defined when the table was created (it\'s case-sensitive), and that the value type matches (String vs Number).' };
+  if (l.includes('validationexception') && l.includes('empty val'))
+    return { headline: 'Empty string in key or attribute', hint: 'DynamoDB rejects empty strings ("") as primary key values. Check your data for records where the key field is blank. If other columns are empty, convert them to null or remove them.' };
+  if (l.includes('validationexception'))
+    return { headline: 'DynamoDB validation failed', hint: 'One or more records failed DynamoDB validation. Common causes: the primary key field is missing or its name doesn\'t match the table\'s key schema (case-sensitive), a value type doesn\'t match the key definition, or the key field is empty.' };
+  if (l.includes('resourcenotfoundexception'))
+    return { headline: 'Table not found', hint: 'The DynamoDB table doesn\'t exist in this region. Go to Phase 1 to verify the table name and region, then recreate it if needed.' };
+  if (l.includes('accessdeniedexception') || l.includes('not authorized'))
+    return { headline: 'AWS permission denied', hint: 'Your SSO session may have expired or your profile doesn\'t have write access. Click Disconnect, reconnect, and try again.' };
+  if (l.includes('provisionedthroughputexceeded') || l.includes('throttling'))
+    return { headline: 'AWS rate limit hit', hint: 'The upload was throttled. Wait a few seconds and click Upload again — the batch writer will retry automatically.' };
+  if (l.includes('itemcollectionsizelimitexceeded'))
+    return { headline: 'Partition too large', hint: 'A single partition key value has exceeded the 10 GB DynamoDB limit. Split your data across more partition key values.' };
+  if (l.includes('python') && l.includes('typeerror'))
+    return { headline: 'Python type error', hint: 'A record field has a Python type that boto3 cannot serialize (e.g. a nested object mixed with a primitive). Check the data file for inconsistent value types in the same column.' };
+  return { headline: 'Upload failed', hint: 'The data file may not match what DynamoDB expects. Common fixes: ensure the primary key field name exactly matches the table\'s key schema (case-sensitive), the key value is not empty, and Number columns only contain numeric values.' };
+}
 
-const PLACEHOLDER_REPLIES = [
-  "Great question! Based on the Lithia Motors dataset, I can see several patterns worth exploring. Try connecting your database in Phase 1 first so I can give you live answers.",
-  "That's a useful angle. Once your DynamoDB connection is active, I'll be able to query the actual records and return real insights here.",
-  "I'd look at the service frequency fields and cross-reference with the customer segment data. Connect your database in Phase 1 to get live results.",
-  "Interesting — that pattern could indicate a seasonal trend or a data quality issue. Authenticate your data source first and I'll dig deeper.",
-];
+/** Pre-validate records against the schema and return per-field issues */
+function validateRecords(records: Record<string, unknown>[], columns: ColDef[], tableKey?: string): ValidationIssue[] {
+  if (!records.length) return [];
+  const issues: ValidationIssue[] = [];
 
-function ExplorePhase() {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'assistant',
-      text: "Hi! I'm your data exploration assistant. Ask me anything about your Lithia Motors dataset — like \"What are the top customer segments?\" or \"Are there any anomalies in the service records?\" Connect your database in Phase 1 for live answers, or ask away and I'll guide you.",
-    },
-  ]);
-  const [input, setInput] = useState('');
-  const [thinking, setThinking] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const replyIndex = useRef(0);
+  // Use the real DynamoDB partition key if known; otherwise guess from schema columns
+  const pkCol = tableKey
+    ? ({ name: tableKey, type: columns.find((c) => c.name === tableKey)?.type ?? 'S' } as ColDef)
+    : columns.find((c) => ['id','_id','pk'].includes(c.name) || c.name.endsWith('_id') || c.name.endsWith('Id')) ?? columns[0];
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, thinking]);
+  // Only sample up to 100 records for speed
+  const sample = records.slice(0, 100);
+  const fieldTally: Record<string, number> = {};
 
-  function sendMessage() {
-    const text = input.trim();
-    if (!text) return;
-    setInput('');
-    setMessages((prev) => [...prev, { role: 'user', text }]);
-    setThinking(true);
-    setTimeout(() => {
-      const reply = PLACEHOLDER_REPLIES[replyIndex.current % PLACEHOLDER_REPLIES.length];
-      replyIndex.current += 1;
-      setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
-      setThinking(false);
-    }, 1100 + Math.random() * 600);
+  // Early check: if the partition key doesn't appear in ANY record, show a targeted error
+  if (pkCol && !sample.some((r) => pkCol.name in r)) {
+    const firstKeys = Object.keys(sample[0] ?? {}).slice(0, 6).join(', ');
+    issues.push({ record: 0, field: pkCol.name, message: `Partition key "${pkCol.name}" is not present in any record. Your data file has fields: ${firstKeys}${Object.keys(sample[0] ?? {}).length > 6 ? ', …' : ''}. Rename one of those to "${pkCol.name}" or update the table's key in DynamoDB.`, severity: 'error' });
+    return issues;
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
+  function tally(key: string, issue: ValidationIssue) {
+    fieldTally[key] = (fieldTally[key] ?? 0) + 1;
+    if (fieldTally[key] <= 3) issues.push(issue);
+    if (fieldTally[key] === 4) issues.push({ ...issue, record: -1, message: `… and more records with this issue on "${issue.field}"` });
+  }
+
+  for (let i = 0; i < sample.length; i++) {
+    const rec = sample[i];
+    // Primary key checks
+    const pkVal = rec[pkCol.name];
+    if (pkVal === undefined || pkVal === null) {
+      tally(`pk-missing`, { record: i + 1, field: pkCol.name, message: `Primary key "${pkCol.name}" is missing`, severity: 'error' });
+    } else if (pkVal === '') {
+      tally(`pk-empty`, { record: i + 1, field: pkCol.name, message: `Primary key "${pkCol.name}" is an empty string — DynamoDB rejects empty key values`, severity: 'error' });
+    }
+    // Type mismatch checks for top-level scalar columns
+    for (const col of columns) {
+      if (col.name.includes('.') || col.name.includes('[')) continue; // skip nested
+      const val = rec[col.name];
+      if (val === undefined) {
+        tally(`missing-${col.name}`, { record: i + 1, field: col.name, message: `Field "${col.name}" is missing from this record`, severity: 'warn' });
+      } else if (col.type === 'N' && val !== null && typeof val === 'string' && isNaN(Number(val))) {
+        tally(`type-${col.name}`, { record: i + 1, field: col.name, message: `Field "${col.name}" is type N (Number) but value "${String(val).slice(0, 30)}" is not numeric`, severity: 'error' });
+      } else if (col.type === 'S' && val !== null && typeof val !== 'string') {
+        tally(`type-${col.name}`, { record: i + 1, field: col.name, message: `Field "${col.name}" is type S (String) but value is a ${typeof val}`, severity: 'warn' });
+      }
     }
   }
+  return issues.slice(0, 25);
+}
 
-  function loadPrompt(content: string) {
-    setInput(content);
+function inferDynType(val: unknown): string {
+  if (typeof val === 'string')  return 'S';
+  if (typeof val === 'number')  return 'N';
+  if (typeof val === 'boolean') return 'BOOL';
+  if (Array.isArray(val))       return 'L';
+  if (val === null)             return 'NULL';
+  if (typeof val === 'object')  return 'M';
+  return 'S';
+}
+function friendlyType(t: string): string {
+  const m: Record<string, string> = { S: 'String', N: 'Number', BOOL: 'Boolean', L: 'List', M: 'Map', NULL: 'Null', B: 'Binary' };
+  return m[t] ?? t;
+}
+
+/** Flatten a record object into dot-notation ColDef list, max depth 4 */
+function flattenRecord(obj: Record<string, unknown>, prefix = '', depth = 0): ColDef[] {
+  const MAX_DEPTH = 4;
+  const cols: ColDef[] = [];
+  for (const [k, v] of Object.entries(obj)) {
+    const fullKey = prefix ? `${prefix}.${k}` : k;
+    if (v !== null && typeof v === 'object' && !Array.isArray(v) && depth < MAX_DEPTH) {
+      // nested object — recurse
+      const sub = flattenRecord(v as Record<string, unknown>, fullKey, depth + 1);
+      if (sub.length) { cols.push(...sub); continue; }
+    }
+    if (Array.isArray(v) && v.length > 0 && v[0] !== null && typeof v[0] === 'object' && depth < MAX_DEPTH) {
+      // array of objects — show first element's fields with [] suffix
+      const sub = flattenRecord(v[0] as Record<string, unknown>, `${fullKey}[]`, depth + 1);
+      if (sub.length) { cols.push(...sub); continue; }
+    }
+    const type = inferDynType(v);
+    const note = Array.isArray(v) ? `array of ${v.length > 0 && typeof v[0] === 'object' ? 'objects' : 'values'}` : (type === 'M' ? 'nested object' : undefined);
+    cols.push({ name: fullKey, type, note });
+  }
+  return cols;
+}
+
+/** Detect if the raw JSON is a top-level wrapper object (e.g. {"inventory":[...]}) and unwrap it */
+function unwrapTopLevel(raw: unknown): unknown {
+  if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
+    const obj = raw as Record<string, unknown>;
+    const keys = Object.keys(obj);
+    // If single key whose value is a non-empty array of objects, unwrap
+    if (keys.length === 1 && Array.isArray(obj[keys[0]]) && (obj[keys[0]] as unknown[]).length > 0 && typeof (obj[keys[0]] as unknown[])[0] === 'object') {
+      return obj[keys[0]];
+    }
+    // Common schema wrapper keys
+    const sub = obj.fields ?? obj.columns ?? obj.properties ?? obj.schema ?? obj.items ?? obj.data ?? obj.records;
+    if (sub && (Array.isArray(sub) || typeof sub === 'object')) return sub;
+  }
+  return raw;
+}
+
+function parseSchemaFromJson(raw: unknown): ColDef[] {
+  // Unwrap any top-level wrapper first (e.g. {"inventory": [...]})
+  const unwrapped = unwrapTopLevel(raw);
+
+  // Explicit column-definition list: [{name, type}] or [{field, dataType}]
+  if (Array.isArray(unwrapped) && unwrapped.length > 0 && typeof unwrapped[0] === 'object') {
+    const first = unwrapped[0] as Record<string, unknown>;
+    if ('name' in first || 'field' in first) {
+      return (unwrapped as Record<string, unknown>[])
+        .map((r) => ({ name: String(r.name ?? r.field ?? ''), type: String(r.type ?? r.dataType ?? 'S').toUpperCase() }))
+        .filter((c) => c.name);
+    }
+    // Array of data records — flatten first record
+    return flattenRecord(first);
+  }
+
+  // Array of plain strings
+  if (Array.isArray(unwrapped) && typeof unwrapped[0] === 'string') {
+    return (unwrapped as string[]).map((n) => ({ name: n, type: 'S' }));
+  }
+
+  // Plain object — flatten directly
+  if (unwrapped && typeof unwrapped === 'object' && !Array.isArray(unwrapped)) {
+    return flattenRecord(unwrapped as Record<string, unknown>);
+  }
+
+  return [];
+}
+
+function StatusBadge({ label, done, active, error }: { label: string; done: boolean; active: boolean; error: boolean }) {
+  const bg    = error ? '#fff0f0' : done ? '#f0fff0' : active ? '#fff8f0' : '#f5f5f5';
+  const color = error ? '#c0392b' : done ? '#007030' : active ? '#e67e22' : '#aaa';
+  const icon  = error ? '✗' : done ? '✓' : active ? '…' : '○';
+  return <span style={{ background: bg, color, border: `1px solid ${color}40`, padding: '0.15rem 0.5rem', borderRadius: 2, fontWeight: 700, fontSize: '0.72rem', whiteSpace: 'nowrap' }}>{icon} {label}</span>;
+}
+
+function SectionHeader({ num, label, done, children }: { num: number; label: string; done: boolean; children?: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+      <span style={{ width: 22, height: 22, borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: done ? '#007030' : '#e8e8e8', color: done ? '#FEE11A' : '#666', fontSize: '0.75rem', fontWeight: 800, flexShrink: 0 }}>{done ? '✓' : num}</span>
+      <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#333' }}>{label}</span>
+      {children}
+    </div>
+  );
+}
+
+function FileDropZone({ label, accept, onFile }: { label: string; accept: string; onFile: (f: File) => void }) {
+  const [dragging, setDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div
+      onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+      onDragLeave={() => setDragging(false)}
+      onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f) onFile(f); }}
+      onClick={() => inputRef.current?.click()}
+      style={{ border: `2px dashed ${dragging ? '#007030' : '#ccc'}`, padding: '1.5rem 1rem', textAlign: 'center', cursor: 'pointer', background: dragging ? '#f0fff0' : '#fafafa', transition: 'border-color 0.15s, background 0.15s', marginBottom: '0.25rem' }}
+    >
+      <input ref={inputRef} type="file" accept={accept} style={{ display: 'none' }} onChange={(e) => { const f = e.target.files?.[0]; if (f) { onFile(f); e.target.value = ''; } }} />
+      <p style={{ margin: 0, color: '#888', fontSize: '0.85rem' }}>📂 {label}</p>
+    </div>
+  );
+}
+
+function StepPanel({ steps }: { steps: UploadStep[] }) {
+  const ICON:  Record<StepStatus, string> = { pending: '○', running: '⏳', done: '✓', error: '✗' };
+  const COLOR: Record<StepStatus, string> = { pending: '#aaa', running: '#e67e22', done: '#007030', error: '#c0392b' };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', margin: '0.5rem 0 0.75rem' }}>
+      {steps.map((s, i) => (
+        <div key={s.id}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
+            <span style={{ color: COLOR[s.status], fontWeight: 800, fontSize: '0.85rem', width: 16, flexShrink: 0 }}>{ICON[s.status]}</span>
+            <span style={{ fontSize: '0.83rem', fontWeight: 700, color: '#333' }}>Step {i + 1} — {s.label}</span>
+            {s.detail && <span style={{ fontSize: '0.76rem', color: COLOR[s.status], marginLeft: '0.3rem' }}>{s.detail}</span>}
+          </div>
+          <pre style={{ margin: '0 0 0 1.25rem', fontSize: '0.73rem', background: s.status === 'running' ? '#fff8f0' : s.status === 'done' ? '#f0fff0' : s.status === 'error' ? '#fff0f0' : '#f5f5f5', border: `1px solid ${s.status === 'running' ? '#e67e22' : s.status === 'done' ? '#cce8cc' : s.status === 'error' ? '#e8cccc' : '#ddd'}`, padding: '0.45rem 0.7rem', overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: '#333', lineHeight: 1.55 }}>{s.cmd}</pre>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DatasetPhase() {
+  const LS_KEY = 'uo-ai-dataset-phase';
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw) as { profile: string; region: string; datasets: TableDataset[] };
+    } catch { return null; }
+  }
+
+  const saved = loadFromStorage();
+  const [dsProfile, setDsProfile] = useState(saved?.profile ?? 'uo-innovation');
+  const [dsRegion,  setDsRegion]  = useState(saved?.region  ?? 'us-west-2');
+  const [connStatus, setConnStatus] = useState<'idle' | 'loading' | 'connected' | 'error'>(saved?.datasets?.length ? 'connected' : 'idle');
+  const [connErr,    setConnErr]    = useState('');
+  const [ssoExpired, setSsoExpired] = useState(false);
+  const [datasets,   setDatasets]   = useState<TableDataset[]>(saved?.datasets ?? []);
+
+  // Persist profile, region, and dataset state (columns, upload status) to localStorage
+  useEffect(() => {
+    try {
+      // Only persist the schema/data config — strip large records arrays to avoid quota issues
+      const slim = datasets.map((d) => ({ ...d, records: [] }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ profile: dsProfile, region: dsRegion, datasets: slim }));
+    } catch { /* quota exceeded — ignore */ }
+  }, [dsProfile, dsRegion, datasets]);
+
+  async function loadTables() {
+    setConnStatus('loading'); setConnErr(''); setSsoExpired(false);
+    try {
+      const authRes  = await fetch(`/api/aws-info?profile=${dsProfile}`);
+      const authJson = await authRes.json();
+      if (!authJson.ok && authJson.ssoExpired) { setSsoExpired(true); setConnStatus('error'); return; }
+      if (!authJson.ok) throw new Error(authJson.error || 'Auth failed');
+      const tabRes  = await fetch(`/api/dynamodb-tables?profile=${dsProfile}&region=${dsRegion}`);
+      const tabJson = await tabRes.json();
+      if (!tabJson.ok) throw new Error(tabJson.error || 'Could not list tables');
+      const names: string[] = tabJson.data?.TableNames ?? [];
+      setDatasets(names.map((n) => ({ name: n, open: false, schemaStatus: 'empty', schemaFile: '', columns: [], schemaErr: '', schemaSteps: [], dataStatus: 'empty', dataFile: '', records: [], dataErr: '', recordsWritten: 0, dataSteps: [], dataIssues: [] })));
+      setConnStatus('connected');
+    } catch (e: unknown) { setConnErr((e as Error).message); setConnStatus('error'); }
+  }
+
+  function toggleOpen(name: string) { setDatasets((prev) => prev.map((d) => d.name === name ? { ...d, open: !d.open } : d)); }
+  function updateDs(name: string, patch: Partial<TableDataset>) { setDatasets((prev) => prev.map((d) => d.name === name ? { ...d, ...patch } : d)); }
+
+  function handleSchemaFile(tableName: string, file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const raw     = JSON.parse(e.target?.result as string);
+        const columns = parseSchemaFromJson(raw);
+        if (!columns.length) throw new Error('Could not find any columns in this file');
+        const schemaSteps: UploadStep[] = [
+          { id: 'parse',    label: 'Parse schema file',            cmd: `# Reading: ${file.name}\n# ${columns.length} column${columns.length !== 1 ? 's' : ''} detected`, status: 'done', detail: `${columns.length} columns` },
+          { id: 'map',      label: 'Map to DynamoDB types',        cmd: `# DynamoDB attribute type mapping:\n${columns.map((c) => `#   ${c.name.padEnd(20)} → ${c.type} (${friendlyType(c.type)})`).join('\n')}`, status: 'done', detail: 'types mapped' },
+          { id: 'describe', label: 'Verify table exists in AWS',   cmd: `aws dynamodb describe-table \\\n  --profile ${dsProfile} --region ${dsRegion} \\\n  --table-name ${tableName}`, status: 'pending', detail: '' },
+        ];
+        updateDs(tableName, { schemaStatus: 'parsed', schemaFile: file.name, columns, schemaErr: '', schemaSteps });
+        fetch(`/api/dynamodb-table-describe?profile=${dsProfile}&region=${dsRegion}&table=${encodeURIComponent(tableName)}`)
+          .then((r) => r.json())
+          .then((json) => {
+            const keySchema: { AttributeName: string; KeyType: string }[] = json.data?.Table?.KeySchema ?? [];
+            const partitionKey = keySchema.find((k: { KeyType: string }) => k.KeyType === 'HASH')?.AttributeName;
+            setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : {
+              ...d,
+              schemaStatus: json.ok ? 'locked' : 'error',
+              schemaErr: json.ok ? '' : (json.error ?? 'Table not found'),
+              tableKey: json.ok && partitionKey ? partitionKey : d.tableKey,
+              schemaSteps: d.schemaSteps.map((s) => s.id === 'describe' ? { ...s, status: json.ok ? 'done' : 'error', detail: json.ok ? `Table active · key: ${partitionKey ?? '?'} · ${json.data?.Table?.ItemCount ?? 0} records` : (json.error ?? 'Error') } : s),
+            }));
+          })
+          .catch(() => { setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : { ...d, schemaStatus: 'error', schemaErr: 'Network error', schemaSteps: d.schemaSteps.map((s) => s.id === 'describe' ? { ...s, status: 'error', detail: 'Network error' } : s) })); });
+      } catch (err: unknown) { updateDs(tableName, { schemaStatus: 'error', schemaErr: (err as Error).message, columns: [], schemaSteps: [] }); }
+    };
+    reader.readAsText(file);
+  }
+
+  function handleDataFile(tableName: string, file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const text = e.target?.result as string;
+        let records: Record<string, unknown>[];
+        if (file.name.toLowerCase().endsWith('.csv')) {
+          const lines = text.split(/\r?\n/).filter((l) => l.trim());
+          if (lines.length < 2) throw new Error('CSV file must have a header row and at least one data row');
+          const headers = lines[0].split(',').map((h) => h.trim().replace(/^"|"$/g, ''));
+          records = lines.slice(1).map((line) => {
+            const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|(?<=,)$|^(?=,))/g) ?? line.split(',');
+            const out: Record<string, unknown> = {};
+            headers.forEach((h, i) => {
+              const raw = (vals[i] ?? '').trim().replace(/^"|"$/g, '');
+              // Coerce numeric strings to numbers
+              out[h] = raw === '' ? '' : isNaN(Number(raw)) || raw === '' ? raw : Number(raw);
+            });
+            return out;
+          });
+        } else {
+          const raw = JSON.parse(text);
+          records = Array.isArray(raw) ? raw : (raw.items ?? raw.data ?? raw.records ?? [raw]);
+        }
+        if (!records.length) throw new Error('No records found in file');
+        const ds = datasets.find((d) => d.name === tableName);
+        const dataIssues = validateRecords(records, ds?.columns ?? [], ds?.tableKey);
+        const hasErrors  = dataIssues.some((x) => x.severity === 'error');
+        const dataSteps: UploadStep[] = [
+          { id: 'parse',    label: 'Parse data file',                  cmd: `# Reading: ${file.name}\n# ${records.length} record${records.length !== 1 ? 's' : ''} found`, status: 'done', detail: `${records.length} records` },
+          { id: 'validate', label: 'Validate records',                  cmd: ds?.columns.length ? `# Checking records against schema:\n${ds.columns.map((c) => `#   ${c.name}`).join('\n')}\n# ${dataIssues.length === 0 ? 'All records validated ✓' : `${dataIssues.filter((x) => x.severity === 'error').length} error(s), ${dataIssues.filter((x) => x.severity === 'warn').length} warning(s) found`}` : `# ${records.length} records ready for upload`, status: hasErrors ? 'error' : dataIssues.length ? 'done' : 'done', detail: hasErrors ? `${dataIssues.filter((x) => x.severity === 'error').length} errors` : dataIssues.length ? `${dataIssues.length} warnings` : 'all valid' },
+          { id: 'write',    label: 'Write to DynamoDB (batch_writer)',  cmd: `import boto3\nsession = boto3.Session(profile_name='${dsProfile}')\ndb = session.resource('dynamodb', region_name='${dsRegion}')\ntable = db.Table('${tableName}')\n\n# Writing ${records.length} records in batches of 25\nwith table.batch_writer() as batch:\n    for item in records:  # ${records.length} items\n        batch.put_item(Item=item)`, status: 'pending', detail: '' },
+          { id: 'confirm',  label: 'Confirm records written',           cmd: `aws dynamodb scan \\\n  --profile ${dsProfile} --region ${dsRegion} \\\n  --table-name ${tableName} \\\n  --select COUNT --output json`, status: 'pending', detail: '' },
+        ];
+        updateDs(tableName, { dataStatus: 'parsed', dataFile: file.name, records, dataErr: '', dataSteps, dataIssues });
+      } catch (err: unknown) { updateDs(tableName, { dataStatus: 'error', dataErr: (err as Error).message, records: [], dataSteps: [], dataIssues: [] }); }
+    };
+    reader.readAsText(file);
+  }
+
+  async function runDataUpload(tableName: string) {
+    const ds = datasets.find((d) => d.name === tableName);
+    if (!ds || !ds.records.length) return;
+    updateDs(tableName, { dataStatus: 'uploading' });
+    setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : { ...d, dataSteps: d.dataSteps.map((s) => s.id === 'write' ? { ...s, status: 'running' } : s) }));
+    try {
+      const res  = await fetch('/api/dynamodb-batch-write', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ profile: dsProfile, region: dsRegion, table: tableName, items: ds.records }) });
+      const json = await res.json();
+      const errMsg = json.error || 'Write failed';
+      if (!json.ok) throw new Error(errMsg);
+      const written = json.data?.written ?? ds.records.length;
+      setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : { ...d, dataSteps: d.dataSteps.map((s) => { if (s.id === 'write') return { ...s, status: 'done', detail: `${written} records written` }; if (s.id === 'confirm') return { ...s, status: 'running' }; return s; }) }));
+      const countRes  = await fetch(`/api/dynamodb-table-count?profile=${dsProfile}&region=${dsRegion}&table=${encodeURIComponent(tableName)}`);
+      const countJson = await countRes.json();
+      const finalCount = countJson.ok ? (countJson.data?.Count ?? written) : written;
+      setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : { ...d, dataStatus: 'done', recordsWritten: finalCount, dataSteps: d.dataSteps.map((s) => s.id === 'confirm' ? { ...s, status: 'done', detail: `${finalCount} total in table`, cmd: s.cmd + `\n# → ${finalCount} records confirmed in DynamoDB` } : s) }));
+    } catch (e: unknown) {
+      setDatasets((prev) => prev.map((d) => d.name !== tableName ? d : { ...d, dataStatus: 'error', dataErr: (e as Error).message, dataIssues: d.dataIssues, dataSteps: d.dataSteps.map((s) => s.id === 'write' && s.status === 'running' ? { ...s, status: 'error', detail: parseUploadError((e as Error).message).headline } : s) }));
+    }
   }
 
   return (
     <div className="ai-phase-body">
-      {/* Tool links */}
-      <div className="ai-tool-bar">
-        <span className="ai-tool-bar-label">Open in:</span>
-        {TOOL_LINKS.map((t) => (
-          <a
-            key={t.name}
-            href={t.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ai-tool-link"
-            title={t.desc}
-          >
-            {t.icon} {t.name} ↗
-          </a>
-        ))}
-      </div>
-
       <p className="design-phase-intro">
-        Ask questions about your data in the chat below, or use the starter prompts to guide your
-        exploration. Copy a prompt into the chat or take it straight into Lovable or Base44.
+        Your tables are set up. Now upload a <strong>JSON schema</strong> for each table to lock in
+        the column structure, then upload your <strong>synthetic data</strong> to populate it.
+        Every step shows the exact AWS command being run.
       </p>
 
-      {/* Chat window */}
-      <div className="ai-chat-wrap">
-        <div className="ai-chat-messages">
-          {messages.map((m, i) => (
-            <div key={i} className={`ai-chat-msg ai-chat-msg--${m.role}`}>
-              <span className="ai-chat-avatar">{m.role === 'assistant' ? '🤖' : '🧑'}</span>
-              <div className="ai-chat-bubble">{m.text}</div>
+      {/* Mini connect */}
+      {connStatus !== 'connected' && (
+        <div className="ai-connect-card">
+          <h3 className="ai-connect-heading">
+            Load Your Tables
+            <InfoBubble>
+              <strong>Why do I need to connect again?</strong>
+              <p style={{ margin: '0.4rem 0 0' }}>This phase loads the list of DynamoDB tables you created in Phase 1 so you can upload data for each one.</p>
+              <p style={{ margin: '0.5rem 0 0' }}>Use the same <strong>profile</strong> (<code>uo-innovation</code>) and <strong>region</strong> (<code>us-west-2</code>) as Phase 1.</p>
+            </InfoBubble>
+          </h3>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-end', marginBottom: '1rem' }}>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em' }}>AWS Profile</span>
+              <input value={dsProfile} onChange={(e) => setDsProfile(e.target.value)} style={{ padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.9rem', width: 180 }} />
+            </label>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Region</span>
+              <input value={dsRegion} onChange={(e) => setDsRegion(e.target.value)} style={{ padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.9rem', width: 140 }} />
+            </label>
+            <button onClick={loadTables} disabled={connStatus === 'loading'} style={{ background: '#007030', color: '#FEE11A', border: 'none', padding: '0.45rem 1.25rem', fontWeight: 800, fontSize: '0.9rem', cursor: connStatus === 'loading' ? 'not-allowed' : 'pointer' }}>
+              {connStatus === 'loading' ? '⏳ Loading…' : '🔌 Load Tables from DynamoDB'}
+            </button>
+          </div>
+          {ssoExpired && (
+            <div style={{ padding: '0.75rem 1rem', background: '#fffbea', border: '1px solid #f4c95d' }}>
+              <p style={{ fontWeight: 700, margin: '0 0 0.3rem' }}>🌐 AWS SSO session expired — login opened in your browser</p>
+              <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem', color: '#555' }}>Complete sign-in then click <strong>Load Tables from DynamoDB</strong> again.</p>
             </div>
-          ))}
-          {thinking && (
-            <div className="ai-chat-msg ai-chat-msg--assistant">
-              <span className="ai-chat-avatar">🤖</span>
-              <div className="ai-chat-bubble ai-chat-bubble--thinking">
-                <span className="ai-chat-dot" /><span className="ai-chat-dot" /><span className="ai-chat-dot" />
+          )}
+          {connStatus === 'error' && !ssoExpired && <p style={{ color: '#c0392b', fontSize: '0.86rem', margin: 0 }}>✗ {connErr}</p>}
+        </div>
+      )}
+
+      {connStatus === 'connected' && (
+        <>
+          <div className="ai-connected-banner" style={{ marginBottom: '1.5rem' }}>
+            <span className="ai-connected-dot">●</span>
+            <strong>Connected</strong>
+            <span className="ai-connected-sub">{dsProfile} · {dsRegion} · {datasets.length} table{datasets.length !== 1 ? 's' : ''}</span>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
+              <button onClick={() => { setConnStatus('idle'); setDatasets([]); }} style={{ background: 'none', border: '1px solid #ccc', cursor: 'pointer', fontSize: '0.78rem', padding: '0.2rem 0.6rem', color: '#555' }}>Disconnect</button>
+              <button onClick={() => { if (window.confirm('Clear all saved schema and upload progress?')) { localStorage.removeItem('uo-ai-dataset-phase'); setDatasets([]); setConnStatus('idle'); } }} style={{ background: 'none', border: '1px solid #e67e22', cursor: 'pointer', fontSize: '0.78rem', padding: '0.2rem 0.6rem', color: '#e67e22' }}>↺ Clear Saved State</button>
+            </div>
+          </div>
+
+          {datasets.length === 0 ? (
+            <p style={{ color: '#888', fontSize: '0.88rem' }}>No tables found in {dsRegion}. Go to <strong>Phase 1</strong> to create your tables first.</p>
+          ) : (
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: 11, top: 20, bottom: 20, width: 2, background: '#e0e0e0', zIndex: 0 }} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {datasets.map((ds) => {
+                  const schemaOk  = ds.schemaStatus === 'locked';
+                  const dataOk    = ds.dataStatus   === 'done';
+                  const inProg    = !dataOk && (ds.open || ds.schemaStatus !== 'empty' || ds.dataStatus !== 'empty');
+                  const dotBorder = dataOk ? '#007030' : inProg ? '#e67e22' : '#ccc';
+                  return (
+                    <div key={ds.name} style={{ position: 'relative', paddingLeft: 36 }}>
+                      <div style={{ position: 'absolute', left: 4, top: 15, width: 16, height: 16, borderRadius: '50%', background: dataOk ? '#007030' : 'transparent', border: `2.5px solid ${dotBorder}`, zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {dataOk && <span style={{ color: '#fff', fontSize: '0.58rem', fontWeight: 900 }}>✓</span>}
+                      </div>
+                      <div style={{ border: `1px solid ${ds.open ? '#007030' : '#e0e0e0'}`, background: '#fff', transition: 'border-color 0.15s' }}>
+                        <button onClick={() => toggleOpen(ds.name)} style={{ width: '100%', background: ds.open ? '#f5fff5' : '#fafafa', border: 'none', borderBottom: ds.open ? '1px solid #e0e0e0' : 'none', padding: '0.65rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', textAlign: 'left' }}>
+                          <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '0.92rem', color: '#222', flex: 1 }}>{ds.name}</span>
+                          <span style={{ display: 'flex', gap: '0.4rem' }}>
+                            <StatusBadge label="Schema" done={schemaOk} active={ds.schemaStatus === 'parsed'} error={ds.schemaStatus === 'error'} />
+                            <StatusBadge label="Data"   done={dataOk}   active={ds.dataStatus === 'parsed' || ds.dataStatus === 'uploading'} error={ds.dataStatus === 'error'} />
+                          </span>
+                          <span style={{ fontSize: '0.75rem', color: '#bbb' }}>{ds.open ? '▲' : '▼'}</span>
+                        </button>
+
+                        {ds.open && (
+                          <div style={{ padding: '1rem 1rem 1.25rem' }}>
+
+                            {/* ── SCHEMA ── */}
+                            <SectionHeader num={1} label="Define Schema" done={schemaOk}>
+                              <InfoBubble>
+                                <strong>What is a schema?</strong>
+                                <p style={{ margin: '0.4rem 0 0' }}>A schema lists the <em>columns</em> (attributes) your records will have and their data types.</p>
+                                <p style={{ margin: '0.5rem 0 0' }}>DynamoDB is schema-less — only the primary key has a declared type — but defining a schema here lets the app validate your data before writing it.</p>
+                                <p style={{ margin: '0.5rem 0 0' }}>Accepted JSON formats:</p>
+                                <ul style={{ paddingLeft: '1.1rem', margin: '0.25rem 0 0', fontSize: '0.78rem' }}>
+                                  <li><code>[&#123;"name":"id","type":"S"&#125;]</code> — explicit list</li>
+                                  <li><code>[&#123;"id":"abc","make":"Toyota"&#125;]</code> — a sample record (types inferred)</li>
+                                  <li><code>&#123;"columns":["id","name"]&#125;</code> — names only</li>
+                                </ul>
+                              </InfoBubble>
+                            </SectionHeader>
+
+                            {ds.schemaStatus === 'empty' && <FileDropZone label="Drop JSON schema file here or click to browse" accept=".json" onFile={(f) => handleSchemaFile(ds.name, f)} />}
+                            {ds.schemaSteps.length > 0 && <StepPanel steps={ds.schemaSteps} />}
+
+                            {(ds.schemaStatus === 'parsed' || ds.schemaStatus === 'locked') && ds.columns.length > 0 && (
+                              <>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                                  <span style={{ fontSize: '0.82rem', color: ds.schemaStatus === 'locked' ? '#007030' : '#e67e22', fontWeight: 700 }}>
+                                    {ds.schemaStatus === 'locked' ? '✓' : '…'} {ds.columns.length} columns detected
+                                  </span>
+                                  {ds.schemaStatus === 'locked' && <span style={{ fontSize: '0.76rem', color: '#aaa' }}>— edit types below if needed</span>}
+                                  <button
+                                    onClick={() => updateDs(ds.name, { schemaStatus: 'empty', columns: [], schemaFile: '', schemaSteps: [] })}
+                                    style={{ marginLeft: 'auto', background: 'none', border: '1px solid #ccc', fontSize: '0.73rem', color: '#888', padding: '0.2rem 0.55rem', cursor: 'pointer' }}
+                                  >↺ Reset Schema</button>
+                                </div>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.83rem', marginBottom: '0.5rem' }}>
+                                  <thead><tr style={{ background: '#f5f5f5', borderBottom: '2px solid #ddd' }}>
+                                    <th style={{ padding: '0.35rem 0.75rem', textAlign: 'left', fontWeight: 700, color: '#444' }}>Column (dot path)</th>
+                                    <th style={{ padding: '0.35rem 0.75rem', textAlign: 'left', fontWeight: 700, color: '#444', width: 140 }}>
+                                    DynamoDB Type
+                                    <InfoBubble>
+                                      <strong>Does changing the type update DynamoDB?</strong>
+                                      <p style={{ margin: '0.4rem 0 0' }}>No — DynamoDB is <em>schema-less</em>. Only the primary key attribute type is declared at table creation. All other attributes can hold any type and DynamoDB does not enforce them.</p>
+                                      <p style={{ margin: '0.5rem 0 0' }}>Changing the type here updates your <strong>local schema config only</strong> — it is used to validate your data before upload and to document the intended types for your team. No AWS call is made.</p>
+                                      <p style={{ margin: '0.5rem 0 0' }}>Your changes are saved automatically in your browser (<code>localStorage</code>) and will persist across page reloads and navigation.</p>
+                                    </InfoBubble>
+                                  </th>
+                                    <th style={{ padding: '0.35rem 0.75rem', textAlign: 'left', fontWeight: 700, color: '#444', width: 90 }}>Friendly</th>
+                                    <th style={{ padding: '0.35rem 0.75rem', textAlign: 'left', fontWeight: 700, color: '#444' }}>Note</th>
+                                  </tr></thead>
+                                  <tbody>{ds.columns.map((c, i) => (
+                                    <tr key={c.name} style={{ borderBottom: '1px solid #eee', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                                      <td style={{ padding: '0.3rem 0.75rem', fontFamily: 'monospace', fontSize: '0.8rem', wordBreak: 'break-all' }}>{c.name}</td>
+                                      <td style={{ padding: '0.2rem 0.5rem' }}>
+                                        <select
+                                          value={c.type}
+                                          onChange={(e) => updateDs(ds.name, {
+                                            columns: ds.columns.map((col) => col.name === c.name ? { ...col, type: e.target.value } : col),
+                                          })}
+                                          style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#007030', fontWeight: 700, border: '1px solid #cce8cc', padding: '0.15rem 0.3rem', background: '#f0fff0', width: '100%', cursor: 'pointer' }}
+                                        >
+                                          {['S','N','BOOL','L','M','NULL','B'].map((t) => (
+                                            <option key={t} value={t}>{t} — {friendlyType(t)}</option>
+                                          ))}
+                                        </select>
+                                      </td>
+                                      <td style={{ padding: '0.3rem 0.75rem', color: '#666' }}>{friendlyType(c.type)}</td>
+                                      <td style={{ padding: '0.3rem 0.75rem', color: '#999', fontSize: '0.76rem', fontStyle: 'italic' }}>{c.note ?? ''}</td>
+                                    </tr>
+                                  ))}</tbody>
+                                </table>
+                              </>
+                            )}
+                            {ds.schemaStatus === 'error' && (
+                              <div style={{ marginBottom: '0.5rem' }}>
+                                <p style={{ color: '#c0392b', fontSize: '0.83rem', margin: '0 0 0.3rem' }}>✗ {ds.schemaErr}</p>
+                                <button onClick={() => updateDs(ds.name, { schemaStatus: 'empty', columns: [], schemaFile: '', schemaSteps: [] })} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.8rem', color: '#555', padding: '0.3rem 0.75rem', cursor: 'pointer' }}>Try again</button>
+                              </div>
+                            )}
+
+                            {/* ── DATA ── */}
+                            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px dashed #eee' }}>
+                              <SectionHeader num={2} label="Upload Synthetic Data" done={dataOk}>
+                                <InfoBubble>
+                                  <strong>What data format should I use?</strong>
+                                  <p style={{ margin: '0.4rem 0 0' }}>Upload a <strong>JSON</strong> array or a <strong>CSV</strong> file. Column names must match your schema.</p>
+                                  <p style={{ margin: '0.4rem 0 0', fontWeight: 700 }}>JSON:</p>
+                                  <pre style={{ background: '#f5f5f5', padding: '0.4rem', fontSize: '0.75rem', margin: '0.2rem 0 0', overflowX: 'auto' }}>{`[\n  {"id": "1", "make": "Toyota"},\n  {"id": "2", "make": "Honda"}\n]`}</pre>
+                                  <p style={{ margin: '0.5rem 0 0', fontWeight: 700 }}>CSV:</p>
+                                  <pre style={{ background: '#f5f5f5', padding: '0.4rem', fontSize: '0.75rem', margin: '0.2rem 0 0', overflowX: 'auto' }}>{`id,make\n1,Toyota\n2,Honda`}</pre>
+                                  <p style={{ margin: '0.5rem 0 0' }}>Numeric CSV values are auto-coerced to numbers. Records are written using Python <code>boto3</code> <code>batch_writer</code> in batches of 25.</p>
+                                </InfoBubble>
+                              </SectionHeader>
+
+                              {ds.dataStatus === 'empty' && <FileDropZone label="Drop JSON or CSV file here or click to browse" accept=".json,.csv" onFile={(f) => handleDataFile(ds.name, f)} />}
+                              {ds.dataSteps.length > 0 && <StepPanel steps={ds.dataSteps} />}
+
+                              {/* Validation issues panel */}
+                              {ds.dataStatus === 'parsed' && ds.dataIssues.length > 0 && (() => {
+                                const errors = ds.dataIssues.filter((x) => x.severity === 'error');
+                                const warns  = ds.dataIssues.filter((x) => x.severity === 'warn');
+                                return (
+                                  <div style={{ margin: '0.5rem 0', padding: '0.75rem 1rem', background: errors.length ? '#fff4f4' : '#fffbea', border: `1px solid ${errors.length ? '#e8b4b4' : '#f4c95d'}` }}>
+                                    <p style={{ fontWeight: 700, margin: '0 0 0.4rem', fontSize: '0.85rem', color: errors.length ? '#c0392b' : '#b7770a' }}>
+                                      {errors.length ? `⚠ ${errors.length} error${errors.length > 1 ? 's' : ''} found` : `ℹ ${warns.length} warning${warns.length > 1 ? 's' : ''}`}
+                                      {errors.length ? ' — fix these before uploading' : ' — review before uploading'}
+                                    </p>
+                                    <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.8rem', lineHeight: 1.7 }}>
+                                      {ds.dataIssues.map((issue, idx) => (
+                                        <li key={idx} style={{ color: issue.severity === 'error' ? '#c0392b' : '#888' }}>
+                                          {issue.record > 0 && <span style={{ fontFamily: 'monospace', marginRight: '0.35rem', opacity: 0.7 }}>row {issue.record}:</span>}
+                                          {issue.message}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                );
+                              })()}
+
+                              {ds.dataStatus === 'parsed' && (() => {
+                                const hasErrors = ds.dataIssues.some((x) => x.severity === 'error');
+                                return (
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.25rem' }}>
+                                    <span style={{ fontSize: '0.85rem', color: '#555' }}>{ds.records.length} records ready</span>
+                                    <button
+                                      onClick={() => runDataUpload(ds.name)}
+                                      style={{ background: hasErrors ? '#aaa' : '#007030', color: '#FEE11A', border: 'none', padding: '0.45rem 1.25rem', fontWeight: 800, fontSize: '0.88rem', cursor: hasErrors ? 'not-allowed' : 'pointer', opacity: hasErrors ? 0.7 : 1 }}
+                                      disabled={hasErrors}
+                                      title={hasErrors ? 'Fix the errors above before uploading' : undefined}
+                                    >▶ Upload to DynamoDB</button>
+                                    {hasErrors && <span style={{ fontSize: '0.78rem', color: '#c0392b' }}>Fix errors above first</span>}
+                                    <button onClick={() => updateDs(ds.name, { dataStatus: 'empty', records: [], dataFile: '', dataSteps: [], dataIssues: [] })} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.8rem', color: '#555', padding: '0.3rem 0.75rem', cursor: 'pointer' }}>Reset</button>
+                                  </div>
+                                );
+                              })()}
+                              {ds.dataStatus === 'uploading' && <p style={{ fontSize: '0.86rem', color: '#e67e22', margin: '0.25rem 0' }}>⏳ Uploading to DynamoDB…</p>}
+                              {ds.dataStatus === 'done' && (() => {
+                                async function loadPreview() {
+                                  updateDs(ds.name, { previewLoading: true, previewErr: undefined });
+                                  try {
+                                    const r = await fetch(`/api/dynamodb-table-scan?profile=${dsProfile}&region=${dsRegion}&table=${encodeURIComponent(ds.name)}&limit=50`);
+                                    const j = await r.json();
+                                    if (!j.ok) throw new Error(j.error || 'Scan failed');
+                                    updateDs(ds.name, { previewRows: j.data?.items ?? [], previewOpen: true, previewLoading: false });
+                                  } catch (e: unknown) { updateDs(ds.name, { previewLoading: false, previewErr: (e as Error).message, previewOpen: true }); }
+                                }
+                                const cols = ds.previewRows?.length
+                                  ? Object.keys(ds.previewRows[0]).filter((k) => typeof ds.previewRows![0][k] !== 'object' || ds.previewRows![0][k] === null).slice(0, 10)
+                                  : [];
+                                return (
+                                  <div style={{ marginTop: '0.25rem' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                      <span style={{ fontSize: '0.82rem', color: '#007030', fontWeight: 700 }}>✓ {ds.recordsWritten.toLocaleString()} records in DynamoDB</span>
+                                      <button
+                                        onClick={() => ds.previewOpen ? updateDs(ds.name, { previewOpen: false }) : loadPreview()}
+                                        style={{ background: '#007030', color: '#FEE11A', border: 'none', fontSize: '0.78rem', fontWeight: 700, padding: '0.2rem 0.65rem', cursor: 'pointer' }}
+                                      >{ds.previewLoading ? '⏳ Loading…' : ds.previewOpen ? '▲ Hide Data' : '▼ View Data'}</button>
+                                      <button onClick={() => updateDs(ds.name, { dataStatus: 'empty', records: [], dataFile: '', dataSteps: [], dataIssues: [], recordsWritten: 0, previewRows: undefined, previewOpen: false })} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.73rem', color: '#888', padding: '0.15rem 0.45rem', cursor: 'pointer' }}>Re-upload</button>
+                                    </div>
+                                    {ds.previewOpen && (
+                                      <div style={{ marginTop: '0.75rem', overflowX: 'auto', border: '1px solid #ddd' }}>
+                                        {ds.previewErr && <p style={{ color: '#c0392b', padding: '0.5rem', fontSize: '0.82rem', margin: 0 }}>✗ {ds.previewErr}</p>}
+                                        {ds.previewRows && ds.previewRows.length > 0 && (
+                                          <>
+                                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem' }}>
+                                              <thead>
+                                                <tr style={{ background: '#007030', color: '#FEE11A' }}>
+                                                  {cols.map((c) => <th key={c} style={{ padding: '0.4rem 0.6rem', textAlign: 'left', fontWeight: 700, whiteSpace: 'nowrap' }}>{c}</th>)}
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                {ds.previewRows.map((row, ri) => (
+                                                  <tr key={ri} style={{ background: ri % 2 === 0 ? '#fff' : '#f9f9f9', borderBottom: '1px solid #eee' }}>
+                                                    {cols.map((c) => {
+                                                      const v = row[c];
+                                                      return <td key={c} style={{ padding: '0.35rem 0.6rem', maxWidth: '220px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#333' }} title={String(v ?? '')}>{v === null || v === undefined ? <em style={{ color: '#aaa' }}>null</em> : String(v)}</td>;
+                                                    })}
+                                                  </tr>
+                                                ))}
+                                              </tbody>
+                                            </table>
+                                            <p style={{ margin: 0, padding: '0.3rem 0.6rem', fontSize: '0.73rem', color: '#888', background: '#f5f5f5', borderTop: '1px solid #eee' }}>
+                                              Showing {ds.previewRows.length} of {ds.recordsWritten} records · {cols.length < Object.keys(ds.previewRows[0]).length ? `${cols.length} of ${Object.keys(ds.previewRows[0]).length} columns shown (nested objects omitted)` : `${cols.length} columns`}
+                                            </p>
+                                          </>
+                                        )}
+                                        {ds.previewRows && ds.previewRows.length === 0 && <p style={{ padding: '0.5rem', fontSize: '0.82rem', color: '#888', margin: 0 }}>No records found in table.</p>}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })()}
+                              {ds.dataStatus === 'error' && (() => {
+                                const parsed = parseUploadError(ds.dataErr);
+                                return (
+                                  <div style={{ marginTop: '0.5rem', padding: '0.75rem 1rem', background: '#fff4f4', border: '1px solid #e8b4b4' }}>
+                                    <p style={{ fontWeight: 800, margin: '0 0 0.25rem', fontSize: '0.88rem', color: '#c0392b' }}>✗ {parsed.headline}</p>
+                                    <p style={{ margin: '0 0 0.6rem', fontSize: '0.83rem', color: '#555', lineHeight: 1.6 }}>{parsed.hint}</p>
+                                    <details style={{ fontSize: '0.75rem' }}>
+                                      <summary style={{ cursor: 'pointer', color: '#888', marginBottom: '0.3rem' }}>Show raw error</summary>
+                                      <pre style={{ margin: 0, background: '#f5f5f5', padding: '0.5rem', overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: '#c0392b', border: '1px solid #eee' }}>{ds.dataErr}</pre>
+                                    </details>
+                                    <button onClick={() => updateDs(ds.name, { dataStatus: 'empty', records: [], dataFile: '', dataSteps: [], dataIssues: [] })} style={{ marginTop: '0.6rem', background: 'none', border: '1px solid #ccc', fontSize: '0.8rem', color: '#555', padding: '0.3rem 0.75rem', cursor: 'pointer' }}>↺ Try again</button>
+                                  </div>
+                                );
+                              })()}
+                            </div>
+
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
-          <div ref={bottomRef} />
-        </div>
+        </>
+      )}
 
-        <div className="ai-chat-input-row">
-          <textarea
-            className="ai-chat-input"
-            rows={2}
-            placeholder="Ask a question about your data… (Enter to send, Shift+Enter for new line)"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <button
-            type="button"
-            className="ai-chat-send"
-            onClick={sendMessage}
-            disabled={!input.trim() || thinking}
-          >
-            Send ↑
-          </button>
-        </div>
-      </div>
-
-      {/* Starter prompts */}
-      <h3 className="ai-prompts-heading">Starter Prompts</h3>
-      <p className="ai-prompts-sub">Click a prompt to load it into the chat, or copy it to use in Lovable / Base44.</p>
-      {INSIGHT_PROMPTS.map((p) => (
-        <div key={p.label} className="ai-prompt-row">
-          <PromptCard label={p.label} content={p.content} tone="prompt" />
-          <button
-            type="button"
-            className="ai-use-prompt-btn"
-            onClick={() => loadPrompt(p.content)}
-          >
-            ↑ Ask in chat
-          </button>
-        </div>
-      ))}
-
-      <NotesEditor defaultFileName="ai:insights" title="Data Insights & Findings" />
+      <NotesEditor defaultFileName="ai:datasets" title="Dataset Notes" />
     </div>
   );
 }
 
 // ─── Phase 3 — Train AI Model ───────────────────────────────────
+
+type LogLine = { text: string; err?: boolean };
+
+const LITHIA_TABLES = ['lithia-vehicles', 'lithia-financing', 'lithia-insurance', 'lithia-members', 'lithia-services', 'lithia-member-financing', 'lithia-member-insurance', 'lithia-member-rentals'];
+
+const PREPARE_CMD = (tables: string[]) =>
+`python scripts/prepare_data.py \\
+  --source dynamodb \\
+  --profile uo-innovation \\
+  --tables ${tables.join(' ')} \\
+  --output-dir data/processed`;
+
+const TRAIN_CMD =
+`python scripts/train.py \\
+  --config configs/lora_config.yaml \\
+  --data data/processed/train.jsonl \\
+  --output models/lithia-lora`;
+
+const INFERENCE_CMD =
+`python scripts/inference.py \\
+  --model models/lithia-lora`;
+
+function LogPanel({ lines, logRef }: { lines: LogLine[]; logRef: (el: HTMLDivElement | null) => void }) {
+  return (
+    <div ref={logRef} style={{ background: '#1a1a1a', color: '#d4d4d4', fontFamily: 'monospace', fontSize: '0.85rem', lineHeight: 1.7, padding: '0.6rem 0.85rem', maxHeight: '320px', overflowY: 'auto', marginTop: '0.5rem', border: '1px solid #333' }}>
+      {lines.length === 0 && <span style={{ color: '#666' }}>Waiting for output…</span>}
+      {lines.map((l, i) => (
+        <div key={i} style={{ color: l.err ? '#f48771' : '#d4d4d4', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{l.text}</div>
+      ))}
+    </div>
+  );
+}
+
+type ChatMessage = { role: 'user' | 'assistant'; text: string; loading?: boolean };
+
 function TrainPhase() {
-  const [trainStatus, setTrainStatus] = useState<'idle' | 'pending'>('idle');
+  const [selectedTables, setSelectedTables] = useState<string[]>(['lithia-vehicles']);
+  const [confirmed, setConfirmed] = useState(false);
+  const [stepStatus, setStepStatus] = useState<Record<string, 'idle' | 'running' | 'done' | 'error'>>({});
+  const [stepLogs, setStepLogs] = useState<Record<string, LogLine[]>>({});
+  const [logsOpen, setLogsOpen] = useState<Record<string, boolean>>({});
+  const esRef = useRef<Record<string, EventSource | null>>({});
+  const logElRef = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Chat state
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [chatInput, setChatInput] = useState('');
+  const [chatBusy, setChatBusy] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  function appendLog(id: string, line: LogLine) {
+    setStepLogs((prev) => ({ ...prev, [id]: [...(prev[id] ?? []), line] }));
+    setTimeout(() => { const el = logElRef.current[id]; if (el) el.scrollTop = el.scrollHeight; }, 0);
+  }
+
+  function runScript(id: string) {
+    esRef.current[id]?.close();
+    setStepLogs((prev) => ({ ...prev, [id]: [] }));
+    setStepStatus((prev) => ({ ...prev, [id]: 'running' }));
+    setLogsOpen((prev) => ({ ...prev, [id]: true }));
+
+    const params = new URLSearchParams({ script: id, profile: 'uo-innovation', region: 'us-west-2' });
+    if (id === 'prepare') params.set('tables', selectedTables.join(','));
+
+    const es = new EventSource(`/api/train-stream?${params}`);
+    esRef.current[id] = es;
+    es.addEventListener('line', (e) => { const d = JSON.parse((e as MessageEvent).data); appendLog(id, { text: d.text, err: d.err }); });
+    es.addEventListener('done', () => { setStepStatus((prev) => ({ ...prev, [id]: 'done' })); es.close(); });
+    es.addEventListener('fail', (e) => {
+      try { const d = JSON.parse((e as MessageEvent).data); appendLog(id, { text: `Process exited with code ${d.code}`, err: true }); } catch {}
+      setStepStatus((prev) => ({ ...prev, [id]: 'error' })); es.close();
+    });
+    es.onerror = () => { appendLog(id, { text: 'Connection error — is the api-server running?', err: true }); setStepStatus((prev) => ({ ...prev, [id]: 'error' })); es.close(); };
+  }
+
+  function sendPrompt() {
+    const q = chatInput.trim();
+    if (!q || chatBusy) return;
+    setChatInput('');
+    setChatBusy(true);
+    setChatMessages((prev) => [...prev, { role: 'user', text: q }, { role: 'assistant', text: '', loading: true }]);
+    setTimeout(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, 0);
+
+    const params = new URLSearchParams({ prompt: q, profile: 'uo-innovation', region: 'us-west-2', tables: selectedTables.join(',') });
+    const es = new EventSource(`/api/infer-prompt?${params}`);
+    let buf = '';
+    es.addEventListener('token', (e) => {
+      const d = JSON.parse((e as MessageEvent).data);
+      buf += d.text;
+      setChatMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: 'assistant', text: buf, loading: true };
+        return updated;
+      });
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    });
+    const finish = () => {
+      setChatMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: 'assistant', text: buf || '(no response)', loading: false };
+        return updated;
+      });
+      setChatBusy(false);
+      es.close();
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+    es.addEventListener('done', finish);
+    es.addEventListener('fail', (e) => {
+      try { const d = JSON.parse((e as MessageEvent).data); buf = d.message || 'Error running inference.'; } catch { buf = 'Error running inference.'; }
+      finish();
+    });
+    es.onerror = () => { buf = buf || 'Connection error — is the api-server running?'; finish(); };
+  }
+
+  const runSteps = [
+    { id: 'setup',    num: 2, title: 'Set up Python environment (one-time)', desc: 'Creates a local virtual environment (.venv-train) and installs all required packages — PyTorch, Transformers, PEFT, accelerate, boto3, and more. Works automatically on Windows, macOS, and Linux. Run this once before anything else.', cmd: 'python3 -m venv .venv-train && pip install -r requirements.txt', disabled: false },
+    { id: 'download', num: 3, title: 'Download base model (~2.2 GB, one-time)', desc: 'Downloads TinyLlama 1.1B from HuggingFace and caches it to disk. Only needed once — subsequent runs skip the download.', cmd: 'python scripts/download_model.py', disabled: false },
+    { id: 'prepare',  num: 4, title: 'Prepare training data', desc: `Scans your selected DynamoDB table${selectedTables.length !== 1 ? 's' : ''} and converts each record into instruction–response pairs formatted for TinyLlama's chat template. Output saved to data/processed/train.jsonl.`, cmd: PREPARE_CMD(selectedTables), disabled: !confirmed },
+    { id: 'train',    num: 5, title: 'Fine-tune TinyLlama with LoRA', desc: 'Freezes TinyLlama\'s 1.1B weights, injects small trainable LoRA adapter matrices, and trains only those (~4M params, ~0.4% of model). Runs on CPU — expect 30–90 min. Watch the loss number fall each epoch.', cmd: TRAIN_CMD, disabled: !confirmed },
+    { id: 'infer',    num: 6, title: 'Verify with inference', desc: 'Loads the trained LoRA adapter on top of TinyLlama and runs sample dealership prompts to confirm the model learned from your data.', cmd: INFERENCE_CMD, disabled: !confirmed },
+  ];
+
+  const statusIcon: Record<string, string> = { idle: '○', running: '⏳', done: '✓', error: '✗' };
+  const statusColor: Record<string, string> = { idle: '#888', running: '#e67e22', done: '#007030', error: '#c0392b' };
 
   return (
     <div className="ai-phase-body">
-      <p className="design-phase-intro">
-        In this phase you will trigger a fine-tuning run on <strong>Ollama</strong> hosted via
-        <strong> AWS Bedrock</strong>. The model will be trained on insights drawn from your
-        Lithia Motors dataset, producing a specialised AI that understands your product domain.
-      </p>
 
-      <div className="ai-train-card">
-        <div className="ai-train-icon">🤖</div>
-        <h3 className="ai-train-heading">AWS Bedrock — Model Training</h3>
-        <ul className="ai-train-details">
-          <li><span>Runtime</span><strong>Ollama (llama3)</strong></li>
-          <li><span>Host</span><strong>AWS Bedrock (course environment)</strong></li>
-          <li><span>Dataset</span><strong>Lithia Motors — synthetic patient/vehicle corpus</strong></li>
-          <li><span>Status</span><strong className={trainStatus === 'pending' ? 'ai-train-status--active' : 'ai-train-status--idle'}>{trainStatus === 'pending' ? '⏳ Training queued…' : '○ Not started'}</strong></li>
-        </ul>
-
-        <div className="ai-train-notice">
-          <strong>Note:</strong> Bedrock configuration will be completed by your instructor before
-          this session. You only need to press the button below to submit your dataset for training.
-          The process runs in the background — your instructor will notify you when the model is ready.
+      {/* Concept intro cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.75rem' }}>
+        <div style={{ padding: '1rem 1.1rem', background: '#f0f7ff', border: '1px solid #c2d9f5' }}>
+          <p style={{ fontWeight: 800, margin: '0 0 0.5rem', fontSize: '1rem', color: '#1a4a7a' }}>🧠 What is TinyLlama?</p>
+          <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.8, color: '#333' }}>
+            TinyLlama is an open-source language model with <strong>1.1 billion parameters</strong> — numerical weights trained on 3 trillion tokens of text. "Parameters" are the values the model uses to predict the next word; more parameters means more capacity to understand nuance. At 1.1B it is small enough to run on a laptop CPU (no GPU needed) while still understanding industry-specific language when fine-tuned on your data.
+          </p>
         </div>
-
-        <button
-          type="button"
-          className={`ai-train-btn ${trainStatus === 'pending' ? 'ai-train-btn--active' : ''}`}
-          onClick={() => setTrainStatus('pending')}
-          disabled={trainStatus === 'pending'}
-        >
-          {trainStatus === 'pending' ? '⏳ Training Queued — Check Back Soon' : '🚀 Begin Model Training on AWS Bedrock'}
-        </button>
+        <div style={{ padding: '1rem 1.1rem', background: '#f5f0ff', border: '1px solid #d4c2f5' }}>
+          <p style={{ fontWeight: 800, margin: '0 0 0.5rem', fontSize: '1rem', color: '#4a1a7a' }}>⚡ What is LoRA?</p>
+          <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.8, color: '#333' }}>
+            LoRA (<strong>Low-Rank Adaptation</strong>) is a fine-tuning method that avoids retraining all 1.1B weights. Instead it inserts tiny <em>adapter matrices</em> alongside the frozen model — only ~4 million parameters are trained (~0.4%). This slashes memory, compute, and time by orders of magnitude. The output is a small adapter file (~10 MB) that snaps onto the base model, turning a general assistant into a Lithia Motors domain expert.
+          </p>
+        </div>
       </div>
+
+      {/* Step 1 — Select tables */}
+      <div style={{ marginBottom: '1.25rem', padding: '1rem 1.25rem', background: '#f9f9f9', border: `1px solid ${confirmed ? '#007030' : '#ddd'}` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.6rem' }}>
+          <span style={{ background: confirmed ? '#007030' : '#555', color: '#fff', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.82rem', fontWeight: 800, flexShrink: 0 }}>{confirmed ? '✓' : '1'}</span>
+          <strong style={{ fontSize: '1rem' }}>Select tables to train on</strong>
+          {confirmed && <span style={{ fontSize: '0.88rem', color: '#007030', fontWeight: 700 }}>{selectedTables.join(', ')}</span>}
+        </div>
+        {!confirmed && (
+          <>
+            <p style={{ fontSize: '0.9rem', color: '#555', margin: '0 0 0.65rem', lineHeight: 1.7 }}>Choose which DynamoDB tables to pull training data from. Each record becomes instruction–response pairs that teach TinyLlama about your dealership domain.</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '0.7rem' }}>
+              {LITHIA_TABLES.map((t) => (
+                <label key={t} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.88rem', cursor: 'pointer', padding: '0.3rem 0.75rem', border: `1px solid ${selectedTables.includes(t) ? '#007030' : '#ccc'}`, background: selectedTables.includes(t) ? '#e8f5ee' : '#fff', userSelect: 'none' }}>
+                  <input type="checkbox" checked={selectedTables.includes(t)} onChange={() => setSelectedTables((p) => p.includes(t) ? p.filter((x) => x !== t) : [...p, t])} style={{ accentColor: '#007030' }} />
+                  {t}
+                </label>
+              ))}
+            </div>
+            <button onClick={() => setConfirmed(true)} disabled={!selectedTables.length} style={{ background: selectedTables.length ? '#007030' : '#aaa', color: '#FEE11A', border: 'none', padding: '0.5rem 1.25rem', fontWeight: 800, fontSize: '0.92rem', cursor: selectedTables.length ? 'pointer' : 'not-allowed' }}>
+              ✓ Confirm Selection
+            </button>
+          </>
+        )}
+        {confirmed && <button onClick={() => setConfirmed(false)} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.85rem', color: '#555', padding: '0.25rem 0.7rem', cursor: 'pointer', marginTop: '0.25rem' }}>Change tables</button>}
+      </div>
+
+      {/* Steps 2–5 — run buttons + live log */}
+      {runSteps.map(({ id, num, title, desc, cmd, disabled }) => {
+        const st = stepStatus[id] ?? 'idle';
+        const lg = stepLogs[id] ?? [];
+        const open = logsOpen[id] ?? false;
+        return (
+          <div key={id} style={{ marginBottom: '1.1rem', padding: '1rem 1.25rem', background: '#f9f9f9', border: `1px solid ${st === 'done' ? '#007030' : st === 'error' ? '#e8b4b4' : '#ddd'}`, opacity: disabled ? 0.45 : 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+              <span style={{ background: st === 'done' ? '#007030' : st === 'error' ? '#c0392b' : '#555', color: '#fff', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.82rem', fontWeight: 800, flexShrink: 0 }}>{num}</span>
+              <strong style={{ fontSize: '1rem', flex: 1 }}>{title}</strong>
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: statusColor[st] }}>{statusIcon[st]} {st}</span>
+            </div>
+            <p style={{ fontSize: '0.9rem', color: '#555', margin: '0 0 0.6rem', lineHeight: 1.7 }}>{desc}</p>
+            <div style={{ background: '#1e1e1e', color: '#d4d4d4', padding: '0.55rem 0.85rem', fontFamily: 'monospace', fontSize: '0.83rem', marginBottom: '0.6rem', whiteSpace: 'pre-wrap' }}>
+              <span style={{ color: '#888' }}>$ </span>{cmd}
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <button
+                onClick={() => runScript(id)}
+                disabled={disabled || st === 'running'}
+                style={{ background: disabled || st === 'running' ? '#aaa' : '#007030', color: '#FEE11A', border: 'none', padding: '0.45rem 1.1rem', fontWeight: 800, fontSize: '0.9rem', cursor: disabled || st === 'running' ? 'not-allowed' : 'pointer' }}
+              >
+                {st === 'running' ? '⏳ Running…' : st === 'done' ? '↺ Re-run' : '▶ Run'}
+              </button>
+              {lg.length > 0 && (
+                <button onClick={() => setLogsOpen((p) => ({ ...p, [id]: !p[id] }))} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.85rem', color: '#555', padding: '0.3rem 0.7rem', cursor: 'pointer' }}>
+                  {open ? '▲ Hide log' : `▼ Show log (${lg.length} lines)`}
+                </button>
+              )}
+            </div>
+            {open && <LogPanel lines={lg} logRef={(el) => { logElRef.current[id] = el; }} />}
+          </div>
+        );
+      })}
+
+      {/* Chat panel — shown once inference has run at least once */}
+      {(stepStatus['infer'] === 'done' || stepStatus['infer'] === 'error' || chatMessages.length > 0) && (
+        <div style={{ marginTop: '1.5rem', border: '1px solid #007030', background: '#f9fff9' }}>
+          <div style={{ padding: '0.75rem 1.25rem', background: '#007030', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '1.1rem' }}>💬</span>
+            <strong style={{ color: '#FEE11A', fontSize: '1rem' }}>Ask your Lithia AI</strong>
+            <span style={{ color: '#a8d8a8', fontSize: '0.85rem', marginLeft: '0.25rem' }}>— powered by your fine-tuned TinyLlama model</span>
+          </div>
+
+          {/* Message history */}
+          <div style={{ padding: '0.75rem 1.25rem', maxHeight: '340px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {chatMessages.length === 0 && (
+              <p style={{ color: '#888', fontSize: '0.9rem', margin: 0, fontStyle: 'italic' }}>Ask anything about your dealership data — inventory, pricing, financing, service records…</p>
+            )}
+            {chatMessages.map((m, i) => (
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{
+                  maxWidth: '82%',
+                  padding: '0.55rem 0.85rem',
+                  fontSize: '0.9rem',
+                  lineHeight: 1.6,
+                  borderRadius: '0',
+                  background: m.role === 'user' ? '#007030' : '#fff',
+                  color: m.role === 'user' ? '#FEE11A' : '#222',
+                  border: m.role === 'user' ? 'none' : '1px solid #ddd',
+                  fontWeight: m.role === 'user' ? 600 : 400,
+                }}>
+                  {m.text || (m.loading ? <span style={{ color: '#888' }}>Thinking…</span> : '')}
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+
+          {/* Input row */}
+          <div style={{ padding: '0.65rem 1.25rem', borderTop: '1px solid #c5e8c5', display: 'flex', gap: '0.5rem', background: '#fff' }}>
+            <input
+              type="text"
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendPrompt(); } }}
+              placeholder="Ask a question about your data…"
+              disabled={chatBusy}
+              style={{ flex: 1, padding: '0.5rem 0.75rem', fontSize: '0.9rem', border: '1px solid #ccc', outline: 'none', fontFamily: 'inherit', background: chatBusy ? '#f5f5f5' : '#fff' }}
+            />
+            <button
+              onClick={sendPrompt}
+              disabled={chatBusy || !chatInput.trim()}
+              title="Send"
+              style={{ background: chatBusy || !chatInput.trim() ? '#aaa' : '#007030', color: '#FEE11A', border: 'none', padding: '0.5rem 0.9rem', cursor: chatBusy || !chatInput.trim() ? 'not-allowed' : 'pointer', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 800 }}
+            >
+              {chatBusy ? '⏳' : '✈'}
+            </button>
+          </div>
+        </div>
+      )}
 
       <NotesEditor defaultFileName="ai:training" title="Model Training Notes" />
     </div>
@@ -1040,7 +1748,7 @@ export default function InnovationFrameworkPage() {
         </h2>
 
         {phase === 0 && <ConnectPhase />}
-        {phase === 1 && <ExplorePhase />}
+        {phase === 1 && <DatasetPhase />}
         {phase === 2 && <TrainPhase />}
 
         {/* Prev / Next */}

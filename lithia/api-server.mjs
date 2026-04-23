@@ -12,7 +12,14 @@
  */
 
 import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { execSync, spawn } from 'child_process';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// module-6-llm-training lives next to lithia/ under site/
+const MODULE_DIR = path.resolve(__dirname, '..', 'site', 'module-6-llm-training');
 
 const PORT = 3002;
 
@@ -224,6 +231,210 @@ while True:
 
     res.writeHead(200);
     res.end(JSON.stringify({ ok: true }));
+
+  // ── POST /api/dynamodb-batch-write ─────────────────────────
+  } else if (url.pathname === '/api/dynamodb-batch-write' && req.method === 'POST') {
+    const body = await readBody(req);
+    const { profile: p = profile, region: r = region, table, items } = body;
+    if (!table || !Array.isArray(items)) {
+      res.writeHead(400);
+      res.end(JSON.stringify({ ok: false, error: 'table and items[] required' }));
+      return;
+    }
+    const tmpFile = `/tmp/dynamo_bw_${Date.now()}_${Math.random().toString(36).slice(2)}.json`;
+    try {
+      fs.writeFileSync(tmpFile, JSON.stringify(items));
+      const out = execSync(
+        `python3 -c "
+import boto3, json
+from decimal import Decimal
+
+def to_dynamo(obj):
+    if isinstance(obj, list):
+        return [to_dynamo(i) for i in obj]
+    if isinstance(obj, dict):
+        return {k: to_dynamo(v) for k, v in obj.items()}
+    if isinstance(obj, float):
+        return Decimal(str(obj))
+    if isinstance(obj, int):
+        return Decimal(obj)
+    return obj
+
+session = boto3.Session(profile_name='${p}')
+db = session.resource('dynamodb', region_name='${r}')
+tbl = db.Table('${table}')
+with open('${tmpFile}') as f:
+    records = json.load(f)
+total = 0
+with tbl.batch_writer() as bw:
+    for record in records:
+        bw.put_item(Item=to_dynamo(record))
+        total += 1
+print(json.dumps({'written': total}))
+"`,
+        { encoding: 'utf8', timeout: 120000, env: { ...process.env, AWS_PROFILE: p } }
+      );
+      const result = JSON.parse(out.trim());
+      res.writeHead(200);
+      res.end(JSON.stringify({ ok: true, data: result }));
+    } catch (err) {
+      const detail = (err.stderr ? err.stderr.toString() : '') || err.message;
+      res.writeHead(502);
+      res.end(JSON.stringify({ ok: false, error: detail.trim() }));
+    } finally {
+      try { fs.unlinkSync(tmpFile); } catch { /* ignore */ }
+    }
+
+  // ── GET /api/dynamodb-table-scan ──────────────────────────────
+  } else if (url.pathname === '/api/dynamodb-table-scan' && req.method === 'GET') {
+    const table = url.searchParams.get('table') || '';
+    const limit = parseInt(url.searchParams.get('limit') || '50', 10);
+    if (!table) { res.writeHead(400); res.end(JSON.stringify({ ok: false, error: 'table param required' })); return; }
+    const tmpFile = `/tmp/dynamo_scan_${Date.now()}_${Math.random().toString(36).slice(2)}.json`;
+    try {
+      const out = execSync(
+        `python3 -c "
+import boto3, json
+from decimal import Decimal
+
+def deser(obj):
+    if isinstance(obj, list): return [deser(i) for i in obj]
+    if isinstance(obj, dict): return {k: deser(v) for k, v in obj.items()}
+    if isinstance(obj, Decimal): return float(obj)
+    return obj
+
+session = boto3.Session(profile_name='${profile}')
+db = session.resource('dynamodb', region_name='${region}')
+tbl = db.Table('${table}')
+resp = tbl.scan(Limit=${limit})
+items = deser(resp.get('Items', []))
+print(json.dumps({'items': items, 'count': resp.get('Count', 0), 'scannedCount': resp.get('ScannedCount', 0)}))
+"`,
+        { encoding: 'utf8', timeout: 20000 }
+      );
+      res.writeHead(200);
+      res.end(JSON.stringify({ ok: true, data: JSON.parse(out.trim()) }));
+    } catch (err) {
+      const detail = (err.stderr ? err.stderr.toString() : '') || err.message;
+      res.writeHead(502);
+      res.end(JSON.stringify({ ok: false, error: detail.trim() }));
+    } finally {
+      try { fs.unlinkSync(tmpFile); } catch { /* ignore */ }
+    }
+
+  // ── GET /api/train-stream (SSE) ──────────────────────────────
+  } else if (url.pathname === '/api/train-stream' && req.method === 'GET') {
+    const script  = url.searchParams.get('script') || '';  // setup|download|prepare|train|infer
+    const tables  = (url.searchParams.get('tables') || '').split(',').filter(Boolean);
+    const isWin   = process.platform === 'win32';
+
+    // Pick python: prefer .venv-train inside module dir
+    const venvBin  = path.join(MODULE_DIR, '.venv-train', 'bin', 'python');
+    const venvWin  = path.join(MODULE_DIR, '.venv-train', 'Scripts', 'python.exe');
+    const venvPip  = isWin
+      ? path.join(MODULE_DIR, '.venv-train', 'Scripts', 'pip.exe')
+      : path.join(MODULE_DIR, '.venv-train', 'bin', 'pip');
+    const python   = fs.existsSync(venvBin) ? venvBin : fs.existsSync(venvWin) ? venvWin : (isWin ? 'python' : 'python3');
+    const sysPy    = isWin ? 'python' : 'python3';
+
+    const sseHeaders = {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
+    };
+
+    function sse(event, data) {
+      res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+    }
+    function streamLines(chunk, isErr) {
+      chunk.toString().split(/\r?\n/).forEach((line) => { if (line.trim()) sse('line', { text: line, err: isErr }); });
+    }
+    function spawnStreamed(cmd, args, opts) {
+      const child = spawn(cmd, args, { ...opts, env: { ...process.env } });
+      child.stdout.on('data', (c) => streamLines(c, false));
+      child.stderr.on('data', (c) => streamLines(c, true));
+      child.on('error', (err) => { sse('fail', { code: -1, message: err.message }); res.end(); });
+      req.on('close', () => { try { child.kill(); } catch {} });
+      return child;
+    }
+
+    // ── setup: create .venv-train + pip install -r requirements.txt ─
+    if (script === 'setup') {
+      res.writeHead(200, sseHeaders);
+      sse('line', { text: `Platform : ${process.platform}`, err: false });
+      sse('line', { text: `Python   : ${sysPy}`, err: false });
+      sse('line', { text: 'Creating virtual environment (.venv-train)...', err: false });
+      const createVenv = spawnStreamed(sysPy, ['-m', 'venv', '.venv-train'], { cwd: MODULE_DIR });
+      createVenv.on('close', (code1) => {
+        if (code1 !== 0) { sse('fail', { code: code1 }); res.end(); return; }
+        sse('line', { text: 'Virtual environment created.', err: false });
+        sse('line', { text: 'Installing packages from requirements.txt (this takes a few minutes)...', err: false });
+        const install = spawnStreamed(venvPip, ['install', '-r', 'requirements.txt'], { cwd: MODULE_DIR });
+        install.on('close', (code2) => { sse(code2 === 0 ? 'done' : 'fail', { code: code2 }); res.end(); });
+      });
+      return;
+    }
+
+    const scriptMap = {
+      download: { file: 'scripts/download_model.py', args: [] },
+      prepare:  { file: 'scripts/prepare_data.py',   args: ['--source', 'dynamodb', '--profile', profile, '--region', region, '--tables', ...tables, '--output-dir', 'data/processed'] },
+      train:    { file: 'scripts/train.py',           args: ['--config', 'configs/lora_config.yaml', '--data', 'data/processed/train.jsonl', '--output', 'models/lithia-lora'] },
+      infer:    { file: 'scripts/inference.py',       args: ['--model', 'models/lithia-lora'] },
+    };
+
+    if (!scriptMap[script]) { res.writeHead(400); res.end(JSON.stringify({ ok: false, error: `Unknown script: ${script}` })); return; }
+    const { file, args } = scriptMap[script];
+
+    res.writeHead(200, sseHeaders);
+
+    const child = spawnStreamed(python, [file, ...args], { cwd: MODULE_DIR });
+    child.on('close', (code) => { sse(code === 0 ? 'done' : 'fail', { code }); res.end(); });
+
+  // ── GET /api/infer-prompt (SSE — single prompt to fine-tuned model) ─
+  } else if (url.pathname === '/api/infer-prompt' && req.method === 'GET') {
+    const prompt = url.searchParams.get('prompt') || '';
+    const tables = (url.searchParams.get('tables') || '').split(',').filter(Boolean);
+    if (!prompt) { res.writeHead(400); res.end(JSON.stringify({ ok: false, error: 'prompt param required' })); return; }
+
+    const isWin  = process.platform === 'win32';
+    const venvBin = path.join(MODULE_DIR, '.venv-train', 'bin', 'python');
+    const venvWin = path.join(MODULE_DIR, '.venv-train', 'Scripts', 'python.exe');
+    const python  = fs.existsSync(venvBin) ? venvBin : fs.existsSync(venvWin) ? venvWin : (isWin ? 'python' : 'python3');
+
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
+    });
+
+    function sse(event, data) { res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`); }
+
+    const args = ['scripts/inference.py', '--model', 'models/lithia-lora', '--prompt', prompt, '--max-tokens', '200'];
+    if (tables.length) args.push('--tables', ...tables, '--region', region);
+
+    const child = spawn(python, args, { cwd: MODULE_DIR, env: { ...process.env, AWS_PROFILE: profile } });
+    let answering = false;
+    let buf = '';
+
+    child.stdout.on('data', (chunk) => {
+      chunk.toString().split(/\r?\n/).forEach((line) => {
+        if (!line.trim()) return;
+        // Lines before "A:" are status — skip them
+        if (!answering && line.startsWith('A: ')) {
+          answering = true;
+          buf = line.slice(3);
+          sse('token', { text: buf });
+        } else if (answering) {
+          sse('token', { text: '\n' + line });
+        }
+      });
+    });
+    child.stderr.on('data', () => {}); // suppress loading messages
+    child.on('close', (code) => { sse(code === 0 ? 'done' : 'fail', { code }); res.end(); });
+    child.on('error', (err) => { sse('fail', { code: -1, message: err.message }); res.end(); });
+    req.on('close', () => { try { child.kill(); } catch {} });
 
   // ── DELETE /api/dynamodb-table ────────────────────────────────
   } else if (url.pathname === '/api/dynamodb-table' && req.method === 'DELETE') {
