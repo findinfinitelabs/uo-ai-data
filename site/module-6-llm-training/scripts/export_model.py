@@ -40,7 +40,7 @@ def merge_lora_weights(
         cache_dir=cache_dir,
         device_map="auto",
         trust_remote_code=True,
-        torch_dtype=torch.float16,
+        dtype=torch.float16,
     )
     
     tokenizer = AutoTokenizer.from_pretrained(

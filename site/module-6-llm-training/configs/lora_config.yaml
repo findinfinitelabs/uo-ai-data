@@ -22,7 +22,7 @@ lora:
 
 # Training — tuned for CPU: batch=1, accumulate=8, short sequences
 training:
-  output_dir: "./models/healthcare-lora"
+  output_dir: "./models/lithia-lora"
   num_train_epochs: 3
   per_device_train_batch_size: 1
   per_device_eval_batch_size: 1

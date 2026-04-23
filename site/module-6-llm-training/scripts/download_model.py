@@ -43,12 +43,12 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model,
         cache_dir=str(cache),
-        torch_dtype=torch.float32,
+        dtype=torch.float32,
         low_cpu_mem_usage=True,
     )
     print("Model downloaded.")
 
-    inputs = tokenizer("Healthcare AI is", return_tensors="pt")
+    inputs = tokenizer("Lithia Motors AI is", return_tensors="pt")
     with torch.no_grad():
         out = model.generate(**inputs, max_new_tokens=10)
     print("\nSanity check:", tokenizer.decode(out[0], skip_special_tokens=True))

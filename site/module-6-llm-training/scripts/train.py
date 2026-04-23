@@ -60,7 +60,7 @@ def setup_model_and_tokenizer(config: dict):
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         cache_dir=cache_dir,
-        torch_dtype=torch.float32,
+        dtype=torch.float32,
         low_cpu_mem_usage=True,
     )
     model.gradient_checkpointing_enable()
