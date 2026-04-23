@@ -1,0 +1,1702 @@
+[
+  {
+    "id": "25c9035e-f157-4cb5-895a-c84a8e189656",
+    "type": "vehicle",
+    "vin": "3A1229EU06ALD7KGY",
+    "year": 2017,
+    "make": "Kia",
+    "model": "Forte",
+    "style": "Wagon",
+    "cost": 36970.67,
+    "msrp": 42031.68,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "f187f0a0-0097-4f43-931f-9d08d40d64f4",
+    "type": "vehicle",
+    "vin": "FUUU6LA12671MBL0T",
+    "year": 2019,
+    "make": "Subaru",
+    "model": "Forester",
+    "style": "SUV",
+    "cost": 75873.36,
+    "msrp": 85624.0,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "9cebff29-1350-41e7-869e-24113899bee3",
+    "type": "vehicle",
+    "vin": "5WZJZU1DR7706B1GY",
+    "year": 2023,
+    "make": "Jeep",
+    "model": "Gladiator",
+    "style": "SUV",
+    "cost": 56480.62,
+    "msrp": 62570.38,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "aba9dc3f-0409-4380-aad4-6f6571c0d046",
+    "type": "vehicle",
+    "vin": "ZBUTK3MJG6634AV0Z",
+    "year": 2026,
+    "make": "Chevrolet",
+    "model": "Equinox",
+    "style": "Van",
+    "cost": 49994.62,
+    "msrp": 56034.91,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "da132d1f-7ed6-4c35-b898-99da0562fdd2",
+    "type": "vehicle",
+    "vin": "JKK1MKTVNHA4RT71J",
+    "year": 2020,
+    "make": "Ram",
+    "model": "3500",
+    "style": "Wagon",
+    "cost": 83842.3,
+    "msrp": 95962.88,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "2c5564cb-0056-4d24-a00a-b585b68107f7",
+    "type": "vehicle",
+    "vin": "T0AZD1XX1MWBPT063",
+    "year": 2021,
+    "make": "Ford",
+    "model": "Edge",
+    "style": "Wagon",
+    "cost": 52083.91,
+    "msrp": 57135.13,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "8b187090-aac6-4601-bcb2-6b1c8d9fe34c",
+    "type": "vehicle",
+    "vin": "HF1LS00XNSXWMLXCU",
+    "year": 2026,
+    "make": "BMW",
+    "model": "7 Series",
+    "style": "Hatchback",
+    "cost": 64781.74,
+    "msrp": 69966.31,
+    "compliance": {
+      "title_status": "lien",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "f2e9e87c-0a09-4e2b-b80c-d5c09dbd570b",
+    "type": "vehicle",
+    "vin": "XCAX8P5WSV7ZNYVWS",
+    "year": 2024,
+    "make": "Ram",
+    "model": "2500",
+    "style": "Truck",
+    "cost": 71552.84,
+    "msrp": 80857.64,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "66137da8-cf41-4c09-9ec8-d8a8d60203b1",
+    "type": "vehicle",
+    "vin": "KKGBYC3RFLB3JWSMT",
+    "year": 2017,
+    "make": "BMW",
+    "model": "3 Series",
+    "style": "Hatchback",
+    "cost": 56526.52,
+    "msrp": 60874.19,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "8138340b-ed72-496b-8a84-906e8b304359",
+    "type": "vehicle",
+    "vin": "6AKVS7GW7TMAX39KG",
+    "year": 2019,
+    "make": "Ford",
+    "model": "Edge",
+    "style": "Coupe",
+    "cost": 21692.5,
+    "msrp": 22690.75,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "f4e4e188-1ed5-4cd9-8783-ea0b42d6ba95",
+    "type": "vehicle",
+    "vin": "LF0R7U7G5H8N163EC",
+    "year": 2021,
+    "make": "Jeep",
+    "model": "Gladiator",
+    "style": "SUV",
+    "cost": 71397.04,
+    "msrp": 75323.86,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "bbc43c95-22c9-40a6-bab6-70887358b2c0",
+    "type": "vehicle",
+    "vin": "DG49889VR4VJ1NH46",
+    "year": 2026,
+    "make": "Mazda",
+    "model": "CX-9",
+    "style": "Wagon",
+    "cost": 24106.04,
+    "msrp": 27363.6,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "3f52feb4-74c1-4b6a-a193-68e7dafc6dd2",
+    "type": "vehicle",
+    "vin": "HHK0WKW3TTJ9LYHVY",
+    "year": 2020,
+    "make": "Ram",
+    "model": "3500",
+    "style": "Van",
+    "cost": 63292.83,
+    "msrp": 66526.4,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "88c39316-f25b-43d5-bee2-aa0111ecf01d",
+    "type": "vehicle",
+    "vin": "CYN1R4MVWFJ0Z7USK",
+    "year": 2016,
+    "make": "Toyota",
+    "model": "Corolla",
+    "style": "Coupe",
+    "cost": 78698.27,
+    "msrp": 84081.24,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "0229cbdf-93ab-4e7a-897f-b6a7e1224312",
+    "type": "vehicle",
+    "vin": "LJPZXV2KH8M2EP7J8",
+    "year": 2026,
+    "make": "Jeep",
+    "model": "Cherokee",
+    "style": "SUV",
+    "cost": 60905.34,
+    "msrp": 66262.04,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ee2b5473-51de-4576-9673-96406cc815b9",
+    "type": "vehicle",
+    "vin": "58FZ7HJDP0PJWM3ZS",
+    "year": 2026,
+    "make": "Subaru",
+    "model": "Forester",
+    "style": "Coupe",
+    "cost": 60510.42,
+    "msrp": 64304.41,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "26e703c0-a45c-49e1-8c23-d812a06fd438",
+    "type": "vehicle",
+    "vin": "4X89G1MEGR898E78Y",
+    "year": 2019,
+    "make": "Honda",
+    "model": "Accord",
+    "style": "Coupe",
+    "cost": 26022.73,
+    "msrp": 27958.11,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ed79b81e-aa97-430b-b0f8-2e597a67d2bb",
+    "type": "vehicle",
+    "vin": "RK5YUZDDJZVV449TR",
+    "year": 2015,
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "style": "SUV",
+    "cost": 78713.93,
+    "msrp": 80869.71,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "acf51dfc-0d27-4d5c-aa65-4a139361d8b8",
+    "type": "vehicle",
+    "vin": "1E5G8NXLEDFAZNKHS",
+    "year": 2026,
+    "make": "Hyundai",
+    "model": "Elantra",
+    "style": "Van",
+    "cost": 52332.36,
+    "msrp": 53474.19,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "1cc7c522-99f7-4691-8287-2e457d07f1f5",
+    "type": "vehicle",
+    "vin": "NWF9L6PXPB2NEL3H9",
+    "year": 2021,
+    "make": "Chevrolet",
+    "model": "Traverse",
+    "style": "Sedan",
+    "cost": 71500.17,
+    "msrp": 81847.27,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "4348d5a8-3a16-4b02-95d1-1a98e4991ede",
+    "type": "vehicle",
+    "vin": "K9Y74LVNMLDBA7G5R",
+    "year": 2023,
+    "make": "Nissan",
+    "model": "Frontier",
+    "style": "Convertible",
+    "cost": 23703.92,
+    "msrp": 26628.12,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "3b9cbb83-268e-4bb4-943a-9a24abc5036b",
+    "type": "vehicle",
+    "vin": "YMSEVU7NTNJ5RG10F",
+    "year": 2015,
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "style": "Sedan",
+    "cost": 26547.86,
+    "msrp": 27505.96,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "6e7f2bd2-dc16-42df-81dc-798aff9aff87",
+    "type": "vehicle",
+    "vin": "HYDL0PXSAX8WMVXM7",
+    "year": 2015,
+    "make": "Mercedes-Benz",
+    "model": "GLE",
+    "style": "SUV",
+    "cost": 58422.0,
+    "msrp": 63219.08,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "bad32a74-d9dc-4754-9eed-eb12d1daa8b0",
+    "type": "vehicle",
+    "vin": "PMJT4CCUZ4CXY045F",
+    "year": 2015,
+    "make": "Kia",
+    "model": "Sorento",
+    "style": "Truck",
+    "cost": 47719.77,
+    "msrp": 50773.46,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "cbcc379d-143c-4dab-b499-3e7f13a03a8e",
+    "type": "vehicle",
+    "vin": "GAH930KCRRJ7M2YYM",
+    "year": 2017,
+    "make": "Jeep",
+    "model": "Grand Cherokee",
+    "style": "Sedan",
+    "cost": 78316.31,
+    "msrp": 88276.87,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "3161d65d-cce4-4545-b418-b81a1fbb0ee9",
+    "type": "vehicle",
+    "vin": "KBKBKALXHCREH18A4",
+    "year": 2023,
+    "make": "Honda",
+    "model": "CR-V",
+    "style": "Wagon",
+    "cost": 56188.19,
+    "msrp": 63310.5,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "1be4192a-d513-47f3-b7d1-23d4f3547698",
+    "type": "vehicle",
+    "vin": "UL4T1HBZ5S53LCLPW",
+    "year": 2020,
+    "make": "Mazda",
+    "model": "MX-5 Miata",
+    "style": "Truck",
+    "cost": 66749.74,
+    "msrp": 76544.3,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "5f2e0723-6324-4c0a-8071-ae26ac769ffa",
+    "type": "vehicle",
+    "vin": "R9W2TRZAREL3DTWBW",
+    "year": 2022,
+    "make": "Audi",
+    "model": "A3",
+    "style": "Hatchback",
+    "cost": 34510.77,
+    "msrp": 37054.48,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "5884111f-eea9-44b8-b28a-4cafc0e774b4",
+    "type": "vehicle",
+    "vin": "F8UVCT3DMDCLTJANV",
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "E-Class",
+    "style": "Sedan",
+    "cost": 29854.02,
+    "msrp": 31841.79,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "f67f9785-b2c5-49b8-b4c8-e9723546310d",
+    "type": "vehicle",
+    "vin": "R3E90AUNF932D5CC1",
+    "year": 2018,
+    "make": "Subaru",
+    "model": "Legacy",
+    "style": "Coupe",
+    "cost": 53549.79,
+    "msrp": 55606.77,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "90bad077-4b72-4ef3-8058-ea9baf8d7dc2",
+    "type": "vehicle",
+    "vin": "9JPAAMP1HM1B10VEN",
+    "year": 2017,
+    "make": "Volkswagen",
+    "model": "Passat",
+    "style": "Hatchback",
+    "cost": 39399.38,
+    "msrp": 40201.21,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "f4755a6e-c125-4dd1-aecf-3b296acdbf0d",
+    "type": "vehicle",
+    "vin": "BPTUKR9W4FZ7L7XJH",
+    "year": 2020,
+    "make": "Toyota",
+    "model": "Camry",
+    "style": "Wagon",
+    "cost": 52897.31,
+    "msrp": 58053.83,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "2e49244f-6c39-4806-a017-347caf765c76",
+    "type": "vehicle",
+    "vin": "N99B2C7YTNVMDK8FT",
+    "year": 2022,
+    "make": "Hyundai",
+    "model": "Sonata",
+    "style": "Van",
+    "cost": 47870.07,
+    "msrp": 51283.43,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "375b09d9-b97f-427e-af40-8779c5f6a775",
+    "type": "vehicle",
+    "vin": "HGAFSV88YAPJ4NYEC",
+    "year": 2021,
+    "make": "Audi",
+    "model": "A6",
+    "style": "Coupe",
+    "cost": 84476.65,
+    "msrp": 88705.35,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "9558dd07-f64b-4db0-a51e-abdbc5bd3db4",
+    "type": "vehicle",
+    "vin": "P2S14XHZ79NLV00S8",
+    "year": 2024,
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "style": "SUV",
+    "cost": 52558.69,
+    "msrp": 59401.15,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "9de594e0-c5d7-4d1f-addf-68ad96a225c7",
+    "type": "vehicle",
+    "vin": "LMFMAJL2VVW3P5V8H",
+    "year": 2022,
+    "make": "Mercedes-Benz",
+    "model": "C-Class",
+    "style": "Coupe",
+    "cost": 38180.58,
+    "msrp": 39385.65,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "46ef2197-458e-471c-b360-28cf815aad07",
+    "type": "vehicle",
+    "vin": "VA9ZG7EJPHHJJ7JAV",
+    "year": 2017,
+    "make": "Toyota",
+    "model": "Camry",
+    "style": "Hatchback",
+    "cost": 50598.44,
+    "msrp": 56105.52,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ee05b87a-6285-4981-bd05-a8deee2f6b61",
+    "type": "vehicle",
+    "vin": "WJKLXUZ64JNVNXUEW",
+    "year": 2022,
+    "make": "Ram",
+    "model": "2500",
+    "style": "Hatchback",
+    "cost": 94205.47,
+    "msrp": 102046.0,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": false,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "820d6b73-3cf9-4678-8994-a4b48078802d",
+    "type": "vehicle",
+    "vin": "GFLKU6M19MUT1YUYD",
+    "year": 2023,
+    "make": "Kia",
+    "model": "K5",
+    "style": "SUV",
+    "cost": 56308.17,
+    "msrp": 63488.99,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "32204abc-8701-41b6-9a9a-c4ca0a3a1239",
+    "type": "vehicle",
+    "vin": "4XX6MG3WHMMK2425P",
+    "year": 2017,
+    "make": "Ford",
+    "model": "F-150",
+    "style": "Hatchback",
+    "cost": 69464.19,
+    "msrp": 78501.24,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "7e2f070c-4263-4cc0-9159-137217b28f90",
+    "type": "vehicle",
+    "vin": "460CY7MARU82LK65E",
+    "year": 2024,
+    "make": "Audi",
+    "model": "A4",
+    "style": "Sedan",
+    "cost": 79107.88,
+    "msrp": 90802.6,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "6100cf61-a675-4f88-9598-4439db007110",
+    "type": "vehicle",
+    "vin": "9ZS8SL9XSMDFHML1M",
+    "year": 2017,
+    "make": "Mercedes-Benz",
+    "model": "A-Class",
+    "style": "Wagon",
+    "cost": 20690.08,
+    "msrp": 23769.17,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "0ad59780-19e4-42a1-9728-5060f7a54420",
+    "type": "vehicle",
+    "vin": "SVKK5ECNV5M1JN7WC",
+    "year": 2015,
+    "make": "Kia",
+    "model": "K5",
+    "style": "Convertible",
+    "cost": 76958.23,
+    "msrp": 78844.68,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "03d6f673-46e4-4c33-b507-782a3eb8e6f8",
+    "type": "vehicle",
+    "vin": "6646LHPN5ZDFC86W0",
+    "year": 2017,
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "style": "Hatchback",
+    "cost": 73186.89,
+    "msrp": 75293.86,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "8ad32e51-a48c-4620-894a-9637d8f63407",
+    "type": "vehicle",
+    "vin": "TV88KPNL5P6V7G6J4",
+    "year": 2026,
+    "make": "Honda",
+    "model": "Civic",
+    "style": "Coupe",
+    "cost": 60143.26,
+    "msrp": 66427.82,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "edf13219-a1d5-4bc5-b474-5031e26494f2",
+    "type": "vehicle",
+    "vin": "L72SH39MB8SGWWKCE",
+    "year": 2023,
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "style": "Truck",
+    "cost": 34643.0,
+    "msrp": 36020.49,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "8a2bbb5c-f4dc-4157-8875-1ecd0badd3d0",
+    "type": "vehicle",
+    "vin": "9HH5TVP3ESRXBD1H9",
+    "year": 2025,
+    "make": "Honda",
+    "model": "CR-V",
+    "style": "SUV",
+    "cost": 89476.4,
+    "msrp": 98707.23,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": false,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "b6117cb8-39ac-4705-9002-013667cd7472",
+    "type": "vehicle",
+    "vin": "LT0WFWR6WV4UGL0B2",
+    "year": 2019,
+    "make": "Honda",
+    "model": "Ridgeline",
+    "style": "SUV",
+    "cost": 78055.99,
+    "msrp": 83207.74,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "137d4a87-e798-4ae8-9d05-36527aa64c68",
+    "type": "vehicle",
+    "vin": "NTZ4Y7DDDBT51TY3B",
+    "year": 2021,
+    "make": "Toyota",
+    "model": "Tundra",
+    "style": "Van",
+    "cost": 38648.54,
+    "msrp": 39821.17,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "5796ca71-ae65-4ec4-b20a-ea5b0ddd654c",
+    "type": "vehicle",
+    "vin": "4Y1UT8G171AYVLUJ7",
+    "year": 2026,
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "style": "Van",
+    "cost": 34448.95,
+    "msrp": 35676.14,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "3964be5b-5468-412a-b198-7e84fd98c0db",
+    "type": "vehicle",
+    "vin": "9M7CMWYMCYLE3RH3K",
+    "year": 2017,
+    "make": "Nissan",
+    "model": "Armada",
+    "style": "Van",
+    "cost": 69311.75,
+    "msrp": 75178.05,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "c5cb440a-dbb5-4c54-87fa-a86f7fdbadc5",
+    "type": "vehicle",
+    "vin": "T0MC3AJ4ARPMALCA3",
+    "year": 2021,
+    "make": "Kia",
+    "model": "K5",
+    "style": "Coupe",
+    "cost": 71431.84,
+    "msrp": 77226.21,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "a0071c2e-3926-4968-b507-e02e0f793494",
+    "type": "vehicle",
+    "vin": "U2DBHUWFBYGAWBPY0",
+    "year": 2021,
+    "make": "Ram",
+    "model": "2500",
+    "style": "Truck",
+    "cost": 80084.24,
+    "msrp": 89701.97,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "3c34e945-125f-4a40-8b35-4a4efb5ac99f",
+    "type": "vehicle",
+    "vin": "5UUENRBYKRWD12P4N",
+    "year": 2026,
+    "make": "Nissan",
+    "model": "Pathfinder",
+    "style": "Van",
+    "cost": 45205.56,
+    "msrp": 49756.68,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "f3505f07-2eee-4b39-8914-a314cc1d8cdd",
+    "type": "vehicle",
+    "vin": "86KFPDUURZ7BAWHY0",
+    "year": 2019,
+    "make": "BMW",
+    "model": "7 Series",
+    "style": "Convertible",
+    "cost": 37738.95,
+    "msrp": 41799.38,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "758d4ece-8032-4ce3-8975-915613b7d981",
+    "type": "vehicle",
+    "vin": "5KJACKVZC0GY4RC9M",
+    "year": 2022,
+    "make": "Chevrolet",
+    "model": "Colorado",
+    "style": "Coupe",
+    "cost": 54340.14,
+    "msrp": 62282.99,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "c9c7cc4e-f6b6-4bd4-a1b9-747d73dbb289",
+    "type": "vehicle",
+    "vin": "A2EM5T75JPDCT8SVM",
+    "year": 2015,
+    "make": "Toyota",
+    "model": "Corolla",
+    "style": "Convertible",
+    "cost": 77752.63,
+    "msrp": 83172.78,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "6a1f18d9-3ddd-4520-b368-73304122f9c1",
+    "type": "vehicle",
+    "vin": "WJA3LNK0B6KUS9GB1",
+    "year": 2016,
+    "make": "BMW",
+    "model": "X5",
+    "style": "Convertible",
+    "cost": 74863.58,
+    "msrp": 77531.23,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "6e0a4125-f04b-48db-a0ae-7e3619bf0081",
+    "type": "vehicle",
+    "vin": "RNDMVYW9T3002PATC",
+    "year": 2026,
+    "make": "Jeep",
+    "model": "Grand Cherokee",
+    "style": "Truck",
+    "cost": 67346.67,
+    "msrp": 71927.3,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "0eb1d6e2-5e23-4d78-a414-82eeaf3f7d38",
+    "type": "vehicle",
+    "vin": "N7JEHMPECVMU4J313",
+    "year": 2016,
+    "make": "Honda",
+    "model": "CR-V",
+    "style": "Convertible",
+    "cost": 59712.01,
+    "msrp": 64940.94,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "cedf0a3e-5aea-4c37-b9d1-ed297fc3f9aa",
+    "type": "vehicle",
+    "vin": "2D1D5711K2WPB3RP2",
+    "year": 2024,
+    "make": "Chevrolet",
+    "model": "Traverse",
+    "style": "Truck",
+    "cost": 81397.61,
+    "msrp": 92817.86,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": false,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "2c00b614-6a0a-4b5c-a71b-824dacfbcc79",
+    "type": "vehicle",
+    "vin": "RTSSXKRX757PUXNSN",
+    "year": 2021,
+    "make": "Volkswagen",
+    "model": "Golf",
+    "style": "Hatchback",
+    "cost": 19000.89,
+    "msrp": 21673.05,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ca80b751-841e-4afe-ae2e-4cb4d8ec1043",
+    "type": "vehicle",
+    "vin": "X63LH79JG47R54JDU",
+    "year": 2020,
+    "make": "Subaru",
+    "model": "Legacy",
+    "style": "Sedan",
+    "cost": 22960.38,
+    "msrp": 23712.47,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "b8b3005e-07b7-4f76-ab1d-8fff23e3700a",
+    "type": "vehicle",
+    "vin": "RXRHHYR4LTHRPZ5KY",
+    "year": 2020,
+    "make": "Mazda",
+    "model": "CX-9",
+    "style": "Van",
+    "cost": 58161.2,
+    "msrp": 59768.71,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "023b3b95-c10e-4a0d-ab3d-f08d77d0d7b8",
+    "type": "vehicle",
+    "vin": "EBXTFKD2E718DLD13",
+    "year": 2019,
+    "make": "Nissan",
+    "model": "Frontier",
+    "style": "SUV",
+    "cost": 41150.54,
+    "msrp": 44742.09,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "9957f8b6-097a-43ec-abda-7af15ddf5db5",
+    "type": "vehicle",
+    "vin": "L8JXZSUWGCFJBDKF9",
+    "year": 2026,
+    "make": "Mercedes-Benz",
+    "model": "S-Class",
+    "style": "Convertible",
+    "cost": 74031.84,
+    "msrp": 85101.43,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "ba6688a4-4bc2-4ec8-86c6-96247206c208",
+    "type": "vehicle",
+    "vin": "CE5Y8B5ZN942S5T8S",
+    "year": 2024,
+    "make": "BMW",
+    "model": "5 Series",
+    "style": "Coupe",
+    "cost": 69563.9,
+    "msrp": 71255.9,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "01a9a5c5-0391-455f-8af6-86a9ab70c657",
+    "type": "vehicle",
+    "vin": "5HBB6ADJPR0MUCZDZ",
+    "year": 2015,
+    "make": "Nissan",
+    "model": "Armada",
+    "style": "Hatchback",
+    "cost": 89541.73,
+    "msrp": 96443.74,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "cb70b246-27a9-46b2-894b-a6f14db6a747",
+    "type": "vehicle",
+    "vin": "YY21C0RC1YUJ8WZS1",
+    "year": 2023,
+    "make": "Honda",
+    "model": "CR-V",
+    "style": "Wagon",
+    "cost": 44082.5,
+    "msrp": 48755.12,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "7c8e91bb-1705-4799-864e-421b43cb41c1",
+    "type": "vehicle",
+    "vin": "GU8JP1NXPPCGBJ9NC",
+    "year": 2019,
+    "make": "Mazda",
+    "model": "CX-5",
+    "style": "Sedan",
+    "cost": 91148.38,
+    "msrp": 101779.62,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "c004c766-fcd4-4d63-8021-ca3c1d1b9ec1",
+    "type": "vehicle",
+    "vin": "EC4TNEL4ZELZJMCS7",
+    "year": 2020,
+    "make": "Honda",
+    "model": "Ridgeline",
+    "style": "Convertible",
+    "cost": 44511.56,
+    "msrp": 48544.93,
+    "compliance": {
+      "title_status": "salvage",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "7a9edb45-79c9-4553-af01-fb03f62d7e1d",
+    "type": "vehicle",
+    "vin": "LE26FAKWR5ALS5AZ3",
+    "year": 2022,
+    "make": "Ram",
+    "model": "3500",
+    "style": "Van",
+    "cost": 23290.0,
+    "msrp": 24646.59,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "a8fbc5ab-5c04-4e3d-8fbe-563c9e765a21",
+    "type": "vehicle",
+    "vin": "A3XW84C7B4JFZBZWL",
+    "year": 2023,
+    "make": "Mazda",
+    "model": "CX-9",
+    "style": "SUV",
+    "cost": 62561.14,
+    "msrp": 71222.42,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "0fd722d9-c7a5-4943-9599-eafa28189c76",
+    "type": "vehicle",
+    "vin": "KWB1PSSN81G41D0ZV",
+    "year": 2020,
+    "make": "Mercedes-Benz",
+    "model": "E-Class",
+    "style": "Convertible",
+    "cost": 88084.47,
+    "msrp": 95343.44,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "open"
+    }
+  },
+  {
+    "id": "71a99dc4-8acd-41d5-9ee7-2a7ce1260218",
+    "type": "vehicle",
+    "vin": "M70B9V05604Y75TCS",
+    "year": 2016,
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "style": "SUV",
+    "cost": 45456.19,
+    "msrp": 46966.12,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "a909ef7b-c230-4fc5-a577-8c8bb327edcf",
+    "type": "vehicle",
+    "vin": "73WMMF54J91KGYSK8",
+    "year": 2017,
+    "make": "Audi",
+    "model": "A6",
+    "style": "SUV",
+    "cost": 25432.19,
+    "msrp": 26529.41,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "7b489d00-ba06-4fc3-ad5b-60261341f76e",
+    "type": "vehicle",
+    "vin": "3PEC1088TFWRNXFVA",
+    "year": 2020,
+    "make": "Jeep",
+    "model": "Grand Cherokee",
+    "style": "Coupe",
+    "cost": 55837.24,
+    "msrp": 59627.72,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "a959dac6-a3e8-4368-86c6-b8ebb0d21340",
+    "type": "vehicle",
+    "vin": "JLWKLJZADSXRLF3U4",
+    "year": 2015,
+    "make": "Subaru",
+    "model": "Forester",
+    "style": "Convertible",
+    "cost": 86684.62,
+    "msrp": 94666.47,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "bb28b80c-bf3f-4822-a25f-363d52a3f909",
+    "type": "vehicle",
+    "vin": "12DEP8L2MMMHCP9RW",
+    "year": 2016,
+    "make": "Subaru",
+    "model": "Legacy",
+    "style": "Convertible",
+    "cost": 25423.02,
+    "msrp": 29119.36,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "4ede80a8-e52f-4d1b-b79d-d6219eca2e87",
+    "type": "vehicle",
+    "vin": "9YSW7LG83NPKKAWAY",
+    "year": 2026,
+    "make": "Toyota",
+    "model": "Tacoma",
+    "style": "Sedan",
+    "cost": 26008.92,
+    "msrp": 27976.13,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "0e118b1b-cae4-4de7-a7dc-eec7182adeb8",
+    "type": "vehicle",
+    "vin": "Z0UJLH8ZSNB4S0X4P",
+    "year": 2016,
+    "make": "BMW",
+    "model": "3 Series",
+    "style": "Truck",
+    "cost": 23382.84,
+    "msrp": 26877.86,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "0b2069d4-fe04-489f-bd98-5b74f6ce97f0",
+    "type": "vehicle",
+    "vin": "0CELRGVH4FANTKLRA",
+    "year": 2019,
+    "make": "Kia",
+    "model": "Soul",
+    "style": "Sedan",
+    "cost": 85501.9,
+    "msrp": 95594.77,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "c2c2a1c2-1ca2-480b-9e4b-f7661697109c",
+    "type": "vehicle",
+    "vin": "WUE2ZJBSWA5A3Y9WU",
+    "year": 2025,
+    "make": "Audi",
+    "model": "A6",
+    "style": "Wagon",
+    "cost": 28452.39,
+    "msrp": 29417.39,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "2ee5d8b1-ea05-49a6-b683-32d60179c36a",
+    "type": "vehicle",
+    "vin": "6ZXG58HR7Z0KPH09B",
+    "year": 2025,
+    "make": "BMW",
+    "model": "X5",
+    "style": "Truck",
+    "cost": 77188.53,
+    "msrp": 85960.62,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "4cb42711-ce74-41c9-b5f2-bc0d2ddbc065",
+    "type": "vehicle",
+    "vin": "B97B53Y9YUM1FCBG1",
+    "year": 2017,
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "style": "Convertible",
+    "cost": 56539.39,
+    "msrp": 60241.35,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "32499dc0-65fa-48dd-a1a3-e39132da688a",
+    "type": "vehicle",
+    "vin": "VHYUUKN4KPC2112UB",
+    "year": 2017,
+    "make": "Mercedes-Benz",
+    "model": "C-Class",
+    "style": "Coupe",
+    "cost": 32926.39,
+    "msrp": 36461.61,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "48f441d7-e172-4a2f-a112-fdad006671d1",
+    "type": "vehicle",
+    "vin": "ZLNJ928W0CZ8YPZSJ",
+    "year": 2025,
+    "make": "Subaru",
+    "model": "Impreza",
+    "style": "Coupe",
+    "cost": 85392.22,
+    "msrp": 87425.87,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": false,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "e8ff1b80-a10e-42bc-bbd4-133b00454a4b",
+    "type": "vehicle",
+    "vin": "FG2D580686TM268K7",
+    "year": 2025,
+    "make": "Audi",
+    "model": "A4",
+    "style": "Truck",
+    "cost": 32470.72,
+    "msrp": 36552.09,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "969a156d-a190-4823-b34d-f12c967b8764",
+    "type": "vehicle",
+    "vin": "11VSJF3C5J4Y5CFA9",
+    "year": 2015,
+    "make": "Jeep",
+    "model": "Cherokee",
+    "style": "SUV",
+    "cost": 35565.26,
+    "msrp": 39970.21,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "59063903-0065-433c-b001-eae5b62a0aa0",
+    "type": "vehicle",
+    "vin": "UFGUYZ5XDX5B301ZV",
+    "year": 2023,
+    "make": "Volkswagen",
+    "model": "Golf",
+    "style": "Coupe",
+    "cost": 44391.4,
+    "msrp": 48342.96,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": false,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "60db8238-f7d6-4371-bf68-25027dce48a5",
+    "type": "vehicle",
+    "vin": "F9L3EC8J7BZ06A1AJ",
+    "year": 2015,
+    "make": "Kia",
+    "model": "Sportage",
+    "style": "Truck",
+    "cost": 78698.84,
+    "msrp": 82495.87,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ac638f0f-60fe-418f-8b8f-f5ca09ad798c",
+    "type": "vehicle",
+    "vin": "X7C9RDB1J83B79ZSX",
+    "year": 2023,
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "style": "Sedan",
+    "cost": 91085.35,
+    "msrp": 104559.59,
+    "compliance": {
+      "title_status": "lien",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "72371611-90f9-45f2-91b6-e1e52e883fd6",
+    "type": "vehicle",
+    "vin": "5KSYEK4GC6B044F7N",
+    "year": 2023,
+    "make": "Mazda",
+    "model": "CX-9",
+    "style": "Convertible",
+    "cost": 72859.36,
+    "msrp": 80593.75,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "ceba2cd1-46f8-4452-8402-4a80a5ac4eb6",
+    "type": "vehicle",
+    "vin": "3YLSX4RK98NM1XJA7",
+    "year": 2026,
+    "make": "Audi",
+    "model": "Q5",
+    "style": "SUV",
+    "cost": 37117.49,
+    "msrp": 41158.7,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "dabb5d08-4fe6-4ff4-8353-92272022e42f",
+    "type": "vehicle",
+    "vin": "R6C7NX7DLH1FUG4EM",
+    "year": 2016,
+    "make": "BMW",
+    "model": "X3",
+    "style": "Convertible",
+    "cost": 85612.76,
+    "msrp": 95015.69,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "cb31cf8c-58c5-4f3a-80a1-77111e6aabb6",
+    "type": "vehicle",
+    "vin": "UPTTC6Y7SKTMUY5BW",
+    "year": 2019,
+    "make": "Chevrolet",
+    "model": "Tahoe",
+    "style": "Coupe",
+    "cost": 72999.78,
+    "msrp": 82966.91,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "a52ef50a-eb70-4388-8293-6534d3e40a7e",
+    "type": "vehicle",
+    "vin": "U4W3VB5ZTAW0XJYXF",
+    "year": 2017,
+    "make": "Subaru",
+    "model": "Outback",
+    "style": "Hatchback",
+    "cost": 66491.48,
+    "msrp": 74494.54,
+    "compliance": {
+      "title_status": "rebuilt",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "02ac20cd-6946-429d-9898-4ec6f9862039",
+    "type": "vehicle",
+    "vin": "YB8XEPURUH8THUY3S",
+    "year": 2021,
+    "make": "Kia",
+    "model": "Soul",
+    "style": "Truck",
+    "cost": 67139.69,
+    "msrp": 76329.24,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "resolved"
+    }
+  },
+  {
+    "id": "9153ff29-e276-465e-83f1-e1ad328e2237",
+    "type": "vehicle",
+    "vin": "0Y0LY3KMKZ10F6RHF",
+    "year": 2017,
+    "make": "Toyota",
+    "model": "Tacoma",
+    "style": "Van",
+    "cost": 59727.08,
+    "msrp": 66257.78,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  },
+  {
+    "id": "13f25fc4-e998-4cf8-8cc6-3f991cf99441",
+    "type": "vehicle",
+    "vin": "EC59338CT5MNNS3SU",
+    "year": 2023,
+    "make": "Toyota",
+    "model": "Camry",
+    "style": "Hatchback",
+    "cost": 24075.28,
+    "msrp": 27458.09,
+    "compliance": {
+      "title_status": "clean",
+      "emissions_compliant": true,
+      "safety_certified": true,
+      "recall_status": "none"
+    }
+  }
+]
