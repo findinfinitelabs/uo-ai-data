@@ -76,6 +76,9 @@ function ConnectPhase() {
   const [profile, setProfile]       = useState('uo-innovation');
   const [region, setRegion]         = useState(DEFAULT_REGION);
 
+  // team name — used as table prefix so each team's tables are grouped
+  const [teamName, setTeamName]     = useState('');
+
   // table manager
   const [tables, setTables]         = useState<TableRow[]>([]);
   const [loadingCounts, setLoadingCounts] = useState(false);
@@ -403,12 +406,27 @@ function ConnectPhase() {
               <strong>How sign-in works</strong>
               <p style={{ margin: '0.4rem 0 0' }}>No configuration needed. The app sets everything up automatically.</p>
               <ol style={{ paddingLeft: '1.1rem', margin: '0.4rem 0 0' }}>
+                <li>Enter your <strong>team name</strong> — your tables will be prefixed with it (e.g. <code>alpha-vehicles</code>).</li>
                 <li>Click <strong>Login with UO DuckID</strong> — a browser tab will open.</li>
                 <li>Sign in with your <strong>@uoregon.edu</strong> email.</li>
                 <li>Return here and click <strong>Try Again</strong> once signed in.</li>
               </ol>
+              <p style={{ margin: '0.5rem 0 0' }}>All teams share the same database — everyone can see all tables, but each team works within their own prefix.</p>
             </InfoBubble>
           </h3>
+
+          <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginBottom: '0.75rem', maxWidth: 280 }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Team Name</span>
+            <input
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, ''))}
+              placeholder="e.g. alpha, team-blue, group-3"
+              style={{ padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.9rem' }}
+            />
+            {teamName && (
+              <span style={{ fontSize: '0.72rem', color: '#007030', fontWeight: 700 }}>Tables will be prefixed: <code>{teamName}-</code></span>
+            )}
+          </label>
 
           <button
             type="button"
@@ -442,7 +460,7 @@ function ConnectPhase() {
           <div className="ai-connected-banner">
             <span className="ai-connected-dot">●</span>
             <strong>Connected</strong>
-            <span className="ai-connected-sub">{profile} · {region}</span>
+            <span className="ai-connected-sub">{teamName ? `${teamName} · ` : ''}{profile} · {region}</span>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <select
                 value={profile}
@@ -530,9 +548,12 @@ function ConnectPhase() {
                   <input
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    placeholder="e.g. lithia-vehicles"
+                    placeholder={teamName ? `${teamName}-vehicles` : 'e.g. alpha-vehicles'}
                     style={{ padding: '0.35rem 0.6rem', border: '1px solid #ccc', fontSize: '0.88rem', width: 200 }}
                   />
+                  {teamName && newName && !newName.startsWith(teamName) && (
+                    <span style={{ fontSize: '0.7rem', color: '#e67e22' }}>Tip: prefix with <code>{teamName}-</code> to keep your tables grouped</span>
+                  )}
                 </label>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#555' }}>Primary Key</span>

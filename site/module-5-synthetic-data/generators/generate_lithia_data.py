@@ -156,6 +156,7 @@ def generate_lead():
 def main():
     parser = argparse.ArgumentParser(description="Generate Lithia Motors synthetic data")
     parser.add_argument("--records", type=int, default=200, help="Number of vehicle records")
+    parser.add_argument("--team",    type=str, default="lithia", help="Team name prefix for DynamoDB tables (e.g. alpha)")
     parser.add_argument("--upload",  action="store_true", help="Upload to DynamoDB after generating")
     args = parser.parse_args()
 
@@ -176,10 +177,10 @@ def main():
     print(f"✓ Generated {len(leads)} lead records → {l_path}")
 
     if args.upload:
-        upload_to_dynamodb(vehicles, leads)
+        upload_to_dynamodb(vehicles, leads, team=args.team)
 
 
-def upload_to_dynamodb(vehicles, leads):
+def upload_to_dynamodb(vehicles, leads, team="lithia"):
     try:
         import boto3
         from decimal import Decimal
@@ -190,7 +191,11 @@ def upload_to_dynamodb(vehicles, leads):
     profile = os.environ.get("AWS_PROFILE", "uo-innovation")
     region  = os.environ.get("AWS_DEFAULT_REGION", "us-west-2")
 
+    v_table_name = f"{team}-vehicles"
+    l_table_name = f"{team}-leads"
+
     print(f"\nUploading to DynamoDB (profile={profile}, region={region})...")
+    print(f"  Tables: {v_table_name}, {l_table_name}")
 
     session = boto3.Session(profile_name=profile, region_name=region)
     ddb     = session.resource("dynamodb")
@@ -225,16 +230,16 @@ def upload_to_dynamodb(vehicles, leads):
             for rec in records:
                 bw.put_item(Item=to_decimal(rec))
 
-    v_table = ensure_table("lithia-vehicles")
+    v_table = ensure_table(v_table_name)
     batch_write(v_table, vehicles)
-    print(f"  ✓ Uploaded {len(vehicles)} vehicles → lithia-vehicles")
+    print(f"  ✓ Uploaded {len(vehicles)} vehicles → {v_table_name}")
 
-    l_table = ensure_table("lithia-leads")
+    l_table = ensure_table(l_table_name)
     batch_write(l_table, leads)
-    print(f"  ✓ Uploaded {len(leads)} leads → lithia-leads")
+    print(f"  ✓ Uploaded {len(leads)} leads → {l_table_name}")
 
     print("\n✓ DynamoDB upload complete.")
-    print("  Tables: lithia-vehicles, lithia-leads")
+    print(f"  Tables: {v_table_name}, {l_table_name}")
     print(f"  Region: {region}")
 
 

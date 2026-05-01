@@ -6,9 +6,10 @@
 # Run from the site/ directory after activating the Python venv.
 #
 # Usage:
-#   ./deployment-scripts/deploy-dynamodb.sh [--records N] [--profile PROFILE]
+#   ./deployment-scripts/deploy-dynamodb.sh --team TEAMNAME [--records N] [--profile PROFILE]
 #
 # Options:
+#   --team NAME      Your team name — tables will be created as {team}-vehicles, {team}-leads
 #   --records N      Number of vehicle records to generate (default: 200)
 #   --profile NAME   AWS CLI profile to use (default: uo-innovation)
 #   --region NAME    AWS region (default: us-west-2)
@@ -31,6 +32,7 @@ NC='\033[0m'
 RECORDS=200
 PROFILE="uo-innovation"
 REGION="us-west-2"
+TEAM=""
 
 for arg in "$@"; do
     case $arg in
@@ -40,8 +42,15 @@ for arg in "$@"; do
         --profile)   shift; PROFILE="$1" ;;
         --region=*)  REGION="${arg#*=}" ;;
         --region)    shift; REGION="$1" ;;
+        --team=*)    TEAM="${arg#*=}" ;;
+        --team)      shift; TEAM="$1" ;;
     esac
 done
+
+if [ -z "$TEAM" ]; then
+    echo -e "${RED}✗ --team is required. Example: bash deployment-scripts/deploy-dynamodb.sh --team alpha${NC}"
+    exit 1
+fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SITE_DIR="$(dirname "$SCRIPT_DIR")"
@@ -53,7 +62,9 @@ echo -e "${BOLD}${CYAN}========================================${NC}"
 echo ""
 echo -e "  Profile : ${BOLD}$PROFILE${NC}"
 echo -e "  Region  : ${BOLD}$REGION${NC}"
-echo -e "  Records : ${BOLD}$RECORDS vehicles${NC}"
+  echo -e "  Team    : ${BOLD}$TEAM${NC}"
+  echo -e "  Records : ${BOLD}$RECORDS vehicles${NC}"
+  echo -e "  Tables  : ${BOLD}${TEAM}-vehicles, ${TEAM}-leads${NC}"
 echo ""
 
 # ── 1. Verify AWS login ───────────────────────────────────────────────────────
@@ -104,6 +115,7 @@ echo ""
 AWS_PROFILE="$PROFILE" AWS_DEFAULT_REGION="$REGION" \
     "$PYTHON_BIN" module-5-synthetic-data/generators/generate_lithia_data.py \
         --records "$RECORDS" \
+        --team "$TEAM" \
         --upload
 
 echo ""
@@ -112,8 +124,8 @@ echo -e "${GREEN}${BOLD}✓ Deploy complete!${NC}"
 echo -e "${BOLD}${CYAN}========================================${NC}"
 echo ""
 echo -e "DynamoDB tables created/updated:"
-echo -e "  ${BOLD}lithia-vehicles${NC}  — vehicle inventory"
-echo -e "  ${BOLD}lithia-leads${NC}     — customer CRM leads"
+echo -e "  ${BOLD}${TEAM}-vehicles${NC}  — vehicle inventory"
+echo -e "  ${BOLD}${TEAM}-leads${NC}     — customer CRM leads"
 echo ""
 echo -e "View in AWS Console:"
 echo -e "  ${CYAN}https://console.aws.amazon.com/dynamodb/home?region=${REGION}#tables${NC}"

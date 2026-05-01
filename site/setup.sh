@@ -437,16 +437,12 @@ if [ "$INSTALL_PYTHON" = true ]; then
         echo -e "   ${BOLD}source venv/bin/activate${NC}"
     fi
     echo ""
-    echo -e "${CYAN}2. Generate Lithia synthetic data:${NC}"
-    if [ "$IS_WINDOWS" = true ]; then
-        echo -e "   ${BOLD}venv/Scripts/python.exe module-5-synthetic-data/generators/generate_lithia_data.py${NC}"
-    else
-        echo -e "   ${BOLD}python module-5-synthetic-data/generators/generate_lithia_data.py${NC}"
-    fi
-    echo ""
-    echo -e "${CYAN}3. Deploy data to DynamoDB (requires AWS SSO login):${NC}"
+    echo -e "${CYAN}2. Log in to AWS (UO DuckID):${NC}"
     echo -e "   ${BOLD}aws sso login --profile uo-innovation${NC}"
-    echo -e "   ${BOLD}bash deployment-scripts/deploy-dynamodb.sh${NC}"
+    echo ""
+    echo -e "${CYAN}3. Start the app and connect to DynamoDB:${NC}"
+    echo -e "   ${BOLD}cd ../lithia && npm run dev${NC}"
+    echo -e "   ${YELLOW}Open http://localhost:5173 → click Login with UO DuckID${NC}"
     echo ""
 fi
 
