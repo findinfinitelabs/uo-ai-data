@@ -21,6 +21,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // module-6-llm-training lives next to lithia/ under site/
 const MODULE_DIR = path.resolve(__dirname, '..', 'site', 'module-6-llm-training');
 
+// Prefer the site venv python (has boto3); fall back to system python3
+const SITE_VENV_PY = path.resolve(__dirname, '..', 'site', 'venv', 'bin', 'python');
+const SITE_VENV_WIN = path.resolve(__dirname, '..', 'site', 'venv', 'Scripts', 'python.exe');
+const isWin = process.platform === 'win32';
+const PYTHON = fs.existsSync(SITE_VENV_PY) ? SITE_VENV_PY
+             : fs.existsSync(SITE_VENV_WIN) ? SITE_VENV_WIN
+             : (isWin ? 'python' : 'python3');
+
 const PORT = 3002;
 
 const SSO_EXPIRED_PATTERNS = [
@@ -178,7 +186,7 @@ const server = http.createServer(async (req, res) => {
     if (!source || !destination) { res.writeHead(400); res.end(JSON.stringify({ ok: false, error: 'source and destination required' })); return; }
     try {
       const out = execSync(
-        `python3 -c "
+        `${PYTHON} -c "
 import boto3, json
 db = boto3.resource('dynamodb', region_name='${r}')
 src = db.Table('${source}')
@@ -236,7 +244,7 @@ print(json.dumps({'copied': total}))
     // 4. Copy all items (scan + batch-write via inline python)
     try {
       execSync(
-        `python3 -c "
+        `${PYTHON} -c "
 import boto3, json
 db = boto3.resource('dynamodb', region_name='${r}')
 src = db.Table('${oldName}')
@@ -275,7 +283,7 @@ while True:
     try {
       fs.writeFileSync(tmpFile, JSON.stringify(items));
       const out = execSync(
-        `python3 -c "
+        `${PYTHON} -c "
 import boto3, json
 from decimal import Decimal
 
@@ -323,7 +331,7 @@ print(json.dumps({'written': total}))
     const tmpFile = `/tmp/dynamo_scan_${Date.now()}_${Math.random().toString(36).slice(2)}.json`;
     try {
       const out = execSync(
-        `python3 -c "
+        `${PYTHON} -c "
 import boto3, json
 from decimal import Decimal
 
