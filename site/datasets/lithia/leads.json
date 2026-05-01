@@ -1,0 +1,1802 @@
+[
+  {
+    "id": "b9f1c96a-9011-4653-8c7c-28c6a8316f75",
+    "type": "lead",
+    "source": "Phone",
+    "status": "contacted",
+    "interest": "lease",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-03-11",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "Used",
+      "budget_min": 33397.23,
+      "budget_max": 95302.07
+    },
+    "converted": false
+  },
+  {
+    "id": "8dbcf54b-42e2-468d-8a54-939b5b07c326",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "lost",
+    "interest": "trade-in",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-02-13",
+    "last_contact": "2026-04-15",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Used",
+      "budget_min": 26136.06,
+      "budget_max": 63285.98
+    },
+    "converted": false
+  },
+  {
+    "id": "7632e857-80d3-40ba-82e4-dea2232027f7",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-02-14",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Ford",
+      "condition": "Used",
+      "budget_min": 30767.16,
+      "budget_max": 45577.75
+    },
+    "converted": false
+  },
+  {
+    "id": "c5aa820f-013e-4eb2-ad20-4a1474c7a395",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-03",
+    "last_contact": "2026-04-15",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 28116.94,
+      "budget_max": 57442.89
+    },
+    "converted": false
+  },
+  {
+    "id": "f1f16fcd-5e28-441d-91e8-75df2a0c9e90",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-03-01",
+    "last_contact": "2026-04-05",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 25693.3,
+      "budget_max": 74112.57
+    },
+    "converted": false
+  },
+  {
+    "id": "265d667e-3b75-433b-b93e-d2e42901ea21",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "visited",
+    "interest": "purchase",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-26",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Hyundai",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 33007.75,
+      "budget_max": 88769.67
+    },
+    "converted": false
+  },
+  {
+    "id": "bd20c3f2-d356-4d0a-95a7-5a4ee718a2fc",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-02-16",
+    "last_contact": "2026-04-26",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "New",
+      "budget_min": 36072.75,
+      "budget_max": 42716.48
+    },
+    "converted": false
+  },
+  {
+    "id": "baed38eb-7fb1-49a6-aad8-2738cce80422",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-01-31",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "Used",
+      "budget_min": 23533.36,
+      "budget_max": 95086.8
+    },
+    "converted": false
+  },
+  {
+    "id": "62a57993-70fb-4d47-92a3-d3734f67b140",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "sold",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-04",
+    "last_contact": "2026-04-18",
+    "vehicle_interest": {
+      "make": "Kia",
+      "condition": "New",
+      "budget_min": 15146.18,
+      "budget_max": 47001.58
+    },
+    "converted": true
+  },
+  {
+    "id": "b88f3d9a-7565-44e6-aece-ae4f92007ae5",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-03-01",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Volkswagen",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 24018.22,
+      "budget_max": 80428.51
+    },
+    "converted": false
+  },
+  {
+    "id": "77f0be3f-acd3-4018-af8c-4015f0e77fed",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-03-12",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "New",
+      "budget_min": 17797.81,
+      "budget_max": 40954.1
+    },
+    "converted": false
+  },
+  {
+    "id": "6d2be2d8-b64f-4fdc-98e5-7ecb7e732a8c",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "lost",
+    "interest": "service",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-04-28",
+    "last_contact": "2026-04-18",
+    "vehicle_interest": {
+      "make": "Volkswagen",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 36454.73,
+      "budget_max": 72315.41
+    },
+    "converted": false
+  },
+  {
+    "id": "8ee115ba-db97-4aa2-941a-6540b16f0de3",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "new",
+    "interest": "service",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-03",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Ford",
+      "condition": "New",
+      "budget_min": 33469.53,
+      "budget_max": 66716.51
+    },
+    "converted": false
+  },
+  {
+    "id": "7630ce24-1ece-4b51-9e69-fab84a9db7f5",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "appointment_set",
+    "interest": "service",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-04-29",
+    "last_contact": "2026-04-22",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Used",
+      "budget_min": 16273.05,
+      "budget_max": 40473.45
+    },
+    "converted": false
+  },
+  {
+    "id": "4f1d091d-552a-4e94-b95d-4c2158fe87a7",
+    "type": "lead",
+    "source": "Referral",
+    "status": "visited",
+    "interest": "service",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-07",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Used",
+      "budget_min": 27833.89,
+      "budget_max": 83477.13
+    },
+    "converted": false
+  },
+  {
+    "id": "ee1e205b-15fd-4fe2-aee9-991d46ae5a88",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "lost",
+    "interest": "purchase",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-02-28",
+    "last_contact": "2026-04-13",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 16587.76,
+      "budget_max": 93572.74
+    },
+    "converted": false
+  },
+  {
+    "id": "7086080d-b11b-4e92-94a7-8ac674f1dfa7",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "service",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-02",
+    "last_contact": "2026-04-09",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "New",
+      "budget_min": 19033.34,
+      "budget_max": 83572.82
+    },
+    "converted": false
+  },
+  {
+    "id": "e86609c5-b366-496a-9870-d1a599acfddc",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-06",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "Used",
+      "budget_min": 33074.88,
+      "budget_max": 63422.88
+    },
+    "converted": false
+  },
+  {
+    "id": "703be724-651e-4483-a146-f83d0fa1d39c",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-02-04",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Used",
+      "budget_min": 32267.44,
+      "budget_max": 45172.43
+    },
+    "converted": false
+  },
+  {
+    "id": "2bebacfd-8c59-42a2-92a2-5c1832948bff",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-09",
+    "last_contact": "2026-04-06",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Used",
+      "budget_min": 22591.3,
+      "budget_max": 52566.77
+    },
+    "converted": false
+  },
+  {
+    "id": "8d26e51b-d8c3-405b-8964-f4864a1fe554",
+    "type": "lead",
+    "source": "Phone",
+    "status": "new",
+    "interest": "trade-in",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-04-29",
+    "last_contact": "2026-04-26",
+    "vehicle_interest": {
+      "make": "Volkswagen",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 15799.25,
+      "budget_max": 43820.87
+    },
+    "converted": false
+  },
+  {
+    "id": "80b7b8ec-5768-4a8a-a6ff-55dd428263d7",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-02-11",
+    "last_contact": "2026-04-23",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "Used",
+      "budget_min": 34234.35,
+      "budget_max": 86205.92
+    },
+    "converted": false
+  },
+  {
+    "id": "005d8a10-ea31-41ca-ae30-c2fd8570f1e1",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "purchase",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-12",
+    "last_contact": "2026-04-06",
+    "vehicle_interest": {
+      "make": "Hyundai",
+      "condition": "New",
+      "budget_min": 39366.49,
+      "budget_max": 86899.36
+    },
+    "converted": false
+  },
+  {
+    "id": "47867d69-e2e1-4b47-8a18-460ccf9d160e",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "purchase",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-04-18",
+    "last_contact": "2026-04-11",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 37774.64,
+      "budget_max": 49422.8
+    },
+    "converted": false
+  },
+  {
+    "id": "1fb9bc7c-781b-45f4-aa23-4eb69b3c49fd",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-03-06",
+    "last_contact": "2026-04-11",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "Used",
+      "budget_min": 35479.02,
+      "budget_max": 47379.89
+    },
+    "converted": false
+  },
+  {
+    "id": "1199ca92-b128-46c0-8923-9e1832bd1801",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-09",
+    "last_contact": "2026-04-21",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 19281.54,
+      "budget_max": 55961.67
+    },
+    "converted": false
+  },
+  {
+    "id": "023698f8-8bdb-4b8a-ac5c-709958087113",
+    "type": "lead",
+    "source": "Phone",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-09",
+    "last_contact": "2026-04-06",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "New",
+      "budget_min": 35044.22,
+      "budget_max": 64805.15
+    },
+    "converted": false
+  },
+  {
+    "id": "ad28c336-2601-41a4-831a-8d58bc1a155f",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-04",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "New",
+      "budget_min": 32940.64,
+      "budget_max": 71041.4
+    },
+    "converted": false
+  },
+  {
+    "id": "f42ebca7-c348-4213-aee9-c01e5aa9eb19",
+    "type": "lead",
+    "source": "Phone",
+    "status": "new",
+    "interest": "service",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-19",
+    "last_contact": "2026-04-30",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "New",
+      "budget_min": 31504.4,
+      "budget_max": 78488.3
+    },
+    "converted": false
+  },
+  {
+    "id": "4981d5b9-1b7a-4176-a46a-f9b5cdcf05e3",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "lost",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-24",
+    "last_contact": "2026-04-03",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 28840.26,
+      "budget_max": 58260.08
+    },
+    "converted": false
+  },
+  {
+    "id": "34b6dadc-d141-417e-a1c4-33255799ca70",
+    "type": "lead",
+    "source": "Website",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-18",
+    "last_contact": "2026-04-17",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "New",
+      "budget_min": 37189.49,
+      "budget_max": 77461.96
+    },
+    "converted": false
+  },
+  {
+    "id": "d5e76aa8-4858-4935-b3bc-110d2fc58840",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-03-06",
+    "last_contact": "2026-04-03",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "New",
+      "budget_min": 15924.25,
+      "budget_max": 60070.24
+    },
+    "converted": false
+  },
+  {
+    "id": "126e3058-f534-41d6-a573-a71c1031156f",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-15",
+    "last_contact": "2026-04-15",
+    "vehicle_interest": {
+      "make": "Kia",
+      "condition": "Used",
+      "budget_min": 28033.4,
+      "budget_max": 85423.02
+    },
+    "converted": false
+  },
+  {
+    "id": "55d49daa-bbb6-4148-8365-aca64b030496",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-04-28",
+    "last_contact": "2026-04-08",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 17761.05,
+      "budget_max": 43597.68
+    },
+    "converted": false
+  },
+  {
+    "id": "557b3a2c-1e5a-4148-967c-ec5a908228e5",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-02-10",
+    "last_contact": "2026-04-07",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "New",
+      "budget_min": 26218.42,
+      "budget_max": 74346.54
+    },
+    "converted": false
+  },
+  {
+    "id": "d67cc333-1beb-4f59-bd62-1180a628dd6b",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "new",
+    "interest": "lease",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-03-19",
+    "last_contact": "2026-04-22",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 29319.14,
+      "budget_max": 48399.15
+    },
+    "converted": false
+  },
+  {
+    "id": "dae6b8d0-f470-4674-9fae-3a5fca8f37ee",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-03-31",
+    "last_contact": "2026-04-17",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 32791.01,
+      "budget_max": 89706.43
+    },
+    "converted": false
+  },
+  {
+    "id": "ea04d3a9-fed7-4ab8-b8b1-20f08fe58554",
+    "type": "lead",
+    "source": "Referral",
+    "status": "new",
+    "interest": "lease",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-04-24",
+    "last_contact": "2026-04-17",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "Used",
+      "budget_min": 31920.56,
+      "budget_max": 64165.82
+    },
+    "converted": false
+  },
+  {
+    "id": "e4d121c7-12df-4de1-bcd6-d872a70e7e0e",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-12",
+    "last_contact": "2026-04-17",
+    "vehicle_interest": {
+      "make": "Jeep",
+      "condition": "Used",
+      "budget_min": 33292.92,
+      "budget_max": 65015.92
+    },
+    "converted": false
+  },
+  {
+    "id": "aca19c5f-7672-416d-ad47-3c5d636e9a28",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-02-26",
+    "last_contact": "2026-04-01",
+    "vehicle_interest": {
+      "make": "Jeep",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 36581.79,
+      "budget_max": 47084.37
+    },
+    "converted": false
+  },
+  {
+    "id": "bcdc772b-77ec-4ce8-9109-461346b0f954",
+    "type": "lead",
+    "source": "Website",
+    "status": "contacted",
+    "interest": "lease",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-03-02",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Volkswagen",
+      "condition": "Used",
+      "budget_min": 17758.4,
+      "budget_max": 62175.79
+    },
+    "converted": false
+  },
+  {
+    "id": "e64fe164-e0b0-4f97-b1cb-9caef85de6d8",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-02-24",
+    "last_contact": "2026-04-20",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Used",
+      "budget_min": 27148.14,
+      "budget_max": 87472.43
+    },
+    "converted": false
+  },
+  {
+    "id": "f0a480bc-145d-4da9-b470-ada149f8219e",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-02-15",
+    "last_contact": "2026-04-25",
+    "vehicle_interest": {
+      "make": "Ford",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 27219.84,
+      "budget_max": 47340.55
+    },
+    "converted": false
+  },
+  {
+    "id": "390dffea-5d74-44c7-9a37-af652430458e",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-26",
+    "last_contact": "2026-04-03",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "Used",
+      "budget_min": 26880.69,
+      "budget_max": 83202.29
+    },
+    "converted": false
+  },
+  {
+    "id": "42ddea12-a24f-41f6-a6d1-bd23b56707a3",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "visited",
+    "interest": "service",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-14",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Volkswagen",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 23130.41,
+      "budget_max": 87988.9
+    },
+    "converted": false
+  },
+  {
+    "id": "f02ea936-1a2f-47c0-ac9c-ae1cf470599f",
+    "type": "lead",
+    "source": "Referral",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-03-10",
+    "last_contact": "2026-04-14",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 37251.08,
+      "budget_max": 84155.03
+    },
+    "converted": false
+  },
+  {
+    "id": "4a9630fa-d1f4-4fe3-8fbb-2c8a8978850f",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "visited",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-10",
+    "last_contact": "2026-04-11",
+    "vehicle_interest": {
+      "make": "Kia",
+      "condition": "New",
+      "budget_min": 19810.67,
+      "budget_max": 77122.62
+    },
+    "converted": false
+  },
+  {
+    "id": "0c4b07af-28f0-44c4-b52f-e97a2903a3a2",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-04-25",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 19493.59,
+      "budget_max": 41139.4
+    },
+    "converted": false
+  },
+  {
+    "id": "3073b5fe-b504-44e8-9b98-9c968df83860",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "sold",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-03-31",
+    "last_contact": "2026-04-19",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "New",
+      "budget_min": 27286.83,
+      "budget_max": 96030.99
+    },
+    "converted": true
+  },
+  {
+    "id": "700d7a22-d1e5-4790-b3d1-2ec9c4452c25",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-08",
+    "last_contact": "2026-04-23",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 39494.65,
+      "budget_max": 72507.21
+    },
+    "converted": false
+  },
+  {
+    "id": "90df599c-4818-4ca6-816d-7f9b4a71be58",
+    "type": "lead",
+    "source": "Phone",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-04-08",
+    "last_contact": "2026-04-01",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 19229.78,
+      "budget_max": 76868.91
+    },
+    "converted": false
+  },
+  {
+    "id": "3454c269-aeab-442a-8ebf-14463aa4abfa",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-28",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "New",
+      "budget_min": 25320.57,
+      "budget_max": 59453.74
+    },
+    "converted": false
+  },
+  {
+    "id": "7d5ad13b-2853-41f9-ab7e-4565a5f1f1da",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-04-16",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "Kia",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 24626.22,
+      "budget_max": 46905.77
+    },
+    "converted": false
+  },
+  {
+    "id": "075e8af4-d205-4f1c-a30c-4c4886ce7339",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "new",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-03-03",
+    "last_contact": "2026-05-01",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 20843.51,
+      "budget_max": 93169.47
+    },
+    "converted": false
+  },
+  {
+    "id": "3ec2ee5e-c023-47e8-bc92-766498b3f928",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "contacted",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-02-15",
+    "last_contact": "2026-04-22",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Used",
+      "budget_min": 26149.56,
+      "budget_max": 90776.82
+    },
+    "converted": false
+  },
+  {
+    "id": "8eef476b-d47e-4093-aac2-3ae1c9cc50cb",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-13",
+    "last_contact": "2026-04-01",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 26293.55,
+      "budget_max": 40061.06
+    },
+    "converted": false
+  },
+  {
+    "id": "024e5300-bd0b-4769-96ca-403e9545d221",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-02-11",
+    "last_contact": "2026-04-02",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "Used",
+      "budget_min": 21832.57,
+      "budget_max": 55054.09
+    },
+    "converted": false
+  },
+  {
+    "id": "dc10b0d6-d91b-4baa-9a82-d5a3908355fe",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-18",
+    "last_contact": "2026-04-26",
+    "vehicle_interest": {
+      "make": "Jeep",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 29077.04,
+      "budget_max": 58039.0
+    },
+    "converted": false
+  },
+  {
+    "id": "6f79632e-64f9-4cf2-9af1-c8bd5643f35d",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-16",
+    "last_contact": "2026-04-25",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 38935.43,
+      "budget_max": 59098.92
+    },
+    "converted": false
+  },
+  {
+    "id": "9f09e02b-3e2a-479f-8040-506cdcd1b3b2",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-03-19",
+    "last_contact": "2026-04-24",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Used",
+      "budget_min": 23540.75,
+      "budget_max": 67588.5
+    },
+    "converted": false
+  },
+  {
+    "id": "b9749e35-055c-44b7-8459-57a91fa00b95",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-29",
+    "last_contact": "2026-05-01",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "New",
+      "budget_min": 31817.66,
+      "budget_max": 64790.37
+    },
+    "converted": false
+  },
+  {
+    "id": "76aa1e2a-ec21-4f31-97f8-1518c612e15c",
+    "type": "lead",
+    "source": "Referral",
+    "status": "sold",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-01-31",
+    "last_contact": "2026-04-14",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 26129.42,
+      "budget_max": 47405.81
+    },
+    "converted": true
+  },
+  {
+    "id": "4d59eb2d-6146-48f0-b1d8-0c1da5ed33b7",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "lost",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-03-14",
+    "last_contact": "2026-04-05",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 39594.89,
+      "budget_max": 47486.71
+    },
+    "converted": false
+  },
+  {
+    "id": "4874fb56-11fd-4241-ad75-efe19476a7d7",
+    "type": "lead",
+    "source": "Referral",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-04-07",
+    "last_contact": "2026-04-07",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 38034.97,
+      "budget_max": 61469.9
+    },
+    "converted": false
+  },
+  {
+    "id": "50b33815-6243-4d87-8237-57d448d49290",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "new",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-02-12",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "New",
+      "budget_min": 22018.91,
+      "budget_max": 94270.55
+    },
+    "converted": false
+  },
+  {
+    "id": "609da5cd-a6a4-4b79-800c-de767b312ce2",
+    "type": "lead",
+    "source": "Website",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-05",
+    "last_contact": "2026-04-04",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 27508.14,
+      "budget_max": 50229.46
+    },
+    "converted": false
+  },
+  {
+    "id": "0151de54-4551-49a5-b4ac-95314251f51f",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "contacted",
+    "interest": "lease",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-02-18",
+    "last_contact": "2026-04-08",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 21490.61,
+      "budget_max": 74194.63
+    },
+    "converted": false
+  },
+  {
+    "id": "721c5a2d-f34f-407a-8125-53fd754c0d78",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-02-24",
+    "last_contact": "2026-04-09",
+    "vehicle_interest": {
+      "make": "Subaru",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 30361.41,
+      "budget_max": 80841.14
+    },
+    "converted": false
+  },
+  {
+    "id": "bb45e517-eb95-4b93-af0d-4aca0b0ab0b2",
+    "type": "lead",
+    "source": "Referral",
+    "status": "sold",
+    "interest": "purchase",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-05-01",
+    "last_contact": "2026-04-04",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Used",
+      "budget_min": 18042.94,
+      "budget_max": 71098.2
+    },
+    "converted": true
+  },
+  {
+    "id": "9fed42ef-f130-44ba-9b7f-fdfa47fc71ee",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-02-24",
+    "last_contact": "2026-04-23",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "Used",
+      "budget_min": 28310.26,
+      "budget_max": 58975.2
+    },
+    "converted": false
+  },
+  {
+    "id": "2ceca4fb-0108-49df-9abd-7eb0abebe77f",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-20",
+    "last_contact": "2026-04-01",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 19921.92,
+      "budget_max": 59754.15
+    },
+    "converted": false
+  },
+  {
+    "id": "8f0a6548-48e1-4591-af92-cde483b04f7e",
+    "type": "lead",
+    "source": "Website",
+    "status": "new",
+    "interest": "purchase",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-02-10",
+    "last_contact": "2026-04-06",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 34930.52,
+      "budget_max": 96103.71
+    },
+    "converted": false
+  },
+  {
+    "id": "9994232c-fa0e-4475-b7f1-004d8fbffb61",
+    "type": "lead",
+    "source": "Website",
+    "status": "sold",
+    "interest": "service",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-03-31",
+    "last_contact": "2026-04-05",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "Used",
+      "budget_min": 27991.88,
+      "budget_max": 54205.38
+    },
+    "converted": true
+  },
+  {
+    "id": "8d48231a-6fac-44ed-bdc9-0f8d7b0e9607",
+    "type": "lead",
+    "source": "AutoTrader",
+    "status": "new",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-02-14",
+    "last_contact": "2026-04-13",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 39363.14,
+      "budget_max": 95002.95
+    },
+    "converted": false
+  },
+  {
+    "id": "5c086ecf-de0f-4f37-b7fe-9f1e73c17eac",
+    "type": "lead",
+    "source": "Website",
+    "status": "appointment_set",
+    "interest": "lease",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-02-02",
+    "last_contact": "2026-04-30",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 30654.63,
+      "budget_max": 43948.35
+    },
+    "converted": false
+  },
+  {
+    "id": "a1773b5f-f4de-4e73-8138-e601a107fb6a",
+    "type": "lead",
+    "source": "Website",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-02-19",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Used",
+      "budget_min": 20827.8,
+      "budget_max": 75974.95
+    },
+    "converted": false
+  },
+  {
+    "id": "7e34132c-3a8d-4283-bb9d-a325c3ab8ea1",
+    "type": "lead",
+    "source": "Referral",
+    "status": "visited",
+    "interest": "service",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-04-30",
+    "last_contact": "2026-04-03",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 17531.95,
+      "budget_max": 79055.63
+    },
+    "converted": false
+  },
+  {
+    "id": "2a01f959-edb3-46d2-a4b6-8d51a843838e",
+    "type": "lead",
+    "source": "Referral",
+    "status": "visited",
+    "interest": "trade-in",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-28",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 32832.48,
+      "budget_max": 75573.6
+    },
+    "converted": false
+  },
+  {
+    "id": "1f16b65d-9766-426a-af8b-10dceca42f87",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "sold",
+    "interest": "trade-in",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-02-17",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "Jeep",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 26115.61,
+      "budget_max": 54589.91
+    },
+    "converted": true
+  },
+  {
+    "id": "1fc1c25c-0ef7-4ab7-865d-45e7a78d04d4",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "sold",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Morgan Davis",
+    "created_date": "2026-04-24",
+    "last_contact": "2026-04-22",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 34387.39,
+      "budget_max": 48845.4
+    },
+    "converted": true
+  },
+  {
+    "id": "ecbe85ad-5d89-4c2a-b58a-fc77c5a7f261",
+    "type": "lead",
+    "source": "Phone",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-03-19",
+    "last_contact": "2026-04-30",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 35479.59,
+      "budget_max": 73567.44
+    },
+    "converted": false
+  },
+  {
+    "id": "4783931f-8118-4fff-aa97-7a05b21a92ca",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "new",
+    "interest": "lease",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-03-18",
+    "last_contact": "2026-04-21",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 26893.13,
+      "budget_max": 81510.77
+    },
+    "converted": false
+  },
+  {
+    "id": "ea64c4dc-5e63-4101-8e6a-98d2dece39b3",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-02-02",
+    "last_contact": "2026-04-21",
+    "vehicle_interest": {
+      "make": "Ford",
+      "condition": "New",
+      "budget_min": 26357.55,
+      "budget_max": 87351.69
+    },
+    "converted": false
+  },
+  {
+    "id": "b9631d63-745e-4829-b081-340cfd7aa177",
+    "type": "lead",
+    "source": "Website",
+    "status": "new",
+    "interest": "lease",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-03",
+    "last_contact": "2026-04-12",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "New",
+      "budget_min": 27018.66,
+      "budget_max": 86101.14
+    },
+    "converted": false
+  },
+  {
+    "id": "7ab96523-32e3-4b38-8b6c-4e7c6768ddcf",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "sold",
+    "interest": "service",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-14",
+    "last_contact": "2026-04-20",
+    "vehicle_interest": {
+      "make": "Toyota",
+      "condition": "New",
+      "budget_min": 23947.17,
+      "budget_max": 73281.94
+    },
+    "converted": true
+  },
+  {
+    "id": "79dfeb17-70f9-4c10-9a7a-6687613d8cf3",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia Toyota of Springfield",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-06",
+    "last_contact": "2026-04-25",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Used",
+      "budget_min": 19353.67,
+      "budget_max": 93123.05
+    },
+    "converted": false
+  },
+  {
+    "id": "45971742-5431-4a22-b776-b169c6ea395b",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-03-19",
+    "last_contact": "2026-05-01",
+    "vehicle_interest": {
+      "make": "Ford",
+      "condition": "Used",
+      "budget_min": 37766.22,
+      "budget_max": 41260.6
+    },
+    "converted": false
+  },
+  {
+    "id": "aaac1196-c1d3-486e-9cf7-b85a2e7a8f76",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "visited",
+    "interest": "purchase",
+    "dealership": "Lithia Jeep Ram of Bend",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-03-14",
+    "last_contact": "2026-04-22",
+    "vehicle_interest": {
+      "make": "Hyundai",
+      "condition": "New",
+      "budget_min": 24241.02,
+      "budget_max": 62341.64
+    },
+    "converted": false
+  },
+  {
+    "id": "c8b20b56-9efc-495a-82fc-70a5f2cbb382",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Honda of Medford",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-02-23",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "New",
+      "budget_min": 34872.45,
+      "budget_max": 51501.69
+    },
+    "converted": false
+  },
+  {
+    "id": "fe26c8fc-d325-4ffe-a0a2-14eaca05af84",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "service",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Jordan Lee",
+    "created_date": "2026-03-15",
+    "last_contact": "2026-04-07",
+    "vehicle_interest": {
+      "make": "Nissan",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 19727.55,
+      "budget_max": 72128.57
+    },
+    "converted": false
+  },
+  {
+    "id": "a8243861-3cc1-447b-931c-fd45c0ed1ea9",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "sold",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Alex Martinez",
+    "created_date": "2026-03-21",
+    "last_contact": "2026-04-04",
+    "vehicle_interest": {
+      "make": "Kia",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 37145.86,
+      "budget_max": 52555.05
+    },
+    "converted": true
+  },
+  {
+    "id": "187dfa88-0e40-4545-9602-0c606424269a",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "new",
+    "interest": "purchase",
+    "dealership": "Lithia Ford Lincoln of Roseburg",
+    "salesperson": "Riley Chen",
+    "created_date": "2026-03-02",
+    "last_contact": "2026-04-07",
+    "vehicle_interest": {
+      "make": "Mazda",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 33778.41,
+      "budget_max": 62456.59
+    },
+    "converted": false
+  },
+  {
+    "id": "271aa4ce-23f8-4845-9b23-ee03000ce457",
+    "type": "lead",
+    "source": "Phone",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Nissan of Fresno",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-09",
+    "last_contact": "2026-04-16",
+    "vehicle_interest": {
+      "make": "BMW",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 25023.65,
+      "budget_max": 95271.19
+    },
+    "converted": false
+  },
+  {
+    "id": "20394d3d-cce2-4824-85cb-fd5a4c4e2ffe",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "visited",
+    "interest": "lease",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-27",
+    "last_contact": "2026-04-04",
+    "vehicle_interest": {
+      "make": "Chevrolet",
+      "condition": "Used",
+      "budget_min": 20464.84,
+      "budget_max": 65501.95
+    },
+    "converted": false
+  },
+  {
+    "id": "81b38735-db6f-4c98-9576-0c6d0a4d4385",
+    "type": "lead",
+    "source": "CarGurus",
+    "status": "appointment_set",
+    "interest": "trade-in",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Taylor Kim",
+    "created_date": "2026-04-11",
+    "last_contact": "2026-04-27",
+    "vehicle_interest": {
+      "make": "Ram",
+      "condition": "New",
+      "budget_min": 22376.2,
+      "budget_max": 71129.72
+    },
+    "converted": false
+  },
+  {
+    "id": "43a9a5df-6245-4bc3-a331-7e1d110d6f55",
+    "type": "lead",
+    "source": "Referral",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia BMW of Tucson",
+    "salesperson": "Drew Thompson",
+    "created_date": "2026-04-26",
+    "last_contact": "2026-04-17",
+    "vehicle_interest": {
+      "make": "Audi",
+      "condition": "Used",
+      "budget_min": 24187.8,
+      "budget_max": 69853.09
+    },
+    "converted": false
+  },
+  {
+    "id": "e7c6cf5a-f637-4b11-840c-dd24a2da590b",
+    "type": "lead",
+    "source": "Walk-in",
+    "status": "contacted",
+    "interest": "service",
+    "dealership": "Lithia Chevrolet of Redding",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-04-28",
+    "last_contact": "2026-04-11",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "Used",
+      "budget_min": 37536.9,
+      "budget_max": 57671.77
+    },
+    "converted": false
+  },
+  {
+    "id": "9e99148f-6d62-43e9-ba60-ef42365d323d",
+    "type": "lead",
+    "source": "Cars.com",
+    "status": "appointment_set",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Sam Patel",
+    "created_date": "2026-02-21",
+    "last_contact": "2026-04-28",
+    "vehicle_interest": {
+      "make": "Honda",
+      "condition": "New",
+      "budget_min": 24005.92,
+      "budget_max": 72762.02
+    },
+    "converted": false
+  },
+  {
+    "id": "d6e883dd-f90e-4c6c-9aff-56a6c573f1c6",
+    "type": "lead",
+    "source": "Phone",
+    "status": "contacted",
+    "interest": "trade-in",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-02-04",
+    "last_contact": "2026-04-25",
+    "vehicle_interest": {
+      "make": "Jeep",
+      "condition": "Certified Pre-Owned",
+      "budget_min": 39949.89,
+      "budget_max": 99904.31
+    },
+    "converted": false
+  },
+  {
+    "id": "931b666c-241a-4064-93c3-df293963af75",
+    "type": "lead",
+    "source": "Phone",
+    "status": "sold",
+    "interest": "purchase",
+    "dealership": "Lithia Subaru of Eugene",
+    "salesperson": "Casey Robinson",
+    "created_date": "2026-02-21",
+    "last_contact": "2026-04-05",
+    "vehicle_interest": {
+      "make": "Mercedes-Benz",
+      "condition": "Used",
+      "budget_min": 38645.38,
+      "budget_max": 89311.86
+    },
+    "converted": true
+  }
+]
