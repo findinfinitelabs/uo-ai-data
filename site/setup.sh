@@ -437,12 +437,16 @@ if [ "$INSTALL_PYTHON" = true ]; then
         echo -e "   ${BOLD}source venv/bin/activate${NC}"
     fi
     echo ""
-    echo -e "${CYAN}2. Generate synthetic data (Module 5):${NC}"
+    echo -e "${CYAN}2. Generate Lithia synthetic data:${NC}"
     if [ "$IS_WINDOWS" = true ]; then
-        echo -e "   ${BOLD}venv/Scripts/python.exe module-5-synthetic-data/generators/generate_patient_data.py${NC}"
+        echo -e "   ${BOLD}venv/Scripts/python.exe module-5-synthetic-data/generators/generate_lithia_data.py${NC}"
     else
-        echo -e "   ${BOLD}python module-5-synthetic-data/generators/generate_patient_data.py${NC}"
+        echo -e "   ${BOLD}python module-5-synthetic-data/generators/generate_lithia_data.py${NC}"
     fi
+    echo ""
+    echo -e "${CYAN}3. Deploy data to DynamoDB (requires AWS SSO login):${NC}"
+    echo -e "   ${BOLD}aws sso login --profile uo-innovation${NC}"
+    echo -e "   ${BOLD}bash deployment-scripts/deploy-dynamodb.sh${NC}"
     echo ""
 fi
 

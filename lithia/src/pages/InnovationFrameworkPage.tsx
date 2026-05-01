@@ -133,6 +133,9 @@ function ConnectPhase() {
       return;
     }
 
+    // Auto-write ~/.aws/config for students and open SSO browser
+    try { await fetch('/api/aws-setup'); } catch { /* best effort */ }
+
     try {
       const idRes  = await fetch(`/api/aws-info?profile=${profile}`);
       const idJson = await idRes.json();
@@ -395,53 +398,17 @@ function ConnectPhase() {
       {selectedDb && status !== 'connected' && (
         <div className="ai-connect-card ai-connect-card--auth">
           <h3 className="ai-connect-heading">
-            Step 2 — Connect
+            Step 2 — Login
             <InfoBubble>
-              <strong>How authentication works</strong>
-              <p style={{ margin: '0.4rem 0 0' }}>The app uses your local AWS CLI profile to verify your identity — no passwords are stored here.</p>
+              <strong>How sign-in works</strong>
+              <p style={{ margin: '0.4rem 0 0' }}>No configuration needed. The app sets everything up automatically.</p>
               <ol style={{ paddingLeft: '1.1rem', margin: '0.4rem 0 0' }}>
-                <li>Select your <strong>AWS Profile</strong> (<code>uo-innovation</code> is recommended for this course).</li>
-                <li>Select the <strong>Region</strong> where your tables live (<code>us-west-2</code> by default).</li>
-                <li>Click <strong>Connect &amp; Authenticate</strong>.</li>
+                <li>Click <strong>Login with UO DuckID</strong> — a browser tab will open.</li>
+                <li>Sign in with your <strong>@uoregon.edu</strong> email.</li>
+                <li>Return here and click <strong>Try Again</strong> once signed in.</li>
               </ol>
-              <p style={{ margin: '0.5rem 0 0' }}>If your session has expired, the app will automatically open the AWS SSO login page in a new browser tab. Come back and click <strong>Try Again</strong> once you've signed in.</p>
             </InfoBubble>
           </h3>
-
-          {selectedDb === 'dynamodb' && (
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1, minWidth: 180 }}>
-                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em' }}>AWS Profile</span>
-                <select
-                  value={profile}
-                  onChange={(e) => setProfile(e.target.value)}
-                  style={{ padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.9rem' }}
-                >
-                  {(profiles.length ? profiles : ['uo-innovation']).map((p) => (
-                    <option key={p} value={p}>{p === 'uo-innovation' ? `★ ${p} (course)` : p === 'uo-innovation' ? `★ ${p} (course)` : p}</option>
-                  ))}
-                </select>
-                {profile === 'uo-innovation' && (
-                  <span style={{ fontSize: '0.72rem', color: '#007030', fontWeight: 700 }}>★ Recommended for this course</span>
-                )}
-              </label>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1, minWidth: 160 }}>
-                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Region</span>
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                  style={{ padding: '0.4rem 0.6rem', border: '1px solid #ccc', fontSize: '0.9rem' }}
-                >
-                  {['us-east-1','us-east-2','us-west-1','us-west-2','eu-west-1','ap-southeast-1'].map((r) => (
-                    <option key={r} value={r}>{r === 'us-west-2' ? `★ ${r} (course)` : r}</option>
-                  ))}
-                </select>
-                {region === 'us-west-2' && (
-                  <span style={{ fontSize: '0.72rem', color: '#007030', fontWeight: 700 }}>★ Recommended for this course</span>
-                )}
-              </label>
-            </div>
-          )}
 
           <button
             type="button"
@@ -449,14 +416,14 @@ function ConnectPhase() {
             onClick={handleConnect}
             disabled={status === 'connecting'}
           >
-            {status === 'connecting' ? '⏳ Connecting…' : '🔐 Connect & Authenticate'}
+            {status === 'connecting' ? '⏳ Signing in…' : '🦆 Login with UO DuckID'}
           </button>
 
           {ssoPolling && (
             <div style={{ marginTop: '1rem', padding: '1rem 1.25rem', background: '#fffbea', border: '1px solid #f4c95d' }}>
-              <p style={{ fontWeight: 700, margin: '0 0 0.4rem', fontSize: '0.92rem' }}>🌐 AWS SSO login opened in your browser</p>
+              <p style={{ fontWeight: 700, margin: '0 0 0.4rem', fontSize: '0.92rem' }}>🌐 UO sign-in page opened in your browser</p>
               <p style={{ margin: '0 0 0.75rem', fontSize: '0.85rem', color: '#555' }}>
-                Complete sign-in in the browser tab that just opened, then click <strong>Try Again</strong>.
+                Sign in with your <strong>@uoregon.edu</strong> email, then click <strong>Try Again</strong>.
               </p>
               <button type="button" className="ai-auth-btn" onClick={handleConnect}>🔄 Try Again</button>
             </div>

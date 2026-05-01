@@ -80,18 +80,48 @@ const server = http.createServer(async (req, res) => {
 
   // ── GET /api/aws-profiles ─────────────────────────────────────
   if (url.pathname === '/api/aws-profiles' && req.method === 'GET') {
-    const result = runCmd('aws configure list-profiles');
-    if (result.ok) {
-      // list-profiles returns plain text not JSON; re-run as text
-    }
     try {
+      // Named profiles from `aws configure list-profiles`
       const raw = execSync('aws configure list-profiles', { encoding: 'utf8', timeout: 5000 });
       const profiles = raw.trim().split('\n').filter(Boolean);
+
+      // Only return actual named profiles — SSO session names are not usable
+      // as --profile values and will cause "config profile not found" errors.
       res.writeHead(200);
       res.end(JSON.stringify({ ok: true, data: profiles }));
     } catch (err) {
       res.writeHead(200);
-      res.end(JSON.stringify({ ok: true, data: ['uo-innovation'] }));
+      res.end(JSON.stringify({ ok: true, data: ['LCBPEGA_IsbAdminsPS-547741150715'] }));
+    }
+
+  // ── GET /api/aws-setup ─────────────────────────────────────────
+  // Writes the UO course AWS profile to ~/.aws/config (idempotent) and
+  // opens the SSO login browser tab. Students never need to run aws configure.
+  } else if (url.pathname === '/api/aws-setup' && req.method === 'GET') {
+    const SSO_START_URL  = 'https://d-9267f25f0e.awsapps.com/start';
+    const SSO_REGION     = 'us-west-2';
+    const SSO_ACCOUNT_ID = '547741150715';
+    const SSO_ROLE_NAME  = 'LCBPEGA_IsbAdminsPS';
+    const PROFILE_NAME   = 'uo-innovation';
+    const SESSION_NAME   = 'uo-innovation';
+    try {
+      const configPath = path.join(process.env.HOME || process.env.USERPROFILE || '', '.aws', 'config');
+      const awsDir = path.dirname(configPath);
+      if (!fs.existsSync(awsDir)) fs.mkdirSync(awsDir, { recursive: true });
+      let config = fs.existsSync(configPath) ? fs.readFileSync(configPath, 'utf8') : '';
+      if (!config.includes(`[sso-session ${SESSION_NAME}]`)) {
+        config += `\n[sso-session ${SESSION_NAME}]\nsso_start_url = ${SSO_START_URL}\nsso_region = ${SSO_REGION}\nsso_registration_scopes = sso:account:access\n`;
+      }
+      if (!config.includes(`[profile ${PROFILE_NAME}]`)) {
+        config += `\n[profile ${PROFILE_NAME}]\nsso_session = ${SESSION_NAME}\nsso_account_id = ${SSO_ACCOUNT_ID}\nsso_role_name = ${SSO_ROLE_NAME}\nregion = ${SSO_REGION}\noutput = json\n`;
+      }
+      fs.writeFileSync(configPath, config, 'utf8');
+      triggerSsoLogin(PROFILE_NAME);
+      res.writeHead(200);
+      res.end(JSON.stringify({ ok: true, profile: PROFILE_NAME }));
+    } catch (err) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ ok: false, error: err.message }));
     }
 
   // ── GET /api/aws-info ─────────────────────────────────────────
