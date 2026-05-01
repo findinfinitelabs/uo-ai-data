@@ -23,7 +23,7 @@ export const trainingSteps: WizardStep[] = [
   },
   {
     title: 'Step 3. Review with Lithia Leaders',
-    dueDate: 'Due April 17',
+    dueDate: 'Due April 24',
     objective:
       'Prepare questions and a discussion framework to align your team ideas with what Lithia leadership wants to accomplish. Understand their priorities before entering the idea phase.',
     prompt:

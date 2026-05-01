@@ -80,7 +80,6 @@ export default function BusinessTrainingPage() {
     <div>
       <section className="training-hero training-hero--compact">
         <h2>How a Business Works with Generative AI</h2>
-        {dueDate ? <div className="hero-due-box">{dueDate}</div> : null}
       </section>
       <StepWizard steps={trainingSteps} initialStep={activeStep} onStepChange={setCurrentStep} />
     </div>
