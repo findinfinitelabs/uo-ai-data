@@ -1482,7 +1482,7 @@ function TrainPhase() {
   const [availableTables, setAvailableTables] = useState<string[]>(LITHIA_TABLES);
   const [loadingTables, setLoadingTables] = useState(false);
   const [selectedTables, setSelectedTables] = useState<string[]>(['lithia-vehicles']);
-  const [confirmed, setConfirmed] = useState(false);
+  const [confirmed, setConfirmed] = useState(true);
   const [stepStatus, setStepStatus] = useState<Record<string, 'idle' | 'running' | 'done' | 'error'>>({});
   const [stepLogs, setStepLogs] = useState<Record<string, LogLine[]>>({});
   const [logsOpen, setLogsOpen] = useState<Record<string, boolean>>({});
@@ -1532,6 +1532,13 @@ function TrainPhase() {
       setStepStatus((prev) => ({ ...prev, [id]: 'error' })); es.close();
     });
     es.onerror = () => { appendLog(id, { text: 'Connection error — is the api-server running?', err: true }); setStepStatus((prev) => ({ ...prev, [id]: 'error' })); es.close(); };
+  }
+
+  function stopScript(id: string) {
+    esRef.current[id]?.close();
+    esRef.current[id] = null;
+    appendLog(id, { text: '— Stopped by user —', err: true });
+    setStepStatus((prev) => ({ ...prev, [id]: 'idle' }));
   }
 
   function sendPrompt() {
@@ -1663,6 +1670,12 @@ function TrainPhase() {
               >
                 {st === 'running' ? '⏳ Running…' : st === 'done' ? '↺ Re-run' : '▶ Run'}
               </button>
+              {(id === 'train' || id === 'infer') && st === 'running' && (
+                <button
+                  onClick={() => stopScript(id)}
+                  style={{ background: '#c0392b', color: '#fff', border: 'none', padding: '0.45rem 1.1rem', fontWeight: 800, fontSize: '0.9rem', cursor: 'pointer' }}
+                >⏹ Stop</button>
+              )}
               {lg.length > 0 && (
                 <button onClick={() => setLogsOpen((p) => ({ ...p, [id]: !p[id] }))} style={{ background: 'none', border: '1px solid #ccc', fontSize: '0.85rem', color: '#555', padding: '0.3rem 0.7rem', cursor: 'pointer' }}>
                   {open ? '▲ Hide log' : `▼ Show log (${lg.length} lines)`}
