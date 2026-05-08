@@ -9,6 +9,7 @@
  *   GET    /api/dynamodb-table-count?profile=&region=&table=
  *   POST   /api/dynamodb-table   body: {profile, region, name, key}
  *   DELETE /api/dynamodb-table?profile=&region=&table=
+ *   DELETE /api/dynamodb-table-truncate?profile=&region=&table=
  */
 
 import http from 'http';
@@ -213,6 +214,48 @@ print(json.dumps({'copied': total}))
     } catch (err) {
       res.writeHead(502);
       res.end(JSON.stringify({ ok: false, error: err.message }));
+    }
+
+  // ── DELETE /api/dynamodb-table-truncate ───────────────────────
+  } else if (url.pathname === '/api/dynamodb-table-truncate' && req.method === 'DELETE') {
+    const table = url.searchParams.get('table') || '';
+    if (!table) { res.writeHead(400); res.end(JSON.stringify({ ok: false, error: 'table param required' })); return; }
+    try {
+      const out = execSync(
+        `${PYTHON} -c "
+import boto3, json
+session = boto3.Session(profile_name='${profile}')
+client = session.client('dynamodb', region_name='${region}')
+db = session.resource('dynamodb', region_name='${region}')
+tbl = db.Table('${table}')
+desc = client.describe_table(TableName='${table}')['Table']
+key_names = [k['AttributeName'] for k in desc['KeySchema']]
+# use ExpressionAttributeNames to avoid reserved-word conflicts
+expr_names = {'#k' + str(i): n for i, n in enumerate(key_names)}
+proj_expr = ','.join(expr_names.keys())
+lastKey = None
+deleted = 0
+while True:
+    kwargs = {'ExclusiveStartKey': lastKey} if lastKey else {}
+    resp = tbl.scan(ProjectionExpression=proj_expr, ExpressionAttributeNames=expr_names, **kwargs)
+    items = resp.get('Items', [])
+    with tbl.batch_writer() as bw:
+        for item in items:
+            bw.delete_item(Key={k: item[k] for k in key_names})
+            deleted += 1
+    lastKey = resp.get('LastEvaluatedKey')
+    if not lastKey: break
+print(json.dumps({'deleted': deleted}))
+"`,
+        { encoding: 'utf8', timeout: 120000, env: { ...process.env, AWS_PROFILE: profile } }
+      );
+      const result = JSON.parse(out.trim());
+      res.writeHead(200);
+      res.end(JSON.stringify({ ok: true, data: result }));
+    } catch (err) {
+      const detail = (err.stderr ? err.stderr.toString() : '') || err.message;
+      res.writeHead(502);
+      res.end(JSON.stringify({ ok: false, error: detail.trim() }));
     }
 
   // ── POST /api/dynamodb-table-rename ─────────────────────────

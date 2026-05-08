@@ -51,7 +51,7 @@ function InfoBubble({ children }: { children: React.ReactNode }) {
 
 // ─── Phase 1 — Connect to Database ─────────────────────────────
 type AwsIdentity = { UserId: string; Account: string; Arn: string };
-type TableRow = { name: string; count: number | null; deleting: boolean; editing: boolean; editVal: string; renaming: boolean };
+type TableRow = { name: string; count: number | null; deleting: boolean; dropping: boolean; editing: boolean; editVal: string; renaming: boolean };
 
 type StepStatus = 'pending' | 'running' | 'done' | 'error';
 type RenameOp = {
@@ -155,7 +155,7 @@ function ConnectPhase() {
       if (!tabJson.ok) throw new Error(tabJson.error || 'Could not list DynamoDB tables');
 
       const names: string[] = tabJson.data?.TableNames ?? [];
-      const rows: TableRow[] = names.map((n) => ({ name: n, count: null, deleting: false, editing: false, editVal: n, renaming: false }));
+      const rows: TableRow[] = names.map((n) => ({ name: n, count: null, deleting: false, dropping: false, editing: false, editVal: n, renaming: false }));
       setIdentity(idJson.data as AwsIdentity);
       setTables(rows);
       setSsoPolling(false);
@@ -173,7 +173,7 @@ function ConnectPhase() {
     const tabRes  = await fetch(`/api/dynamodb-tables?profile=${profile}&region=${region}`);
     const tabJson = await tabRes.json();
     if (!tabJson.ok) return;
-    const rows: TableRow[] = (tabJson.data?.TableNames ?? []).map((n: string) => ({ name: n, count: null, deleting: false, editing: false, editVal: n, renaming: false }));
+    const rows: TableRow[] = (tabJson.data?.TableNames ?? []).map((n: string) => ({ name: n, count: null, deleting: false, dropping: false, editing: false, editVal: n, renaming: false }));
     setTables(rows);
     fetchCounts(rows, profile, region);
   }
@@ -307,6 +307,21 @@ function ConnectPhase() {
       op = { ...op, phase: 'error', error: (e as Error).message };
       setRenameOp({ ...op });
       setTables((prev) => prev.map((t) => t.name === op.oldName ? { ...t, renaming: false } : t));
+    }
+  }
+
+  // ── drop data (truncate) from a table ──
+  async function handleDropData(name: string) {
+    if (!window.confirm(`Clear ALL data from "${name}"? The table will remain but all records will be deleted. This cannot be undone.`)) return;
+    setTables((prev) => prev.map((t) => t.name === name ? { ...t, dropping: true } : t));
+    try {
+      const res = await fetch(`/api/dynamodb-table-truncate?profile=${profile}&region=${region}&table=${encodeURIComponent(name)}`, { method: 'DELETE' });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Truncate failed');
+      setTables((prev) => prev.map((t) => t.name === name ? { ...t, dropping: false, count: 0 } : t));
+    } catch (e: unknown) {
+      alert(`Drop data failed: ${(e as Error).message}`);
+      setTables((prev) => prev.map((t) => t.name === name ? { ...t, dropping: false } : t));
     }
   }
 
@@ -622,13 +637,18 @@ function ConnectPhase() {
                           {!t.editing && !t.renaming && (
                             <button
                               onClick={() => startEditRename(t.name)}
-                              disabled={t.deleting}
+                              disabled={t.deleting || t.dropping}
                               style={{ background: 'none', border: '1px solid #ddd', color: '#555', padding: '0.2rem 0.5rem', fontSize: '0.78rem', cursor: 'pointer' }}
                             >Rename</button>
                           )}
                           <button
+                            onClick={() => handleDropData(t.name)}
+                            disabled={t.deleting || t.dropping || t.renaming || t.editing}
+                            style={{ background: 'none', border: '1px solid #e67e22', color: '#e67e22', padding: '0.2rem 0.5rem', fontSize: '0.78rem', cursor: 'pointer' }}
+                          >{t.dropping ? '…' : 'Drop Data'}</button>
+                          <button
                             onClick={() => handleDelete(t.name)}
-                            disabled={t.deleting || t.renaming || t.editing}
+                            disabled={t.deleting || t.dropping || t.renaming || t.editing}
                             style={{ background: 'none', border: '1px solid #ddd', color: '#c0392b', padding: '0.2rem 0.5rem', fontSize: '0.78rem', cursor: 'pointer' }}
                           >{t.deleting ? '…' : 'Delete'}</button>
                         </div>
@@ -1459,6 +1479,8 @@ function LogPanel({ lines, logRef }: { lines: LogLine[]; logRef: (el: HTMLDivEle
 type ChatMessage = { role: 'user' | 'assistant'; text: string; loading?: boolean };
 
 function TrainPhase() {
+  const [availableTables, setAvailableTables] = useState<string[]>(LITHIA_TABLES);
+  const [loadingTables, setLoadingTables] = useState(false);
   const [selectedTables, setSelectedTables] = useState<string[]>(['lithia-vehicles']);
   const [confirmed, setConfirmed] = useState(false);
   const [stepStatus, setStepStatus] = useState<Record<string, 'idle' | 'running' | 'done' | 'error'>>({});
@@ -1467,6 +1489,20 @@ function TrainPhase() {
   const esRef = useRef<Record<string, EventSource | null>>({});
   const logElRef = useRef<Record<string, HTMLDivElement | null>>({});
 
+  async function fetchTables() {
+    setLoadingTables(true);
+    try {
+      const res = await fetch('/api/dynamodb-tables?profile=uo-innovation&region=us-west-2');
+      const json = await res.json();
+      if (json.ok && Array.isArray(json.data?.TableNames)) {
+        const names: string[] = json.data.TableNames;
+        setAvailableTables(names.length ? names : LITHIA_TABLES);
+      }
+    } catch { /* keep current list */ }
+    setLoadingTables(false);
+  }
+
+  useEffect(() => { fetchTables(); }, []);
   // Chat state
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
@@ -1572,13 +1608,23 @@ function TrainPhase() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.6rem' }}>
           <span style={{ background: confirmed ? '#007030' : '#555', color: '#fff', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.82rem', fontWeight: 800, flexShrink: 0 }}>{confirmed ? '✓' : '1'}</span>
           <strong style={{ fontSize: '1rem' }}>Select tables to train on</strong>
+          {!confirmed && (
+            <button
+              onClick={fetchTables}
+              disabled={loadingTables}
+              title="Refresh table list from DynamoDB"
+              style={{ marginLeft: 'auto', background: 'none', border: '1px solid #aaa', borderRadius: 4, padding: '0.2rem 0.55rem', fontSize: '0.82rem', color: '#555', cursor: loadingTables ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+            >
+              {loadingTables ? '⏳' : '↻'} Refresh
+            </button>
+          )}
           {confirmed && <span style={{ fontSize: '0.88rem', color: '#007030', fontWeight: 700 }}>{selectedTables.join(', ')}</span>}
         </div>
         {!confirmed && (
           <>
             <p style={{ fontSize: '0.9rem', color: '#555', margin: '0 0 0.65rem', lineHeight: 1.7 }}>Choose which DynamoDB tables to pull training data from. Each record becomes instruction–response pairs that teach TinyLlama about your dealership domain.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '0.7rem' }}>
-              {LITHIA_TABLES.map((t) => (
+              {availableTables.map((t) => (
                 <label key={t} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.88rem', cursor: 'pointer', padding: '0.3rem 0.75rem', border: `1px solid ${selectedTables.includes(t) ? '#007030' : '#ccc'}`, background: selectedTables.includes(t) ? '#e8f5ee' : '#fff', userSelect: 'none' }}>
                   <input type="checkbox" checked={selectedTables.includes(t)} onChange={() => setSelectedTables((p) => p.includes(t) ? p.filter((x) => x !== t) : [...p, t])} style={{ accentColor: '#007030' }} />
                   {t}
