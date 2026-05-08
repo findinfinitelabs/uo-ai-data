@@ -1098,6 +1098,11 @@ function DatasetPhase() {
             });
             return out;
           });
+        } else if (file.name.toLowerCase().endsWith('.jsonl') || file.name.toLowerCase().endsWith('.ndjson')) {
+          records = text.split(/\r?\n/).filter((l) => l.trim()).map((line, idx) => {
+            try { return JSON.parse(line); }
+            catch { throw new Error(`JSONL parse error on line ${idx + 1}: ${line.slice(0, 60)}`); }
+          });
         } else {
           const raw = JSON.parse(text);
           records = Array.isArray(raw) ? raw : (raw.items ?? raw.data ?? raw.records ?? [raw]);
@@ -1311,7 +1316,7 @@ function DatasetPhase() {
                                 </InfoBubble>
                               </SectionHeader>
 
-                              {ds.dataStatus === 'empty' && <FileDropZone label="Drop JSON or CSV file here or click to browse" accept=".json,.csv" onFile={(f) => handleDataFile(ds.name, f)} />}
+                              {ds.dataStatus === 'empty' && <FileDropZone label="Drop JSON, JSONL, or CSV file here or click to browse" accept=".json,.jsonl,.ndjson,.csv" onFile={(f) => handleDataFile(ds.name, f)} />}
                               {ds.dataSteps.length > 0 && <StepPanel steps={ds.dataSteps} />}
 
                               {/* Validation issues panel */}
