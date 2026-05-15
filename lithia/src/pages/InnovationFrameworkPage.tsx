@@ -1451,7 +1451,7 @@ function DatasetPhase() {
 
 type LogLine = { text: string; err?: boolean };
 
-const LITHIA_TABLES = ['lithia-vehicles', 'lithia-financing', 'lithia-insurance', 'lithia-members', 'lithia-services', 'lithia-member-financing', 'lithia-member-insurance', 'lithia-member-rentals'];
+const LITHIA_TABLES = ['btsnh-data', 'dfc-finance', 'driveway-platform-interaction', 'lithia-customer-demographics', 'lithia-service-transaction', 'lithia-vehicle-sales', 'vehicle-inventory', 'vehicle-market-value', 'web-data'];
 
 const PREPARE_CMD = (tables: string[]) =>
 `python scripts/prepare_data.py \\
@@ -1486,7 +1486,7 @@ type ChatMessage = { role: 'user' | 'assistant'; text: string; loading?: boolean
 function TrainPhase() {
   const [availableTables, setAvailableTables] = useState<string[]>(LITHIA_TABLES);
   const [loadingTables, setLoadingTables] = useState(false);
-  const [selectedTables, setSelectedTables] = useState<string[]>(['lithia-vehicles']);
+  const [selectedTables, setSelectedTables] = useState<string[]>(LITHIA_TABLES);
   const [confirmed, setConfirmed] = useState(true);
   const [stepStatus, setStepStatus] = useState<Record<string, 'idle' | 'running' | 'done' | 'error'>>({});
   const [stepLogs, setStepLogs] = useState<Record<string, LogLine[]>>({});
@@ -1501,7 +1501,9 @@ function TrainPhase() {
       const json = await res.json();
       if (json.ok && Array.isArray(json.data?.TableNames)) {
         const names: string[] = json.data.TableNames;
-        setAvailableTables(names.length ? names : LITHIA_TABLES);
+        const resolved = names.length ? names : LITHIA_TABLES;
+        setAvailableTables(resolved);
+        setSelectedTables(resolved);
       }
     } catch { /* keep current list */ }
     setLoadingTables(false);
